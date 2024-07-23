@@ -1,0 +1,20 @@
+[
+    {
+        "pic":"src/images/download_7.png",
+        "Name":"Machel",
+        "Destination":"UI/UX Desinger",
+        "Performance":"Good"
+    },
+    {
+        "pic":"src/images/download_7.png",
+        "Name":"Nichols",
+        "Destination":"UI/UX Desinger",
+        "Performance":"Average"
+    },
+    {
+        "pic":"src/images/download_7.png",
+        "Name":"Rahul",
+        "Destination":"UI/UX Desinger",
+        "Performance":"Bad"
+    }
+]
