@@ -82,7 +82,7 @@ const ForProjectSidebar = ({setActiveTab}) =>{
     },
     {
       title: "Project List",
-      component: "",
+      component: "ProjectList",
       icon: <FaBuilding />,
     },
     {
