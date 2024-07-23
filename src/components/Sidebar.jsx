@@ -1513,6 +1513,7 @@ import UserList from "../components/hr/user/UserList"
 import Dashboard from "../components/project/projectDashboard/Dashboard"
 import AddProject from "./project/projecttab/AddProject";
 import ProjectGrid from "./project/projecttab/ProjectGrid";
+import Tickets from "./project/tickets/Tickets";
 const SideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [selectedHeader, setSelectedHeader] = useState("Hr");
@@ -1588,6 +1589,7 @@ const SideBar = () => {
             {activeTab === "Dashboard" && <Dashboard />}
             {activeTab === "AddProject" && <AddProject />}
             {activeTab === "ProjectGrid" && <ProjectGrid />}
+            {activeTab === "Tickets" && <Tickets />}
           </div>
         </div>
       </div>

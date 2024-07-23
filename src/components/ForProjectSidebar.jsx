@@ -42,7 +42,7 @@ const ForProjectSidebar = ({setActiveTab}) =>{
     { title: "Project", component: "", icon: <FaTasks /> },
     { title: "Clients", component: "", icon: <MdOutlineSocialDistance /> },
     { title: "Teams", component: "", icon: <FaUserFriends /> },
-    { title: "Tickets", component: "", icon: <FaUserFriends /> },
+    { title: "Tickets", component: "Tickets", icon: <FaUserFriends /> },
     // { title: "PayRoll", component: "", icon: <FaMoneyCheckAlt /> },
     // { title: "Report", component: "", icon: <FaFileAlt /> },
     // { title: "User", component: "", icon: <FaUser /> },
