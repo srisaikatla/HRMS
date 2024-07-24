@@ -29,11 +29,11 @@ const socialApps = [
 
 const SocialApps = () => {
   return (
-    <div className="flex justify-between my-5">
+    <div className="flex justify-between my-5 px-8 gap-20">
       {socialApps.map((app) => (
-        <div className="flex flex-col items-center bg-white rounded-lg gap-2">
+        <div className="flex flex-col items-center bg-white rounded-lg gap-2 ">
           <img src={app.image} className="h-[30px]" />
-          <p>{app.followers}</p>
+          <p className="text-sm">{app.followers}</p>
         </div>
       ))}
     </div>

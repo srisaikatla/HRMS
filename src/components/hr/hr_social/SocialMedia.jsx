@@ -79,7 +79,7 @@ const SocialMedia = () => {
       <h1 className="text-[20px] text-[#E65F2B] font-bold ">Social Media</h1>
       <div className="flex flex-col gap-5 my-5">
         <table className="">
-          <thead className="bg-[#0098F1] text-white">
+          <thead className="bg-[#0098F1] text-white ">
             <tr>
               <th className="py-2">Media</th>
               <th>Name</th>

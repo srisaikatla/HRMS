@@ -72,7 +72,6 @@ const FacebookPosts = () => {
                 <p>{post.description}</p>
               </div>
             </div>
-
             <p>{post.time}</p>
           </div>
         ))}

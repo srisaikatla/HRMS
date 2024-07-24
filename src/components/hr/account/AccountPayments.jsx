@@ -99,7 +99,7 @@ const initialData = [
     clientName: "Lucid",
     projectName: "Alpino-Bootstrap 4",
     date: "07,Mar,2021",
-    type: "src/assets/accounts/Frame_Paypal.png",
+    type: "src/assets/hr/accounts/Frame_Paypal.png",
     amount: "$4,205",
   },
   {
@@ -107,7 +107,7 @@ const initialData = [
     clientName: "Lucid",
     projectName: "Nexa Wordpress",
     date: "25,Jun,2021",
-    type: "src/assets/accounts/Frame_masterCard.png",
+    type: "src/assets/hr/accounts/Frame_masterCard.png",
     amount: "$4,205",
   },
   {
@@ -115,7 +115,7 @@ const initialData = [
     clientName: "Lucid",
     projectName: "Lucid HR Management",
     date: "12,Jul,2021",
-    type: "src/assets/accounts/Frame_Paypal.png",
+    type: "src/assets/hr/accounts/Frame_Paypal.png",
     amount: "$4,205",
   },
   {
@@ -123,7 +123,7 @@ const initialData = [
     clientName: "Lucid",
     projectName: "Alpino-Bootstrap 4",
     date: "13,Jul,2021",
-    type: "src/assets/accounts/Frame_Paypal.png",
+    type: "src/assets/hr/accounts/Frame_Paypal.png",
     amount: "$4,205",
   },
   {
@@ -131,7 +131,7 @@ const initialData = [
     clientName: "Lucid",
     projectName: "Alpino-Bootstrap 4",
     date: "07,Mar,2021",
-    type: "src/assets/accounts/Frame_Visa.png",
+    type: "src/assets/hr/accounts/Frame_Visa.png",
     amount: "$4,205",
   },
 ];
