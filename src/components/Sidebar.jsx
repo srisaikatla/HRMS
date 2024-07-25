@@ -1517,6 +1517,8 @@ import Tickets from "./project/tickets/Tickets";
 import Teams from "./project/teams/Teams";
 import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
+import ProjectDetails from "./project/projecttab/ProjectDetail"
+import Inbox from "./project/inbox/Inbox";
 const SideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [selectedHeader, setSelectedHeader] = useState("Hr");
@@ -1596,6 +1598,8 @@ const SideBar = () => {
             {activeTab === "Teams" && <Teams />}
             {activeTab === "Chat" && <Chat />}
             {activeTab === "ProjectList" && <ProjectList />}
+            {activeTab === "ProjectDetails" && <ProjectDetails />}
+            {activeTab === "Inbox" && <Inbox />}
           </div>
         </div>
       </div>
