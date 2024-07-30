@@ -337,7 +337,7 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="mt-24">
+      <div id="main" className="">
         <div className="ml-5 mb-4">
           <p className="text-[#e65f2b] font-semibold">
             Employees/All Employees

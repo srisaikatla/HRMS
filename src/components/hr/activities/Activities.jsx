@@ -35,7 +35,7 @@ const Activities = () => {
   ];
 
   return (
-    <div className="p-6 h-screen mt-24">
+    <div className="p-6 h-screen">
       <h2 className="text-lg font-bold text-orange-600 mb-4">Activities</h2>
       <div className="relative">
         <div className="absolute left-5 top-1 h-full  border-l-2 border-zinc-300"></div>

@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 
-function NavBar() {
+function NavBar({ onSearchChange }) {
   const [hoveredIcon, setHoveredIcon] = useState("");
 
   const handleMouseEnter = (iconName) => {
@@ -26,58 +26,57 @@ function NavBar() {
   });
 
   return (
-    <>
-      <div id="main" className="">
+    <div id="main" className="bg-white p-2 ">
+      <div
+        id="topbar"
+        className="flex flex-col md:flex-row items-center md:justify-between gap-4 md:gap-x-10"
+      >
+        <div className="w-full md:w-auto  ml-[400px]  rounded-xl flex justify-center items-center px-2 py-1 md:py-2">
+          <input
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => onSearchChange(e)}
+            className="search-input w-full md:w-[620px] h-[50px] rounded-lg border border-[#0098f1]"
+          />
+        </div>
         <div
-          id="topbar"
-          className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-end"
+          id="icons"
+          className="flex justify-around items-center w-full md:w-auto space-x-4 md:space-x-6"
         >
-          <div className="w-[628px] h-[48px] bg-[#0098f1] rounded-xl flex justify-center items-center">
-            <input
-              className="pl-20 placeholder:text-white outline-none placeholder:text-start w-[628px] rounded-xl text-white h-[48px] border-none bg-[#0098f1]"
-              type="search"
-              placeholder="Search Anything here...."
-            />
-          </div>
-          <div
-            id="icons"
-            className="w-[300px] h-[48px] text-white rounded-xl flex justify-around items-center"
-          >
-            <FaFolder
-              style={iconStyle("folder")}
-              onMouseEnter={() => handleMouseEnter("folder")}
-              onMouseLeave={handleMouseLeave}
-            />
-            <FaCalendarDay
-              style={iconStyle("calendar")}
-              onMouseEnter={() => handleMouseEnter("calendar")}
-              onMouseLeave={handleMouseLeave}
-            />
-            <TiMessages
-              style={iconStyle("message")}
-              onMouseEnter={() => handleMouseEnter("message")}
-              onMouseLeave={handleMouseLeave}
-            />
-            <FaEnvelope
-              style={iconStyle("mail")}
-              onMouseEnter={() => handleMouseEnter("mail")}
-              onMouseLeave={handleMouseLeave}
-            />
-            <FaBell
-              style={iconStyle("bell")}
-              onMouseEnter={() => handleMouseEnter("bell")}
-              onMouseLeave={handleMouseLeave}
-            />
-            <FaFilter
-              style={iconStyle("filter")}
-              onMouseEnter={() => handleMouseEnter("filter")}
-              onMouseLeave={handleMouseLeave}
-            />
-          </div>
+          <FaFolder
+            style={iconStyle("folder")}
+            onMouseEnter={() => handleMouseEnter("folder")}
+            onMouseLeave={handleMouseLeave}
+          />
+          <FaCalendarDay
+            style={iconStyle("calendar")}
+            onMouseEnter={() => handleMouseEnter("calendar")}
+            onMouseLeave={handleMouseLeave}
+          />
+          <TiMessages
+            style={iconStyle("message")}
+            onMouseEnter={() => handleMouseEnter("message")}
+            onMouseLeave={handleMouseLeave}
+          />
+          <FaEnvelope
+            style={iconStyle("mail")}
+            onMouseEnter={() => handleMouseEnter("mail")}
+            onMouseLeave={handleMouseLeave}
+          />
+          <FaBell
+            style={iconStyle("bell")}
+            onMouseEnter={() => handleMouseEnter("bell")}
+            onMouseLeave={handleMouseLeave}
+          />
+          <FaFilter
+            style={iconStyle("filter")}
+            onMouseEnter={() => handleMouseEnter("filter")}
+            onMouseLeave={handleMouseLeave}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default NavBar;
+export default NavBar;

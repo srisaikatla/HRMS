@@ -42,7 +42,7 @@ const sampleData = [
 function DepartmentList() {
   return (
     <>
-      <div id="main" className="h-screen w-auto bg-transparentp-4 mt-24 ml-8">
+      <div id="main" className="h-screen w-auto bg-transparentp-4  ml-8">
         <div className="ml-5">
           <p className="text-[#e65f2b] font-semibold">
             Employees/DepartmentList

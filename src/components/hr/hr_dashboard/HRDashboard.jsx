@@ -45,7 +45,7 @@ const HRDashboard = () => {
   };
   return (
     <div>
-      <div className="mt-24 w-full md:w-[calc(100%-240px)] min-h-screen mx-6 md:mx-12 my-7">
+      <div className=" w-full md:w-[calc(100%-240px)] mx-6 md:mx-12 ">
         <h2 className="text-[#E65F2B] text-2xl mb-8">HR/HR Dashboard</h2>
         <div className="w-[970px]">
           <div className="flex gap-6 mb-6">

@@ -138,7 +138,7 @@ const initialData = [
 
 const AccountPayments = () => {
   return (
-    <div className=" mt-24 pl-6" >
+    <div className="  pl-6" >
       <h1 className="text-[#E65F2B] text-[20px]">
         <span>Accounts</span> / <span>Payments</span>
       </h1>

@@ -39,7 +39,7 @@ const ForProjectSidebar = ({setActiveTab}) =>{
     },
     { title: "Inbox", component: "Inbox", icon: <FaCalendarAlt /> },
     { title: "Chat", component: "Chat", icon: <FaCalendarCheck /> },
-    { title: "Project", component: "", icon: <FaTasks /> },
+    { title: "Projects", component: "", icon: <FaTasks /> },
     { title: "Clients", component: "", icon: <MdOutlineSocialDistance /> },
     { title: "Teams", component: "Teams", icon: <FaUserFriends /> },
     { title: "Tickets", component: "Tickets", icon: <FaUserFriends /> },
@@ -77,22 +77,22 @@ const ForProjectSidebar = ({setActiveTab}) =>{
   const projectOptions = [
     {
       title: "Add Project",
-      component: "AddProject",
+      component: "Add Project",
       icon: <FaBuilding />,
     },
     {
       title: "Project List",
-      component: "ProjectList",
+      component: "Project List",
       icon: <FaBuilding />,
     },
     {
       title: "Project Grid",
-      component: "ProjectGrid",
+      component: "Project Grid",
       icon: <FaBuilding />,
     },
     {
       title: "Project Detail",
-      component: "ProjectDetails",
+      component: "Project Detail",
       icon: <FaBuilding />,
     },
   ];

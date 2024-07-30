@@ -90,7 +90,7 @@ const Dashboard = () => {
   return (
     <>
       {/* <SideBar /> */}
-      <div className="flex  justify-around items-center bg-white mt-20">
+      <div className="flex  justify-around items-center bg-white ">
         {cardsData.map((card, index) => (
           <div
             key={index}
@@ -108,7 +108,7 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center items-center mt-20">
+      <div className="flex justify-center items-center mt-12">
         <div className="bg-white p-4 rounded shadow-lg w-[700px] mr-4">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Work Report

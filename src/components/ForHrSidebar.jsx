@@ -32,8 +32,8 @@ const ForHrSidebar = ({setActiveTab}) =>{
 
   const options = [
     {
-      title: "HR Dashboard",
-      component: "HRDashboard",
+      title: "HrDashboard",
+      component: "HrDashboard",
       icon: <FaTachometerAlt />,
     },
     { title: "Holidays", component: "HolidayTab", icon: <FaCalendarAlt /> },
@@ -49,10 +49,10 @@ const ForHrSidebar = ({setActiveTab}) =>{
   ];
 
   const employeeOptions = [
-    { title: "All Employees", component: "AllEmployees", icon: <FaUsers /> },
+    { title: "All Employees", component: "All Employees", icon: <FaUsers /> },
     {
       title: "Leave Requests",
-      component: "LeaveRequest",
+      component: "Leave Requests",
       icon: <FaClipboardList />,
     },
     {
@@ -60,17 +60,17 @@ const ForHrSidebar = ({setActiveTab}) =>{
       component: "Attendance",
       icon: <FaCalendarCheck />,
     },
-    { title: "Department", component: "DepartmentList", icon: <FaBuilding /> },
+    { title: "Department", component: "Department", icon: <FaBuilding /> },
   ];
 
   const accountOptions = [
     {
       title: "Payment",
-      component: "PaymentsTab",
+      component: "Payment",
       icon: <FaCalendarCheck />,
     },
-    { title: "Expenses", component: "ExpensesTab", icon: <FaBuilding /> },
-    { title: "Invoice", component: "InvoiceTab", icon: <FaBuilding /> },
+    { title: "Expenses", component: "Expenses", icon: <FaBuilding /> },
+    { title: "Invoice", component: "Invoice", icon: <FaBuilding /> },
   ];
 
   const reportOptions = [

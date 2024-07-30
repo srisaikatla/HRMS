@@ -157,7 +157,7 @@ const AccountExpenses = () => {
     setExpenseData(ExpensesList);
   }, []);
   return (
-    <div className=" pl-6 mt-24">
+    <div className=" pl-6 ">
       <h1 className="text-[#E65F2B] text-[20px]">
         <span>Accounts</span> / <span>Expenses</span>
       </h1>
