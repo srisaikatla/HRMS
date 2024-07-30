@@ -145,10 +145,10 @@ const handleRemoveFile = (index) => {
   };
 
 return (
-    <div className="w-[970px] mx-12 mt-24 p-2">
-    <h2 className="text-[#E65F2B] text-2xl mb-10">Project Detail</h2>
+    <div className="w-[970px] mx-12  p-2">
+    <h2 className="text-[#e65f2b] font-semibold mb-4">Project Detail</h2>
     <div className="w-full flex flex-row gap-2">
-        <div className="w-1/3 bg-[#E65F2B] text-white p-6 flex flex-col">
+        <div className="w-2/3 bg-[#E65F2B] text-white p-6 flex flex-col">
         <h3 className="text-xl font-semibold mb-7">
             iNext - One Page Responsive Template
         </h3>

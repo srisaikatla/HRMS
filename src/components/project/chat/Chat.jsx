@@ -74,9 +74,9 @@ const Chat = () => {
     }
   };
   return (
-      <div className="w-[1000px] mx-8 mt-16 min-h-screen">
-        <h2 className="text-[#E65F2B] text-2xl mb-3 font-semibold">Chat</h2>
-        <div className="flex w-full my-8 gap-1">
+      <div className="w-[1000px] mx-8  min-h-screen">
+        <h2 className="text-[#e65f2b] font-semibold mb-3 ml-4">Chat</h2>
+        <div className="flex w-full  gap-1">
           <div className="flex border-r-2 flex-col bg-white overflow-x-auto h-[400px] w-[300px] p-3">
           <div className="flex flex-row justify-center items-center">
           <IoSearchSharp className="bg-[#E65F2B] rounded-l text-white w-[47px] h-full p-3"/><input className="rounded-r w-5/6 h-full p-3 border border-[#E65F2B] bg-opacity-20 focus:outline-none" type="text" placeholder="search here...." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>

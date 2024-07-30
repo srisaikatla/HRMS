@@ -53,7 +53,7 @@ function AllEmployees() {
   return (
     <>
       <SideBar />
-      <div id="main" className="mt-24 ml-[240px] mx-2">
+      <div id="main" className=" ml-[240px] mx-2">
         <div className="ml-5 mb-4">
           <p className="text-[#e65f2b] font-semibold">
             Employees/All Employees

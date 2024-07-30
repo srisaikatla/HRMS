@@ -124,7 +124,7 @@ const Tickets = () => {
   return (
     <>
     
-      <div className="flex-1 p-6 bg-white mt-24">
+      <div className="flex-1 p-6 bg-white">
         <div className="flex justify-around items-center mb-6">
           {cardsData.map((card, index) => (
             <div

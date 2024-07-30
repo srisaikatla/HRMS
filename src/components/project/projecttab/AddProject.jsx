@@ -53,15 +53,15 @@ const AddProject = () => {
   return (
     <>
       {/* <SideBar /> */}
-      <div className="  mt-24 pt-4">
-        <div className="ml-5 mb-4">
+      <div className="pt-4">
+        <div className="ml-5">
           <p className="text-[#e65f2b] font-semibold">Projects/Add Project</p>
         </div >
 
         <div className=" p-6 bg-white  ">
           <form onSubmit={handleSubmit}>
          
-           <div className="grid grid-cols-1 gap-6 mb-6 content-center ">
+           <div className="grid grid-cols-1 gap-6 content-center ">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Project Name
@@ -246,4 +246,4 @@ const AddProject = () => {
   );
 };
 
-export default AddProject;
+export default AddProject;

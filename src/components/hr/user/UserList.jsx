@@ -395,7 +395,7 @@ const initialUserData = [
     },
 ];
 
-const Userlist = () => {
+const UserList = () => {
     // State variables
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userdata, setUserdata] = useState([]);
@@ -572,7 +572,7 @@ const Userlist = () => {
 
 
     return (
-        <div className="p-5 flex flex-col h-screen mt-24">
+        <div className="p-5 flex flex-col h-screen">
             <h1 className="text-xl text-orange-500 font-medium font-roboto mb-4">
                 Users List
             </h1>
@@ -858,4 +858,4 @@ const ListItem = ({ user, onEdit, onDelete }) => {
     );
 }
 
-export default Userlist;
+export default UserList;

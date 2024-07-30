@@ -97,12 +97,12 @@ const Teams = () => {
   const teamsToDisplay = searchQuery.length > 0 ? filteredTeams : Teamsdata;
 
   return (
-    <div className="mt-24 p-5 ">
-      <h1 className="text-3xl text-orange-500 font-medium font-roboto mb-2">
+    <div className=" p-5 ">
+      <h1 className="text-[#e65f2b] font-semibold mb-3">
         Teams
       </h1>
 
-      <div className="w-full mt-10">
+      <div className="w-full ">
         <input
           type="search"
           className="w-full h-14 bg-transparent border-2 border-blue-500 rounded-lg outline-none px-3 py-2 placeholder-[#0098F1] "

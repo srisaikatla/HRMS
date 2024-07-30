@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BsCheck2Circle } from "react-icons/bs";
 import SideBar from "../../Sidebar";
 
-const EditDepartment = () => {
+const EditDepartmentList = () => {
   const { id } = useParams();
   const [name, setName] = useState("");
   const [head, setHead] = useState("");
@@ -120,4 +120,4 @@ const EditDepartment = () => {
   );
 };
 
-export default EditDepartment;
+export default EditDepartmentList;

@@ -35,7 +35,7 @@
 
 // // function LeaveRequest() {
 // //   return (
-// //     <>
+// //     <>s
 // //       <div id="main" className="h-screen w-full bg-transparent p-4 mt-24">
 // //         <div className="ml-5 ">
 // //           <p className="text-[#e65f2b] font-semibold">
@@ -443,7 +443,7 @@ const initialLeaveData = [
   // Add more sample data as needed
 ];
 
-function LeaveRequests() {
+function LeaveRequest() {
   const [isChecked, setIsChecked] = useState({});
   const [headerChecked, setHeaderChecked] = useState(false);
   const [leaves, setLeaves] = useState([]);
@@ -591,7 +591,7 @@ function LeaveRequests() {
 
   return (
     <>
-      <div id="main" className="mt-24">
+      <div id="main" className="">
         <div className="ml-5 mb-4">
           <p className="text-[#e65f2b] font-semibold">
             Employees/Leave Requests
@@ -820,4 +820,4 @@ function LeaveRequests() {
   );
 }
 
-export default LeaveRequests;
+export default LeaveRequest;

@@ -114,7 +114,7 @@ import React, { useState } from "react";
 import SideBar from "../../Sidebar";
 import { BsCheck2Circle } from "react-icons/bs";
 
-function AddLeaveForm({ onLeaveAdded }) {
+function AddLeavePage({ onLeaveAdded }) {
   const [leaveType, setLeaveType] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -255,4 +255,4 @@ function AddLeaveForm({ onLeaveAdded }) {
   );
 }
 
-export default AddLeaveForm;
+export default AddLeavePage;

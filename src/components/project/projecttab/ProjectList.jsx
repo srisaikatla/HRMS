@@ -148,8 +148,8 @@ const ProjectList = () => {
   };
 
   return (
-    <div id="main" className="w-[973px] h-screen mx-12 mt-24 overflow-x-hidden">
-      <h2 className="text-[#E65F2B] text-2xl mb-10">Project List</h2>
+    <div id="main" className="w-[973px] h-screen mx-12  overflow-x-hidden">
+      <h2 className="text-[#e65f2b] font-semibold mb-2">Project List</h2>
       <div id="table" className="max-h-[70vh] overflow-y-auto">
         <table className="min-w-[1100px]">
           <thead className="bg-[#0098F1]">

@@ -88,7 +88,7 @@ const ReportExpenses = () => {
     };
 
     return (
-        <div className=" mt-24 p-5 flex flex-col h-screen">
+        <div className="p-5 flex flex-col h-screen">
             <h1 className="text-xl text-orange-500 font-medium font-roboto mb-2">
                 Report/ Expenses
             </h1>
