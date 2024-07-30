@@ -174,11 +174,11 @@ const AccountInvoice = () => {
     setInvoiceData(InvoiceList);
   }, []);
   return (
-    <div className=" pl-6" >
-      <h1 className="text-[#E65F2B] text-[20px]">
+    <div className=" ml-2" >
+      <h1 className="text-[#e65f2b] font-semibold mb-2">
         <span>Accounts</span> / <span>Invoice</span>
       </h1>
-      <div className="mt-14 ">
+      <div className=" ">
       <table className="w-full text-left">
           <thead className="bg-[#0098F1] text-white">
             <tr>

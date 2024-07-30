@@ -67,8 +67,8 @@ const ReportInvoice = () => {
         setReportInvoiceData(ReportInvoiceData);
     }, []); 
   return (
-    <div className='w-full'>
-        <h2 className="text-xl text-orange-500 font-medium font-roboto mb-2">Accounts/Invoice</h2>
+    <div className='w-full ml-2'>
+        <h2 className="text-[#e65f2b] font-semibold mb-2">Report/Invoice</h2>
             <table className='min-w-full md:table border-collapse mt-5'>
                 <thead style={{backgroundColor:'rgba(0, 152, 241, 0.3)'}}>
                     <tr className="text-left">

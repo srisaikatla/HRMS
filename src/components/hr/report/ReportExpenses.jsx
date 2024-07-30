@@ -88,12 +88,12 @@ const ReportExpenses = () => {
     };
 
     return (
-        <div className="p-5 flex flex-col h-screen">
-            <h1 className="text-xl text-orange-500 font-medium font-roboto mb-2">
+        <div className=" flex flex-col h-screen ml-2">
+            <h1 className="text-[#e65f2b] font-semibold mb-2 ">
                 Report/ Expenses
             </h1>
 
-            <div className="overflow-x-auto mt-5">
+            <div className="overflow-x-auto ">
                 <table className="min-w-full">
                     <thead className="bg-[#0098F14D] text-white">
                         <tr className="text-left">

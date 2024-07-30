@@ -1663,7 +1663,7 @@ import { TbListDetails } from "react-icons/tb";
 
 const SideBar = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("Hr Dashboard");
   const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
   const [showProjectOptions, setShowProjectOptions] = useState(false);
   const [showReportOptions, setShowReportOptions] = useState(false);
@@ -1673,11 +1673,11 @@ const SideBar = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const options = [
-    { title: "HrDashboard", icon: <FaTachometerAlt /> },
-    { title: "HolidayTab", icon: <FaCalendarAlt /> },
+    { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
+    { title: "Holiday", icon: <FaCalendarAlt /> },
     { title: "Events", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
-    { title: "HrSocial", icon: <MdOutlineSocialDistance /> },
+    { title: "HR Social", icon: <MdOutlineSocialDistance /> },
     { title: "Employee", icon: <FaUserFriends /> },
     { title: "PayRoll", icon: <FaMoneyCheckAlt /> },
     { title: "Reports", icon: <FaFileAlt /> },
@@ -1710,15 +1710,15 @@ const SideBar = () => {
   ];
 
   const reportOptions = [
-    { title: "ReportInvoice", icon: <FaFileAlt /> },
-    { title: "ReportExpenses", icon: <FaFileAlt /> },
+    { title: "Report Invoice", icon: <FaFileAlt /> },
+    { title: "Report Expenses", icon: <FaFileAlt /> },
 
   ];
 
   const accountOptions = [
-    { title: "Payment", icon: <FaMoneyCheckAlt /> },
-    { title: "Expenses", icon: <FaMoneyCheckAlt /> },
-    { title: "Invoice", icon: <FaMoneyCheckAlt /> },
+    { title: "Account Payment", icon: <FaMoneyCheckAlt /> },
+    { title: "Account Expenses", icon: <FaMoneyCheckAlt /> },
+    { title: "Account Invoice", icon: <FaMoneyCheckAlt /> },
 
   ];
 
@@ -2054,20 +2054,20 @@ const SideBar = () => {
         </div>
       </div>
       <div className="pl-[245px] pt-[40px] pr-2">
-        {activeTab === "HrDashboard" && <HrDashboard />}
-        {activeTab === "HolidayTab" && <HolidayTab />}
+        {activeTab === "Hr Dashboard" && <HrDashboard />}
+        {activeTab === "Holiday" && <HolidayTab />}
         {activeTab === "Events" && <Events />}
         {activeTab === "Activities" && <Activities />}
-        {activeTab === "HrSocial" && <HrSocial />}
+        {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployees />}
         {activeTab === "Leave Requests" && <LeaveRequest />}
         {activeTab === "Attendance" && <Attendance />}
         {activeTab === "Department" && <DepartmentList />}
-        {activeTab === "ReportInvoice" && <ReportInvoice />}
-        {activeTab === "ReportExpenses" && <ReportExpenses />}
-        {activeTab === "Payment" && <AccountPayments />}
-        {activeTab === "Expenses" && <AccountExpenses />}
-        {activeTab === "Invoice" && <AccountInvoice />}
+        {activeTab === "Report Invoice" && <ReportInvoice />}
+        {activeTab === "Report Expenses" && <ReportExpenses />}
+        {activeTab === "Account Payment" && <AccountPayments />}
+        {activeTab === "Account Expenses" && <AccountExpenses />}
+        {activeTab === "Account Invoice" && <AccountInvoice />}
         {activeTab === "Dashboard" && <Dashboard />}
         {activeTab === "Inbox" && <Inbox />}
         {activeTab === "Chat" && <Chat />}
