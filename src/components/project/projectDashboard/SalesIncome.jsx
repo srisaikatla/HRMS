@@ -3,7 +3,7 @@ import React from "react";
 const SalesIncome = () => {
   return (
     <div className="bg-blue-500   h-[400px]  w-[280px] rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold pl-8 text-white justify-center items-center">
+      <h2 className="text-xl font-bold pl-8 text-white justify-center items-center">
         Sales Income
       </h2>
       <p className="text-xl text-white px-10 items-center justify-center">

@@ -3,81 +3,80 @@ import React, { useState } from "react";
 import { FiEye } from "react-icons/fi";
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBinLine } from "react-icons/ri";
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 const ProjectData = [
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"60%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":4,
-      "Status":"Active"
-    },
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"70%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":4,
-      "Status":"InActive"
-    },
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"30%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":4,
-      "Status":"Active"
-    },
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"40%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":4,
-      "Status":"Pending"
-    },
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"80%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":4,
-      "Status":"Closed"
-    },
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"100%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":3,
-      "Status":"Active"
-    },
-    {
-      "project": "InfiniO 4.1",
-      "createdBy":"14 July, 2024",
-      "Deadline":"14 Aug, 2021",
-      "Progress":"60%",
-      "Lead":"src/assets/hr/employee/profile/profile.jpg",
-      "Team":"src/assets/hr/employee/profile/profile.jpg",
-      "TeamMembers":4,
-      "Status":"Pending"
-    }
-  ]
-  
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "60%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 4,
+    Status: "Active",
+  },
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "70%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 4,
+    Status: "InActive",
+  },
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "30%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 4,
+    Status: "Active",
+  },
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "40%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 4,
+    Status: "Pending",
+  },
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "80%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 4,
+    Status: "Closed",
+  },
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "100%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 3,
+    Status: "Active",
+  },
+  {
+    project: "InfiniO 4.1",
+    createdBy: "14 July, 2024",
+    Deadline: "14 Aug, 2021",
+    Progress: "60%",
+    Lead: "src/assets/hr/employee/profile/profile.jpg",
+    Team: "src/assets/hr/employee/profile/profile.jpg",
+    TeamMembers: 4,
+    Status: "Pending",
+  },
+];
 
 const ProjectList = () => {
   const [projects, setProjects] = useState(ProjectData);
@@ -85,7 +84,7 @@ const ProjectList = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [currentProject, setCurrentProject] = useState(null);
 
-  const GetStatus = (statusid) => { 
+  const GetStatus = (statusid) => {
     switch (statusid) {
       case "Active":
         return (
@@ -148,8 +147,8 @@ const ProjectList = () => {
   };
 
   return (
-    <div id="main" className="w-[973px] h-screen mx-12  overflow-x-hidden">
-      <h2 className="text-[#e65f2b] font-semibold mb-2">Project List</h2>
+    <div id="main" className=" h-screen mx-12  overflow-x-hidden">
+      <h2 className="text-[#e65f2b] font-bold text-xl mb-2">Project List</h2>
       <div id="table" className="max-h-[70vh] overflow-y-auto">
         <table className="min-w-[1100px]">
           <thead className="bg-[#0098F1]">
@@ -177,10 +176,10 @@ const ProjectList = () => {
                 >
                   <td className="px-2">{item.project}</td>
                   <td className="px-2 border-x-[1px] border-[#0098F1]">
-                    {dayjs(item.createdBy).format('DD MMM, YYYY')}
+                    {dayjs(item.createdBy).format("DD MMM, YYYY")}
                   </td>
                   <td className="px-2 border-x-[1px] border-[#0098F1]">
-                    {dayjs(item.Deadline).format('DD MMM, YYYY')}
+                    {dayjs(item.Deadline).format("DD MMM, YYYY")}
                   </td>
                   <td className="py-2 px-2 w-[120px] font-normal border-x-[1px] border-[#0098F1]">
                     <div className="relative w-full h-4 bg-white border border-gray-300 rounded-full">
@@ -205,7 +204,7 @@ const ProjectList = () => {
                       (_, memberIndex) => (
                         <img
                           key={memberIndex}
-                          src={item.Team} 
+                          src={item.Team}
                           alt="Team Member"
                           className="w-8 h-8 rounded-full"
                         />
@@ -216,9 +215,15 @@ const ProjectList = () => {
                     {GetStatus(item.Status)}
                   </td>
                   <td className="px-2 text-white flex mt-2 justify-center items-center space-x-2 pb-1">
-                    <FiEye className="p-[10px] text-[35px] rounded bg-green-600 cursor-pointer"/>
-                    <TbEdit onClick={() => editOpen(item, index)} className="p-[10px] text-[35px] rounded bg-blue-400 cursor-pointer"/>
-                    <RiDeleteBinLine onClick={() => handleDelete(index)} className="p-[10px] text-[35px] rounded bg-red-600 cursor-pointer"/>
+                    <FiEye className="p-[10px] text-[35px] rounded bg-green-600 cursor-pointer" />
+                    <TbEdit
+                      onClick={() => editOpen(item, index)}
+                      className="p-[10px] text-[35px] rounded bg-blue-400 cursor-pointer"
+                    />
+                    <RiDeleteBinLine
+                      onClick={() => handleDelete(index)}
+                      className="p-[10px] text-[35px] rounded bg-red-600 cursor-pointer"
+                    />
                   </td>
                 </tr>
               );
@@ -252,7 +257,7 @@ const ProjectList = () => {
               <input
                 type="date"
                 name="createdBy"
-                value={dayjs(currentProject.createdBy).format('DD MMM, YYYY')}
+                value={dayjs(currentProject.createdBy).format("DD MMM, YYYY")}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded"
               />
@@ -262,7 +267,7 @@ const ProjectList = () => {
               <input
                 type="date"
                 name="Deadline"
-                value={dayjs(currentProject.Deadline).format('DD MMM, YYYY')}
+                value={dayjs(currentProject.Deadline).format("DD MMM, YYYY")}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded"
               />
@@ -278,7 +283,7 @@ const ProjectList = () => {
                 <option value="Active">Active</option>
                 <option value="InActive">InActive</option>
                 <option value="Pending">Pending</option>
-                <option value="Closed">Closed</option>  
+                <option value="Closed">Closed</option>
               </select>
             </div>
             <div className="flex justify-end space-x-4">

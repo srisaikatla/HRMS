@@ -142,13 +142,13 @@
 //           <table className="min-w-full bg-white">
 //             <thead>
 //               <tr>
-//                 <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center sticky left-0 z-20 w-[170px] h-[50px]">
+//                 <th className="py-2 px-4 border-b bg-[#0098f1]  text-center sticky left-0 z-20 w-[170px] h-[50px]">
 //                   Employee
 //                 </th>
 //                 {days.map((day) => (
 //                   <th
 //                     key={day}
-//                     className="py-2 px-4 border border-b border-r border-l bg-[#0098f1] bg-opacity-30 text-center w-[63px] h-[50px] border-white"
+//                     className="py-2 px-4 border border-b border-r border-l bg-[#0098f1]  text-center w-[63px] h-[50px] border-white"
 //                     style={{ zIndex: 10 }} // Ensure table headers have higher z-index
 //                   >
 //                     {day}
@@ -160,7 +160,7 @@
 //               {sampleData.map((employee) => (
 //                 <tr
 //                   key={employee.id}
-//                   className="bg-[#0098f1] bg-opacity-30 border-b border border-white  border-r border-l"
+//                   className="bg-[#0098f1]  border-b border border-white  border-r border-l"
 //                 >
 //                   <td className="py-2 px-4 border-b text-center text-nowrap sticky left-0 z-20  w-[170px] h-[50px]">
 //                     {employee.name}
@@ -304,11 +304,13 @@ function Attendance() {
     <>
       <div
         id="main"
-        className="h-screen w-[1100px] p-4"
+        className="h-screen  p-4"
         // className="h-screen w-screen bg-[#0098f1] bg-opacity-10 p-4 mt-24"
       >
         <div className="ml-5">
-          <p className="text-[#e65f2b] font-semibold">Employees/Attendance</p>
+          <p className="text-[#e65f2b] font-bold text-xl">
+            Employees/Attendance
+          </p>
         </div>
 
         <div className="flex flex-row justify-end mb-4">
@@ -339,13 +341,13 @@ function Attendance() {
           <table className="min-w-full bg-white">
             <thead>
               <tr>
-                <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center sticky left-0 z-20 w-[170px] h-[50px]">
+                <th className="py-2 px-4 border-b bg-[#0098f1] text-center sticky left-0 z-20 w-[170px] h-[50px]">
                   Employee
                 </th>
                 {days.map((day) => (
                   <th
                     key={day}
-                    className="py-2 px-4 border border-b border-r border-l bg-[#0098f1] bg-opacity-30 text-center w-[63px] h-[50px] border-white"
+                    className="py-2 px-4 border border-b border-r border-l bg-[#0098f1]  text-center w-[63px] h-[50px] border-white"
                     style={{ zIndex: 10 }} // Ensure table headers have higher z-index
                   >
                     {day}
@@ -357,9 +359,9 @@ function Attendance() {
               {sampleData.map((employee) => (
                 <tr
                   key={employee.id}
-                  className="bg-[#0098f1] bg-opacity-30 border-b border border-white  border-r border-l"
+                  className="bg-[#0098f1] border-b border border-white  border-r border-l"
                 >
-                  <td className="py-2 px-4 border-b text-center text-nowrap sticky left-0 z-20  w-[170px] h-[50px]">
+                  <td className="py-2 px-4 bg-[#0098f1] border-b text-center text-nowrap sticky left-0 z-20  w-[170px] h-[50px]">
                     {employee.name}
                   </td>
                   {days.map((day) => {

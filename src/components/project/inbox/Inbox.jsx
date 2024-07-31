@@ -9,15 +9,15 @@ import Starred from "./Starred";
 import Trash from "./Trash";
 
 const Inbox = () => {
-    const [activePage, setActivePage] = useState("Inbox")
+  const [activePage, setActivePage] = useState("Inbox");
 
-    const handleItemClick = (item) =>{
-        setActivePage(item)
-    } 
+  const handleItemClick = (item) => {
+    setActivePage(item);
+  };
 
   return (
     <div className="ml-4">
-      <h1 className="text-[#E65F2B] px-2">Inbox</h1>
+      <h1 className="text-[#E65F2B] text-xl font-bold px-2">Inbox</h1>
       <div className="flex gap-2 px-2 mt-5">
         <InboxSidebar onItemClick={handleItemClick} />
         {activePage === "Compose" && <Compose />}

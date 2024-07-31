@@ -55,13 +55,14 @@ const AddProject = () => {
       {/* <SideBar /> */}
       <div className="pt-4">
         <div className="ml-5">
-          <p className="text-[#e65f2b] font-semibold">Projects/Add Project</p>
-        </div >
+          <p className="text-[#e65f2b] font-bold text-xl">
+            Projects/Add Project
+          </p>
+        </div>
 
         <div className=" p-6 bg-white  ">
           <form onSubmit={handleSubmit}>
-         
-           <div className="grid grid-cols-1 gap-6 content-center ">
+            <div className="grid grid-cols-1 gap-6 content-center ">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Project Name
@@ -199,8 +200,8 @@ const AddProject = () => {
                 ></textarea>
               </div>
             </div>
-       
-            <div className="flex justify-end space-x-4">
+
+            <div className="flex justify-end pt-3 space-x-4">
               <button
                 type="submit"
                 className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"

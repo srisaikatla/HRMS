@@ -1,12 +1,3 @@
-// import React from 'react'
-
-// const Teams = () => {
-//   return (
-//     <div>Teams</div>
-//   )
-// }
-
-// export default Teams
 import React, { useState } from "react";
 
 const Teams = () => {
@@ -98,9 +89,7 @@ const Teams = () => {
 
   return (
     <div className=" p-5 ">
-      <h1 className="text-[#e65f2b] font-semibold mb-3">
-        Teams
-      </h1>
+      <h1 className="text-[#e65f2b] font-bold text-xl mb-3">Teams</h1>
 
       <div className="w-full ">
         <input
@@ -115,8 +104,6 @@ const Teams = () => {
           value={searchQuery}
         />
       </div>
-
-
 
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-5">
         {teamsToDisplay.map((team) => (
@@ -177,7 +164,6 @@ const Teams = () => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };

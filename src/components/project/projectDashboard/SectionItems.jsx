@@ -19,7 +19,7 @@ const itemsData = [
 
 const SectionItems = () => {
   return (
-    <div className="flex flex-col justify-start items-start ">
+    <div className="flex ml-10 flex-col justify-start items-start ">
       <div className="bg-white p-4 h-[460px]  rounded shadow-lg w-[510px] max-w-md">
         {itemsData.map((item, index) => (
           <div

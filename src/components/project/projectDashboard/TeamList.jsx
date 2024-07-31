@@ -14,7 +14,7 @@ const TeamCard = ({
   ring = false, // Add a new prop for ring
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg w-[320px] h-[400px] hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white rounded-lg shadow-lg w-[300px] h-[400px] hover:shadow-xl transition-shadow duration-300">
       <h3 className="text-blue-600 text-xl font-semibold mb-4 text-center">
         {teamName}
       </h3>
@@ -103,8 +103,8 @@ const TeamList = () => {
       teamLeadImg: Sales,
       tags: [
         { label: "Photoshop", color: "blue-500" },
-        { label: "HTML/CSS", color: "blue-500" },
-        { label: "Javascript", color: "blue-500" },
+        { label: "HTML", color: "blue-500" },
+        { label: "Java", color: "blue-500" },
       ],
       employees: "1 Lead, 3 Employees",
       employeeImgs: [
@@ -119,10 +119,10 @@ const TeamList = () => {
 
   return (
     <div className="bg-white w-auto   h-screen rounded-lg shadow-lg">
-      <h2 className="text-4xl font-bold mb-6 text-start ml-20 text-[#E65F2B]">
-        Lucid Team
+      <h2 className="text-xl font-bold mb-6 text-start ml-10 text-[#E65F2B]">
+        SpyD Team
       </h2>
-      <p className="mb-8 text-center text-lg ml-[20px] text-[#E65F2B]">
+      <p className="mb-8 text-center text-lg  text-[#E65F2B]">
         It is a long established fact that a reader will be distracted by the
         readable content of a page when looking at its layout.
       </p>

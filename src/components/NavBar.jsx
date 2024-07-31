@@ -29,14 +29,13 @@ function NavBar({ onSearchChange }) {
     <div id="main" className="bg-white p-2 ">
       <div
         id="topbar"
-        className="flex flex-col md:flex-row items-center md:justify-between gap-4 md:gap-x-10"
+        className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-end"
       >
-        <div className="w-full md:w-auto  ml-[400px]  rounded-xl flex justify-center items-center px-2 py-1 md:py-2">
+        <div className="w-[428px] h-[48px] bg-[#0098f1] rounded-xl flex justify-center items-center">
           <input
-            type="text"
-            placeholder="Search..."
-            onChange={(e) => onSearchChange(e)}
-            className="search-input w-full md:w-[620px] h-[50px] rounded-lg border border-[#0098f1]"
+            className="pl-20 placeholder:text-white outline-none placeholder:text-start w-[428px] rounded-xl text-white h-[48px] border-none bg-[#0098f1]"
+            type="search"
+            placeholder="Search Anything here...."
           />
         </div>
         <div
@@ -79,4 +78,4 @@ function NavBar({ onSearchChange }) {
   );
 }
 
-export default NavBar;
+export default NavBar;
