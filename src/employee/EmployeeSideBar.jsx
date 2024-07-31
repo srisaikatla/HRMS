@@ -5,6 +5,7 @@ import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Payslips from "./options/payslips/Payslip";
 import AllEmployees from "./options/allEmployees/AllEmployees";
+import Events from "./options/events/Events";
 import {
   FaUsers,
   FaCalendarAlt,
@@ -150,6 +151,19 @@ const EmployeeSideBar = () => {
         <div className="text-2xl  font-bold">
           {activeTab === "Holidays" ? (
             <Holiday />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      <div
+        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
+      >
+        <div className="text-2xl  font-bold">
+          {activeTab === "Events" ? (
+            <Events />
           ) : (
             ""
           )}
