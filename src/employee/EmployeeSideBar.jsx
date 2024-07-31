@@ -21,6 +21,7 @@ import {
   FaTicketAlt,
 } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
+import Holiday from "./options/holiday/Holiday";
 
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -124,7 +125,7 @@ const EmployeeSideBar = () => {
           {activeTab === "Payslips" ? (
             <Payslips />
           ) : (
-            `Selected Option: ${activeTab || "None"}`
+           ""
           )}
         </div>
       </div>
@@ -137,7 +138,20 @@ const EmployeeSideBar = () => {
           {activeTab === "All Employees" ? (
             <AllEmployees />
           ) : (
-            `Selected Option: ${activeTab || "None"}`
+            ""
+          )}
+        </div>
+      </div>
+      <div
+        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
+      >
+        <div className="text-2xl  font-bold">
+          {activeTab === "Holidays" ? (
+            <Holiday />
+          ) : (
+            ""
           )}
         </div>
       </div>

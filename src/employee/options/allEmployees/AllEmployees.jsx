@@ -116,7 +116,7 @@ const initialUserdata = [
 ];
 const EmployeeCard = ({ teamname, name, position, img, employeeId, onEdit, onDelete }) => (
   <div className="bg-white text-center p-5 rounded-2xl shadow-md flex flex-col items-center relative">
-    <div className="absolute top-2 left-2 bg-[#FCEFE9] text-white text-xs font-bold px-2 py-1 rounded">
+    <div className="absolute top-2 left-2 bg-[#E65F2B] text-white text-xs font-bold px-2 py-1 rounded ">
       Id: {employeeId}
     </div>
     <div className="absolute top-2 right-2 flex space-x-2">
@@ -278,21 +278,21 @@ const AllEmployees = () => {
   };
 
   return (
-    <div id="main" className={`p-4  h-[200vh]  ${showModal || showDeleteModal ? "blurred" : ""}`}>
-      <div className="ml-3 mb-4 flex flex-col md:flex-row justify-between">
+    <div id="main" className={`px-4 w-auto h-auto  ${showModal || showDeleteModal ? "blurred" : ""}`}>
+      <div className="ml-3  flex flex-col md:flex-row justify-between">
         <div>
             <span className="flex">Employee</span>
             <span className="text-[16px] font-medium">
             Dashboard / Employee
             </span>
           </div>
-        <div className="mt-8">
+        <div className="">
           <button
             type="button"
-            className="flex items-center bg-[#E65F2B] text-white h-[60px] w-full md:w-[230px] rounded-lg shadow hover:bg-[#f5d0c7] justify-center text-xl"
+            className="flex items-center bg-[#E65F2B] text-white h-[60px] w-full md:w-[230px] rounded-lg shadow hover:bg-[#f5d0c7] justify-center text-lg font-semibold"
             onClick={openAddModal}
           >
-            <FaPlusCircle className="text-white text-xl" />
+            <FaPlusCircle className="text-white text-lg font-semibold" />
             <span className="ml-2">Add Employee</span>
           </button>
         </div>
@@ -324,7 +324,7 @@ const AllEmployees = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
         {filteredData.map(employee => (
           <EmployeeCard
             key={employee.employeeId}
@@ -340,57 +340,57 @@ const AllEmployees = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96 z-50">
-            <h2 className="text-2xl font-bold mb-4 text-[#E65F2B]">{editMode ? "Edit Employee" : "Add New Employee"}</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[550px] z-50">
+            <h2 className="font-semibold text-lg mb-4 text-[#E65F2B]">{editMode ? "Edit Employee" : "Add New Employee"}</h2>
             <form>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Team Name
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className="block text-gray-700 flex justify-between font-semibold text-lg">Team Name
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg font-semibold" />}
                 </label>
                 <input
                   type="text"
                   name="teamname"
                   value={newEmployee.teamname}
                   onChange={handleModalInputChange}
-                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full"
+                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full font-semibold text-lg"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Name
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className="block text-gray-700 flex justify-between font-semibold text-lg">Name
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg font-semibold" />}
                 </label>
                 <input
                   type="text"
                   name="name"
                   value={newEmployee.name}
                   onChange={handleModalInputChange}
-                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full"
+                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full font-semibold text-lg"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Position
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className="block text-gray-700 flex justify-between font-semibold text-lg">Position
+                  {editMode && <CiEdit className="text-[#E65F2B]  font-semibold text-lg" />}
                 </label>
                 <input
                   type="text"
                   name="position"
                   value={newEmployee.position}
                   onChange={handleModalInputChange}
-                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full"
+                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full font-semibold text-lg"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Image
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className="block text-gray-700 flex justify-between font-semibold text-lg">Image
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg font-semibold" />}
                 </label>
                 <input
                   type="file"
                   onChange={handleFileChange}
-                  className="w-full p-2 border border-[#E65F2B] rounded mt-2 text-white file:bg-orange-500 file:border-[#E65F2B] file:text-white file:rounded-lg"
+                  className="w-full p-2 border border-[#E65F2B] rounded mt-2 text-white file:bg-orange-500 file:border-[#E65F2B] file:text-white file:rounded-lg font-semibold text-lg"
                 />
                 {imagePreview && (
                   <img
@@ -402,13 +402,13 @@ const AllEmployees = () => {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="bg-[#E65F2B] text-white  h-[40px] w-[120px] rounded mr-2"
+                  className="bg-[#E65F2B] text-white font-semibold text-lg  h-[40px] w-[120px] rounded mr-2"
                   onClick={handleSaveEmployee}
                 >
                   {editMode ? "Update" : "Add"}
                 </button>
                 <button
-                  className="bg-transparent border border-[#E65F2B] text-[#E65F2B] h-[40px] w-[120px] rounded "
+                  className="bg-transparent font-semibold text-lg border border-[#E65F2B] text-[#E65F2B] h-[40px] w-[120px] rounded "
                   onClick={handleCloseModal}
                 >
                   Cancel
@@ -423,17 +423,17 @@ const AllEmployees = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 h-[250px] flex flex-col items-center justify-center text-center">
             <h2 className="text-2xl text-[#E65F2B] font-medium mb-4">Delete Employee</h2>
-            <p className="mb-4 text-[#E65F2B] text-xl">Are you sure want to delete?</p>
+            <p className="mb-4 text-[#E65F2B] text-lg font-semibold">Are you sure want to delete?</p>
             <div className="flex justify-center space-x-2 mt-5">
 
               <button
-                className="bg-[#E65F2B] text-white  h-[30px] w-[100px] rounded"
+                className="bg-[#E65F2B] text-lg font-semibold text-white  h-[30px] w-[100px] rounded"
                 onClick={handleDeleteEmployee}
               >
                 Delete
               </button>
               <button
-                className="bg-transparent border border-[#E65F2B] text-[#E65F2B] h-[30px] w-[100px] rounded"
+                className="bg-transparent text-lg font-semibold border border-[#E65F2B] text-[#E65F2B] h-[30px] w-[100px] rounded"
                 onClick={() => setShowDeleteModal(false)}
               >
                 Cancel
