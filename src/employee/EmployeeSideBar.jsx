@@ -97,12 +97,12 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${
+                className={`flex items-center transition-all duration-500 hover:bg-white my-1 hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${
                   activeTab === option.title ? "bg-white text-[#ef5f2b]" : ""
                 }`}
                 onClick={() => handleOptionClick(option)}
               >
-                <div className="p-3 pl-4 text-[16px] flex items-center">
+                <div className="p-3 pl-4  text-[16px] flex items-center">
                   {option.icon}
                   {!isSidebarCollapsed && (
                     <span className="ml-3">{option.title}</span>
