@@ -1,13 +1,3 @@
-// import React from 'react'
-
-// const Tickets = () => {
-//   return (
-//     <div>Tickets</div>
-//   )
-// }
-
-// export default Tickets
-
 import React, { useState } from "react";
 
 import { FaTrashAlt } from "react-icons/fa";
@@ -123,7 +113,6 @@ const Tickets = () => {
 
   return (
     <>
-    
       <div className="flex-1 p-6 bg-white">
         <div className="flex justify-around items-center mb-6">
           {cardsData.map((card, index) => (

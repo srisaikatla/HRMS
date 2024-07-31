@@ -2,7 +2,6 @@ import React from "react";
 import tableicone from "../../../assets/project/projectDashboard/tableicone.png";
 import profilepic from "../../../assets/project/projectDashboard/profilepic.png";
 
-
 const data = [
   {
     team: [profilepic, profilepic, profilepic, profilepic, profilepic],
@@ -75,11 +74,9 @@ const timer = setTimeout(() => {
 const ProjectListTable = () => {
   return (
     <div className="p-4 ">
-      <h2 className="text-xl font-bold ml-[20px] text-blue-500 mb-4">
-        Project List
-      </h2>
+      <h2 className="text-xl font-bold  text-blue-500 mb-4">Project List</h2>
       <div className="overflow-x-auto">
-        <table className="min-w-[700px] ml-[30px] bg-white border border-gray-300">
+        <table className="min-w-[680px] bg-white border border-gray-300">
           <thead>
             <tr>
               <th className="py-3 px-4 bg-blue-500 text-white border-b text-left">
@@ -140,4 +137,3 @@ const ProjectListTable = () => {
 };
 
 export default ProjectListTable;
-

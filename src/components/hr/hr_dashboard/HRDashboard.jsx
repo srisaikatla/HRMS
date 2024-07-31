@@ -45,8 +45,10 @@ const HRDashboard = () => {
   };
   return (
     <div>
-      <div className=" w-full md:w-[calc(100%-240px)] mx-6 md:mx-12 ">
-        <h2 className="text-[#E65F2B] text-2xl mb-8">HR/HR Dashboard</h2>
+      <div className="  pb-6 ml-4 ">
+        <h2 className="text-[#E65F2B] text-xl font-bold mb-8">
+          Hr/Hrdashboard
+        </h2>
         <div className="w-[970px]">
           <div className="flex gap-6 mb-6">
             <div className="w-[260px] h-[360px] rounded-lg bg-[#2278aa]">
@@ -123,9 +125,7 @@ const HRDashboard = () => {
             </div>
             <div className="w-[542px] h-[360px] bg-[#0098F1] rounded-lg">
               <div className="flex flex-col px-4 gap-y-[40px] mt-8 justify-center items-center h-full">
-                <div className="text-white text-2xl">
-                  Salary Statistics
-                </div>
+                <div className="text-white text-2xl">Salary Statistics</div>
                 <div className="w-full h-full">
                   <Bar
                     data={data}

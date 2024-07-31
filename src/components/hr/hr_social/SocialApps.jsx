@@ -33,7 +33,7 @@ const SocialApps = () => {
       {socialApps.map((app) => (
         <div className="flex flex-col items-center bg-white rounded-lg gap-2 ">
           <img src={app.image} className="h-[30px]" />
-          <p className="text-sm">{app.followers}</p>
+          <p className="text-sm ml-4">{app.followers}</p>
         </div>
       ))}
     </div>

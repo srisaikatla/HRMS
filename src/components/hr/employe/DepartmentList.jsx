@@ -3,7 +3,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import accept from "../../../assets/hr/employee/leaves/accept.png";
 import reject from "../../../assets/hr/employee/leaves/reject.png";
-import Delete from "../../../assets/hr/employee/leaves/delete.png"
+import Delete from "../../../assets/hr/employee/leaves/delete.png";
 const sampleData = [
   {
     id: 1,
@@ -42,9 +42,9 @@ const sampleData = [
 function DepartmentList() {
   return (
     <>
-      <div id="main" className="h-screen w-auto bg-transparentp-4">
+      <div id="main" className="h-screen w-auto bg-transparentp-4 mr-2 ml-2">
         <div className="ml-5">
-          <p className="text-[#e65f2b] font-semibold">
+          <p className="text-[#e65f2b] font-bold text-xl">
             Employees/DepartmentList
           </p>
         </div>
@@ -69,17 +69,17 @@ function DepartmentList() {
               <tr>
                 {/* <th className="py-4 px-16 border-b bg-transparent"></th> */}
 
-                <th className="py-4 px-16 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
                   Department Name
                 </th>
-                <th className="py-4 px-16 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
                   Department Head
                 </th>
-                <th className="py-4 px-16 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
                   Total Employees
                 </th>
 
-                <th className="py-4 px-16 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
                   Action
                 </th>
               </tr>
@@ -107,10 +107,18 @@ function DepartmentList() {
 
                   <td className="py-2 px-4 border-b pt-6 bg-transparent text-center flex items-center justify-center space-x-2">
                     <button className="flex items-center">
-                      <img src={accept} alt="Accept" className="w-6 h-6 mr-1" />
+                      <img
+                        src={accept}
+                        alt="Accept"
+                        className="w-6 h-6 mr-1 "
+                      />
                     </button>
                     <button className="flex items-center">
-                      <img src={Delete} alt="Reject" className="w-6 h-6 mr-1 bg-[#FF3636]" />
+                      <img
+                        src={Delete}
+                        alt="Reject"
+                        className="w-6 h-6 mr-1 bg-[#FF3636]"
+                      />
                     </button>
                   </td>
                 </tr>

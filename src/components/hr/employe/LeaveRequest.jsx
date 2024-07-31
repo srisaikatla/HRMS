@@ -61,22 +61,22 @@
 // //             <thead>
 // //               <tr>
 // //                 <th className="py-4 px-12 border-b bg-transparent"></th>
-// //                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+// //                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 // //                   Name
 // //                 </th>
-// //                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+// //                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 // //                   Employee ID
 // //                 </th>
-// //                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+// //                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 // //                   Leave Type
 // //                 </th>
-// //                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+// //                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 // //                   Date
 // //                 </th>
-// //                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+// //                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 // //                   Reason
 // //                 </th>
-// //                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+// //                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 // //                   Action
 // //                 </th>
 // //               </tr>
@@ -125,7 +125,6 @@
 // // }
 
 // // export default LeaveRequest;
-
 
 // import React, { useState, useEffect } from "react";
 // import { FiPlusCircle, FiCheckCircle, FiXCircle } from "react-icons/fi";
@@ -261,28 +260,28 @@
 //             <thead>
 //               <tr>
 //                 <th className="py-4 px-12 border-b bg-transparent"></th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Name
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Leave Type
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Start Date
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   End Date
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Description
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Status
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Message
 //                 </th>
-//                 <th className="py-4 px-12 border-b bg-[#0098f1] bg-opacity-30 text-center">
+//                 <th className="py-4 px-12 border-b bg-[#0098f1]  text-center">
 //                   Action
 //                 </th>
 //               </tr>
@@ -591,9 +590,9 @@ function LeaveRequest() {
 
   return (
     <>
-      <div id="main" className="">
+      <div id="main" className="mr-2">
         <div className="ml-5 mb-4">
-          <p className="text-[#e65f2b] font-semibold">
+          <p className="text-[#e65f2b] font-bold text-xl">
             Employees/Leave Requests
           </p>
         </div>
@@ -626,22 +625,22 @@ function LeaveRequest() {
                   />
                 </th>
                 <th className="py-4 px-8 border-b bg-transparent"></th>
-                <th className="py-4 px-8 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
                   Name
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
                   Employee ID
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
                   Leave Type
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
                   Date
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
                   Reason
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1] bg-opacity-30 text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
                   Action
                 </th>
               </tr>
@@ -684,13 +683,13 @@ function LeaveRequest() {
                       className="flex items-center"
                       onClick={() => openEditModal(leave.id)}
                     >
-                      <FiEdit className="text-xl mr-1" />
+                      <FiEdit className="text-xl text-blue-500 mr-1" />
                     </button>
                     <button
                       className="flex items-center"
                       onClick={() => handleDeleteLeave(leave.id)}
                     >
-                      <FiTrash2 className="text-xl mr-1" />
+                      <FiTrash2 className="text-red-500 text-xl mr-1" />
                     </button>
                   </td>
                 </tr>

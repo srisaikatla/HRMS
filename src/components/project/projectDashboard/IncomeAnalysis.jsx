@@ -27,8 +27,8 @@ function IncomeAnalysis() {
   return (
     <div className="flex flex-col items-center justify-center h-screen  text-white">
       <div className="p-8 bg-orange-500 mr-8  w-[500px] h-[450px] text-white rounded-lg shadow-lg">
-        <h2 className="text-4xl font-bold mb-2 ml-20">Income Analysis</h2>
-        <p className="text-lg mb-4 ml-28 ">8% High than last month</p>
+        <h2 className="text-2xl text-center font-bold mb-2">Income Analysis</h2>
+        <p className="text-lg text-center mb-4  ">8% High than last month</p>
         <div className="relative ml-28 w-48 h-[500px]">
           <Doughnut data={data} options={options} />
         </div>
