@@ -4,6 +4,7 @@ import profile from "../employeeAssets/profile/boy.png";
 
 import EmployeeNavBar from "./EmployeeNavBar";
 import Payslips from "./options/payslips/Payslip";
+import AllEmployees from "./options/allEmployees/AllEmployees";
 import {
   FaUsers,
   FaCalendarAlt,
@@ -97,7 +98,8 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${
+                className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer
+                   ${
                   activeTab === option.title ? "bg-white text-[#ef5f2b]" : ""
                 }`}
                 onClick={() => handleOptionClick(option)}
@@ -121,6 +123,19 @@ const EmployeeSideBar = () => {
         <div className="text-2xl  font-bold">
           {activeTab === "Payslips" ? (
             <Payslips />
+          ) : (
+            `Selected Option: ${activeTab || "None"}`
+          )}
+        </div>
+      </div>
+      <div
+        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
+      >
+        <div className="text-2xl  font-bold">
+          {activeTab === "All Employees" ? (
+            <AllEmployees />
           ) : (
             `Selected Option: ${activeTab || "None"}`
           )}
