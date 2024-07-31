@@ -612,8 +612,8 @@ function LeaveRequest() {
             </button>
           </div>
         </div>
-        <div id="table" className="w-full">
-          <table className="min-w-full overflow-x-auto">
+        <div id="table" className="overflow-x-scroll">
+          <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b bg-transparent text-center">

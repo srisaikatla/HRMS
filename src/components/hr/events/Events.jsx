@@ -202,7 +202,7 @@ const Events = () => {
           </button>
         </div>
 
-        <div className="flex md:flex-row flex-col gap-48">
+        <div className="flex md:flex-row flex-col gap-48 mr-10">
           <div className="w-full bg-white rounded-lg p-4 ">
             <div className="w-[150%] mx-auto rounded-lg overflow-hidden p-4 border">
               <div className="flex justify-between items-center mb-5">
@@ -251,7 +251,7 @@ const Events = () => {
             </div>
           </div>
 
-          <div className=" w-full bg-[#0098F1] rounded-lg p-4 mr-2 ml-4 ">
+          <div className=" w-full bg-[#0098F1] rounded-lg p-4 ml-10 ">
             <div className="flex flex-col items-center justify-center">
               <div className="rounded-full overflow-hidden flex items-center justify-center">
                 <img
