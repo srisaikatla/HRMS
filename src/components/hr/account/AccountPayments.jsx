@@ -45,12 +45,12 @@ const initialData = [
 
 const AccountPayments = () => {
   return (
-    <div className="ml-2 pt-2 mr-2">
+    <div className="ml-2 h-screen pt-2 mr-2">
       <h1 className="text-[#e65f2b] font-bold  text-xl mb-2">
         <span>Accounts/Payments</span>
       </h1>
-      <div className="">
-        <table className="w-full text-left">
+      <div className="overflow-x-scroll">
+        <table className=" text-left min-w-full w-screen overflow-x-scroll text-nowrap border-collapse">
           <thead className="bg-[#0098F1] text-white">
             <tr>
               <th className="py-2 px-10">ID</th>

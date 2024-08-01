@@ -27,7 +27,7 @@ function EmployeeNavBar() {
 
   return (
     <>
-      <div id="main" className="  pb-2  top-0  right-0">
+      <div id="main" className=" pb-2  top-0  right-0 ">
         <div
           id="topbar"
           className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-end"

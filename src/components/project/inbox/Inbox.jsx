@@ -16,9 +16,9 @@ const Inbox = () => {
   };
 
   return (
-    <div className="ml-4">
+    <div className="w-auto  ">
       <h1 className="text-[#E65F2B] text-xl font-bold px-2">Inbox</h1>
-      <div className="flex gap-2 px-2 mt-5">
+      <div className="gap-2 px-2  justify-center items-center flex">
         <InboxSidebar onItemClick={handleItemClick} />
         {activePage === "Compose" && <Compose />}
         {activePage === "Inbox" && <InboxPage />}

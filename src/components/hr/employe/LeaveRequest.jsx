@@ -590,7 +590,7 @@ function LeaveRequest() {
 
   return (
     <>
-      <div id="main" className="mr-2">
+      <div id="main" className="mr-2 h-screen">
         <div className="ml-5 mb-4">
           <p className="text-[#e65f2b] font-bold text-xl">
             Employees/Leave Requests
@@ -625,22 +625,22 @@ function LeaveRequest() {
                   />
                 </th>
                 <th className="py-4 px-8 border-b bg-transparent"></th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Name
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Employee ID
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Leave Type
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Date
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Reason
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Action
                 </th>
               </tr>

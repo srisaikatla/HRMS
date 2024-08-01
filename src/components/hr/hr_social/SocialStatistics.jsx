@@ -130,7 +130,7 @@ const options = {
 
 const SocialStatistics = () => {
   return (
-    <div className="bg-white py-8 w-full">
+    <div className="bg-white py-8 p-4 w-full">
       <h1 className="text-[#E65F2B] text-[20px] font-bold">
         Social Statistics
       </h1>

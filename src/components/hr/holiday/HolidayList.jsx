@@ -104,7 +104,7 @@ function HolidayList() {
 
   return (
     <>
-      <div className="p-4">
+      <div className="p-4 h-auto ">
         <h2 className="text-xl font-bold text-[#E65F2B]">Hr/Holidays List</h2>
 
         <div className="flex justify-end mb-4">
@@ -121,56 +121,57 @@ function HolidayList() {
             </button>
           </div>
         </div>
-
-        <table className="min-w-full border-collapse">
-          <thead className="bg-[#0098f1] text-white">
-            <tr>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                Day
-              </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                Date
-              </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                Holiday Name
-              </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {holidays.map((holiday) => (
-              <tr key={holiday.id}>
-                <td className="py-2 px-4 border-b text-center truncate">
-                  {holiday.day}
-                </td>
-                <td className="py-2 px-4 border-b text-center truncate">
-                  {holiday.date}
-                </td>
-                <td className="py-2 px-4 border-b text-center truncate">
-                  {holiday.name}
-                </td>
-                <td className="py-2 px-4 border-b text-center">
-                  <div className="flex justify-center items-center space-x-2">
-                    <button
-                      className="text-blue-500 flex items-center"
-                      onClick={() => openEditModal(holiday.id)}
-                    >
-                      <FiEdit className="text-white bg-[#2A8F4C] rounded-md w-7 h-7 p-1" />
-                    </button>
-                    <button
-                      className="text-red-500 flex items-center"
-                      onClick={() => handleDeleteHoliday(holiday.id)}
-                    >
-                      <FiTrash2 className="text-white bg-[#FF3636] w-7 h-7 rounded-md p-1" />
-                    </button>
-                  </div>
-                </td>
+        <div id="table" className=" overflow-x-scroll">
+          <table className="min-w-full w-screen overflow-x-scroll text-nowrap border-collapse">
+            <thead className="bg-[#0098f1] text-white">
+              <tr>
+                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                  Day
+                </th>
+                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                  Date
+                </th>
+                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                  Holiday Name
+                </th>
+                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                  Action
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {holidays.map((holiday) => (
+                <tr key={holiday.id}>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {holiday.day}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {holiday.date}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {holiday.name}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center">
+                    <div className="flex justify-center items-center space-x-2">
+                      <button
+                        className="text-blue-500 flex items-center"
+                        onClick={() => openEditModal(holiday.id)}
+                      >
+                        <FiEdit className="text-white bg-[#2A8F4C] rounded-md w-7 h-7 p-1" />
+                      </button>
+                      <button
+                        className="text-red-500 flex items-center"
+                        onClick={() => handleDeleteHoliday(holiday.id)}
+                      >
+                        <FiTrash2 className="text-white bg-[#FF3636] w-7 h-7 rounded-md p-1" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {isModalOpen && (

@@ -90,7 +90,7 @@ const InboxPage = () => {
 
   return (
     <>
-      <div className="rounded-r-xl bg-[#0098f1] bg-opacity-10 mb-10">
+      <div className="rounded-r-xl bg-[#0098f1] bg-opacity-10">
         <div className="flex justify-between py-5 mx-10">
           <h1 className="text-xl font-semibold">Inbox</h1>
           <div className="flex items-center gap-1 border px-5 rounded-lg border-[#0098F1] bg-white">

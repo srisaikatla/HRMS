@@ -6,7 +6,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { CSVLink } from "react-csv";
 import logo from "../../../employeeAssets/spydlogo.png";
-import profile from "../../../employeeAssets/profile/man.png";
+import profile from "../../../employeeAssets/profile/boy.png";
 
 // Data for Earnings and Deductions
 const earningsData = [
@@ -209,7 +209,7 @@ function Payslip() {
           </h1>
           <div className="flex flex-row justify-between pt-20">
             <div id="company" className="flex w-[300px] flex-row items-start">
-              <img src={logo} className="w-20 h-20" alt="Company Logo" />
+              <img src={logo} className="w-20 h-20" alt="" />
               <div className="ml-2 leading-normal flex flex-col ">
                 <span className="font-medium text-[15px]">
                   SPY D TECHNOLOGY PVT LTD
@@ -233,7 +233,7 @@ function Payslip() {
             id="profile"
             className="flex w-[300px] flex-row items-start pt-10"
           >
-            <img src={profile} className="w-16 h-16" alt="Profile" />
+            <img src={profile} className="w-16 h-16" alt="" />
             <div className=" ml-6 flex flex-col leading-normal ">
               <span className="font-medium text-[15px]">
                 {profileData.name}

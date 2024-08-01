@@ -183,14 +183,14 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="mr-4 ">
+      <div id="main" className="mr-4 h-screen ">
         <div className="ml-5 mb-4">
           <p className="text-[#e65f2b] font-bold text-xl">
             Employees/All Employees
           </p>
         </div>
 
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end  mb-4">
           <div
             id="addemployee"
             className="w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
@@ -218,25 +218,25 @@ function AllEmployees() {
                   />
                 </th>
                 <th className="py-4 px-8 border-b bg-transparent"></th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1] text-white text-center">
                   Name
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-white  text-center">
                   Email-id
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-white text-center">
                   Phone
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-white text-center">
                   Employee ID
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-white text-center">
                   Joining Date
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-white  text-center">
                   Role
                 </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
+                <th className="py-4 px-8 border-b bg-[#0098f1]  text-white text-center">
                   Action
                 </th>
               </tr>

@@ -3,129 +3,137 @@ import { FaPlusCircle } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
 import { CiEdit } from "react-icons/ci";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 const initialUserdata = [
   {
-    "id": 1,
-    "teamname": "Sales Team",
-    "name": "Susie Wills",
-    "position": "Team Lead",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1001,
+    id: 1,
+    teamname: "Sales Team",
+    name: "Susie Wills",
+    position: "Team Lead",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1001,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 2,
-    "teamname": "Marketing Team",
-    "name": "John Smith",
-    "position": "Marketing Manager",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1002,
+    id: 2,
+    teamname: "Marketing Team",
+    name: "John Smith",
+    position: "Marketing Manager",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1002,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 3,
-    "teamname": "Development Team",
-    "name": "Emily Johnson",
-    "position": "Senior Developer",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1003,
+    id: 3,
+    teamname: "Development Team",
+    name: "Emily Johnson",
+    position: "Senior Developer",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1003,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 4,
-    "teamname": "HR Team",
-    "name": "Michael Brown",
-    "position": "HR Specialist",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1004,
+    id: 4,
+    teamname: "HR Team",
+    name: "Michael Brown",
+    position: "HR Specialist",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1004,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 5,
-    "teamname": "Finance Team",
-    "name": "Sophia Davis",
-    "position": "Finance Analyst",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1005,
+    id: 5,
+    teamname: "Finance Team",
+    name: "Sophia Davis",
+    position: "Finance Analyst",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1005,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 6,
-    "teamname": "Sales Team",
-    "name": "Tom Wilson",
-    "position": "Sales Representative",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1006,
+    id: 6,
+    teamname: "Sales Team",
+    name: "Tom Wilson",
+    position: "Sales Representative",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1006,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 7,
-    "teamname": "Marketing Team",
-    "name": "Olivia Martinez",
-    "position": "Content Creator",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1007,
+    id: 7,
+    teamname: "Marketing Team",
+    name: "Olivia Martinez",
+    position: "Content Creator",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1007,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 8,
-    "teamname": "Development Team",
-    "name": "David Lee",
-    "position": "UX Designer",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1008,
+    id: 8,
+    teamname: "Development Team",
+    name: "David Lee",
+    position: "UX Designer",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1008,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 9,
-    "teamname": "HR Team",
-    "name": "Emma Taylor",
-    "position": "Recruiter",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1009,
+    id: 9,
+    teamname: "HR Team",
+    name: "Emma Taylor",
+    position: "Recruiter",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1009,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 10,
-    "teamname": "Finance Team",
-    "name": "Lucas Anderson",
-    "position": "Accountant",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1010,
+    id: 10,
+    teamname: "Finance Team",
+    name: "Lucas Anderson",
+    position: "Accountant",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1010,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 11,
-    "teamname": "Sales Team",
-    "name": "Isabella Walker",
-    "position": "Sales Associate",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1011,
+    id: 11,
+    teamname: "Sales Team",
+    name: "Isabella Walker",
+    position: "Sales Associate",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1011,
     //////////////////////employeeid: uuidv4()
   },
   {
-    "id": 12,
-    "teamname": "Marketing Team",
-    "name": "Aiden Young",
-    "position": "SEO Specialist",
-    "img": "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
-    "employeeId": 1012,
+    id: 12,
+    teamname: "Marketing Team",
+    name: "Aiden Young",
+    position: "SEO Specialist",
+    img: "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721640495/a00f31e718c5819b0fa19af1734a8e0a_tbrrst.png",
+    employeeId: 1012,
     //////////////////////employeeid: uuidv4()
-  }
+  },
 ];
-const EmployeeCard = ({ teamname, name, position, img, employeeId, onEdit, onDelete }) => (
+const EmployeeCard = ({
+  teamname,
+  name,
+  position,
+  img,
+  employeeId,
+  onEdit,
+  onDelete,
+}) => (
   <div className="bg-white text-center p-5 rounded-2xl shadow-md flex flex-col items-center relative">
     <div className="absolute top-2 left-2 bg-[#FCEFE9] text-white text-xs font-bold px-2 py-1 rounded">
       Id: {employeeId}
     </div>
     <div className="absolute top-2 right-2 flex space-x-2">
       <MdEdit
-        className="text-[#E65F2B] text-2xl cursor-pointer"
+        className="text-[#E65F2B] text-lg cursor-pointer"
         onClick={() => onEdit(employeeId)}
       />
       <TiDelete
-        className="text-[#E65F2B] text-2xl cursor-pointer"
+        className="text-[#E65F2B] text-lg cursor-pointer"
         onClick={() => onDelete(employeeId)}
       />
     </div>
@@ -152,7 +160,7 @@ const AllEmployees = () => {
     teamname: "",
     name: "",
     position: "",
-    img: ""
+    img: "",
   });
   const [editMode, setEditMode] = useState(false);
   const [editEmployeeId, setEditEmployeeId] = useState(null);
@@ -192,7 +200,7 @@ const AllEmployees = () => {
     const { name, value } = e.target;
     setNewEmployee((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -203,7 +211,7 @@ const AllEmployees = () => {
       reader.onloadend = () => {
         setNewEmployee((prev) => ({
           ...prev,
-          img: reader.result
+          img: reader.result,
         }));
         setImagePreview(reader.result);
       };
@@ -218,13 +226,15 @@ const AllEmployees = () => {
       teamname: "",
       name: "",
       position: "",
-      img: ""
+      img: "",
     });
     setImagePreview("");
   };
 
   const openEditModal = (employeeId) => {
-    const employeeToEdit = employees.find((employee) => employee.employeeId === employeeId);
+    const employeeToEdit = employees.find(
+      (employee) => employee.employeeId === employeeId
+    );
     setNewEmployee(employeeToEdit);
     setEditMode(true);
     setEditEmployeeId(employeeId);
@@ -240,12 +250,17 @@ const AllEmployees = () => {
   const handleSaveEmployee = () => {
     if (editMode) {
       const updatedEmployees = employees.map((employee) =>
-        employee.employeeId === editEmployeeId ? { ...employee, ...newEmployee } : employee
+        employee.employeeId === editEmployeeId
+          ? { ...employee, ...newEmployee }
+          : employee
       );
       setEmployees(updatedEmployees);
       setFilteredData(updatedEmployees);
     } else {
-      const newEmployeeId = employees.length > 0 ? employees[employees.length - 1].employeeId + 1 : 1;
+      const newEmployeeId =
+        employees.length > 0
+          ? employees[employees.length - 1].employeeId + 1
+          : 1;
       const newEmployeeWithId = { ...newEmployee, employeeId: newEmployeeId };
       const updatedEmployees = [...employees, newEmployeeWithId];
       setEmployees(updatedEmployees);
@@ -256,13 +271,13 @@ const AllEmployees = () => {
   };
 
   const handleDeleteEmployee = () => {
-    const updatedEmployees = employees.filter((employee) => employee.employeeId !== deleteEmployeeId);
+    const updatedEmployees = employees.filter(
+      (employee) => employee.employeeId !== deleteEmployeeId
+    );
     setEmployees(updatedEmployees);
     setFilteredData(updatedEmployees);
     setShowDeleteModal(false);
   };
-
-
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -272,28 +287,31 @@ const AllEmployees = () => {
       teamname: "",
       name: "",
       position: "",
-      img: ""
+      img: "",
     });
     setImagePreview("");
   };
 
   return (
-    <div id="main" className={`p-4  h-[200vh]  ${showModal || showDeleteModal ? "blurred" : ""}`}>
+    <div
+      id="main"
+      className={`p-4  h-[200vh]  ${
+        showModal || showDeleteModal ? "blurred" : ""
+      }`}
+    >
       <div className="ml-3 mb-4 flex flex-col md:flex-row justify-between">
         <div>
-            <span className="flex">Employee</span>
-            <span className="text-[16px] font-medium">
-            Dashboard / Employee
-            </span>
-          </div>
+          <span className="flex">Employee</span>
+          <span className="text-[16px] font-medium">Dashboard / Employee</span>
+        </div>
         <div className="mt-8">
           <button
             type="button"
-            className="flex items-center bg-[#E65F2B] text-white h-[60px] w-full md:w-[230px] rounded-lg shadow hover:bg-[#f5d0c7] justify-center text-xl"
+            className="flex items-center bg-[#E65F2B] text-white h-[60px] w-full md:w-[230px] rounded-lg  justify-center text-lg"
             onClick={openAddModal}
           >
-            <FaPlusCircle className="text-white text-xl" />
-            <span className="ml-2">Add Employee</span>
+            <FaPlusCircle className="text-white font-medium" />
+            <span className="ml-2 font-medium">Add Employee</span>
           </button>
         </div>
       </div>
@@ -325,7 +343,7 @@ const AllEmployees = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {filteredData.map(employee => (
+        {filteredData.map((employee) => (
           <EmployeeCard
             key={employee.employeeId}
             teamname={employee.teamname}
@@ -340,13 +358,16 @@ const AllEmployees = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96 z-50">
-            <h2 className="text-2xl font-bold mb-4 text-[#E65F2B]">{editMode ? "Edit Employee" : "Add New Employee"}</h2>
-            <form>
+        <div className="fixed inset-0 bg-black bg-opacity-50 w-auto flex items-center justify-center  z-50">
+          <div className="bg-white p-6 overflow-y-scroll h-screen  w-[600px] rounded-lg shadow-lg z-50">
+            <h2 className="text-lg font-bold mb-4 text-[#E65F2B]">
+              {editMode ? "Edit Employee" : "Add New Employee"}
+            </h2>
+            <form className="text-lg">
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Team Name
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className=" text-gray-700 flex justify-between">
+                  Team Name
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg" />}
                 </label>
                 <input
                   type="text"
@@ -358,8 +379,9 @@ const AllEmployees = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Name
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className=" text-gray-700 flex justify-between">
+                  Name
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg" />}
                 </label>
                 <input
                   type="text"
@@ -371,8 +393,9 @@ const AllEmployees = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Position
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className=" text-gray-700 flex justify-between">
+                  Position
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg" />}
                 </label>
                 <input
                   type="text"
@@ -384,8 +407,9 @@ const AllEmployees = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 flex justify-between">Image
-                  {editMode && <CiEdit className="text-[#E65F2B] text-xl" />}
+                <label className=" text-gray-700 flex justify-between">
+                  Image
+                  {editMode && <CiEdit className="text-[#E65F2B] text-lg" />}
                 </label>
                 <input
                   type="file"
@@ -422,10 +446,13 @@ const AllEmployees = () => {
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 h-[250px] flex flex-col items-center justify-center text-center">
-            <h2 className="text-2xl text-[#E65F2B] font-medium mb-4">Delete Employee</h2>
-            <p className="mb-4 text-[#E65F2B] text-xl">Are you sure want to delete?</p>
+            <h2 className="text-lg text-[#E65F2B] font-medium mb-4">
+              Delete Employee
+            </h2>
+            <p className="mb-4 text-[#E65F2B] text-lg">
+              Are you sure want to delete?
+            </p>
             <div className="flex justify-center space-x-2 mt-5">
-
               <button
                 className="bg-[#E65F2B] text-white  h-[30px] w-[100px] rounded"
                 onClick={handleDeleteEmployee}
@@ -441,7 +468,6 @@ const AllEmployees = () => {
             </div>
           </div>
         </div>
-
       )}
     </div>
   );

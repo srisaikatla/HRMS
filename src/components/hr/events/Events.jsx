@@ -186,7 +186,7 @@ const Events = () => {
 
   return (
     <>
-      <div className=" h-screen mr-2">
+      <div className="  mr-2">
         <div className="ml-5">
           <p className="text-[#e65f2b] font-bold text-xl">Hr/Events</p>
         </div>
@@ -202,9 +202,9 @@ const Events = () => {
           </button>
         </div>
 
-        <div className="flex md:flex-row flex-col gap-48 mr-10">
-          <div className="w-full bg-white rounded-lg p-4 ">
-            <div className="w-[150%] mx-auto rounded-lg overflow-hidden p-4 border">
+        <div className="flex md:flex-row flex-col mb-10 mr-10">
+          <div className="w-full bg-white ml-10 rounded-lg p-4 ">
+            <div className="w-auto  mx-auto rounded-lg overflow-hidden p-4 border">
               <div className="flex justify-between items-center mb-5">
                 <h2 className="font-medium text-xl text-[#E65F2B] mb-10">
                   {getCurrentDateString()}
@@ -237,7 +237,7 @@ const Events = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-7 gap-4">
+              <div className="grid  grid-cols-7 gap-4">
                 {days.map((day) => (
                   <div
                     key={day}
@@ -326,55 +326,60 @@ const Events = () => {
             </div>
           </div>
         </div>
-        <table className="min-w-full mt-2 ml-2 ">
-          <thead style={{ background: "rgba(0, 152, 241, 0.1)" }} className="">
-            <tr>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center">
-                Day
-              </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center">
-                Date
-              </th>
-              <th className="py-4   border-b bg-[#0098f1] bg-opacity-30 text-center">
-                Event Name
-              </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {Events.map((Event) => (
-              <tr key={Event.id}>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {Event.day}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {Event.date}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center ">
-                  {Event.name}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  <div className="flex justify-center space-x-2">
-                    <button
-                      className="text-blue-500 flex py-3 items-center"
-                      onClick={() => openEditModal(Event.id)}
-                    >
-                      <FiEdit className="mr-1 bg-[#2A8F4C] text-white rounded-md size-6 p-1" />
-                    </button>
-                    <button
-                      className="flex  items-center justify-center"
-                      onClick={() => handleDeleteEvent(Event.id)}
-                    >
-                      <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" />
-                    </button>
-                  </div>
-                </td>
+        <div id="table" className=" overflow-x-scroll">
+          <table className="min-w-full mt-2 ml-2  w-screen overflow-x-scroll text-nowrap border-collapse">
+            <thead
+              style={{ background: "rgba(0, 152, 241, 0.1)" }}
+              className=""
+            >
+              <tr>
+                <th className="py-4 px-4 border-b bg-[#0098f1] text-white text-center">
+                  Day
+                </th>
+                <th className="py-4 px-4 border-b bg-[#0098f1] text-white text-center">
+                  Date
+                </th>
+                <th className="py-4   border-b bg-[#0098f1] text-white  text-center">
+                  Event Name
+                </th>
+                <th className="py-4 px-4 border-b bg-[#0098f1] text-white text-center">
+                  Action
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Events.map((Event) => (
+                <tr key={Event.id}>
+                  <td className="py-2 px-4 border-b bg-transparent text-center">
+                    {Event.day}
+                  </td>
+                  <td className="py-2 px-4 border-b bg-transparent text-center">
+                    {Event.date}
+                  </td>
+                  <td className="py-2 px-4 border-b bg-transparent text-center ">
+                    {Event.name}
+                  </td>
+                  <td className="py-2 px-4 border-b bg-transparent text-center">
+                    <div className="flex justify-center space-x-2">
+                      <button
+                        className="text-blue-500 flex py-3 items-center"
+                        onClick={() => openEditModal(Event.id)}
+                      >
+                        <FiEdit className="mr-1 bg-[#2A8F4C] text-white rounded-md size-6 p-1" />
+                      </button>
+                      <button
+                        className="flex  items-center justify-center"
+                        onClick={() => handleDeleteEvent(Event.id)}
+                      >
+                        <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {isModalOpen && (

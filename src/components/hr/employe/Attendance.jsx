@@ -341,13 +341,13 @@ function Attendance() {
           <table className="min-w-full bg-white">
             <thead>
               <tr>
-                <th className="py-2 px-4 border-b bg-[#0098f1] text-center sticky left-0 z-20 w-[170px] h-[50px]">
+                <th className="py-2 px-4 border-b bg-[#0098f1] text-white text-center sticky left-0 z-20 w-[170px] h-[50px]">
                   Employee
                 </th>
                 {days.map((day) => (
                   <th
                     key={day}
-                    className="py-2 px-4 border border-b border-r border-l bg-[#0098f1]  text-center w-[63px] h-[50px] border-white"
+                    className="py-2 px-4 border border-b border-r text-white border-l bg-[#0098f1]  text-center w-[63px] h-[50px] border-white"
                     style={{ zIndex: 10 }} // Ensure table headers have higher z-index
                   >
                     {day}
@@ -361,7 +361,7 @@ function Attendance() {
                   key={employee.id}
                   className="bg-[#0098f1] border-b border border-white  border-r border-l"
                 >
-                  <td className="py-2 px-4 bg-[#0098f1] border-b text-center text-nowrap sticky left-0 z-20  w-[170px] h-[50px]">
+                  <td className="py-2 px-4 bg-[#0098f1] text-white border-b text-center text-nowrap sticky left-0 z-20  w-[170px] h-[50px]">
                     {employee.name}
                   </td>
                   {days.map((day) => {
