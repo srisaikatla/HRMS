@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
 import Holiday from "./options/holiday/Holiday";
+import BankAccountDetails from "./options/bankAccountDetails.jsx/BankAccountDetails";
 
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -164,6 +165,19 @@ const EmployeeSideBar = () => {
         <div className="">
           {activeTab === "Rules" ? (
             <Rules />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      <div
+        className={`flex-1 overflow-y-auto transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
+      >
+        <div className="">
+          {activeTab === "Bank Account Details" ? (
+            <BankAccountDetails />
           ) : (
             ""
           )}
