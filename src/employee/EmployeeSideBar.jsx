@@ -6,6 +6,7 @@ import EmployeeNavBar from "./EmployeeNavBar";
 import Payslips from "./options/payslips/Payslip";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import Events from "./options/events/Events";
+
 import {
   FaUsers,
   FaCalendarAlt,
@@ -102,8 +103,10 @@ const EmployeeSideBar = () => {
                 key={index}
                 className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer
                    ${
+
                   activeTab === option.title ? "bg-white text-[#ef5f2b]" : ""
                 }`}
+
                 onClick={() => handleOptionClick(option)}
               >
                 <div className="p-3 pl-4 text-[16px] flex items-center">
@@ -122,7 +125,7 @@ const EmployeeSideBar = () => {
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
-        <div className="text-2xl  font-bold">
+          <div className="text-2xl  font-bold">
           {activeTab === "Payslips" ? (
             <Payslips />
           ) : (
@@ -165,8 +168,18 @@ const EmployeeSideBar = () => {
           {activeTab === "Events" ? (
             <Events />
           ) : (
+
             ""
           )}
+        </div>
+      </div>
+      <div
+        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
+      >
+        <div className="text-2xl  font-bold">
+          {activeTab === "All Employees" ? <AllEmployees /> : ""}
         </div>
       </div>
     </div>

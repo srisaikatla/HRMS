@@ -183,7 +183,7 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="">
+      <div id="main" className="mr-4 ">
         <div className="ml-5 mb-4">
           <p className="text-[#e65f2b] font-bold text-xl">
             Employees/All Employees
@@ -205,8 +205,8 @@ function AllEmployees() {
             </button>
           </div>
         </div>
-        <div id="table" className="w-auto">
-          <table className="min-w-full overflow-x-scroll text-nowrap ">
+        <div id="table" className=" overflow-x-scroll">
+          <table className="min-w-full w-screen overflow-x-scroll text-nowrap ">
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b bg-transparent text-center">
