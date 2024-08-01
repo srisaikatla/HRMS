@@ -24,6 +24,7 @@ import {
 import { SiHdfcbank } from "react-icons/si";
 import Holiday from "./options/holiday/Holiday";
 import BankAccountDetails from "./options/bankAccountDetails.jsx/BankAccountDetails";
+import Tickets from "./options/tickets/Tickets";
 
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -119,7 +120,7 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+        className={`flex-1 overflow-y-auto transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
@@ -132,7 +133,7 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+        className={`flex-1 overflow-y-auto transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
@@ -145,7 +146,7 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+        className={`flex-1 overflow-y-auto transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
@@ -178,6 +179,19 @@ const EmployeeSideBar = () => {
         <div className="">
           {activeTab === "Bank Account Details" ? (
             <BankAccountDetails />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      <div
+        className={`flex-1 overflow-y-auto transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
+      >
+        <div className="">
+          {activeTab === "Tickets" ? (
+            <Tickets />
           ) : (
             ""
           )}
