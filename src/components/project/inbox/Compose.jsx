@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { GoBold } from "react-icons/go";
 import { RiItalic } from "react-icons/ri";
@@ -83,11 +82,9 @@ const Compose = ({ onSendMessage, onSaveDraft }) => {
     setCcList(ccList.filter((_, i) => i !== index));
   };
 
-
   return (
-
-    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE] ">
-      <div className="flex justify-between py-5 mx-10">
+    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE]">
+      <div className="m-5">
         <h1 className="text-xl font-semibold">Compose</h1>
         <form
           action=""
