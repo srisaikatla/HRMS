@@ -374,7 +374,7 @@ const AllEmployees = () => {
                   name="teamname"
                   value={newEmployee.teamname}
                   onChange={handleModalInputChange}
-                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full"
+                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full font-semibold text-lg"
                   required
                 />
               </div>
@@ -388,7 +388,7 @@ const AllEmployees = () => {
                   name="name"
                   value={newEmployee.name}
                   onChange={handleModalInputChange}
-                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full"
+                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full font-semibold text-lg"
                   required
                 />
               </div>
@@ -402,7 +402,7 @@ const AllEmployees = () => {
                   name="position"
                   value={newEmployee.position}
                   onChange={handleModalInputChange}
-                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full"
+                  className="bg-transparent border border-[#E65F2B] p-2 rounded w-full font-semibold text-lg"
                   required
                 />
               </div>
@@ -414,7 +414,7 @@ const AllEmployees = () => {
                 <input
                   type="file"
                   onChange={handleFileChange}
-                  className="w-full p-2 border border-[#E65F2B] rounded mt-2 text-white file:bg-orange-500 file:border-[#E65F2B] file:text-white file:rounded-lg"
+                  className="w-full p-2 border border-[#E65F2B] rounded mt-2 text-white file:bg-orange-500 file:border-[#E65F2B] file:text-white file:rounded-lg font-semibold text-lg"
                 />
                 {imagePreview && (
                   <img
@@ -426,13 +426,13 @@ const AllEmployees = () => {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="bg-[#E65F2B] text-white  h-[40px] w-[120px] rounded mr-2"
+                  className="bg-[#E65F2B] text-white font-semibold text-lg  h-[40px] w-[120px] rounded mr-2"
                   onClick={handleSaveEmployee}
                 >
                   {editMode ? "Update" : "Add"}
                 </button>
                 <button
-                  className="bg-transparent border border-[#E65F2B] text-[#E65F2B] h-[40px] w-[120px] rounded "
+                  className="bg-transparent font-semibold text-lg border border-[#E65F2B] text-[#E65F2B] h-[40px] w-[120px] rounded "
                   onClick={handleCloseModal}
                 >
                   Cancel
@@ -454,13 +454,13 @@ const AllEmployees = () => {
             </p>
             <div className="flex justify-center space-x-2 mt-5">
               <button
-                className="bg-[#E65F2B] text-white  h-[30px] w-[100px] rounded"
+                className="bg-[#E65F2B] text-lg font-semibold text-white  h-[30px] w-[100px] rounded"
                 onClick={handleDeleteEmployee}
               >
                 Delete
               </button>
               <button
-                className="bg-transparent border border-[#E65F2B] text-[#E65F2B] h-[30px] w-[100px] rounded"
+                className="bg-transparent text-lg font-semibold border border-[#E65F2B] text-[#E65F2B] h-[30px] w-[100px] rounded"
                 onClick={() => setShowDeleteModal(false)}
               >
                 Cancel

@@ -7,12 +7,17 @@ import Draft from "./Draft";
 import Outbox from "./Outbox";
 import Starred from "./Starred";
 import Trash from "./Trash";
+import MessageDetailsPage from "./MessageDetailsPage";
 
 const Inbox = () => {
   const [activePage, setActivePage] = useState("Inbox");
+  const [sentMessage, setSentMessage] = useState([]);
+  const [draftMessage, setDraftMessage] = useState([]);
+  const [selectedMessage, setSelectedMessage] = useState(null);
 
   const handleItemClick = (item) => {
     setActivePage(item);
+    setSelectedMessage(null);
   };
 
   return (

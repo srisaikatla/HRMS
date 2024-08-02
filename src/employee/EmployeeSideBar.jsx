@@ -4,6 +4,8 @@ import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Payslips from "./options/payslips/Payslip";
 import AllEmployees from "./options/allEmployees/AllEmployees";
+import Events from "./options/events/Events";
+
 import {
   FaUsers,
   FaCalendarAlt,

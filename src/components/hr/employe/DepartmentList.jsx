@@ -1,3 +1,137 @@
+// import React, { useState } from "react";
+// import { FiPlusCircle } from "react-icons/fi";
+// import { MdDelete } from "react-icons/md";
+// import accept from "../../../assets/hr/employee/leaves/accept.png";
+// import reject from "../../../assets/hr/employee/leaves/reject.png";
+// import Delete from "../../../assets/hr/employee/leaves/delete.png";
+// const sampleData = [
+//   {
+//     id: 1,
+//     dp: "https://via.placeholder.com/40",
+//     name: "John Doe",
+//     email: "john@example.com",
+//     phone: "123-456-7890",
+//     employeeId: "EMP001",
+//     joiningDate: "2023-01-01",
+//     role: "Developer",
+//     leaveType: "Sick Leave",
+//     date: "2023-05-15",
+//     reason: "Fever",
+//     department: "Engineering",
+//     departmentHead: "Jack Johnson",
+//     totalEmployees: 10,
+//   },
+//   {
+//     id: 2,
+//     dp: "https://via.placeholder.com/40",
+//     name: "Jane Smith",
+//     email: "jane@example.com",
+//     phone: "098-765-4321",
+//     employeeId: "EMP002",
+//     joiningDate: "2023-02-01",
+//     role: "Designer",
+//     leaveType: "Casual Leave",
+//     date: "2023-07-20",
+//     reason: "Travel",
+//     department: "Design",
+//     departmentHead: "Emma Watson",
+//     totalEmployees: 8,
+//   },
+// ];
+
+// function DepartmentList() {
+//   return (
+//     <>
+//       <div id="main" className="h-screen w-auto bg-transparentp-4 mr-2 ml-2">
+//         <div className="ml-5">
+//           <p className="text-[#e65f2b] font-bold text-xl">
+//             Employees/DepartmentList
+//           </p>
+//         </div>
+
+//         <div className="flex justify-end mb-4">
+//           <div
+//             id="addemployee"
+//             className="w-auto inline-block bg-[#0098f1] h-[48px] rounded-lg justify-end items-center"
+//           >
+//             <button
+//               type="button"
+//               className="flex justify-center items-center w-[228px] h-[48px] text-white"
+//             >
+//               <MdDelete className="text-2xl font-bold mr-2" /> Add New
+//               Department
+//             </button>
+//           </div>
+//         </div>
+//         <div id="table" className="overflow-x-auto">
+//           <table className="min-w-full">
+//             <thead>
+//               <tr>
+//                 {/* <th className="py-4 px-16 border-b bg-transparent"></th> */}
+
+//                 <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
+//                   Department Name
+//                 </th>
+//                 <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
+//                   Department Head
+//                 </th>
+//                 <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
+//                   Total Employees
+//                 </th>
+
+//                 <th className="py-4 px-16 border-b bg-[#0098f1]  text-center">
+//                   Action
+//                 </th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {sampleData.map((employee) => (
+//                 <tr key={employee.id} className="">
+//                   {/* <td className="py-2 px-4 border-b bg-transparent text-center">
+//                     <img
+//                       src={employee.dp}
+//                       alt="DP"
+//                       className="w-10 h-10 rounded-full"
+//                     />
+//                   </td> */}
+
+//                   <td className="py-2 px-4 border-b bg-transparent text-center">
+//                     {employee.department}
+//                   </td>
+//                   <td className="py-2 px-4 border-b bg-transparent text-center">
+//                     {employee.departmentHead}
+//                   </td>
+//                   <td className="py-2 px-4 border-b bg-transparent text-center">
+//                     {employee.totalEmployees}
+//                   </td>
+
+//                   <td className="py-2 px-4 border-b pt-6 bg-transparent text-center flex items-center justify-center space-x-2">
+//                     <button className="flex items-center">
+//                       <img
+//                         src={accept}
+//                         alt="Accept"
+//                         className="w-6 h-6 mr-1 "
+//                       />
+//                     </button>
+//                     <button className="flex items-center">
+//                       <img
+//                         src={Delete}
+//                         alt="Reject"
+//                         className="w-6 h-6 mr-1 bg-[#FF3636]"
+//                       />
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default DepartmentList;
 import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -48,8 +182,8 @@ function DepartmentList() {
   const [departments, setDepartments] = useState(initialData);
   const [editId, setEditId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
-    useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+
   const [errors, setErrors] = useState({});
 
   const handleAddDepartment = () => {
@@ -72,12 +206,11 @@ function DepartmentList() {
   const handleSaveDepartment = () => {
     const newErrors = {};
 
-    if (!departmentName)
-      newErrors.departmentName = "Department Name is required.";
-    if (!departmentHead)
-      newErrors.departmentHead = "Department Head is required.";
-    if (!totalEmployees)
-      newErrors.totalEmployees = "Total Employees is required.";
+
+    if (!departmentName) newErrors.departmentName = "Department Name is required.";
+    if (!departmentHead) newErrors.departmentHead = "Department Head is required.";
+    if (!totalEmployees) newErrors.totalEmployees = "Total Employees is required.";
+
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -86,22 +219,21 @@ function DepartmentList() {
 
     if (editId !== null) {
       // Edit existing department
-      setDepartments(
-        departments.map((department) =>
-          department.id === editId
-            ? {
-                ...department,
-                department: departmentName,
-                departmentHead: departmentHead,
-                totalEmployees: parseInt(totalEmployees, 10) || 0,
-              }
-            : department
-        )
-      );
+
+      setDepartments(departments.map(department =>
+        department.id === editId
+          ? {
+              ...department,
+              department: departmentName,
+              departmentHead: departmentHead,
+              totalEmployees: parseInt(totalEmployees, 10) || 0,
+            }
+          : department
+      ));
     } else {
       // Add new department
-      const newId =
-        departments.length > 0 ? departments[departments.length - 1].id + 1 : 1;
+      const newId = departments.length > 0 ? departments[departments.length - 1].id + 1 : 1;
+
 
       const newDepartment = {
         id: newId,
@@ -120,9 +252,9 @@ function DepartmentList() {
   };
 
   const handleEdit = (id) => {
-    const departmentToEdit = departments.find(
-      (department) => department.id === id
-    );
+
+    const departmentToEdit = departments.find(department => department.id === id);
+
     if (departmentToEdit) {
       setEditId(id);
       setDepartmentName(departmentToEdit.department);
@@ -134,7 +266,9 @@ function DepartmentList() {
   };
 
   const handleDelete = (id) => {
-    setDepartments(departments.filter((department) => department.id !== id));
+
+    setDepartments(departments.filter(department => department.id !== id));
+
     setShowDeleteSuccessMessage(true);
     setTimeout(() => setShowDeleteSuccessMessage(false), 3000); // Hide message after 3 seconds
   };
@@ -214,10 +348,9 @@ function DepartmentList() {
               {editId ? "Edit Department" : "Add Department"}
             </h2>
             <div className="mb-4">
-              <label
-                className="block mb-2 text-sm font-roboto flex justify-between"
-                htmlFor="departmentName"
-              >
+
+              <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="departmentName">
+
                 Department Name
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -233,10 +366,9 @@ function DepartmentList() {
               )}
             </div>
             <div className="mb-4">
-              <label
-                className="block mb-2 text-sm font-roboto flex justify-between"
-                htmlFor="departmentHead"
-              >
+
+              <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="departmentHead">
+
                 Department Head
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -252,10 +384,9 @@ function DepartmentList() {
               )}
             </div>
             <div className="mb-4">
-              <label
-                className="block mb-2 text-sm font-roboto flex justify-between"
-                htmlFor="totalEmployees"
-              >
+
+              <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="totalEmployees">
+
                 Total Employees
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -295,11 +426,9 @@ function DepartmentList() {
             <h2 className="text-3xl mb-4">
               <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
             </h2>
-            <p>
-              {editId
-                ? "Department Updated Successfully"
-                : "Department Added Successfully"}
-            </p>
+
+            <p>{editId ? "Department Updated Successfully" : "Department Added Successfully"}</p>
+
           </div>
         </div>
       )}
