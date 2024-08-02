@@ -29,7 +29,7 @@ function NavBar({ onSearchChange }) {
     <div id="main" className=" p-2  ">
       <div
         id="topbar"
-        className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-center"
+        className="flex flex-row items-center  pt-2 mx-2 gap-x-10 justify-center"
       >
         <div className="w-auto ml-[210px] h-[48px] bg-[#0098f1] rounded-xl flex justify-center items-center">
           <input

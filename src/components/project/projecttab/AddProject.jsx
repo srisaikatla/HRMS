@@ -53,7 +53,7 @@ const AddProject = () => {
   return (
     <>
       {/* <SideBar /> */}
-      <div className="pt-4">
+      <div className="p-4">
         <div className="ml-5">
           <p className="text-[#e65f2b] font-bold text-xl">
             Projects/Add Project

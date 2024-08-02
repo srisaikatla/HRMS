@@ -10,7 +10,7 @@ const InboxSidebar = ({ onItemClick }) => {
   };
 
   return (
-    <div className="w-40 mb-10 bg-[#0098f1] bg-opacity-10 rounded-l-xl">
+    <div className="w-40 mb-10 rounded-l-xl">
       <button
         onClick={() => handleItemClick("Compose")}
         className="my-5 mx-3 rounded-md w-[130px] bg-[#E65F2B] border hover:bg-white hover:text-[#E65F2B] border-[#E65F2B] text-white py-2 "

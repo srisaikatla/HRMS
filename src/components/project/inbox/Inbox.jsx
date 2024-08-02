@@ -16,7 +16,7 @@ const Inbox = () => {
   };
 
   return (
-    <div className="w-auto  ">
+    <div className="w-auto h-auto ">
       <h1 className="text-[#E65F2B] text-xl font-bold px-2">Inbox</h1>
       <div className="gap-2 px-2  justify-center items-center flex">
         <InboxSidebar onItemClick={handleItemClick} />

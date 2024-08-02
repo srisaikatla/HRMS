@@ -157,8 +157,8 @@ function DepartmentList() {
         </button>
       </div>
 
-      <div id="table" className="overflow-x-auto">
-        <table className="min-w-full rounded-lg shadow-md">
+      <div id="table" className="overflow-x-scroll">
+        <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
           <thead className="sticky top-0">
             <tr>
               <th className="py-3 px-4 border-b bg-[#0098f1] text-white text-left">
