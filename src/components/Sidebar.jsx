@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../assets/hr/employee/profile/profile.jpg";
@@ -13,7 +13,7 @@ import AccountExpenses from "../components/hr/account/AccountExpenses";
 import AccountInvoice from "../components/hr/account/AccountInvoice";
 import ReportInvoice from "../components/hr/report/ReportInvoice";
 import ReportExpenses from "../components/hr/report/ReportExpenses";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ForHrSidebar from "./ForHrSidebar";
 import ForProjectSidebar from "./ForProjectSidebar";
 import HrDashboard from "../components/hr/hr_dashboard/HRDashboard";
@@ -30,6 +30,7 @@ import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
+import { getUser } from "../State/Auth/Action";
 import {
   FaTachometerAlt,
   FaCalendarAlt,
@@ -61,6 +62,9 @@ const SideBar = () => {
   const [showAuthOptions, setShowAuthOptions] = useState(false);
   const [selectedHeader, setSelectedHeader] = useState("Hr");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const jwt = localStorage.getItem("jwt");
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
@@ -111,7 +115,7 @@ const SideBar = () => {
   ];
 
   const authOptions = [
-    { title: "Login", link: "/login", icon: <FaBuilding /> },
+    { title: "Logout", link: "/login", icon: <FaBuilding /> },
     { title: "Register", link: "/register", icon: <FaBuilding /> },
     {
       title: "Forget Password",
@@ -149,6 +153,12 @@ const SideBar = () => {
     }
   };
 
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUser(jwt));
+    }
+  }, [jwt, auth.jwt, dispatch]);
+
   const handleHeaderClick = (header) => {
     setSelectedHeader(header);
   };
@@ -165,9 +175,8 @@ const SideBar = () => {
     <div className="relative ">
       <NavBar />
       <div
-        className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${
-          isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } transition-all duration-300 ease-in-out`}
+        className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${isSidebarCollapsed ? "w-16" : "w-[240px]"
+          } transition-all duration-300 ease-in-out`}
       >
         <div className="flex justify-between items-center pt-10  pb-5 pl-5">
           <IoMdMenu
@@ -183,7 +192,7 @@ const SideBar = () => {
                 className="rounded-full w-[50px] h-[50px]"
                 alt="Profile"
               />
-              <p className="text-[16px] pl-2">Welcome User</p>
+              <p className="text-[16px] pl-2">Welcome {auth.user ? auth.user.firstName : "user"}</p>
             </div>
           )}
         </div>
@@ -192,21 +201,19 @@ const SideBar = () => {
         {!isSidebarCollapsed && (
           <div className="text-[16px] text-white flex justify-around pr-5 pb-3 items-center">
             <span
-              className={`cursor-pointer ${
-                selectedHeader === "Hr"
-                  ? "underline decoration-2 underline-offset-8"
-                  : ""
-              }`}
+              className={`cursor-pointer ${selectedHeader === "Hr"
+                ? "underline decoration-2 underline-offset-8"
+                : ""
+                }`}
               onClick={() => handleHeaderClick("Hr")}
             >
               Hr
             </span>
             <span
-              className={`cursor-pointer ${
-                selectedHeader === "Project"
-                  ? "underline decoration-3  underline-offset-8"
-                  : ""
-              }`}
+              className={`cursor-pointer ${selectedHeader === "Project"
+                ? "underline decoration-3  underline-offset-8"
+                : ""
+                }`}
               onClick={() => handleHeaderClick("Project")}
             >
               Projects
@@ -218,11 +225,10 @@ const SideBar = () => {
             {options.map((option, index) => (
               <div key={index}>
                 <div
-                  className={`flex items-center p-3 my-1 px-4 cursor-pointer ${
-                    activeTab === option.title
-                      ? "bg-white rounded-r-[10px] text-[#ef5f2b]"
-                      : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                  }`}
+                  className={`flex items-center p-3 my-1 px-4 cursor-pointer ${activeTab === option.title
+                    ? "bg-white rounded-r-[10px] text-[#ef5f2b]"
+                    : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                    }`}
                   onClick={() => handleOptionClick(option)}
                 >
                   <span className="text-xl">{option.icon}</span>
@@ -267,11 +273,10 @@ const SideBar = () => {
                     {employeeOptions.map((empOption, empIndex) => (
                       <div
                         key={empIndex}
-                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${
-                          activeTab === empOption.title
-                            ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-60 hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                        }`}
+                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${activeTab === empOption.title
+                          ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-60 hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                          }`}
                         onClick={() => handleOptionClick(empOption)}
                       >
                         <span className="text-xl">{empOption.icon}</span>
@@ -287,11 +292,10 @@ const SideBar = () => {
                     {projectOptions.map((projOption, projIndex) => (
                       <div
                         key={projIndex}
-                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${
-                          activeTab === projOption.title
-                            ? "bg-white  rounded-r-[10px] text-[#ef5f2b]"
-                            : "hover:bg-white  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                        }`}
+                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${activeTab === projOption.title
+                          ? "bg-white  rounded-r-[10px] text-[#ef5f2b]"
+                          : "hover:bg-white  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                          }`}
                         onClick={() => handleOptionClick(projOption)}
                       >
                         <span className="text-xl">{projOption.icon}</span>
@@ -305,11 +309,10 @@ const SideBar = () => {
                         {projectDropdownOptions.map((projOption, projIndex) => (
                           <div
                             key={projIndex}
-                            className={`flex items-center p-3 my-1 px-4 cursor-pointer ${
-                              activeTab === projOption.title
-                                ? "bg-white rounded-r-[10px] text-[#ef5f2b]"
-                                : "hover:bg-white  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                            }`}
+                            className={`flex items-center p-3 my-1 px-4 cursor-pointer ${activeTab === projOption.title
+                              ? "bg-white rounded-r-[10px] text-[#ef5f2b]"
+                              : "hover:bg-white  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                              }`}
                             onClick={() => handleOptionClick(projOption)}
                           >
                             <span className="text-xl">{projOption.icon}</span>
@@ -327,11 +330,10 @@ const SideBar = () => {
                     {reportOptions.map((reportOption, reportIndex) => (
                       <div
                         key={reportIndex}
-                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${
-                          activeTab === reportOption.title
-                            ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-60 hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                        }`}
+                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${activeTab === reportOption.title
+                          ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-60 hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                          }`}
                         onClick={() => handleOptionClick(reportOption)}
                       >
                         <span className="text-xl">{reportOption.icon}</span>
@@ -347,11 +349,10 @@ const SideBar = () => {
                     {accountOptions.map((accountOption, accountIndex) => (
                       <div
                         key={accountIndex}
-                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${
-                          activeTab === accountOption.title
-                            ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-60 hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                        }`}
+                        className={`flex items-center p-3 my-1 px-4 cursor-pointer ${activeTab === accountOption.title
+                          ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-60 hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                          }`}
                         onClick={() => handleOptionClick(accountOption)}
                       >
                         <span className="text-xl">{accountOption.icon}</span>
@@ -367,11 +368,10 @@ const SideBar = () => {
                     {authOptions.map((authOption, authIndex) => (
                       <div
                         key={authIndex}
-                        className={`flex items-center my-1 p-3 px-4 cursor-pointer ${
-                          activeTab === authOption.title
-                            ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-60  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                        }`}
+                        className={`flex items-center my-1 p-3 px-4 cursor-pointer ${activeTab === authOption.title
+                          ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-60  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                          }`}
                         onClick={() => handleOptionClickNavigate(authOption)}
                       >
                         <span className="text-xl">{authOption.icon}</span>
@@ -392,11 +392,10 @@ const SideBar = () => {
             {projectOptions.map((option, index) => (
               <div key={index}>
                 <div
-                  className={`flex items-center p-3 px-4 my-1  cursor-pointer ${
-                    activeTab === option.title
-                      ? "bg-white rounded-r-[10px] text-[#ef5f2b]"
-                      : "hover:bg-white  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
-                  }`}
+                  className={`flex items-center p-3 px-4 my-1  cursor-pointer ${activeTab === option.title
+                    ? "bg-white rounded-r-[10px] text-[#ef5f2b]"
+                    : "hover:bg-white  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
+                    }`}
                   onClick={() => handleOptionClick(option)}
                 >
                   <span className="text-xl">{option.icon}</span>
@@ -410,9 +409,8 @@ const SideBar = () => {
         )}
       </div>
       <div
-        className={`flex-1 ml-4 transition-all ${
-          isSidebarCollapsed ? "ml-[100px]" : "ml-[240px]"
-        }`}
+        className={`flex-1 ml-4 transition-all ${isSidebarCollapsed ? "ml-[100px]" : "ml-[240px]"
+          }`}
       >
         {/* Content of the right-side components */}
         {activeTab === "Hr Dashboard" && <HrDashboard />}
