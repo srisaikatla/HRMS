@@ -1,166 +1,139 @@
-// export default AllEmployees;
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
+import axios from "axios";
 import uncheckbox from "../../../assets/hr/employee/checkbox/uncheck.png";
 import checkbox from "../../../assets/hr/employee/checkbox/checkbox.png";
-// import Girl from "../../../assets/hr/profile/man.jpg"
-
-const initialEmployeeData = [
-  {
-    id: 1,
-    // dp: Girl,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "123-456-7890",
-    employeeId: "EMP001",
-    joiningDate: "2023-01-01",
-    role: "Developer",
-  },
-  {
-    id: 2,
-    // dp: Girl,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    phone: "098-765-4321",
-    employeeId: "EMP002",
-    joiningDate: "2023-02-01",
-    role: "Designer",
-  },
-  // Add more sample data as needed
-];
+import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
 
 function AllEmployees() {
+  const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState({});
   const [headerChecked, setHeaderChecked] = useState(false);
-  const [employees, setEmployees] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [newEmployee, setNewEmployee] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     role: "",
     employeeId: "",
-    joiningDate: "",
-    // dp: Girl, // Default placeholder image
+    joinDate: "",
   });
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
-    useState(false);
   const [editEmployeeId, setEditEmployeeId] = useState(null);
 
   useEffect(() => {
-    const storedEmployeeData = JSON.parse(localStorage.getItem("employees"));
-    if (storedEmployeeData) {
-      setEmployees(storedEmployeeData);
-    } else {
-      setEmployees(initialEmployeeData);
-    }
+    fetchEmployees();
   }, []);
 
-  const saveEmployeeDataToLocalStorage = (data) => {
-    localStorage.setItem("employees", JSON.stringify(data));
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setEditEmployeeId(null);
-    setNewEmployee({
-      firstname: "",
-      lastname: "",
-      email: "",
-      phone: "",
-      role: "",
-      employeeId: "",
-      joiningDate: "",
-      // dp: Girl,
-    });
+  const fetchEmployees = async () => {
+    try {
+      const response = await axios.get("http://localhost:8085/employee/getAllEmployee");
+      setEmployees(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+      setErrorMessage("Error fetching employees");
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewEmployee((prevEmployee) => ({
-      ...prevEmployee,
+    setNewEmployee((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
-  const handleAddEmployee = () => {
-    if (editEmployeeId !== null) {
-      const updatedEmployees = employees.map((employee) => {
-        if (employee.id === editEmployeeId) {
-          return {
-            ...employee,
-            name: newEmployee.firstname + " " + newEmployee.lastname,
-            email: newEmployee.email,
-            phone: newEmployee.phone,
-            role: newEmployee.role,
-            employeeId: newEmployee.employeeId,
-            joiningDate: newEmployee.joiningDate,
-            dp: newEmployee.dp,
-          };
-        }
-        return employee;
-      });
-      setEmployees(updatedEmployees);
-      saveEmployeeDataToLocalStorage(updatedEmployees);
-      setShowSuccessMessage(true);
-    } else {
-      const newEmployeeObject = {
-        id:
-          employees.length > 0
-            ? Math.max(...employees.map((employee) => employee.id)) + 1
-            : 1,
-        name: newEmployee.firstname + " " + newEmployee.lastname,
-        email: newEmployee.email,
-        phone: newEmployee.phone,
-        role: newEmployee.role,
-        employeeId: newEmployee.employeeId,
-        joiningDate: newEmployee.joiningDate,
-        dp: newEmployee.dp,
-      };
-      setEmployees([...employees, newEmployeeObject]);
-      saveEmployeeDataToLocalStorage([...employees, newEmployeeObject]);
-      setShowSuccessMessage(true);
+  const generatePassword = (length = 12) => {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      password += characters[randomIndex];
     }
-
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
-
-    closeModal();
+    return password;
   };
 
-  const openEditModal = (employeeId) => {
-    const employeeToEdit = employees.find(
-      (employee) => employee.id === employeeId
-    );
-    setEditEmployeeId(employeeId);
-    const nameParts = employeeToEdit.name.split(" ");
+  const handleAddEmployee = async () => {
+    try {
+      const password = generatePassword();
+      const response = await axios.post("http://localhost:8085/employee/register", {
+        ...newEmployee,
+        password,
+      });
+      setEmployees((prev) => [...prev, response.data]);
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+      closeModal();
+      fetchEmployees();
+    } catch (error) {
+      console.error("Error adding employee:", error);
+      setErrorMessage("Error adding employee");
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+  };
+
+  const handleEditEmployee = (employee) => {
     setNewEmployee({
-      firstname: nameParts[0],
-      lastname: nameParts[1] ? nameParts[1] : "",
-      email: employeeToEdit.email,
-      phone: employeeToEdit.phone,
-      role: employeeToEdit.role,
-      employeeId: employeeToEdit.employeeId,
-      joiningDate: employeeToEdit.joiningDate,
-      dp: employeeToEdit.dp,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phoneNumber: employee.phoneNumber,
+      role: employee.role,
+      employeeId: employee.employeeId,
+      joinDate: employee.joinDate,
     });
-    setIsModalOpen(true);
+    setEditEmployeeId(employee.employeeId);
+    setShowModal(true);
   };
 
-  const handleDeleteEmployee = (employeeId) => {
-    const updatedEmployees = employees.filter(
-      (employee) => employee.id !== employeeId
-    );
-    setEmployees(updatedEmployees);
-    saveEmployeeDataToLocalStorage(updatedEmployees);
-    setShowDeleteSuccessMessage(true);
 
-    setTimeout(() => {
-      setShowDeleteSuccessMessage(false);
-    }, 3000);
+  const handleUpdateEmployee = async () => {
+    try {
+      const response = await axios.put(`http://localhost:8085/employee/update/${editEmployeeId}`, newEmployee);
+      setEmployees((prev) =>
+        prev.map((emp) => (emp.employeeId === editEmployeeId ? response.data : emp))
+      );
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+      closeModal();
+    } catch (error) {
+      console.error("Error updating employee:", error);
+      setErrorMessage("Error updating employee");
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+  };
+
+  const handleDeleteEmployee = async (employeeId) => {
+    try {
+      await axios.delete(`http://localhost:8085/employee/delete/${employeeId}`);
+      setEmployees((prev) => prev.filter((employee) => employee.employeeId !== employeeId));
+      setShowDeleteSuccessMessage(true);
+      setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      setErrorMessage("Error deleting employee");
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setNewEmployee({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      role: "",
+      employeeId: "",
+      joinDate: "",
+    });
+    setEditEmployeeId(null);
   };
 
   const handleCheckboxChange = (id) => {
@@ -169,6 +142,8 @@ function AllEmployees() {
       [id]: !prevState[id],
     }));
   };
+
+
 
   const handleHeaderCheckboxChange = () => {
     const newCheckedState = !headerChecked;
@@ -198,193 +173,182 @@ function AllEmployees() {
             <button
               type="button"
               className="flex justify-center items-center w-[186px] h-[48px] text-white"
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => setShowModal(true)}
             >
               <FiPlusCircle className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
               Add Employee
             </button>
           </div>
         </div>
+
         <div id="table" className=" overflow-x-scroll">
-          <table className="min-w-full w-screen overflow-x-scroll text-nowrap ">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border-b bg-transparent text-center">
-                  <img
-                    src={headerChecked ? checkbox : uncheckbox}
-                    alt="Header Checkbox"
-                    onClick={handleHeaderCheckboxChange}
-                    className="bg-transparent"
-                  />
-                </th>
-                <th className="py-4 px-8 border-b bg-transparent"></th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Name
-                </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Email-id
-                </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Phone
-                </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Employee ID
-                </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Joining Date
-                </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Role
-                </th>
-                <th className="py-4 px-8 border-b bg-[#0098f1]  text-center">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map((employee) => (
-                <tr key={employee.id}>
-                  <td className="py-2 px-4 border-b text-center bg-transparent">
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
+              <thead className="bg-[#0098f1] ">
+                <tr>
+                  <th className="py-2 px-4 border-b bg-transparent text-center">
                     <img
-                      src={isChecked[employee.id] ? checkbox : uncheckbox}
-                      alt="Checkbox"
-                      onClick={() => handleCheckboxChange(employee.id)}
+                      src={headerChecked ? checkbox : uncheckbox}
+                      alt="Header Checkbox"
+                      onClick={handleHeaderCheckboxChange}
+                      className="bg-transparent"
                     />
-                  </td>
-                  <td className="py-2 px-4 border-b bg-transparent text-center">
-                    <img
-                      // src={Girl}
-                      alt="DP"
-                      className="w-10 h-10 rounded-full"
-                    />
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    {employee.name}
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    {employee.email}
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    {employee.phone}
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    {employee.employeeId}
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    {employee.joiningDate}
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    {employee.role}
-                  </td>
-                  <td className="py-2 px-4 bg-transparent border-b text-center">
-                    <div className="flex justify-center space-x-2">
-                      <FiEdit
-                        className="text-[#e65f2b] cursor-pointer"
-                        onClick={() => openEditModal(employee.id)}
-                      />
-                      <FiTrash2
-                        className="text-[#e65f2b] cursor-pointer"
-                        onClick={() => handleDeleteEmployee(employee.id)}
-                      />
-                    </div>
-                  </td>
+                  </th>
+                  <th className="py-4 px-8 border-b bg-transparent"></th>
+                  <th className="border p-2">Name</th>
+                  <th className="border p-2">Email-id</th>
+                  <th className="border p-2">Phone</th>
+                  <th className="border p-2">Employee ID</th>
+                  <th className="border p-2">Joining Date</th>
+                  <th className="border p-2">Role</th>
+                  <th className="border p-2">
+                    Action
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {employees.map((employee) => (
+                  <tr key={employee.id}>
+                    <td className="py-2 px-4 border-b text-center bg-transparent">
+                      <img
+                        src={isChecked[employee.id] ? checkbox : uncheckbox}
+                        alt="Checkbox"
+                        onClick={() => handleCheckboxChange(employee.id)}
+                      />
+                    </td>
+                    <td className="py-2 px-4 border-b bg-transparent text-center">
+                      <img
+                        // src={Girl}
+                        alt="DP"
+                        className="w-10 h-10 rounded-full"
+                      />
+                    </td>
+                    <td className="border p-2">{`${employee.firstName} ${employee.lastName}`}</td>
+                    <td className="border p-2">{employee.email}</td>
+                    <td className="border p-2">{employee.phoneNumber}</td>
+                    <td className="border p-2">{employee.employeeId}</td>
+                    <td className="border p-2">{employee.joinDate}</td>
+                    <td className="border p-2">{employee.role}</td>
+                    <td className="border p-2 flex justify-around">
+                      <button
+                        className="text-blue-500 hover:text-blue-700"
+                        onClick={() => {
+                          setEditEmployeeId(employee.employeeId);
+                          setNewEmployee(employee);
+                          setShowModal(true);
+                        }}
+                      >
+                        <FiEdit />
+                      </button>
+                      <button
+                        className="text-red-500 hover:text-red-700"
+                        onClick={() => handleDeleteEmployee(employee.employeeId)}
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
-      {isModalOpen && (
+      {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-6 w-1/2">
+          <div className="bg-white p-6 rounded-lg w-[600px] shadow-lg">
             <h2 className="text-2xl mb-4">
-              {editEmployeeId ? "Edit Employee" : "Add Employee"}
+              {editEmployeeId !== null ? "Edit Employee" : "Add New Employee"}
             </h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block mb-2">First Name</label>
+                <label className="block mb-1">First Name</label>
                 <input
                   type="text"
-                  name="firstname"
-                  value={newEmployee.firstname}
+                  name="firstName"
+                  value={newEmployee.firstName}
                   onChange={handleInputChange}
-                  className="border border-blue-300 focus:outline-none p-2 w-full"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
               <div>
-                <label className="block mb-2">Last Name</label>
+                <label className="block mb-1">Last Name</label>
                 <input
                   type="text"
-                  name="lastname"
-                  value={newEmployee.lastname}
+                  name="lastName"
+                  value={newEmployee.lastName}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
               <div>
-                <label className="block mb-2">Email</label>
+                <label className="block mb-1">Email</label>
                 <input
                   type="email"
                   name="email"
                   value={newEmployee.email}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
               <div>
-                <label className="block mb-2">Phone</label>
+                <label className="block mb-1">Phone</label>
                 <input
                   type="text"
-                  name="phone"
-                  value={newEmployee.phone}
+                  name="phoneNumber"
+                  value={newEmployee.phoneNumber}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
               <div>
-                <label className="block mb-2">Role</label>
+                <label className="block mb-1">Role</label>
                 <input
                   type="text"
                   name="role"
                   value={newEmployee.role}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
               <div>
-                <label className="block mb-2">Employee ID</label>
+                <label className="block mb-1">Employee ID</label>
                 <input
                   type="text"
                   name="employeeId"
                   value={newEmployee.employeeId}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
               <div>
-                <label className="block mb-2">Joining Date</label>
+                <label className="block mb-1">Joining Date</label>
                 <input
                   type="date"
-                  name="joiningDate"
-                  value={newEmployee.joiningDate}
+                  name="joinDate"
+                  value={newEmployee.joinDate}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="w-full px-3 py-2 border rounded"
                 />
               </div>
             </div>
             <div className="mt-4 flex justify-end">
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+                type="button"
+                className="bg-gray-300 px-4 py-2 rounded mr-2"
                 onClick={closeModal}
               >
                 Cancel
               </button>
               <button
+                type="button"
                 className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={handleAddEmployee}
+                onClick={editEmployeeId !== null ? handleUpdateEmployee : handleAddEmployee}
               >
-                {editEmployeeId ? "Update" : "Add"}
+                {editEmployeeId !== null ? "Update" : "Add"}
               </button>
             </div>
           </div>
@@ -392,16 +356,23 @@ function AllEmployees() {
       )}
 
       {showSuccessMessage && (
-        <div className="fixed bottom-0 right-0 bg-green-500 text-white p-4 rounded">
-          Employee {editEmployeeId ? "updated" : "added"} successfully!
+        <div className="fixed bottom-0 right-0 mb-4 mr-4 p-2 bg-green-500 text-white rounded">
+          Employee added successfully!
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed bottom-0 right-0 bg-red-500 text-white p-4 rounded">
+        <div className="fixed bottom-0 right-0 mb-4 mr-4 p-2 bg-red-500 text-white rounded">
           Employee deleted successfully!
         </div>
       )}
+
+      {errorMessage && (
+        <div className="fixed bottom-0 right-0 mb-4 mr-4 p-2 bg-red-500 text-white rounded">
+          {errorMessage}
+        </div>
+      )}
+
     </>
   );
 }

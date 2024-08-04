@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
@@ -51,6 +52,7 @@ import { MdOutlineSocialDistance } from "react-icons/md";
 import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
 import { GrProjects } from "react-icons/gr";
 import { TbListDetails } from "react-icons/tb";
+import { logout } from "../State/Auth/Action";
 
 const SideBar = () => {
   const navigate = useNavigate();
@@ -170,6 +172,12 @@ const SideBar = () => {
 
   const handleOptionClickNavigate = (authOption) => {
     navigate(authOption.link); // Navigate to the link specified in authOption
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("jwt");
+    navigate("/login");
   };
   return (
     <div className="relative ">
@@ -372,7 +380,11 @@ const SideBar = () => {
                           ? "bg-white bg-opacity-60 rounded-r-[10px] text-[#ef5f2b]"
                           : "hover:bg-white hover:bg-opacity-60  hover:text-[#ef5f2b] hover:rounded-r-[10px]"
                           }`}
-                        onClick={() => handleOptionClickNavigate(authOption)}
+                        onClick={() =>
+                          authOption.title === "Logout"
+                            ? handleLogout()
+                            : handleOptionClickNavigate(authOption)
+                        }
                       >
                         <span className="text-xl">{authOption.icon}</span>
                         {!isSidebarCollapsed && (

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
 
@@ -28,7 +29,7 @@ const ForProjectSidebar = ({ setActiveTab }) => {
   // const [showReportOptions, setShowReportOptions] = useState(false);
   // const [showAuthOptions, setShowAuthOptions] = useState(false);
   const [showProjectOptions, setShowProjectOptions] = useState(false);
-  const jwt = localStorage.getItem("token1");
+  const jwt = localStorage.getItem("jwt");
   const auth = useSelector((state) => state.auth);
 
 

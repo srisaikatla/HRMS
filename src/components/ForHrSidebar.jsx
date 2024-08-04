@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 
 
 import React, { useState } from "react";
@@ -27,7 +29,7 @@ const ForHrSidebar = ({ setActiveTab }) => {
   const [showAccountOptions, setShowAccountOptions] = useState(false);
   const [showReportOptions, setShowReportOptions] = useState(false);
   const [showAuthOptions, setShowAuthOptions] = useState(false);
-  const jwt = localStorage.getItem("token1");
+  const jwt = localStorage.getItem("jwt");
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch()
 
@@ -248,6 +250,7 @@ const ForHrSidebar = ({ setActiveTab }) => {
                       key={idx}
                       href={item.link}
                       className="flex items-center transition-all duration-500 hover:bg-white text-white hover:text-[#e65f2b] w-[260px] mx-0 rounded-tr-3xl rounded-br-3xl cursor-pointer"
+                      onClick={() => handleAuthOptionClick(item)}
                     >
                       <div className="p-3 pl-4 text-xl flex items-center">
                         {item.icon}

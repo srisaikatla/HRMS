@@ -21,7 +21,6 @@ function Login() {
       email: data.get("email"),
       password: data.get("password"),
     };
-
     navigate("/");
     dispatch(login(userData));
   };
