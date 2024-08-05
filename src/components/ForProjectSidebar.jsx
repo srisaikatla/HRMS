@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import {
   FaTachometerAlt,
@@ -43,36 +41,10 @@ const ForProjectSidebar = ({setActiveTab}) =>{
     { title: "Clients", component: "", icon: <MdOutlineSocialDistance /> },
     { title: "Teams", component: "Teams", icon: <FaUserFriends /> },
     { title: "Tickets", component: "Tickets", icon: <FaUserFriends /> },
-    // { title: "PayRoll", component: "", icon: <FaMoneyCheckAlt /> },
-    // { title: "Report", component: "", icon: <FaFileAlt /> },
-    // { title: "User", component: "", icon: <FaUser /> },
-    // { title: "Authentication", component: "", icon: <FaLock /> },
+   
   ];
 
-  // const employeeOptions = [
-  //   { title: "All Employees", component: "AllEmployees", icon: <FaUsers /> },
-  //   {
-  //     title: "Leave Requests",
-  //     component: "LeaveRequest",
-  //     icon: <FaClipboardList />,
-  //   },
-  //   {
-  //     title: "Attendance",
-  //     component: "Attendance",
-  //     icon: <FaCalendarCheck />,
-  //   },
-  //   { title: "Department", component: "DepartmentList", icon: <FaBuilding /> },
-  // ];
-
-  // const accountOptions = [
-  //   {
-  //     title: "Payment",
-  //     component: "PaymentsTab",
-  //     icon: <FaCalendarCheck />,
-  //   },
-  //   { title: "Expenses", component: "ExpensesTab", icon: <FaBuilding /> },
-  //   { title: "Invoice", component: "InvoiceTab", icon: <FaBuilding /> },
-  // ];
+  
 
   const projectOptions = [
     {
@@ -97,65 +69,26 @@ const ForProjectSidebar = ({setActiveTab}) =>{
     },
   ];
 
-  // const authOptions = [
-  //   { title: "Login", link: "/login", icon: <FaBuilding /> },
-  //   { title: "Register", link: "/register", icon: <FaBuilding /> },
-  //   {
-  //     title: "Forget Password",
-  //     link: "/forget-password",
-  //     icon: <FaBuilding />,
-  //   },
-  //   { title: "Page 404", link: "/404", icon: <FaBuilding /> },
-  // ];
-  
-
   const handleOptionClick = (option) => {
-    if (option.title === "Project") {
-      setShowProjectOptions(!showProjectOptions);
-    
-    } else {
-        console.log("Active tab ckicked", option.component);
-      setActiveTab(option.component);
-      setShowProjectOptions(false);
-     
+    switch (option.title) {
+      case "Project":
+        setShowProjectOptions(!showProjectOptions);
+        break;
+      default:
+        setActiveTab(option.title);
+        // setShowEmployeeOptions(false);
+        // setShowProjectOptions(false);
+        // setShowReportOptions(false);
+        // setShowAccountOptions(false);
+        // setShowAuthOptions(false);
+        break;
     }
   };
-  // const handleOptionClick = (option) => {
-  //   if (option.title === "Project") {
-  //     setShowEmployeeOptions(!showEmployeeOptions);
-  //   } else if (option.title === "Account") {
-  //     setShowAccountOptions(!showAccountOptions);
-  //   } else if (option.title === "Report") {
-  //     setShowReportOptions(!showReportOptions);
-  //   } else if (option.title === "Authentication") {
-  //     setShowAuthOptions(!showAuthOptions);
-  //   } else {
-  //       console.log("Active tab ckicked", option.component);
-  //     setActiveTab(option.component);
-  //     setShowEmployeeOptions(false);
-  //     setShowAccountOptions(false);
-  //     setShowReportOptions(false);
-  //     setShowAuthOptions(false);
-  //   }
-  // };
 
   const handleProjectOptionClick = (option) => {
     setActiveTab(option.component);
   };
-  // const handleReportOptionClick = (option) => {
-  //   setActiveTab(option.component);
-  // };
 
-  // const handleAccountOptionClick = (option) => {
-  //   setActiveTab(option.component);
-  // };
-  // const handleAuthOptionClick = (option) => {
-  //   setActiveTab(option.component);
-  // };
-
-  // const handleHeaderClick = (header) => {
-  //   setSelectedHeader(header);
-  // };
 
   return (
     <>
