@@ -16,7 +16,6 @@ const initialState = {
   user: null,
   isLoading: false,
   error: null,
-  customers: [],
 };
 export const authReducer = (state = initialState, action) => {
   // eslint-disable-next-line default-case

@@ -183,6 +183,7 @@ function DepartmentList() {
   const [editId, setEditId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+
   const [errors, setErrors] = useState({});
 
   const handleAddDepartment = () => {
@@ -205,9 +206,11 @@ function DepartmentList() {
   const handleSaveDepartment = () => {
     const newErrors = {};
 
+
     if (!departmentName) newErrors.departmentName = "Department Name is required.";
     if (!departmentHead) newErrors.departmentHead = "Department Head is required.";
     if (!totalEmployees) newErrors.totalEmployees = "Total Employees is required.";
+
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -216,6 +219,7 @@ function DepartmentList() {
 
     if (editId !== null) {
       // Edit existing department
+
       setDepartments(departments.map(department =>
         department.id === editId
           ? {
@@ -229,6 +233,7 @@ function DepartmentList() {
     } else {
       // Add new department
       const newId = departments.length > 0 ? departments[departments.length - 1].id + 1 : 1;
+
 
       const newDepartment = {
         id: newId,
@@ -247,7 +252,9 @@ function DepartmentList() {
   };
 
   const handleEdit = (id) => {
+
     const departmentToEdit = departments.find(department => department.id === id);
+
     if (departmentToEdit) {
       setEditId(id);
       setDepartmentName(departmentToEdit.department);
@@ -259,7 +266,9 @@ function DepartmentList() {
   };
 
   const handleDelete = (id) => {
+
     setDepartments(departments.filter(department => department.id !== id));
+
     setShowDeleteSuccessMessage(true);
     setTimeout(() => setShowDeleteSuccessMessage(false), 3000); // Hide message after 3 seconds
   };
@@ -339,7 +348,9 @@ function DepartmentList() {
               {editId ? "Edit Department" : "Add Department"}
             </h2>
             <div className="mb-4">
+
               <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="departmentName">
+
                 Department Name
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -355,7 +366,9 @@ function DepartmentList() {
               )}
             </div>
             <div className="mb-4">
+
               <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="departmentHead">
+
                 Department Head
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -371,7 +384,9 @@ function DepartmentList() {
               )}
             </div>
             <div className="mb-4">
+
               <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="totalEmployees">
+
                 Total Employees
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -411,7 +426,9 @@ function DepartmentList() {
             <h2 className="text-3xl mb-4">
               <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
             </h2>
+
             <p>{editId ? "Department Updated Successfully" : "Department Added Successfully"}</p>
+
           </div>
         </div>
       )}

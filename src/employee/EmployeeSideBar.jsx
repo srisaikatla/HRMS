@@ -279,11 +279,34 @@ const EmployeeSideBar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case "payslips":
+        return <Payslips />;
+        break;
+      case "All Employees"  :
+        return <AllEmployees />;
+        break;
+      case "Events"  :
+        return <Events />;
+        break;
+      case "Apply Leave"  :
+        return <ApplyLeave />;
+        break;
+      default:
+        return (
+          <div className="text-2xl pt-20 font-bold">
+            Selected Option: {activeTab || "None"}
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="relative bg-[#e65f2b] bg-opacity-10">
       <EmployeeNavBar />
       <div
-        className={`flex ${
+        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
         } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
@@ -293,16 +316,14 @@ const EmployeeSideBar = () => {
               className="text-white h-[30px] absolute top-4 cursor-pointer"
               onClick={toggleSidebar}
             />
-          </div>
-          <div>
             {!isSidebarCollapsed && (
-              <div className="flex items-center relative top-0 pb-4 px-2">
+              <div className="flex items-center relative top-0 pb-4 pl-2 ">
                 <img
-                  src={profile}
+                  src={profile} 
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
-                <p className="text-[16px] pl-2">Welcome User</p>
+                <p className="text-[16px] text-white pl-2">Welcome! User</p>
               </div>
             )}
           </div>
@@ -359,7 +380,7 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+        className={`flex-1 p-4 transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
