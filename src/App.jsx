@@ -24,8 +24,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<Sidebar />} /> */}
-          <Route path="/" element={<EmployeeSideBar />} />
+          <Route path="/" element={<Sidebar />} />
+          {/* <Route path="/" element={<EmployeeSideBar />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgotPassword />} />
