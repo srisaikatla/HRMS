@@ -12,7 +12,7 @@ const Tickets = () => {
   const [openTab, setOpenTab] = useState(1);
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [batches, setBatches] = useState([]); // state to store the list of batches
-
+  const [inBatchDetails, setInBatchDetails] = useState(false); // state to track if in BatchDetails view
 
   const activeClasses =
     "underline underline-offset-8 decoration-2 text-[#E65F2B]";
@@ -20,10 +20,24 @@ const Tickets = () => {
 
   const handleBatchClick = (batch) => {
     setSelectedBatch(batch);
+    setInBatchDetails(true); // Set inBatchDetails to true when a batch is clicked
   };
 
-  const handleBatchesUpdate = (newBatches) =>{
-    setBatches(newBatches) // update batches state when new batches are added
+  const handleBatchesUpdate = (newBatches) => {
+    setBatches(newBatches); // update batches state when new batches are added
+  };
+
+  const handleTabClick = (tab) => {
+    setOpenTab(tab);
+    if (tab !== 1) {
+      setSelectedBatch(null);
+      setInBatchDetails(false); // Ensure we are not in BatchDetails view
+    }
+  };
+
+  const handleBack = () =>{
+    setSelectedBatch(null)
+    setInBatchDetails(false); // Ensure we are back to the PayrollBatches view
   }
 
   return (
@@ -36,7 +50,7 @@ const Tickets = () => {
       <div className="px-2 my-5">
         <ul className="flex gap-x-14">
           <li
-            onClick={() => setOpenTab(1)}
+            onClick={() => handleTabClick(1)}
             className={openTab === 1 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -49,7 +63,7 @@ const Tickets = () => {
             </a>
           </li>
           <li
-            onClick={() => setOpenTab(2)}
+            onClick={() => handleTabClick(2)}
             className={openTab === 2 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -62,7 +76,7 @@ const Tickets = () => {
             </a>
           </li>
           <li
-            onClick={() => setOpenTab(3)}
+            onClick={() => handleTabClick(3)}
             className={openTab === 3 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -75,7 +89,7 @@ const Tickets = () => {
             </a>
           </li>
           <li
-            onClick={() => setOpenTab(4)}
+            onClick={() => handleTabClick(4)}
             className={openTab === 4 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -88,7 +102,7 @@ const Tickets = () => {
             </a>
           </li>
           <li
-            onClick={() => setOpenTab(5)}
+            onClick={() => handleTabClick(5)}
             className={openTab === 5 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -101,7 +115,7 @@ const Tickets = () => {
             </a>
           </li>
           <li
-            onClick={() => setOpenTab(6)}
+            onClick={() => handleTabClick(6)}
             className={openTab === 6 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -114,7 +128,7 @@ const Tickets = () => {
             </a>
           </li>
           <li
-            onClick={() => setOpenTab(7)}
+            onClick={() => handleTabClick(7)}
             className={openTab === 7 ? "-mb-px mr-1" : "mr-1"}
           >
             <a
@@ -131,7 +145,10 @@ const Tickets = () => {
           {!selectedBatch && (
             <>
               {openTab === 1 && (
-                <PayrollBatches onBatchClick={handleBatchClick} onBatchesUpdate={handleBatchesUpdate} />
+                <PayrollBatches
+                  onBatchClick={handleBatchClick}
+                  onBatchesUpdate={handleBatchesUpdate}
+                />
               )}
               {openTab === 2 && <Allowances />}
               {openTab === 3 && <Deduction />}
@@ -141,7 +158,13 @@ const Tickets = () => {
               {openTab === 7 && <RoundingAmount />}
             </>
           )}
-          {selectedBatch && <BatchDetails batch={selectedBatch} batches={batches} onBack={() => setSelectedBatch(null)}/>}
+          {selectedBatch && inBatchDetails && openTab === 1 && (
+            <BatchDetails
+              batch={selectedBatch}
+              batches={batches}
+              onBack={handleBack}
+            />
+          )}
         </div>
       </div>
     </div>
