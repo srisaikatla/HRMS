@@ -2,7 +2,7 @@ import React from "react";
 
 const SalesIncome = () => {
   return (
-    <div className="bg-blue-500   h-[400px]  w-[280px] rounded-lg shadow-lg">
+    <div className="bg-blue-500   h-[400px]  w-auto rounded-lg shadow-lg justify-center items-center flex flex-col">
       <h2 className="text-xl font-bold pl-8 text-white justify-center items-center">
         Sales Income
       </h2>

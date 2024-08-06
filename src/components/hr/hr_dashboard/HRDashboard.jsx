@@ -45,14 +45,14 @@ const HRDashboard = () => {
   };
   return (
     <div>
-      <div className="  pb-6 ml-4 ">
+      <div className="  pb-6 ml-4  w-auto">
         <h2 className="text-[#E65F2B] text-xl font-bold mb-8">
           Hr/Hrdashboard
         </h2>
-        <div className="w-[970px]">
+        <div className="w-auto">
           <div className="flex gap-6 mb-6">
-            <div className="w-[260px] h-[360px] rounded-lg bg-[#2278aa]">
-              <div className="flex flex-col justify-center rounded-lg items-center w-full h-full">
+            <div className="w-auto h-[360px] rounded-lg ">
+              <div className="flex flex-col justify-center rounded-lg items-center w-[400px] h-full">
                 {EmpolyeeData.map((data, index) => (
                   <div
                     key={index}
@@ -90,7 +90,7 @@ const HRDashboard = () => {
                 ))}
               </div>
             </div>
-            <div className="w-[269px] h-[360px] bg-[#0098F1] rounded-lg">
+            <div className="w-[300px] h-[360px] bg-[#0098F1] rounded-lg">
               <div className="flex justify-center items-center flex-col p-6">
                 <div className="text-white text-2xl">Income Analysis</div>
                 <div className="text-white text-[12px]">
@@ -123,7 +123,7 @@ const HRDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[542px] h-[360px] bg-[#0098F1] rounded-lg">
+            <div className="w-auto h-auto bg-[#0098F1] rounded-lg">
               <div className="flex flex-col px-4 gap-y-[40px] mt-8 justify-center items-center h-full">
                 <div className="text-white text-2xl">Salary Statistics</div>
                 <div className="w-full h-full">
@@ -242,7 +242,9 @@ const HRDashboard = () => {
                       </td>
                       <td>{data.Name}</td>
                       <td>{data.Destination}</td>
-                      <td>{performanceButtons(data.Performance)}</td>
+                      <td className="pt-2">
+                        {performanceButtons(data.Performance)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
