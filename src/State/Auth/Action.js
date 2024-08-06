@@ -77,36 +77,45 @@ const loginSuccess = (user) => ({ type: LOGIN_SUCCESS, payload: user });
 const loginFailure = (error) => ({ type: LOGIN_FAILURE, payload: error });
 
 export const login = (userData) => async (dispatch) => {
-  dispatch(loginRequest);
+  dispatch(loginRequest());
 
   try {
     const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
     const user = response.data;
     if (user.jwt) {
       localStorage.setItem('jwt', user.jwt);
+      dispatch(loginSuccess(user.jwt));
+      return { success: true };
+    } else {
+      throw new Error('Invalid credentials. Please try again.');
     }
-    dispatch(loginSuccess(user.jwt));
   } catch (error) {
     dispatch(loginFailure(error.message));
+    return { success: false, message: error.message };
   }
 };
+
 
 const employeeLoginRequest = () => ({ type: EMPLOYEE_LOGIN_REQUEST });
 const employeeLoginSuccess = (employee) => ({ type: EMPLOYEE_LOGIN_SUCCESS, payload: employee });
 const employeeLoginFailure = (error) => ({ type: EMPLOYEE_LOGIN_FAILURE, payload: error });
 
 export const employee = (userData) => async (dispatch) => {
-  dispatch(employeeLoginRequest);
+  dispatch(employeeLoginRequest());
 
   try {
     const response = await axios.post(`${API_BASE_URL}/employee/signin`, userData);
     const employee = response.data;
     if (employee.jwt) {
       localStorage.setItem('jwt', employee.jwt);
+      dispatch(employeeLoginSuccess(employee.jwt));
+      return { success: true };
+    } else {
+      throw new Error('Invalid credentials. Please try again.');
     }
-    dispatch(employeeLoginSuccess(employee.jwt));
   } catch (error) {
     dispatch(employeeLoginFailure(error.message));
+    return { success: false, message: error.message };
   }
 };
 
@@ -156,7 +165,7 @@ const getEmployeeRequest = () => ({ type: GET_EMPLOYEE_REQUEST });
 const getEmployeeSuccess = (employee) => ({ type: GET_EMPLOYEE_SUCCESS, payload: employee });
 const getEmployeeFailure = (error) => ({ type: GET_EMPLOYEE_FAILURE, payload: error });
 
-export const getTrainee = (jwt) => async (dispatch) => {
+export const getEmployee = (jwt) => async (dispatch) => {
   dispatch(getEmployeeRequest());
 
   try {

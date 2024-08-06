@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 
 
@@ -12,7 +13,7 @@ const Attendance = () => {
   const [punchInTime, setPunchInTime] = useState(null);
   const [punchOutTime, setPunchOutTime] = useState(null);
   const [breakStartTime, setBreakStartTime] = useState(null);
-const [breakEndTime, setBreakEndTime] = useState(null);
+  const [breakEndTime, setBreakEndTime] = useState(null);
 
   const [totalBreakTime, setTotalBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [lastElapsedTime, setLastElapsedTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -68,42 +69,42 @@ const [breakEndTime, setBreakEndTime] = useState(null);
 
       return updatedBreakTime;
     });
-  }; 
+  };
 
 
- 
+
 
   const calculateStatistics = () => {
     let totalHours = 0;
     let breakTime = { hours: 0, minutes: 0, seconds: 0 };
     let overtime = 0;
-  
+
     attendanceData.forEach(({ production, breakDuration }) => {
       totalHours += production.hours;
-  
+
       breakTime.hours += breakDuration.hours;
       breakTime.minutes += breakDuration.minutes;
       breakTime.seconds += breakDuration.seconds;
-  
+
       if (production.hours > officeHours) {
         overtime += production.hours - officeHours;
       }
     });
-  
+
     if (breakTime.seconds >= 60) {
       breakTime.minutes += Math.floor(breakTime.seconds / 60);
       breakTime.seconds %= 60;
     }
-  
+
     if (breakTime.minutes >= 60) {
       breakTime.hours += Math.floor(breakTime.minutes / 60);
       breakTime.minutes %= 60;
     }
-  
+
     return { totalHours, breakTime, overtime };
   };
-  
-  
+
+
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -129,7 +130,7 @@ const [breakEndTime, setBreakEndTime] = useState(null);
     if (isPunchedIn && punchInTime) {
       const startTime = lastElapsedTime.hours * 3600 * 1000 + lastElapsedTime.minutes * 60 * 1000 + lastElapsedTime.seconds * 1000;
       const punchInDate = new Date(punchInTime);
-      
+
       timer = setInterval(() => {
         const now = new Date();
         const diffMs = now - punchInDate + startTime - (totalBreakTime.hours * 3600 * 1000 + totalBreakTime.minutes * 60 * 1000 + totalBreakTime.seconds * 1000);
@@ -141,11 +142,11 @@ const [breakEndTime, setBreakEndTime] = useState(null);
     } else {
       clearInterval(timer);
     }
-  
+
     return () => clearInterval(timer);
   }, [isPunchedIn, punchInTime, lastElapsedTime, totalBreakTime]);
-  
-   
+
+
   useEffect(() => {
     const storedAttendanceData = localStorage.getItem('attendanceData');
     if (storedAttendanceData) {
@@ -158,7 +159,7 @@ const [breakEndTime, setBreakEndTime] = useState(null);
       }));
       setAttendanceData(updatedData);
     }
-  
+
     const storedStatistics = localStorage.getItem('statistics');
     if (storedStatistics) {
       const stats = JSON.parse(storedStatistics);
@@ -166,18 +167,18 @@ const [breakEndTime, setBreakEndTime] = useState(null);
       setLastElapsedTime(stats.lastElapsedTime || { hours: 0, minutes: 0, seconds: 0 });
     }
   }, []);
-  
-  
-  
-  
-  
+
+
+
+
+
   const handlePunchButtonClick = () => {
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
-  
+
       let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
-  
+
       if (breakStartTime) {
         if (breakEndTime) {
           breakDuration = calculateBreakTime(breakStartTime, breakEndTime);
@@ -186,7 +187,7 @@ const [breakEndTime, setBreakEndTime] = useState(null);
         }
         updateBreakTime(breakDuration);
       }
-  
+
       const newEntry = {
         punchIn: punchInTime,
         punchOut: newPunchOutTime,
@@ -194,14 +195,14 @@ const [breakEndTime, setBreakEndTime] = useState(null);
         breakDuration,
         overtime: production.hours > officeHours ? production.hours - officeHours : 0,
       };
-  
+
       const updatedAttendanceData = [...attendanceData, newEntry];
       setAttendanceData(updatedAttendanceData);
       localStorage.setItem('attendanceData', JSON.stringify(updatedAttendanceData));
-  
+
       const stats = calculateStatistics();
       localStorage.setItem('statistics', JSON.stringify(stats));
-  
+
       setLastElapsedTime(elapsedTime);
       setPunchInTime(null);
       setPunchOutTime(null);
@@ -212,8 +213,8 @@ const [breakEndTime, setBreakEndTime] = useState(null);
     }
     setIsPunchedIn(!isPunchedIn);
   };
-  
-  
+
+
   const handlePunchIn = () => {
     const now = new Date();
     if (breakStartTime && !breakEndTime) {
@@ -222,10 +223,10 @@ const [breakEndTime, setBreakEndTime] = useState(null);
     }
     setPunchInTime(now);
   };
-  
-  
-  
-  
+
+
+
+
   // const handlePunchOut = () => {
   //   const now = new Date();
   //   if (punchInTime && (now - punchInTime) < (officeHours * 3600000)) {
@@ -242,12 +243,12 @@ const [breakEndTime, setBreakEndTime] = useState(null);
   //   }
   //   setPunchInTime(now);
   // };
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -265,8 +266,8 @@ const [breakEndTime, setBreakEndTime] = useState(null);
   const handleYearChange = (e) => {
     setSelectedYear(Number(e.target.value));
   };
-  
-  
+
+
 
   const filteredAttendanceData = attendanceData.filter(entry => {
     const entryDate = new Date(entry.punchIn);
@@ -291,8 +292,7 @@ const [breakEndTime, setBreakEndTime] = useState(null);
   const strokeDashoffset = circumference - (totalPercentage / 100) * circumference;
 
   return (
-    <div className="p-6 min-h-screen    bg-opacity-10">
-
+    <div className="p-6 min-h-screen bg-opacity-10">
       <h1 className="text-2xl font-bold mb-4">Employee</h1>
       <h1 className="text-xl  mb-4">Dashboard / Attendance</h1>
       <div className="flex flex-col md:flex-row gap-6 mb-8">
@@ -303,10 +303,10 @@ const [breakEndTime, setBreakEndTime] = useState(null);
             <p className="text-xl">{currentDateTime}</p>
           </div> */}
           <div className="bg-[#0098F1] text-white p-4 rounded-lg mb-4">
-  <h3 className="text-[20px] font-semibold">Punch In at</h3>
-  <p className="text-[20px] font-normal">{currentDateTime}</p>
- 
-</div>
+            <h3 className="text-[20px] font-semibold">Punch In at</h3>
+            <p className="text-[20px] font-normal">{currentDateTime}</p>
+
+          </div>
 
           <div className="relative flex items-center justify-center mb-4">
             <svg className="w-24 h-24" viewBox="0 0 120 120">
@@ -329,27 +329,27 @@ const [breakEndTime, setBreakEndTime] = useState(null);
                 fill="none"
                 strokeLinecap="round"
               />
-             
+
               <text
-            x="50%"
-            y="50%"
-            textAnchor="middle"
-            dy=".3em"
-            className="text-lg font-semibold text-gray-800"
-          >
-            {elapsedTime.hours} : {elapsedTime.minutes} : {elapsedTime.seconds}
-            {/* Keep the date and time display if needed */}
-            <p className="text-xl">{currentDateTime}</p>
-          </text>
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dy=".3em"
+                className="text-lg font-semibold text-gray-800"
+              >
+                {elapsedTime.hours} : {elapsedTime.minutes} : {elapsedTime.seconds}
+                {/* Keep the date and time display if needed */}
+                <p className="text-xl">{currentDateTime}</p>
+              </text>
 
             </svg>
           </div>
           <button
-  onClick={handlePunchButtonClick}
-  className="bg-[#0098F1] text-[20px] text-white py-2 px-4 rounded-lg w-full hover:bg-blue-600 transition"
->
-  {isPunchedIn ? "Punch Out" : "Punch In"}
-</button>
+            onClick={handlePunchButtonClick}
+            className="bg-[#0098F1] text-[20px] text-white py-2 px-4 rounded-lg w-full hover:bg-blue-600 transition"
+          >
+            {isPunchedIn ? "Punch Out" : "Punch In"}
+          </button>
 
           <div className="flex justify-between mt-4 text-sm text-gray-600">
             <span className="border border-[#E65F2B] text-[#E65F2B] p-2 rounded-lg">
@@ -385,130 +385,130 @@ const [breakEndTime, setBreakEndTime] = useState(null);
           ))}
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3 h-[450px] overflow-y-auto scrollbar-hidden">
-  <h2 className="text-xl font-semibold mb-4">Timeline</h2>
-  <div className="relative">
-    <div className="absolute left-5 top-1 h-full border-l-2 border-gray-300"></div>
-    {attendanceData.map((activity, index) => (
-      <div className="flex items-start mb-8 ml-8" key={index}>
-        <div className={`w-3 h-3 bg-blue-500 rounded-full z-10 mt-1.5 pl-3 -ml-4`}></div>
-        <div className="ml-6">
-          <p className="text-sm text-gray-600">{activity.punchIn.toLocaleString()}</p>
-          <p className="font-semibold flex text-[17px] items-center">
-            <FaClock className="mr-2 text-blue-500 text-[15px]" />
-            Punch In
-          </p>
-          {activity.punchOut && (
-            <>
-              <p className="text-sm text-gray-600">{activity.punchOut.toLocaleString()}</p>
-              <p className="font-semibold flex text-[17px] items-center">
-                <FaClock className="mr-2 text-red-500 text-[15px]" />
-                Punch Out
-              </p>
-            </>
-          )}
-          <p className="text-sm text-gray-700">
-            {activity.production.hours} hrs {activity.production.minutes} mins {activity.production.seconds} secs
-          </p>
-          <p className="text-sm text-gray-700">
-            Break: {activity.breakDuration.hours} hrs {activity.breakDuration.minutes} mins {activity.breakDuration.seconds} secs
-          </p>
-          <p className="text-sm text-gray-700">Overtime: {activity.overtime} hrs</p>
+          <h2 className="text-xl font-semibold mb-4">Timeline</h2>
+          <div className="relative">
+            <div className="absolute left-5 top-1 h-full border-l-2 border-gray-300"></div>
+            {attendanceData.map((activity, index) => (
+              <div className="flex items-start mb-8 ml-8" key={index}>
+                <div className={`w-3 h-3 bg-blue-500 rounded-full z-10 mt-1.5 pl-3 -ml-4`}></div>
+                <div className="ml-6">
+                  <p className="text-sm text-gray-600">{activity.punchIn.toLocaleString()}</p>
+                  <p className="font-semibold flex text-[17px] items-center">
+                    <FaClock className="mr-2 text-blue-500 text-[15px]" />
+                    Punch In
+                  </p>
+                  {activity.punchOut && (
+                    <>
+                      <p className="text-sm text-gray-600">{activity.punchOut.toLocaleString()}</p>
+                      <p className="font-semibold flex text-[17px] items-center">
+                        <FaClock className="mr-2 text-red-500 text-[15px]" />
+                        Punch Out
+                      </p>
+                    </>
+                  )}
+                  <p className="text-sm text-gray-700">
+                    {activity.production.hours} hrs {activity.production.minutes} mins {activity.production.seconds} secs
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    Break: {activity.breakDuration.hours} hrs {activity.breakDuration.minutes} mins {activity.breakDuration.seconds} secs
+                  </p>
+                  <p className="text-sm text-gray-700">Overtime: {activity.overtime} hrs</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
-    ))}
-  </div>
-</div>
-
-</div>
-    <div className="flex items-center gap-4 mb-6">
-  <DatePicker
-    selected={searchDate}
-    onChange={handleDateChange}
-    className="p-2 border border-gray-300 w-[150px] h-[50px] rounded-xl bg-[#FFFFFF] text-[#E65F2B] text-[20px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    dateFormat="yyyy-MM-dd"
-  />
-  <select 
-    className="p-2 border border-gray-300 rounded-xl w-[150px] h-[50px] bg-white text-[#E65F2B] text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    value={selectedMonth}
-    onChange={handleMonthChange}
-  >
-    {[
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ].map((month, index) => (
-      <option key={index + 1} value={index + 1}>
-        {month}
-      </option>
-    ))}
-  </select>
-
-  <select 
-    className="p-2 border border-gray-300 rounded-xl w-[150px] h-[50px] bg-[#FFFFFF] text-[#E65F2B] text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    value={selectedYear}
-    onChange={handleYearChange}
-  >
-    {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map(year => (
-      <option key={year} value={year}>
-        {year}
-      </option>
-    ))}
-  </select>
-
-  <input
-    type="search"
-    placeholder="Search..."
-    value={searchQuery}
-    onChange={handleSearchChange}
-    className="p-2 border border-white rounded-lg bg-[#E65F2B] text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-  />
-</div>
-
-
-<table className="min-w-full bg-white  rounded-lg shadow-lg border border-orange-900">
-  <thead className="bg-[#E65F2B]  text-white text-[20px]">
-    <tr>
-      {[
-        "No",
-        "Punch In Date",
-        "Punch In Time",
-        "Punch Out Time",
-        "Production Time",
-        "Break Time",
-        "Overtime",
-      ].map((header, index) => (
-        <th
-          key={index}
-          className="py-2 px-4 text-left text-white font-semibold border border-orange-500"
+      <div className="flex items-center gap-4 mb-6">
+        <DatePicker
+          selected={searchDate}
+          onChange={handleDateChange}
+          className="p-2 border border-gray-300 w-[150px] h-[50px] rounded-xl bg-[#FFFFFF] text-[#E65F2B] text-[20px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          dateFormat="yyyy-MM-dd"
+        />
+        <select
+          className="p-2 border border-gray-300 rounded-xl w-[150px] h-[50px] bg-white text-[#E65F2B] text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={selectedMonth}
+          onChange={handleMonthChange}
         >
-          {header}
-        </th>
-      ))}
-    </tr>
-  </thead>
-  <tbody>
-  {filteredAttendanceData.map((entry, index) => {
-  const { punchIn, punchOut, production, breakDuration, overtime } = entry;
+          {[
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ].map((month, index) => (
+            <option key={index + 1} value={index + 1}>
+              {month}
+            </option>
+          ))}
+        </select>
 
-  return (
-    <tr key={index} className="border-t border-orange-500">
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{index + 1}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchIn.toLocaleDateString()}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchIn.toLocaleTimeString()}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchOut ? punchOut.toLocaleTimeString() : 'N/A'}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">
-        {production.hours} hrs {production.minutes} mins {production.seconds} secs
-      </td>
-      <td className="py-2 px-4 text-orange-600 border text-[14px] border-orange-500">
-        {breakDuration.hours} hrs {breakDuration.minutes} mins {breakDuration.seconds} secs
-      </td>
-      <td className="py-2 px-4 text-orange-600 border text-[14px] border-orange-500">{overtime} hrs</td>
-    </tr>
-  );
-})}
+        <select
+          className="p-2 border border-gray-300 rounded-xl w-[150px] h-[50px] bg-[#FFFFFF] text-[#E65F2B] text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={selectedYear}
+          onChange={handleYearChange}
+        >
+          {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map(year => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
 
-  </tbody>
-</table>
-</div>
+        <input
+          type="search"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="p-2 border border-white rounded-lg bg-[#E65F2B] text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+
+      <table className="min-w-full bg-white  rounded-lg shadow-lg border border-orange-900">
+        <thead className="bg-[#E65F2B]  text-white text-[20px]">
+          <tr>
+            {[
+              "No",
+              "Punch In Date",
+              "Punch In Time",
+              "Punch Out Time",
+              "Production Time",
+              "Break Time",
+              "Overtime",
+            ].map((header, index) => (
+              <th
+                key={index}
+                className="py-2 px-4 text-left text-white font-semibold border border-orange-500"
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAttendanceData.map((entry, index) => {
+            const { punchIn, punchOut, production, breakDuration, overtime } = entry;
+
+            return (
+              <tr key={index} className="border-t border-orange-500">
+                <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{index + 1}</td>
+                <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchIn.toLocaleDateString()}</td>
+                <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchIn.toLocaleTimeString()}</td>
+                <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchOut ? punchOut.toLocaleTimeString() : 'N/A'}</td>
+                <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">
+                  {production.hours} hrs {production.minutes} mins {production.seconds} secs
+                </td>
+                <td className="py-2 px-4 text-orange-600 border text-[14px] border-orange-500">
+                  {breakDuration.hours} hrs {breakDuration.minutes} mins {breakDuration.seconds} secs
+                </td>
+                <td className="py-2 px-4 text-orange-600 border text-[14px] border-orange-500">{overtime} hrs</td>
+              </tr>
+            );
+          })}
+
+        </tbody>
+      </table>
+    </div>
   );
 };
 

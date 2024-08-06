@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // /* eslint-disable react/prop-types */
 // /* eslint-disable no-unused-vars */
 
@@ -45,10 +46,10 @@
 //     { title: "Clients", component: "", icon: <MdOutlineSocialDistance /> },
 //     { title: "Teams", component: "Teams", icon: <FaUserFriends /> },
 //     { title: "Tickets", component: "Tickets", icon: <FaUserFriends /> },
-   
+
 //   ];
 
-  
+
 
 //   const projectOptions = [
 //     {
@@ -222,28 +223,23 @@
 
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
-  FaCalendarAlt,
-  FaCalendarCheck,
   FaTasks,
   FaUserFriends,
-  FaMoneyCheckAlt,
   FaFileAlt,
   FaUser,
-  FaLock,
   FaChevronDown,
   FaChevronUp,
   FaUsers,
   FaClipboardList,
-  FaBuilding,
+
 } from "react-icons/fa";
 import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
 import { GrProjects } from "react-icons/gr";
 import { TbListDetails } from "react-icons/tb";
 
-const ForProjectSidebar = ({isSidebarCollapsed, activeTab, setActiveTab}) => {
+const ForProjectSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const [showProjectOptions, setShowProjectOptions] = useState(false);
 
   const projectOptions = [
@@ -274,62 +270,59 @@ const ForProjectSidebar = ({isSidebarCollapsed, activeTab, setActiveTab}) => {
     }
   };
   return (
-      <div className="pr-2">
-        <ul className="pt-3 pr-1">
-          {projectOptions.map((option) => (
-            <React.Fragment key={option.title}>
-              <li
-                className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
-                  activeTab === option.title
-                    ? "bg-white rounded-r-full text-[#ef5f2b]"
-                    : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+    <div className="pr-2">
+      <ul className="pt-3 pr-1">
+        {projectOptions.map((option) => (
+          <React.Fragment key={option.title}>
+            <li
+              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${activeTab === option.title
+                ? "bg-white rounded-r-full text-[#ef5f2b]"
+                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
                 }`}
-                onClick={() => handleOptionClick(option)}
-              >
-                <div className="flex items-center">
-                  {option.icon}
-                  <span
-                    className={`pl-2 ${
-                      isSidebarCollapsed ? "hidden" : "inline"
+              onClick={() => handleOptionClick(option)}
+            >
+              <div className="flex items-center">
+                {option.icon}
+                <span
+                  className={`pl-2 ${isSidebarCollapsed ? "hidden" : "inline"
                     }`}
-                  >
-                    {option.title}
-                  </span>
-                </div>
-                {!isSidebarCollapsed && option.hasSubOptions && (
-                  <span className="pr-5">
-                    {option.title === "Project" && showProjectOptions ? (
-                      <FaChevronUp />
-                    ) : (
-                      <FaChevronDown />
-                    )}
-                  </span>
-                )}
-              </li>
-              {!isSidebarCollapsed &&
-                option.title === "Project" &&
-                showProjectOptions && (
-                  <ul className="">
-                    {projectDropdownOptions.map((subOption) => (
-                      <li
-                        key={subOption.title}
-                        className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
-                          activeTab === subOption.title
-                            ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                >
+                  {option.title}
+                </span>
+              </div>
+              {!isSidebarCollapsed && option.hasSubOptions && (
+                <span className="pr-5">
+                  {option.title === "Project" && showProjectOptions ? (
+                    <FaChevronUp />
+                  ) : (
+                    <FaChevronDown />
+                  )}
+                </span>
+              )}
+            </li>
+            {!isSidebarCollapsed &&
+              option.title === "Project" &&
+              showProjectOptions && (
+                <ul className="">
+                  {projectDropdownOptions.map((subOption) => (
+                    <li
+                      key={subOption.title}
+                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${activeTab === subOption.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
                         }`}
-                        onClick={() => setActiveTab(subOption.title)}
-                      >
-                        {subOption.icon}
-                        <span className="pl-2">{subOption.title}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-            </React.Fragment>
-          ))}
-        </ul>
-      </div>
+                      onClick={() => setActiveTab(subOption.title)}
+                    >
+                      {subOption.icon}
+                      <span className="pl-2">{subOption.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+          </React.Fragment>
+        ))}
+      </ul>
+    </div>
 
   );
 };
