@@ -366,10 +366,10 @@ import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Attendance from "./options/attendance/Attendance";
-import Events from "../components/hr/events/Events";
+import Events from "./options/events/Events";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip"
-
+import EmployeHoliday from "./options/employe_holiday/EmployeHoliday"
 
 import {
   FaUsers,
@@ -569,6 +569,7 @@ const EmployeeSideBar = () => {
           {activeTab === "Bank Account Details" && <BankAccountDetails />}
           {activeTab === "Activities" && <EmployeeActivities />}
           {activeTab === "Profile" && <Profile />}
+          {activeTab === "Holidays" && <EmployeHoliday />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
