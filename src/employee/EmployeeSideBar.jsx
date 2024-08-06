@@ -130,11 +130,11 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`flex flex-col transition-all my-1 duration-500 hover:bg-white hover:text-[#e65f2b] rounded-r-3xl cursor-pointer ${
+                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
                   activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
-                    ? "bg-white text-[#e65f2b]"
-                    : ""
+                    ? "bg-white text-[#e65f2b]   rounded-r-3xl"
+                    : " hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
                 }`}
                 onClick={() => handleOptionClick(option)}
               >
@@ -151,15 +151,15 @@ const EmployeeSideBar = () => {
                 </div>
                 {option.subOptions && openDropdown === option.title && (
                   <div
-                    className={`bg-[#e65f2b] text-white transition-all duration-300`}
+                    className={`bg-[#e65f2b]  text-white transition-all duration-300`}
                   >
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
                         className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
                           activeTab === subOption.name
-                            ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-3xl"
-                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-3xl hover:text-[#e65f2b]"
+                            ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
+                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
                         }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
@@ -190,6 +190,10 @@ const EmployeeSideBar = () => {
 
           {/* payroll */}
           {activeTab === "Payslips" && <Main />}
+          {activeTab === "Salary Structure" && <Main />}
+          {activeTab === "Declaration" && <Main />}
+          {activeTab === "Bank Account" && <Main />}
+
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
