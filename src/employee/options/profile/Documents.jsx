@@ -55,8 +55,8 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
     return (
         <div className='bg-white ml-10 mr-10 p-5 h-[500px] flex flex-col'>
             <div className="flex justify-between items-center py-4">
-                <h1 className="text-3xl text-[#E65F2B]">ID PROOFS</h1>
-                <FiEdit className="text-3xl text-[#E65F2B]" aria-label="Edit" />
+                <h1 className="text-xl text-[#E65F2B]">ID PROOFS</h1>
+                <FiEdit className="text-xl text-[#E65F2B]" aria-label="Edit" />
             </div>
             <hr className="border-t-2 border-[#E65F2B] mb-4" />
             <div className="flex-grow overflow-x-auto">
@@ -85,7 +85,7 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
             </div>
             <div className="mt-auto flex justify-start">
                 <button
-                    className="flex items-center text-2xl bg-[#E65F2B] text-white h-[50px] w-[120px] justify-center rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
+                    className="flex items-center text-xl bg-[#E65F2B] text-white h-[50px] w-[120px] justify-center rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
                     onClick={handleOpenDocumentsModal}
                 >
                     <FaPlusCircle className="text-3xl mr-2" aria-hidden="true" />

@@ -361,7 +361,7 @@
 // export default EmployeeSideBar;
 
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
@@ -395,15 +395,18 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { PiHandDepositFill } from "react-icons/pi";
 import AllEmployees from "../employee/options/allEmployees/AllEmployees"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import { getEmployee } from "../State/Auth/Action";
-import { useDispatch, useSelector } from "react-redux";
+import SalaryStructure from "./options/payslips/SalaryStructure"
+import Declaration from "./options/payslips/Declaration"
+import BankAccount from "./options/payslips/BankAccount"
+import Chat from "./options/chat/Chat";
+import Rules from "./options/rules/Rules"
+import ProjectList from "./options/projectList/ProjectList";
+import Profile from "./options/profile/Profile";
+import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
-  const jwt = localStorage.getItem("jwt")
-  const dispatch = useDispatch()
-  const auth = useSelector((state) => state.auth);
 
   const options = [
     { title: "All Employees", icon: <FaUsers /> },
@@ -450,12 +453,6 @@ const EmployeeSideBar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  useEffect(() => {
-    if (jwt) {
-      dispatch(getEmployee(jwt));
-    }
-  }, [jwt, auth.jwt, dispatch]);
-
   const renderContent = () => {
     switch (activeTab) {
       case "payslips":
@@ -480,7 +477,7 @@ const EmployeeSideBar = () => {
   };
 
   return (
-    <div className="relative h-auto bg-[#e65f2b] bg-opacity-10">
+    <div className="relative bg-[#e65f2b] bg-opacity-10">
       <EmployeeNavBar />
       <div
         className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
@@ -493,13 +490,13 @@ const EmployeeSideBar = () => {
               onClick={toggleSidebar}
             />
             {!isSidebarCollapsed && (
-              <div className="flex items-center relative top-0 pb-4 px-2 ">
+              <div className="flex items-center relative top-0 pb-4 pl-2 ">
                 <img
                   src={profile}
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
-                <p className="text-[16px] text-white pl-2">Welcome {auth.employee ? auth.employee.firstName.toUpperCase() : "user"}</p>
+                <p className="text-[16px] text-white pl-2">Welcome! User</p>
               </div>
             )}
           </div>
