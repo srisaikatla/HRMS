@@ -97,7 +97,7 @@ const ReactCalendar = ({ onEventClick }) => {
   };
 
   return (
-    <div className="calendar-container bg-[#E65F2B] ">
+    <div className="calendar-container  ">
       <div className="max-w-full mx-auto bg-white rounded-lg overflow-hidden p-4">
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-lg font-semibold text-[#E65F2B] mb-5">
@@ -269,8 +269,8 @@ const Events = () => {
 
   return (
     <div className="p-5">
-      <h2 className="text-xl font-bold mb-4">Employee</h2>
-      <h3 className="text-lg font-semibold">Dashboard/Holidays</h3>
+      <h2 className="text-xl font-bold ">Employee</h2>
+      <h3 className="text-lg font-semibold">Dashboard/Events</h3>
 
       <div className="flex justify-end mb-4">
         <button
@@ -284,7 +284,7 @@ const Events = () => {
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className=" flex flex-col  md:flex-row gap-4">
         <div className="w-full md:w-8/12 bg-white rounded-lg p-4 mr-4 text-lg font-semibold">
           <ReactCalendar
             onEventClick={handleEventClick}
@@ -364,32 +364,43 @@ const Events = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-11/12 mx-auto bg-white rounded-lg p-4 mt-4">
+      <div className="overflow-x-scroll scrollbar-thin text-white scrollbar-track-white scrollbar-thumb-orange-600 pt-10 mx-4">
         <h1 className="text-lg font-semibold mb-4 text-[#E65F2B]">
           Events List
         </h1>
-        <table className="w-full bg-white rounded-lg ">
+        <table className="min-w-full w-screen overflow-x-scroll text-nowrap ">
           <thead className="bg-[#E65F2B]">
             <tr>
-              <th className="p-2 text-lg font-semibold">Day</th>
-              <th className="p-2 text-lg font-semibold">Date</th>
-              <th className="p-2 text-lg font-semibold">Event</th>
-              <th className="p-2 text-lg font-semibold">Actions</th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Day
+              </th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Date
+              </th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Event
+              </th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="text-center">
             {events.map((event) => (
-              <tr key={event.id} className="bg-[#E65F2B] bg-opacity-20">
-                <td className="py-2 px-4 border-b text-lg font-semibold bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+              <tr
+                key={event.id}
+                className="text-[#e65f2b] border-b border-[#e65f2b]"
+              >
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   {event.day}
                 </td>
-                <td className="py-2 px-4 border-b text-lg font-semibold bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   {event.date}
                 </td>
-                <td className="py-2 px-4 border-b text-lg font-semibold bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   {event.name}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center border-r-0 border-[#E65F2B] border-opacity-80">
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   <div className="flex justify-center items-center space-x-2">
                     <button
                       className="text-blue-500 flex py-3 items-center text-lg font-semibold"

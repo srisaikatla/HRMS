@@ -13,8 +13,8 @@ const initialData = [
   {
     checkbox: false,
     star: true,
-    from : "John Smith",
-    mailId : "johnsmith2024@gmail.com",
+    from: "John Smith",
+    mailId: "johnsmith2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -24,8 +24,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -35,8 +35,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -46,8 +46,8 @@ const initialData = [
   {
     checkbox: false,
     star: true,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -57,8 +57,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -68,8 +68,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -79,8 +79,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -90,8 +90,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -147,12 +147,11 @@ const InboxPage = ({ onSelectMessage }) => {
     setInboxData(updatedData);
   };
 
-  const handleRefresh = () =>{
-    window.location.reload();  // refreshes the entire page
-  }
+  const handleRefresh = () => {
+    window.location.reload(); // refreshes the entire page
+  };
 
   return (
-
     <>
       <div className="rounded-r-xl ">
         <div className="flex justify-between py-5 mx-10">
@@ -166,78 +165,80 @@ const InboxPage = ({ onSelectMessage }) => {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between mx-10">
-          <div className="flex gap-7 items-center">
-            <button
-              onClick={handleMainCheckboxClick}
-              className="text-4xl text-[#E65F2B]"
-            >
-              <img
-                src={mainCheckbox ? Checked : unChecked}
-                alt="Main Checkbox"
-              />
-
-   
-            </button>
-            <div className="border border-[#E65F2B] rounded-lg">
-              <button className="border-r border-[#E65F2B] px-3 py-1">
-                Refresh
-              </button>
-              <button className="border-r border-[#E65F2B] px-3 py-1">
-                Archive
-              </button>
-              <button className="px-3">Trash</button>
-            </div>
-            <button className="border border-r border-[#E65F2B] rounded-lg py-1 px-3">
-              Tags
-            </button>
-            <button className="border border-r border-[#E65F2B] rounded-lg py-1 px-3">
-              More
-            </button>
-          </div>
-          <div className="flex gap-1">
-            <button className="border rounded-l-lg bg-[#E65F2B] text-white w-8 h-8 px-1">
-              <PiLessThan className="text-2xl" />
-            </button>
-            <button className="border rounded-r-lg bg-[#E65F2B] text-white w-8 h-8 px-1">
-              <PiGreaterThan className="text-2xl" />
-            </button>
-          </div>
-
-        </div>
-        <ul className="m-10">
-          {inboxData.map((data, index) => (
-            <li
-              key={index}
-              className=" cursor-pointer flex justify-between border-b py-3 group"
-            >
-              <div className="flex gap-5">
-                <button onClick={() => handleCheckboxClick(index)} className="">
-                  <img
-                    src={data.checkbox ? Checked : unChecked}
-                    alt="checkbox"
-                  />
-                </button>
-                <button onClick={() => handleStarClick(index)} className="">
-                  <img src={data.star ? filledStar : unfilledstar} alt="star" />
-                </button>
-                <div>
-                  <h1>{data.name}</h1>
-                  <p>{data.description}</p>
-                </div>
-              </div>
-              <div>
-                <p className="group-hover:hidden">{data.time}</p>
-                <button className="hidden group-hover:block bg-red-500 p-2 text-xl text-white rounded-lg">
-                  <MdDeleteForever />
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
       </div>
+      <div className="flex items-center justify-between mx-10">
+        <div className="flex gap-7 items-center">
+          <button
+            onClick={handleMainCheckboxClick}
+            className="text-4xl text-[#E65F2B]"
+          >
+            <img src={mainCheckbox ? Checked : unChecked} alt="Main Checkbox" />
+          </button>
+          <div className="border border-[#E65F2B] rounded-lg">
+            <button
+              onClick={handleRefresh}
+              className="border-r border-[#E65F2B] px-3 py-1"
+            >
+              Refresh
+            </button>
+            <button className="border-r border-[#E65F2B] px-3 py-1">
+              Archive
+            </button>
+            <button className="px-3">Trash</button>
+          </div>
+          <button className="border border-r border-[#E65F2B] rounded-lg py-1 px-3">
+            Tags
+          </button>
+          <button className="border border-r border-[#E65F2B] rounded-lg py-1 px-3">
+            More
+          </button>
+        </div>
+        <div className="flex gap-1">
+          <button
+            onClick={handlePreviousPage}
+            className="border rounded-l-lg bg-[#E65F2B] text-white w-8 h-8 px-1"
+          >
+            <PiLessThan className="text-2xl" />
+          </button>
+          <button
+            onClick={handleNextPage}
+            className="border rounded-r-lg bg-[#E65F2B] text-white w-8 h-8 px-1"
+          >
+            <PiGreaterThan className="text-2xl" />
+          </button>
+        </div>
+      </div>
+      <ul className="m-10">
+        {currentItems.map((data, index) => (
+          <li
+            key={index}
+            className=" cursor-pointer flex justify-between border-b py-3 group"
+          >
+            <div className="flex gap-5">
+              <button onClick={() => handleCheckboxClick(index)} className="">
+                <img src={data.checkbox ? Checked : unChecked} alt="checkbox" />
+              </button>
+              <button onClick={() => handleStarClick(index)} className="">
+                <img src={data.star ? filledStar : unfilledstar} alt="star" />
+              </button>
+              <div onClick={() => onSelectMessage(data)}>
+                <h1>{data.subject}</h1>
+                <p>{data.message.slice(0, 85)}</p>
+              </div>
+            </div>
+            <div>
+              <p className="group-hover:hidden">{data.time}</p>
+              <button
+                className="hidden group-hover:block bg-red-500 p-2 text-xl text-white rounded-lg"
+                onClick={() => handleDeleteClick(index)}
+              >
+                <MdDeleteForever />
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
-
   );
 };
 

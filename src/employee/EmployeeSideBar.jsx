@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
-import Payslips from "./options/payslips/Payslip";
+import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import Events from "./options/events/Events";
+import ApplyLeave from "./options/applyLeave/ApplyLeave";
+import Settlements from "./options/payslips/Settlements";
+import PayrollForms from "./options/payslips/PayrollForms";
+import DirectDeposits from "./options/payslips/DirectDeposits";
+import YTD from "./options/payslips/YTDimport";
+import Attendance from "./options/attendance/Attendance";
 
 import {
   FaUsers,
@@ -22,7 +28,7 @@ import {
   FaTicketAlt,
 } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
-import { GiPayMoney, GiChart } from "react-icons/gi";
+import { GiPayMoney } from "react-icons/gi";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
@@ -47,17 +53,20 @@ const EmployeeSideBar = () => {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
       subOptions: [
-        { name: "Run payroll", icon: <GiPayMoney /> },
-        { name: "Payroll Summary", icon: <MdOutlinePayment /> },
-        { name: "Payroll settings", icon: <MdAdminPanelSettings /> },
-        { name: "Advances/loans", icon: <LiaMoneyCheckAltSolid /> },
+        // { name: "Run payroll", icon: <GiPayMoney /> },
+        // { name: "Payroll Summary", icon: <MdOutlinePayment /> },
+        // { name: "Payroll settings", icon: <MdAdminPanelSettings /> },
+        // { name: "Advances/loans", icon: <LiaMoneyCheckAltSolid /> },
         { name: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
-        { name: "Settlements", icon: <FaMoneyBillTransfer /> },
-        { name: "Payroll Forms", icon: <GiTakeMyMoney /> },
-        { name: "Direct deposits", icon: <PiHandDepositFill /> },
-        { name: "YTD important", icon: <FaMoneyBillTrendUp /> },
-        { name: "Gratuity Calculator", icon: <TbMoneybag /> },
-        { name: "Estimated tax sheet", icon: <BsFileEarmarkSpreadsheet /> },
+        { name: "Salary Structure", icon: <FaMoneyBillTransfer /> },
+        { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
+        { name: "Bank Account", icon: <PiHandDepositFill /> },
+        // { name: "Settlements", icon: <FaMoneyBillTransfer /> },
+        // { name: "Payroll Forms", icon: <GiTakeMyMoney /> },
+        // { name: "Direct deposits", icon: <PiHandDepositFill /> },
+        // { name: "YTD import", icon: <FaMoneyBillTrendUp /> },
+        // { name: "Gratuity Calculator", icon: <TbMoneybag /> },
+        // { name: "Estimated tax sheet", icon: <BsFileEarmarkSpreadsheet /> },
       ],
     },
     { title: "Profile", icon: <FaUser /> },
@@ -174,10 +183,20 @@ const EmployeeSideBar = () => {
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
-        <div className="text-2xl font-bold">
-          {activeTab === "Payslips" && <Payslips />}
+        <div className="">
           {activeTab === "All Employees" && <AllEmployees />}
+          {activeTab === "Events" && <Events />}
+          {activeTab === "Apply Leave" && <ApplyLeave />}
+
+          {/* payroll */}
+          {activeTab === "Payslips" && <Main />}
+          {/* {activeTab === "Settlements" && <Settlements />} */}
+          {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
+          {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
+          {/* {activeTab === "YTD import" && <YTD />} */}
+          {/*  */}
           {/* Add additional conditional rendering for other active tabs if needed */}
+          {activeTab === "Attendance" && <Attendance />}
         </div>
       </div>
     </div>

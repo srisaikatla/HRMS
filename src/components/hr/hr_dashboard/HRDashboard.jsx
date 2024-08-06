@@ -45,8 +45,8 @@ const HRDashboard = () => {
   };
   return (
     <div>
-      <div className=" pb-6 ml-4  w-auto">
-        <h2 className="text-[#E65F2B] text-xl font-bold mb-8">
+      <div className=" pb-6 pt-4 ml-4  w-auto">
+        <h2 className="text-[#E65F2B] text-xl font-bold mb-6">
           Hr/Hrdashboard
         </h2>
         <div className="w-auto">

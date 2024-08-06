@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   FaFolder,
   FaEnvelope,
-  FaCommentDots,
   FaBell,
   FaFilter,
   FaCalendarDay,
@@ -27,10 +26,13 @@ function EmployeeNavBar() {
 
   return (
     <>
-      <div id="main" className=" pb-2  top-0  right-0 ">
+      <div
+        id="main"
+        className="w-auto pb-2  top-0  right-0  justify-center items-center flex"
+      >
         <div
           id="topbar"
-          className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-end"
+          className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-center"
         >
           <div className="w-[428px] h-[48px] bg-[#ef5f2b] rounded-xl flex justify-center items-center">
             <input
@@ -41,7 +43,7 @@ function EmployeeNavBar() {
           </div>
           <div
             id="icons"
-            className="w-[300px] h-[48px] text-white rounded-xl flex justify-around items-center"
+            className="flex justify-around items-center w-full md:w-auto space-x-4 md:space-x-6"
           >
             <FaFolder
               className="hover:cursor-pointer"

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   FaFolder,
   FaEnvelope,
-  FaCommentDots,
   FaBell,
   FaFilter,
   FaCalendarDay,
