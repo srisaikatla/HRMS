@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-
+// 
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaCalendarAlt,
@@ -19,253 +18,347 @@ import {
   FaClipboardList,
   FaBuilding,
 } from "react-icons/fa";
+import { SiHdfcbank } from "react-icons/si";
+import { GiPayMoney } from "react-icons/gi";
+import { MdOutlinePayment } from "react-icons/md";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { LiaMoneyCheckAltSolid } from "react-icons/lia";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { PiHandDepositFill } from "react-icons/pi";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { TbMoneybag } from "react-icons/tb";
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { MdOutlineSocialDistance } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../State/Auth/Action";
-// import HRDashboard from "../hr_dashboard/HRDashboard";
+import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
+import { GrProjects } from "react-icons/gr";
+import { TbListDetails } from "react-icons/tb";
 
-const ForHrSidebar = ({ setActiveTab }) => {
+const ForHrSidebar = ({isSidebarCollapsed, activeTab, setActiveTab}) => {
+  const navigate = useNavigate();
   const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
-  const [showAccountOptions, setShowAccountOptions] = useState(false);
   const [showReportOptions, setShowReportOptions] = useState(false);
+  const [showPayrollOptions, setShowPayrollOptions] = useState(false);
+  const [showAccountOptions, setShowAccountOptions] = useState(false);
   const [showAuthOptions, setShowAuthOptions] = useState(false);
-  const jwt = localStorage.getItem("jwt");
-  const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
-
-
+  const [showHrManagementOptions, setShowHrManagementOptions] = useState(false);
   const options = [
+    { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
+    { title: "Holiday", icon: <FaCalendarAlt /> },
+    { title: "Events", icon: <FaCalendarCheck /> },
+    { title: "Activities", icon: <FaTasks /> },
+    { title: "HR Social", icon: <MdOutlineSocialDistance /> },
+
     {
-      title: "Hr Dashboard",
-      component: "Hr Dashboard",
-      icon: <FaTachometerAlt />,
+      title: "HR Management",
+      icon: <FaUserFriends />,
+      hasSubOptions: true,
     },
-    { title: "Holidays", component: "Holiday", icon: <FaCalendarAlt /> },
-    { title: "Events", component: "Events", icon: <FaCalendarCheck /> },
-    { title: "Activities", component: "Activities", icon: <FaTasks /> },
-    { title: "HR Social", component: "HR Social", icon: <MdOutlineSocialDistance /> },
-    { title: "Employee", component: "", icon: <FaUserFriends /> },
-    { title: "Account", component: "", icon: <FaUserFriends /> },
-    { title: "PayRoll", component: "", icon: <FaMoneyCheckAlt /> },
-    { title: "Report", component: "", icon: <FaFileAlt /> },
-    { title: "User", component: "UserList", icon: <FaUser /> },
-    { title: "Authentication", component: "", icon: <FaLock /> },
+    { title: "PayRoll", icon: <FaMoneyCheckAlt />, hasSubOptions: true },
+    { title: "Reports", icon: <FaFileAlt />, hasSubOptions: true },
+    { title: "Accounts", icon: <FaMoneyCheckAlt />, hasSubOptions: true },
+    { title: "Authentication", icon: <FaLock />, hasSubOptions: true },
   ];
 
   const employeeOptions = [
-    { title: "All Employees", component: "All Employees", icon: <FaUsers /> },
-    {
-      title: "Leave Requests",
-      component: "Leave Requests",
-      icon: <FaClipboardList />,
-    },
-    {
-      title: "Attendance",
-      component: "Attendance",
-      icon: <FaCalendarCheck />,
-    },
-    { title: "Department", component: "Department", icon: <FaBuilding /> },
-  ];
+    { title: "New Employee", icon: <FaBuilding /> },
+    { title: "View Employees", icon: <FaUsers /> },
+    { title: "Compensation", icon: <FaBuilding /> },
+    { title: "Employee Import", icon: <FaBuilding /> },
+    // { title: "Leave Requests", icon: <FaClipboardList /> },
+    // { title: "Attendance", icon: <FaCalendarCheck /> },
+    { title: "Department", icon: <FaBuilding /> },
 
-  const accountOptions = [
-    {
-      title: "Account Payment",
-      component: "Account Payment",
-      icon: <FaCalendarCheck />,
-    },
-    { title: "Account Expenses", component: "Account Expenses", icon: <FaBuilding /> },
-    { title: "Account Invoice", component: "Account Invoice", icon: <FaBuilding /> },
+    { title: "Onboarding", icon: <FaBuilding /> },
   ];
 
   const reportOptions = [
-    {
-      title: "Report Expenses",
-      component: "Report Expenses",
-      icon: <FaBuilding />,
-    },
-    {
-      title: "Report Invoice",
-      component: "Report Invoice",
-      icon: <FaBuilding />,
-    },
+    { title: "Report Invoice", icon: <FaFileAlt /> },
+    { title: "Report Expenses", icon: <FaFileAlt /> },
+  ];
+
+  const accountOptions = [
+    { title: "Account Payment", icon: <FaMoneyCheckAlt /> },
+    { title: "Account Expenses", icon: <FaMoneyCheckAlt /> },
+    { title: "Account Invoice", icon: <FaMoneyCheckAlt /> },
+  ];
+  const payrollOptions = [
+    { title: "DashBoard", icon: <TbMoneybag /> },
+    { title: "Run payroll", icon: <GiPayMoney /> },
+    { title: "Payroll Summary", icon: <MdOutlinePayment /> },
+    { title: "Payroll settings", icon: <MdAdminPanelSettings /> },
+    // { title: "Advances/loans", icon: <LiaMoneyCheckAltSolid /> },
+    { title: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
+    { title: "Settlements", icon: <FaMoneyBillTransfer /> },
+    { title: "Payroll Forms", icon: <GiTakeMyMoney /> },
+    // { title: "Direct deposits", icon: <PiHandDepositFill /> },
+    // { title: "YTD import", icon: <FaMoneyBillTrendUp /> },
+    // { title: "Gratuity Calculator", icon: <TbMoneybag /> },
+    // { title: "Estimated tax sheet", icon: <BsFileEarmarkSpreadsheet /> },
   ];
 
   const authOptions = [
-    { title: "Logout", link: "/login", icon: <FaBuilding /> },
+    { title: "Login", link: "/login", icon: <FaBuilding /> },
     { title: "Register", link: "/register", icon: <FaBuilding /> },
     {
-      title: "Forget Password",
+      title: "Forgot Password",
       link: "/forget-password",
       icon: <FaBuilding />,
     },
     { title: "Page 404", link: "/404", icon: <FaBuilding /> },
   ];
 
-
   const handleOptionClick = (option) => {
-    if (option.title === "Employee") {
-      setShowEmployeeOptions(!showEmployeeOptions);
-    } else if (option.title === "Account") {
-      setShowAccountOptions(!showAccountOptions);
-    } else if (option.title === "Report") {
-      setShowReportOptions(!showReportOptions);
-    } else if (option.title === "Authentication") {
-      setShowAuthOptions(!showAuthOptions);
-    } else if (option.title === "Logout") {
-      handleLogout();
-    } else {
-      console.log("Active tab ckicked", option.component);
-      setActiveTab(option.component);
-      setShowEmployeeOptions(false);
-      setShowAccountOptions(false);
-      setShowReportOptions(false);
-      setShowAuthOptions(false);
+    switch (option.title) {
+      case "HR Management":
+        setShowHrManagementOptions(!showHrManagementOptions);
+        break;
+      case "Employee":
+        setShowEmployeeOptions(!showEmployeeOptions);
+        break;
+      case "Reports":
+        setShowReportOptions(!showReportOptions);
+        break;
+      case "PayRoll":
+        setShowPayrollOptions(!showPayrollOptions);
+        break;
+      case "Accounts":
+        setShowAccountOptions(!showAccountOptions);
+        break;
+      case "Authentication":
+        setShowAuthOptions(!showAuthOptions);
+        break;
+      default:
+        setActiveTab(option.title);
+        break;
     }
   };
 
-  const handleEmployeeOptionClick = (option) => {
-    setActiveTab(option.component);
-  };
-  const handleReportOptionClick = (option) => {
-    setActiveTab(option.component);
-  };
-
-  const handleAccountOptionClick = (option) => {
-    setActiveTab(option.component);
-  };
-  const handleAuthOptionClick = (option) => {
-    setActiveTab(option.component);
-  };
-
-
-  const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("jwt");
+  const handleOptionClickNavigate = (authOption) => {
+    navigate(authOption.link);
   };
 
   return (
-    <>
+          <div className="pr-2">
+            <ul className="pt-3 pr-1">
+              {options.map((option) => (
+                <React.Fragment key={option.title}>
+                  <li
+                    className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
+                      activeTab === option.title
+                        ? "bg-white rounded-r-full text-[#ef5f2b]"
+                        : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+                    }`}
+                    onClick={() => handleOptionClick(option)}
+                  >
+                    <div className="flex items-center">
+                      {option.icon}
+                      <span
+                        className={`pl-2 ${
+                          isSidebarCollapsed ? "hidden" : "inline"
+                        }`}
+                      >
+                        {option.title}
+                      </span>
+                    </div>
+                    {!isSidebarCollapsed && option.hasSubOptions && (
+                      <span className="pr-5">
+                        {option.title === "Employee" && showEmployeeOptions ? (
+                          <FaChevronUp />
+                        ) : option.title === "HR Management" &&
+                          showHrManagementOptions ? (
+                          <FaChevronUp />
+                        ) : option.title === "Reports" && showReportOptions ? (
+                          <FaChevronUp />
+                        ) : option.title === "PayRoll" && showPayrollOptions ? (
+                          <FaChevronUp />
+                        ) : option.title === "Accounts" &&
+                          showAccountOptions ? (
+                          <FaChevronUp />
+                        ) : option.title === "Authentication" &&
+                          showAuthOptions ? (
+                          <FaChevronUp />
+                        ) : (
+                          <FaChevronDown />
+                        )}
+                      </span>
+                    )}
+                  </li>
+                  {/*  */}
+                  {/* {!isSidebarCollapsed &&
+                    option.title === "Employee" &&
+                    showEmployeeOptions && (
+                      <ul className="">
+                        {employeeOptions.map((subOption) => (
+                          <li
+                            key={subOption.title}
+                            className={`flex justify-start items-center text-[16px] pl-5 py-2 cursor-pointer  mb-1 ${
+                              activeTab === subOption.title
+                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                            }`}
+                            onClick={() => setActiveTab(subOption.title)}
+                          >
+                            {subOption.icon}
+                            <span className="pl-2">{subOption.title}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )} */}
+                  {!isSidebarCollapsed &&
+                    option.title === "HR Management" &&
+                    showHrManagementOptions && (
+                      <ul className="">
+                        <li
+                          className={`flex justify-between text-[16px] bg-opacity-50  pl-8 py-3 mb-1 cursor-pointer   ${
+                            activeTab === showHrManagementOptions.title
+                              ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                              : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                          }`}
+                          onClick={() =>
+                            handleOptionClick({ title: "Employee" })
+                          }
+                        >
+                          <div className="flex items-center ">
+                            <span className="text-[20px]">
+                              <FaUserFriends />
+                            </span>
+                            {!isSidebarCollapsed && (
+                              <span className="pl-2">Employee</span>
+                            )}
+                          </div>
+                          {showEmployeeOptions && !isSidebarCollapsed ? (
+                            <span className="pr-5">
+                              <FaChevronUp />
+                            </span>
+                          ) : (
+                            <span className=" pr-5">
+                              <FaChevronDown />
+                            </span>
+                          )}
+                        </li>
+                        {!isSidebarCollapsed && showEmployeeOptions && (
+                          <ul className="">
+                            {employeeOptions.map((employeeOption) => (
+                              <li
+                                key={employeeOption.title}
+                                className={`text-[16px] pl-12 py-3 mb-1 cursor-pointer   ${
+                                  activeTab === employeeOption.title
+                                    ? "bg-white bg-opacity-30 rounded-r-full text-[#ef5f2b]"
+                                    : "hover:bg-white hover:bg-opacity-30 hover:text-[#ef5f2b] hover:rounded-r-full"
+                                }`}
+                                onClick={() => {
+                                  handleOptionClick(employeeOption);
+                                  setActiveTab(employeeOption.title);
+                                }}
+                              >
+                                <div className="flex items-center">
+                                  <span className="text-[20px]">
+                                    {employeeOption.icon}
+                                  </span>
+                                  {!isSidebarCollapsed && (
+                                    <span className="pl-5">
+                                      {employeeOption.title}
+                                    </span>
+                                  )}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </ul>
+                    )}
+                  {/*  */}
+                  {!isSidebarCollapsed &&
+                    option.title === "PayRoll" &&
+                    showPayrollOptions && (
+                      <ul className="">
+                        {payrollOptions.map((subOption) => (
+                          <li
+                            key={subOption.title}
+                            className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                              activeTab === subOption.title
+                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                            }`}
+                            onClick={() => setActiveTab(subOption.title)}
+                          >
+                            {subOption.icon}
+                            <span className="pl-2">{subOption.title}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  {!isSidebarCollapsed &&
+                    option.title === "Reports" &&
+                    showReportOptions && (
+                      <ul className="">
+                        {reportOptions.map((subOption) => (
+                          <li
+                            key={subOption.title}
+                            className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                              activeTab === subOption.title
+                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                            }`}
+                            onClick={() => setActiveTab(subOption.title)}
+                          >
+                            {subOption.icon}
+                            <span className="pl-2">{subOption.title}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
-      <div className="flex flex-col pr-3 text-white">
-        <>
-          {options.map((option, index) => (
-            <div key={index}>
-              <div
-                className="flex items-center transition-all duration-500 hover:bg-white text-white hover:text-[#e65f2b] w-[200px] mx-0 rounded-tr-3xl rounded-br-3xl cursor-pointer"
-                onClick={() => handleOptionClick(option)}
-              >
-                <div className="p-3 pl-4 text-xl flex items-center">
-                  {option.icon}
-                  <span className="ml-3">{option.title}</span>
-                </div>
-                {option.title === "Employee" && (
-                  <div className="ml-auto pr-4">
-                    {showEmployeeOptions ? (
-                      <FaChevronUp />
-                    ) : (
-                      <FaChevronDown />
+                  {/*  */}
+                  {!isSidebarCollapsed &&
+                    option.title === "Accounts" &&
+                    showAccountOptions && (
+                      <ul className="">
+                        {accountOptions.map((subOption) => (
+                          <li
+                            key={subOption.title}
+                            className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                              activeTab === subOption.title
+                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                            }`}
+                            onClick={() => setActiveTab(subOption.title)}
+                          >
+                            {subOption.icon}
+                            <span className="pl-2">{subOption.title}</span>
+                          </li>
+                        ))}
+                      </ul>
                     )}
-                  </div>
-                )}
-                {option.title === "Account" && (
-                  <div className="ml-auto pr-4">
-                    {showAccountOptions ? (
-                      <FaChevronUp />
-                    ) : (
-                      <FaChevronDown />
+                  {!isSidebarCollapsed &&
+                    option.title === "Authentication" &&
+                    showAuthOptions && (
+                      <ul className="">
+                        {authOptions.map((authOption) => (
+                          <li
+                            key={authOption.title}
+                            className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                              activeTab === authOption.title
+                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                            }`}
+                            onClick={() =>
+                              handleOptionClickNavigate(authOption)
+                            }
+                          >
+                            {authOption.icon}
+                            <span className="pl-2">{authOption.title}</span>
+                          </li>
+                        ))}
+                      </ul>
                     )}
-                  </div>
-                )}
-                {option.title === "Report" && (
-                  <div className="ml-auto pr-4">
-                    {showReportOptions ? (
-                      <FaChevronUp />
-                    ) : (
-                      <FaChevronDown />
-                    )}
-                  </div>
-                )}
-                {option.title === "Authentication" && (
-                  <div className="ml-auto pr-4">
-                    {showAuthOptions ? (
-                      <FaChevronUp />
-                    ) : (
-                      <FaChevronDown />
-                    )}
-                  </div>
-                )}
-              </div>
-              {option.title === "Employee" && showEmployeeOptions && (
-                <div className="transition-all duration-500 ml-8 ">
-                  {employeeOptions.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center transition-all duration-500 hover:bg-white text-white hover:text-[#e65f2b] w-[200px] mx-0 rounded-tr-3xl rounded-br-3xl cursor-pointer"
-                      onClick={() => handleEmployeeOptionClick(item)}
-                    >
-                      <div className="p-3 pl-4 text-xl flex items-center">
-                        {item.icon}
-                        <span className="ml-3">{item.title}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {option.title === "Account" && showAccountOptions && (
-                <div className="transition-all duration-500 ml-8 ">
-                  {accountOptions.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center transition-all duration-500 hover:bg-white text-white hover:text-[#e65f2b] w-[200px] mx-0 rounded-tr-3xl rounded-br-3xl cursor-pointer"
-                      onClick={() => handleAccountOptionClick(item)}
-                    >
-                      <div className="p-3 pl-4 text-xl flex items-center">
-                        {item.icon}
-                        <span className="ml-3">{item.title}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {option.title === "Report" && showReportOptions && (
-                <div className="transition-all duration-500 ml-8 ">
-                  {reportOptions.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center transition-all duration-500 hover:bg-white text-white hover:text-[#e65f2b] w-[260px] mx-0 rounded-tr-3xl rounded-br-3xl cursor-pointer"
-                      onClick={() => handleReportOptionClick(item)}
-                    >
-                      <div className="p-3 pl-4 text-xl flex items-center">
-                        {item.icon}
-                        <span className="ml-3">{item.title}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {option.title === "Authentication" && showAuthOptions && (
-                <div className="transition-all duration-500 ml-8 ">
-                  {authOptions.map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.link}
-                      className="flex items-center transition-all duration-500 hover:bg-white text-white hover:text-[#e65f2b] w-[260px] mx-0 rounded-tr-3xl rounded-br-3xl cursor-pointer"
-                      onClick={() => handleAuthOptionClick(item)}
-                    >
-                      <div className="p-3 pl-4 text-xl flex items-center">
-                        {item.icon}
-                        <span className="ml-3">{item.title}</span>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </>
-      </div>
-    </>
+                </React.Fragment>
+              ))}
+            </ul>
+          </div>
   );
-}
+};
 
 export default ForHrSidebar;
