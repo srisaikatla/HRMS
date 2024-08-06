@@ -396,7 +396,10 @@ import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import SalaryStructure from "./options/payslips/SalaryStructure"
 import Declaration from "./options/payslips/Declaration"
 import BankAccount from "./options/payslips/BankAccount"
-import Chat from "./options/chat/Chat"
+import Chat from "./options/chat/Chat";
+import Rules from "./options/rules/Rules"
+import ProjectList from "./options/projectList/ProjectList";
+import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -559,6 +562,9 @@ const EmployeeSideBar = () => {
           {activeTab === "Declaration" && <Declaration />}
           {activeTab === "Bank Account" && <BankAccount />}
           {activeTab === "Chats" && <Chat />}
+          {activeTab === "Projects" && <ProjectList />}
+          {activeTab === "Rules" && <Rules />}
+          {activeTab === "Bank Account Details" && <BankAccountDetails />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
