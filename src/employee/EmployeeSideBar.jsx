@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unreachable */
 // import React, { useState } from "react";
 // import { IoMdMenu } from "react-icons/io";
 // import profile from "../employeeAssets/profile/boy.png";
@@ -399,17 +401,8 @@ const EmployeeSideBar = () => {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
       subOptions: [
-        "Run payroll",
-        "Payroll Summary",
-        "Payroll settings",
-        "Advances/loans",
         "payslips",
-        "settlements",
-        "PayrollForms",
-        "Direct deposits",
-        "YTD important",
-        "Gratuity Calculator",
-        "Estimated tax sheet",
+        "Salary Stucture"
       ],
     },
     { title: "Profile", icon: <FaUser /> },
@@ -444,13 +437,13 @@ const EmployeeSideBar = () => {
       case "payslips":
         return <Payslips />;
         break;
-      case "All Employees"  :
-        return <AllEmployees />;
+      case "All Employees":
+        return <AllEmployees />
         break;
-      case "Events"  :
+      case "Events":
         return <Events />;
         break;
-      case "Apply Leave"  :
+      case "Apply Leave":
         return <ApplyLeave />;
         break;
       default:
@@ -466,20 +459,19 @@ const EmployeeSideBar = () => {
     <div className="flex bg-[#e65f2b] bg-opacity-10">
       {/* <EmployeeNavBar /> */}
       <div
-        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${
-          isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
+          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col text-white">
           <div className="flex justify-between items-center pt-12  pb-5 pl-2">
-            <IoMdMenu 
+            <IoMdMenu
               className="text-white h-[30px] absolute  top-4 cursor-pointer"
               onClick={toggleSidebar}
             />
             {!isSidebarCollapsed && (
               <div className="flex items-center relative top-0 pb-4 pl-2 ">
                 <img
-                  src={profile} 
+                  src={profile}
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
@@ -491,9 +483,8 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div key={index}>
                 <div
-                  className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${
-                    activeTab === option.title ? "bg-white text-[#e65f2b]" : ""
-                  }`}
+                  className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${activeTab === option.title ? "bg-white text-[#e65f2b]" : ""
+                    }`}
                   onClick={() => handleOptionClick(option)}
                 >
                   <div className="p-3 pl-4 text-[16px] flex items-center">
@@ -503,9 +494,8 @@ const EmployeeSideBar = () => {
                         <span className="ml-3">{option.title}</span>
                         {option.title === "Payroll" && (
                           <FaChevronDown
-                            className={`ml-20 transform transition-transform ${
-                              isPayrollDropdownOpen ? "rotate-180" : ""
-                            }`}
+                            className={`ml-20 transform transition-transform ${isPayrollDropdownOpen ? "rotate-180" : ""
+                              }`}
                           />
                         )}
                       </>
@@ -517,11 +507,10 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-                        className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${
-                          activeTab === subOption
-                            ? "bg-white text-[#e65f2b]"
-                            : ""
-                        }`}
+                        className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${activeTab === subOption
+                          ? "bg-white text-[#e65f2b]"
+                          : ""
+                          }`}
                         onClick={() => handleSubOptionClick(subOption)}
                       >
                         <div className="p-3 text-[14px]">{subOption}</div>
@@ -535,9 +524,8 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 p-4 transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
-        }`}
+        className={`flex-1 p-4 transition-all duration-300 ${isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+          }`}
       >
         <EmployeeNavBar />
         {renderContent()}
