@@ -31,6 +31,10 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { PiHandDepositFill } from "react-icons/pi";
 import AllEmployees from "../employee/options/allEmployees/AllEmployees"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
+import SalaryStructure from "./options/payslips/SalaryStructure"
+import Declaration from "./options/payslips/Declaration"
+import BankAccount from "./options/payslips/BankAccount"
+import Chat from "./options/chat/Chat"
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -193,6 +197,10 @@ const EmployeeSideBar = () => {
 
           {/* payroll */}
           {activeTab === "Payslips" && <Payslip />}
+          {activeTab === "Salary Structure" && <SalaryStructure />}
+          {activeTab === "Declaration" && <Declaration />}
+          {activeTab === "Bank Account" && <BankAccount />}
+          {activeTab === "Chats" && <Chat />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
