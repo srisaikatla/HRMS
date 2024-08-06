@@ -6,6 +6,7 @@ import EmployeeNavBar from "./EmployeeNavBar";
 import Payslips from "./options/payslips/Payslip";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import Rules from './options/rules/Rules';
+import PaySlips from './options/payslips/PaySlips'
 import {
   FaUsers,
   FaCalendarAlt,
@@ -124,9 +125,9 @@ const EmployeeSideBar = () => {
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
-        <div className="text-2xl  font-bold">
+        <div className="">
           {activeTab === "Payslips" ? (
-            <Payslips />
+            <PaySlips />
           ) : (
            ""
           )}
