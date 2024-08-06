@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unreachable */
 // import React, { useState } from "react";
 // import { IoMdMenu } from "react-icons/io";
 // import profile from "../employeeAssets/profile/boy.png";
@@ -361,11 +359,13 @@
 
 import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
-import { FaChevronDown } from "react-icons/fa";
-// import profile from "../../../assets/hr/profile/man.png";
-import profile from "../assets/hr/profile/man.png";
+import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
+import Attendance from "./options/attendance/Attendance";
+import Events from "../components/hr/events/Events";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
+import Payslip from "./options/payslips/Payslip"
+
 
 import {
   FaUsers,
@@ -382,15 +382,17 @@ import {
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
+import { FaLongArrowAltRight } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
-import Payslips from "./options/payslips/Payslip";
-import AllEmployees from "./options/allEmployees/AllEmployees";
-import Events from "./options/events/Events";
-
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { PiHandDepositFill } from "react-icons/pi";
+import AllEmployees from "../employee/options/allEmployees/AllEmployees"
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isPayrollDropdownOpen, setIsPayrollDropdownOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState("");
 
   const options = [
     { title: "All Employees", icon: <FaUsers /> },
@@ -401,8 +403,17 @@ const EmployeeSideBar = () => {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
       subOptions: [
+        "Run payroll",
+        "Payroll Summary",
+        "Payroll settings",
+        "Advances/loans",
         "payslips",
-        "Salary Stucture"
+        "settlements",
+        "PayrollForms",
+        "Direct deposits",
+        "YTD important",
+        "Gratuity Calculator",
+        "Estimated tax sheet",
       ],
     },
     { title: "Profile", icon: <FaUser /> },
@@ -417,15 +428,18 @@ const EmployeeSideBar = () => {
   ];
 
   const handleOptionClick = (option) => {
-    if (option.title === "Payroll") {
-      setIsPayrollDropdownOpen(!isPayrollDropdownOpen);
+    if (option.subOptions) {
+      setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
       setActiveTab(option.title);
+      setOpenDropdown(""); // Close other dropdowns
     }
   };
 
-  const handleSubOptionClick = (subOption) => {
-    setActiveTab(subOption);
+  const handleSubOptionClick = (event, subOption) => {
+    event.stopPropagation(); // Prevent event propagation to avoid closing dropdown
+    setActiveTab(subOption.name);
+    // The dropdown remains open
   };
 
   const toggleSidebar = () => {
@@ -456,8 +470,8 @@ const EmployeeSideBar = () => {
   };
 
   return (
-    <div className="flex bg-[#e65f2b] bg-opacity-10">
-      {/* <EmployeeNavBar /> */}
+    <div className="relative bg-[#e65f2b] bg-opacity-10">
+      <EmployeeNavBar />
       <div
         className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
           } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
@@ -502,18 +516,23 @@ const EmployeeSideBar = () => {
                     )}
                   </div>
                 </div>
-                {option.subOptions && isPayrollDropdownOpen && (
-                  <div className="ml-8 mt-1">
+                {option.subOptions && openDropdown === option.title && (
+                  <div
+                    className={`bg-white text-[#e65f2b] transition-all duration-300`}
+                  >
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
                         className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${activeTab === subOption
-                          ? "bg-white text-[#e65f2b]"
-                          : ""
+                            ? "bg-white text-[#e65f2b]"
+                            : ""
                           }`}
                         onClick={() => handleSubOptionClick(subOption)}
                       >
-                        <div className="p-3 text-[14px]">{subOption}</div>
+                        {subOption.icon}
+                        {!isSidebarCollapsed && (
+                          <span className="ml-3">{subOption.name}</span>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -527,8 +546,21 @@ const EmployeeSideBar = () => {
         className={`flex-1 p-4 transition-all duration-300 ${isSidebarCollapsed ? "ml-16" : "ml-[240px]"
           }`}
       >
-        <EmployeeNavBar />
-        {renderContent()}
+        <div className="">
+          {activeTab === "All Employees" && <AllEmployees />}
+          {activeTab === "Events" && <Events />}
+          {activeTab === "Apply Leave" && <ApplyLeave />}
+
+          {/* payroll */}
+          {activeTab === "Payslips" && <Payslip />}
+          {/* {activeTab === "Settlements" && <Settlements />} */}
+          {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
+          {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
+          {/* {activeTab === "YTD import" && <YTD />} */}
+          {/*  */}
+          {/* Add additional conditional rendering for other active tabs if needed */}
+          {activeTab === "Attendance" && <Attendance />}
+        </div>
       </div>
     </div>
   );
