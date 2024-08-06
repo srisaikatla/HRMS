@@ -388,6 +388,7 @@ import {
 } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
+import EmployeeActivities from "./options/employeActivites/EmployeeActivities"
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { PiHandDepositFill } from "react-icons/pi";
@@ -399,6 +400,7 @@ import BankAccount from "./options/payslips/BankAccount"
 import Chat from "./options/chat/Chat";
 import Rules from "./options/rules/Rules"
 import ProjectList from "./options/projectList/ProjectList";
+import Profile from "./options/profile/Profile";
 import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -565,6 +567,8 @@ const EmployeeSideBar = () => {
           {activeTab === "Projects" && <ProjectList />}
           {activeTab === "Rules" && <Rules />}
           {activeTab === "Bank Account Details" && <BankAccountDetails />}
+          {activeTab === "Activities" && <EmployeeActivities />}
+          {activeTab === "Profile" && <Profile />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
