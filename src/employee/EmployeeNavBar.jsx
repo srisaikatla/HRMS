@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import React from "react";
 import {
   FaFolder,
   FaEnvelope,
-  FaCommentDots,
   FaBell,
   FaFilter,
   FaCalendarDay,

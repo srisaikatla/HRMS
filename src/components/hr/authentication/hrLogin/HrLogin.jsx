@@ -7,22 +7,25 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../../State/Auth/Action";
 
 function HrLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const userData = {
       email: data.get("email"),
       password: data.get("password"),
     };
-    navigate("/");
-    dispatch(login(userData));
+
+    const result = await dispatch(login(userData));
+    if (result.success) {
+      navigate("/");
+    } else {
+      setError(result.message || "Invalid credentials. Please try again.");
+    }
   };
 
   return (

@@ -12,15 +12,20 @@ function EmployeeLogin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const userData = {
             email: data.get("email"),
             password: data.get("password"),
         };
-        navigate("/employee");
-        dispatch(employee(userData));
+
+        const result = await dispatch(employee(userData));
+        if (result.success) {
+            navigate("/employee");
+        } else {
+            setError(result.message || "Invalid credentials. Please try again.");
+        }
     };
 
     return (
