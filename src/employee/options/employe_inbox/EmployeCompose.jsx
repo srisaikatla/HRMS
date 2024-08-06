@@ -18,7 +18,7 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { TbSubscript } from "react-icons/tb";
 import { PiTextSuperscriptBold } from "react-icons/pi";
 
-const Compose = ({ onSendMessage, onSaveDraft }) => {
+const EmployeCompose = ({ onSendMessage, onSaveDraft }) => {
   const [moveDown, setMoveDown] = useState(false);
   const [to, setTo] = useState("");
   const [ccInput, setCcInput] = useState("");
@@ -83,9 +83,9 @@ const Compose = ({ onSendMessage, onSaveDraft }) => {
   };
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE]">
+    <div className="rounded-r-xl min-w-[850px] bg-[#FCEFE9]">
       <div className="m-5">
-        <h1 className="text-xl font-semibold">Compose</h1>
+        <h1 className="text-xl font-semibold">EmployeCompose</h1>
         <form
           action=""
           className="bg-white p-4 my-3 rounded-lg shadow-sm flex flex-col gap-4"
@@ -303,4 +303,4 @@ const Compose = ({ onSendMessage, onSaveDraft }) => {
   );
 };
 
-export default Compose;
+export default EmployeCompose;

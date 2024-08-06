@@ -100,7 +100,7 @@ const initialData = [
   },
 ];
 
-const InboxPage = ({ onSelectMessage }) => {
+const EmployeInboxPage = ({ onSelectMessage }) => {
   const [inboxData, setInboxData] = useState(initialData);
   const [mainCheckbox, setMainCheckbox] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -152,15 +152,15 @@ const InboxPage = ({ onSelectMessage }) => {
   }
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE]">
+    <div className="rounded-r-xl min-w-[850px] border border-[#E65F2B]">
       <div className="flex justify-between py-5 mx-10">
         <h1 className="text-xl font-semibold">Inbox</h1>
-        <div className="flex items-center gap-1 border px-5 rounded-lg border-[#0098F1] bg-white">
-          <CiSearch className="text-2xl text-[#0098F1]" />
+        <div className="flex items-center gap-1 border px-5 rounded-lg border-[#E65F2B] bg-white">
+          <CiSearch className="text-2xl text-[#E65F2B]" />
           <input
             type="search"
             placeholder="Search for anything..."
-            className="text-xs py-2 outline-none w-64 text-[#0098F1] placeholder:text-[#0098F1]"
+            className="text-xs py-2 outline-none w-64 text-[#E65F2B] placeholder:text-[#E65F2B]"
           />
         </div>
       </div>
@@ -237,4 +237,4 @@ const InboxPage = ({ onSelectMessage }) => {
   );
 };
 
-export default InboxPage;
+export default EmployeInboxPage;

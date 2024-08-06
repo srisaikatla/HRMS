@@ -4,7 +4,7 @@ import Checked from "../../../assets/project/inbox/checkbox.png";
 import filledStar from "../../../assets/project/inbox/filledstar.png";
 import unfilledstar from "../../../assets/project/inbox/unfilledstar.png";
 
-const SentPage = ({ sentMessage, onDeleteMessage, onSelectMessage }) => {
+const EmployeSentPage = ({ sentMessage, onDeleteMessage, onSelectMessage }) => {
   const [checkedStatus, setCheckedStatus] = useState(
     Array(sentMessage.length).fill(false)
   );
@@ -31,7 +31,7 @@ const SentPage = ({ sentMessage, onDeleteMessage, onSelectMessage }) => {
   };
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE] p-5">
+    <div className="rounded-r-xl min-w-[850px] bg-[#FCEFE9] p-5">
       <h1 className="text-xl font-semibold mb-5">Sent</h1>
       <ul>
         {sentMessage.map((message, index) => (
@@ -70,4 +70,4 @@ const SentPage = ({ sentMessage, onDeleteMessage, onSelectMessage }) => {
   );
 };
 
-export default SentPage;
+export default EmployeSentPage;

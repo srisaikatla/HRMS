@@ -388,6 +388,7 @@ import {
 } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
+import EmployeInbox from "./options/employe_inbox/EmployeInbox"
 import EmployeeActivities from "./options/employeActivites/EmployeeActivities"
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
@@ -570,6 +571,7 @@ const EmployeeSideBar = () => {
           {activeTab === "Activities" && <EmployeeActivities />}
           {activeTab === "Profile" && <Profile />}
           {activeTab === "Holidays" && <EmployeHoliday />}
+          {activeTab === "Inbox" && <EmployeInbox />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}

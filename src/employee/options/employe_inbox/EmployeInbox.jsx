@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import InboxSidebar from "./InboxSidebar";
-import InboxPage from "./InboxPage";
-import SentPage from "./SentPage";
-import Compose from "./Compose";
-import Draft from "./Draft";
-import Outbox from "./Outbox";
-import Starred from "./Starred";
-import Trash from "./Trash";
-import MessageDetailsPage from "./MessageDetailsPage";
+import InboxSidebar from "./EmployeInboxSidebar";
+import InboxPage from "./EmployeInboxPage";
+import SentPage from "./EmployeSentPage";
+import Compose from "./EmployeCompose";
+import Draft from "./EmployeDraft";
+import Outbox from "./EmployeOutbox";
+import Starred from "./EmployeeStarred";
+import Trash from "./EmployeTrash";
+import MessageDetailsPage from "./EmployeeMessageDetailsPage";
 
-const Inbox = () => {
+const EmployeInbox = () => {
     const [activePage, setActivePage] = useState("Inbox");
     const [sentMessage, setSentMessage] = useState([]);
     const [draftMessage, setDraftMessage] = useState([]);
@@ -38,7 +38,7 @@ const Inbox = () => {
     };
 
     return (
-        <div className="pt-24 pl-6">
+        <div className=" pl-6">
             <h1 className="text-[#E65F2B] px-2">Inbox</h1>
             <div className="flex gap-2 px-2 mt-5">
                 <InboxSidebar onItemClick={handleItemClick} />
@@ -56,4 +56,4 @@ const Inbox = () => {
     );
 };
 
-export default Inbox;
+export default EmployeInbox;
