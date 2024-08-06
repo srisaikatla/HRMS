@@ -8,7 +8,7 @@ const initialHolidays = [
 
 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-function Holiday() {
+function EmployeHoliday() {
   const [holidays, setHolidays] = useState(initialHolidays);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -253,6 +253,6 @@ function Holiday() {
   );
 }
 
-export default Holiday;
+export default EmployeHoliday;
 
 

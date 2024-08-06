@@ -366,10 +366,10 @@ import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Attendance from "./options/attendance/Attendance";
-import Events from "../components/hr/events/Events";
+import Events from "./options/events/Events";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip"
-
+import EmployeHoliday from "./options/employe_holiday/EmployeHoliday"
 
 import {
   FaUsers,
@@ -388,13 +388,13 @@ import {
 } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
+import EmployeeActivities from "./options/employeActivites/EmployeeActivities"
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { PiHandDepositFill } from "react-icons/pi";
 import AllEmployees from "../employee/options/allEmployees/AllEmployees"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { getEmployee } from "../State/Auth/Action";
-import { useDispatch, useSelector } from "react-redux";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -562,6 +562,16 @@ const EmployeeSideBar = () => {
 
           {/* payroll */}
           {activeTab === "Payslips" && <Payslip />}
+          {activeTab === "Salary Structure" && <SalaryStructure />}
+          {activeTab === "Declaration" && <Declaration />}
+          {activeTab === "Bank Account" && <BankAccount />}
+          {activeTab === "Chats" && <Chat />}
+          {activeTab === "Projects" && <ProjectList />}
+          {activeTab === "Rules" && <Rules />}
+          {activeTab === "Bank Account Details" && <BankAccountDetails />}
+          {activeTab === "Activities" && <EmployeeActivities />}
+          {activeTab === "Profile" && <Profile />}
+          {activeTab === "Holidays" && <EmployeHoliday />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
