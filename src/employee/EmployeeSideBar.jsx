@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable no-unreachable */
+/* eslint-disable no-unused-vars */
+
 // import React, { useState } from "react";
 // import { IoMdMenu } from "react-icons/io";
 // import profile from "../employeeAssets/profile/boy.png";
@@ -357,7 +361,7 @@
 // export default EmployeeSideBar;
 
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
@@ -403,17 +407,10 @@ const EmployeeSideBar = () => {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
       subOptions: [
-        "Run payroll",
-        "Payroll Summary",
-        "Payroll settings",
-        "Advances/loans",
-        "payslips",
-        "settlements",
-        "PayrollForms",
-        "Direct deposits",
-        "YTD important",
-        "Gratuity Calculator",
-        "Estimated tax sheet",
+        { name: "Payslips", icon: <FaLongArrowAltRight /> },
+        { name: "Salary Structure", icon: <FaLongArrowAltRight /> },
+        { name: "Declaration", icon: <FaLongArrowAltRight /> },
+        { name: "Bank Account", icon: <FaLongArrowAltRight /> },
       ],
     },
     { title: "Profile", icon: <FaUser /> },
@@ -452,7 +449,7 @@ const EmployeeSideBar = () => {
         return <Payslips />;
         break;
       case "All Employees":
-        return <AllEmployees />
+        return <AllEmployees />;
         break;
       case "Events":
         return <Events />;
@@ -476,10 +473,10 @@ const EmployeeSideBar = () => {
         className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
           } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
-        <div className="flex flex-col text-white">
-          <div className="flex justify-between items-center pt-12  pb-5 pl-2">
+        <div className="flex flex-col pr-3 text-white">
+          <div className="flex justify-between items-center pt-10 pb-5 pl-5">
             <IoMdMenu
-              className="text-white h-[30px] absolute  top-4 cursor-pointer"
+              className="text-white h-[30px] absolute top-4 cursor-pointer"
               onClick={toggleSidebar}
             />
             {!isSidebarCollapsed && (
@@ -495,26 +492,25 @@ const EmployeeSideBar = () => {
           </div>
           <div className="flex flex-col">
             {options.map((option, index) => (
-              <div key={index}>
-                <div
-                  className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${activeTab === option.title ? "bg-white text-[#e65f2b]" : ""
-                    }`}
-                  onClick={() => handleOptionClick(option)}
-                >
-                  <div className="p-3 pl-4 text-[16px] flex items-center">
-                    {option.icon}
-                    {!isSidebarCollapsed && (
-                      <>
-                        <span className="ml-3">{option.title}</span>
-                        {option.title === "Payroll" && (
-                          <FaChevronDown
-                            className={`ml-20 transform transition-transform ${isPayrollDropdownOpen ? "rotate-180" : ""
-                              }`}
-                          />
-                        )}
-                      </>
-                    )}
-                  </div>
+              <div
+                key={index}
+                className={`flex flex-col transition-all my-1 duration-500 hover:bg-white  hover:text-[#e65f2b] rounded-r-3xl cursor-pointer ${activeTab === option.title ||
+                  (option.subOptions && openDropdown === option.title)
+                  ? "bg-white text-[#e65f2b]"
+                  : ""
+                  }`}
+                onClick={() => handleOptionClick(option)}
+              >
+                <div className="p-3 pl-4 text-[16px] flex items-center">
+                  {option.icon}
+                  {!isSidebarCollapsed && (
+                    <span className="ml-3">{option.title}</span>
+                  )}
+                  {option.subOptions && (
+                    <span className="ml-16  ">
+                      {openDropdown === option.title ? "▲" : "▼"}
+                    </span>
+                  )}
                 </div>
                 {option.subOptions && openDropdown === option.title && (
                   <div
@@ -523,11 +519,13 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-                        className={`flex items-center transition-all duration-500 hover:bg-white hover:text-[#e65f2b] rounded-tr-3xl rounded-br-3xl cursor-pointer ${activeTab === subOption
-                            ? "bg-white text-[#e65f2b]"
-                            : ""
+                        className={`p-3 text-nowrap pl-8 flex items-center my-1 cursor-pointer rounded-br-3xl ${activeTab === subOption.name
+                          ? "bg-[#e65f2b]  text-white rounded-r-3xl "
+                          : "hover:bg-[#e65f2b] hover:bg-opacity-60 hover:rounded-r-3xl   hover:text-white"
                           }`}
-                        onClick={() => handleSubOptionClick(subOption)}
+                        onClick={(event) =>
+                          handleSubOptionClick(event, subOption)
+                        }
                       >
                         {subOption.icon}
                         {!isSidebarCollapsed && (
