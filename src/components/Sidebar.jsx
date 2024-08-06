@@ -1133,6 +1133,8 @@ import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
+import PaySlips from "./hr/payroll/paySlips/PaySlips";
+import RunPayroll from './hr/payroll/runPayRoll/RunPayroll'
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -1239,6 +1241,8 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
+        {activeTab === "Payslips" && <PaySlips />}
+        {activeTab === "Run payroll" && <RunPayroll />}
       </div>
     </div>
   );

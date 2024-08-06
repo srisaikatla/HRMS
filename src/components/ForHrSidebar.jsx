@@ -83,6 +83,7 @@ const ForHrSidebar = ({isSidebarCollapsed, activeTab, setActiveTab}) => {
     { title: "Account Expenses", icon: <FaMoneyCheckAlt /> },
     { title: "Account Invoice", icon: <FaMoneyCheckAlt /> },
   ];
+  
   const payrollOptions = [
     { title: "DashBoard", icon: <TbMoneybag /> },
     { title: "Run payroll", icon: <GiPayMoney /> },

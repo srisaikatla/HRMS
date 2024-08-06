@@ -4,7 +4,7 @@ import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 // import Payslips from "./options/payslips/Payslip";
-import AllEmployees from "./options/allEmployees/AllEmployees";
+// import AllEmployees from "./options/allEmployees/AllEmployees";
 import Rules from './options/rules/Rules';
 import PaySlips from './options/payslips/PaySlips'
 import {
@@ -27,7 +27,7 @@ import { SiHdfcbank } from "react-icons/si";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { PiHandDepositFill } from "react-icons/pi";
-import AllEmployees from "../employee/options/allEmployees/AllEmployees"
+// import AllEmployees from "../employee/options/allEmployees/AllEmployees"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -190,7 +190,7 @@ const EmployeeSideBar = () => {
           {activeTab === "Apply Leave" && <ApplyLeave />}
 
           {/* payroll */}
-          {activeTab === "Payslips" && <Payslip />}
+          {activeTab === "Payslips" && <PaySlips />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
