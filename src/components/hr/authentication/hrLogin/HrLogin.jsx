@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../../../State/Auth/Action";
 
-function Login() {
+function HrLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -101,4 +101,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default HrLogin;
