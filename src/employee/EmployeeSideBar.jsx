@@ -395,6 +395,7 @@ import { PiHandDepositFill } from "react-icons/pi";
 import AllEmployees from "../employee/options/allEmployees/AllEmployees"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { getEmployee } from "../State/Auth/Action";
+import { useDispatch, useSelector } from "react-redux";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);

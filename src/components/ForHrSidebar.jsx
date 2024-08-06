@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // 
 
 import React, { useState } from "react";
@@ -10,12 +11,10 @@ import {
   FaUserFriends,
   FaMoneyCheckAlt,
   FaFileAlt,
-  FaUser,
   FaLock,
   FaChevronDown,
   FaChevronUp,
   FaUsers,
-  FaClipboardList,
   FaBuilding,
 } from "react-icons/fa";
 
@@ -29,7 +28,7 @@ import { TbMoneybag } from "react-icons/tb";
 import { MdOutlineSocialDistance } from "react-icons/md";
 import { logout } from "../State/Auth/Action";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+
 
 
 const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
@@ -40,7 +39,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const [showAccountOptions, setShowAccountOptions] = useState(false);
   const [showAuthOptions, setShowAuthOptions] = useState(false);
   const [showHrManagementOptions, setShowHrManagementOptions] = useState(false);
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("jwt")
   const dispatch = useDispatch()
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
