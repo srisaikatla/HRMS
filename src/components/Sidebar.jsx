@@ -1142,6 +1142,7 @@ import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
 import PaySlip from "./hr/payroll/paySlips/PaySlips"
 import Settlement from "./hr/payroll/settlement/Settlement";
 import PayrollSettings from "./hr/payroll/payroll_setting/PayrollSettings";
+import PayrollForms from "./hr/payroll/payroll_forms/PayrollForms";
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -1259,6 +1260,7 @@ const SideBar = () => {
         {activeTab === "Payslips" && <PaySlip />}
         {activeTab === "Settlements" && <Settlement />}
         {activeTab === "Payroll settings" && <PayrollSettings />}
+        {activeTab === "Payroll Forms" && <PayrollForms />}
       </div>
     </div>
   );

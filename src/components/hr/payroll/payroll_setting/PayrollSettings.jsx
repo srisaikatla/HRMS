@@ -15,7 +15,7 @@ const PayrollSettings = () => {
   const [inBatchDetails, setInBatchDetails] = useState(false); // state to track if in BatchDetails view
 
   const activeClasses =
-    "underline underline-offset-8 decoration-2 text-[#E65F2B]";
+    "underline underline-offset-8 decoration-2 text-[#0098f1]";
   const inactiveClasses = "";
 
   const handleBatchClick = (batch) => {
@@ -42,9 +42,9 @@ const PayrollSettings = () => {
 
   return (
     <div className="px-4 py-2">
-      <h1 className="font-bold text-xl">Employee</h1>
+      <h1 className="font-bold text-xl">Hr</h1>
       <p className="font-semibold my-1">
-        <span>Dashboard</span> / <span>tickets</span>
+        <span>Payroll</span> / <span>Payroll Settings</span>
       </p>
 
       <div className="px-2 my-5">
