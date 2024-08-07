@@ -7,13 +7,13 @@ const PayPeriod = () => {
   const [percentOfGross, setPercentOfGross] = useState("20");
   return (
     <div className="my-5 flex flex-col gap-5">
-      <div className=" flex gap-10 ml-[250px] text-[#E65F2B] font-semibold">
+      <div className=" flex gap-10 ml-[250px] text-[#0098f1] font-semibold">
         <h1>Frequency</h1>
         <span>Monthly</span>
       </div>
 
       <div className="flex gap-10 ml-[145px] ">
-        <div className="text-[#E65F2B] font-semibold flex gap-1">
+        <div className="text-[#0098f1] font-semibold flex gap-1">
           <h1 className="">Pay Period Start Day</h1>
           <button className="-mt-5">
             <LiaQuestionCircle className="text-lg" />
@@ -21,7 +21,7 @@ const PayPeriod = () => {
           *
         </div>
         <div>
-          <select className="outline-none border border-[#E65F2B] bg-transparent px-4 py-[2px] rounded-lg text-sm text-gray-600">
+          <select className="outline-none border border-[#0098f1] bg-transparent px-4 py-[2px] rounded-lg text-sm text-gray-600">
             <option value="">Select the day</option>
             <option value="">1st of month</option>
           </select>
@@ -31,17 +31,17 @@ const PayPeriod = () => {
         </div>
       </div>
 
-      <div className=" flex gap-10 ml-[180px] text-[#E65F2B] font-semibold">
+      <div className=" flex gap-10 ml-[180px] text-[#0098f1] font-semibold">
         <h1>Starting Month/Year</h1>
         <span>July 2024</span>
       </div>
 
       <div className="flex gap-10 ml-[260px] ">
-        <div className="text-[#E65F2B] font-semibold flex gap-1">
+        <div className="text-[#0098f1] font-semibold flex gap-1">
           <h1 className="">Pay Days</h1>
         </div>
         <div>
-          <select className="outline-none border border-[#E65F2B] bg-transparent px-4 py-[2px] rounded-lg text-sm text-gray-600">
+          <select className="outline-none border border-[#0098f1] bg-transparent px-4 py-[2px] rounded-lg text-sm text-gray-600">
             <option value="">Actual Days in Month</option>
             {/* <option value="">1st of month</option> */}
           </select>
@@ -52,11 +52,11 @@ const PayPeriod = () => {
       </div>
 
       <div className="flex gap-10 ml-[185px] ">
-        <div className="text-[#E65F2B] font-semibold flex gap-1">
+        <div className="text-[#0098f1] font-semibold flex gap-1">
           <h1 className="">Include Weekly offs</h1>
         </div>
         <div>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="offs"
@@ -67,7 +67,7 @@ const PayPeriod = () => {
             />
             Yes
           </label>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="offs"
@@ -82,11 +82,11 @@ const PayPeriod = () => {
       </div>
 
       <div className="flex gap-10 ml-[185px] ">
-        <div className="text-[#E65F2B] font-semibold flex gap-1">
+        <div className="text-[#0098f1] font-semibold flex gap-1">
           <h1 className="">Include Weekly offs</h1>
         </div>
         <div>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="holidays"
@@ -97,7 +97,7 @@ const PayPeriod = () => {
             />
             Yes
           </label>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="holidays"
@@ -112,13 +112,13 @@ const PayPeriod = () => {
       </div>
 
       <div className="flex gap-10 ml-[205px]">
-        <h1 className=" text-[#E65F2B] font-semibold">Basic Percentage</h1>
-        <div className="border flex border-[#E65F2B] p-1 rounded-lg">
+        <h1 className=" text-[#0098f1] font-semibold">Basic Percentage</h1>
+        <div className="border flex border-[#0098f1] p-1 rounded-lg">
           <input
             type="text"
             value={percentOfGross}
             onChange={(e) => setPercentOfGross(e.target.value)}
-            className="border-r bg-transparent border-[#E65F2B] text-gray-600 px-2 outline-none"
+            className="border-r bg-transparent border-[#0098f1] text-gray-600 px-2 outline-none"
           />
           <p className="px-2 text-gray-600">% of Gross</p>
         </div>

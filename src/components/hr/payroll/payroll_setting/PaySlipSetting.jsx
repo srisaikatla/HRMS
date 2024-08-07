@@ -44,7 +44,7 @@ const PaySlipSetting = () => {
         {items.map((item, index) => (
           <li
             key={index}
-            className="text-[#E65F2B] mt-1 flex items-center justify-center gap-4"
+            className="text-[#0098f1] mt-1 flex items-center justify-center gap-4"
           >
             <div className="text-right w-[200px]">
               <span>{item}</span>
@@ -52,7 +52,7 @@ const PaySlipSetting = () => {
             <Switch
               onChange={() => toggleSwitch(index)}
               checked={switchStates[index]}
-              onColor="#E65F2B"
+              onColor="#0098f1"
               onHandleColor="#FFFFFF"
               handleDiameter={20}
               uncheckedIcon={false}
@@ -68,7 +68,7 @@ const PaySlipSetting = () => {
         ))}
       </ul>
       <div className="flex flex-col">
-        <div className="mt-10 space-y-2 flex  items-center text-[#E65F2B] justify-center gap-10">
+        <div className="mt-10 space-y-2 flex  items-center text-[#0098f1] justify-center gap-10">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <input
@@ -76,7 +76,7 @@ const PaySlipSetting = () => {
                 id="aadhaar"
                 className={`rounded-sm h-5 w-5 ${
                   editMode
-                    ? "accent-[#E65F2B] cursor-pointer"
+                    ? "accent-[#0098f1] cursor-pointer"
                     : "accent-[#FFB08C] cursor-not-allowed"
                 }`}
                 disabled={!editMode}
@@ -89,7 +89,7 @@ const PaySlipSetting = () => {
                 id="esi"
                 className={`rounded-sm h-5 w-5 ${
                   editMode
-                    ? "accent-[#E65F2B] cursor-pointer"
+                    ? "accent-[#0098f1] cursor-pointer"
                     : "accent-[#FFB08C] cursor-not-allowed"
                 }`}
                 disabled={!editMode}
@@ -104,7 +104,7 @@ const PaySlipSetting = () => {
                 id="pf-uan"
                 className={`rounded-sm h-5 w-5 ${
                   editMode
-                    ? "accent-[#E65F2B] cursor-pointer"
+                    ? "accent-[#0098f1] cursor-pointer"
                     : "accent-[#FFB08C] cursor-not-allowed"
                 }`}
                 disabled={!editMode}
@@ -117,7 +117,7 @@ const PaySlipSetting = () => {
                 id="pan"
                 className={`rounded-sm h-5 w-5 ${
                   editMode
-                    ? "accent-[#E65F2B] cursor-pointer"
+                    ? "accent-[#0098f1] cursor-pointer"
                     : "accent-[#FFB08C] cursor-not-allowed"
                 }`}
                 disabled={!editMode}
@@ -132,7 +132,7 @@ const PaySlipSetting = () => {
                 id="pf"
                 className={`rounded-sm h-5 w-5 ${
                   editMode
-                    ? "accent-[#E65F2B] cursor-pointer"
+                    ? "accent-[#0098f1] cursor-pointer"
                     : "accent-[#FFB08C] cursor-not-allowed"
                 }`}
                 disabled={!editMode}
@@ -145,7 +145,7 @@ const PaySlipSetting = () => {
                 id="bank-ac"
                 className={`rounded-sm h-5 w-5 ${
                   editMode
-                    ? "accent-[#E65F2B] cursor-pointer"
+                    ? "accent-[#0098f1] cursor-pointer"
                     : "accent-[#FFB08C] cursor-not-allowed"
                 }`}
                 disabled={!editMode}
@@ -157,7 +157,7 @@ const PaySlipSetting = () => {
         <div className="flex justify-center">
           <div className="ml-[400px] mt-[30px]">
             <div
-              className="text-white bg-[#E65F2B] flex justify-center items-center gap-1 w-[80px] h-[40px] rounded-lg font-normal cursor-pointer"
+              className="text-white bg-[#0098f1] flex justify-center items-center gap-1 w-[80px] h-[40px] rounded-lg font-normal cursor-pointer"
               onClick={handleEditClick}
             >
               {editMode ? (

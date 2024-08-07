@@ -82,9 +82,9 @@ const Chat = () => {
       <div className="flex w-full gap-1">
         <div className="flex border-r-2 flex-col bg-white overflow-x-auto h-[400px] w-[300px] p-3">
           <div className="flex flex-row justify-center items-center">
-            <IoSearchSharp className="bg-[#0098F1] rounded-l text-white w-[47px] h-full p-3" />
+            <IoSearchSharp className="bg-[#E65F2B] rounded-l text-white w-[47px] h-full p-3" />
             <input
-              className="rounded-r w-5/6 h-full p-3 border border-[#0098F1] bg-opacity-20 focus:outline-none"
+              className="rounded-r w-5/6 h-full p-3 border border-[#E65F2B] bg-opacity-20 focus:outline-none"
               type="text"
               placeholder="search here...."
               value={searchTerm}
@@ -141,16 +141,16 @@ const Chat = () => {
             </div>
             <div className="flex flex-row gap-x-3 w-[175px] mr-6">
               <button>
-                <LuCamera className="bg-[#0098F1] h-[32px] w-[35px] p-[4px] rounded text-white" />
+                <LuCamera className="bg-[#E65F2B] h-[32px] w-[35px] p-[4px] rounded text-white" />
               </button>
               <button>
-                <BiVideo className="bg-[#0098F1] h-[32px] w-[35px] p-[4px] rounded text-white" />
+                <BiVideo className="bg-[#E65F2B] h-[32px] w-[35px] p-[4px] rounded text-white" />
               </button>
               <button>
-                <FiSettings className="bg-[#0098F1] h-[32px] w-[35px] p-[6px] rounded text-white" />
+                <FiSettings className="bg-[#E65F2B] h-[32px] w-[35px] p-[6px] rounded text-white" />
               </button>
               <button>
-                <IoMdHelpCircleOutline className="bg-[#0098F1] h-[32px] p-[4px] w-[35px] rounded text-white" />
+                <IoMdHelpCircleOutline className="bg-[#E65F2B] h-[32px] p-[4px] w-[35px] rounded text-white" />
               </button>
             </div>
           </div>
@@ -173,13 +173,13 @@ const Chat = () => {
                         <img
                           src={URL.createObjectURL(message.file)}
                           alt="Uploaded"
-                          className="max-w-xs rounded-lg border border-[#0098F1] shadow-md cursor-pointer"
+                          className="max-w-xs rounded-lg border border-[#E65F2B] shadow-md cursor-pointer"
                           onClick={() =>
                             window.open(URL.createObjectURL(message.file))
                           }
                         />
                       ) : (
-                        <div className="flex items-center gap-2 p-2 border border-[#0098F1] rounded-lg shadow-md bg-gray-50 cursor-pointer">
+                        <div className="flex items-center gap-2 p-2 border border-[#E65F2B] rounded-lg shadow-md bg-gray-50 cursor-pointer">
                           <a
                             href={URL.createObjectURL(message.file)}
                             target="_blank"
@@ -198,8 +198,8 @@ const Chat = () => {
                       <div
                         className={`inline-block px-4 py-2 rounded-lg ${
                           message.sender === "me"
-                            ? "border border-[#0098F1] text-black"
-                            : "border border-[#0098F1] text-black"
+                            ? "border border-[#E65F2B] text-black"
+                            : "border border-[#E65F2B] text-black"
                         }`}
                       >
                         {message.text}
@@ -211,14 +211,14 @@ const Chat = () => {
               <div className="relative w-full ">
                 <input
                   type="text"
-                  className="w-full border-2 border-[#0098F1] p-2 rounded"
+                  className="w-full border-2 border-[#E65F2B] p-2 rounded"
                   placeholder="Type a message..."
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyUp={handleSendMessage}
                   value={newMessage}
                 />
                 <button
-                  className="absolute right-2 text-3xl top-1/2  transform -translate-y-1/2 p-2 text-[#0098F1]"
+                  className="absolute right-2 text-3xl top-1/2  transform -translate-y-1/2 p-2 text-[#E65F2B]"
                   onClick={handleAddFile}
                 >
                   <RiAddCircleLine />

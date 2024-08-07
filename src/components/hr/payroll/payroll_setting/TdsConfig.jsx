@@ -7,14 +7,14 @@ const TdsConfig = () => {
   return (
     <div className="my-8">
       <div className="flex ml-[250px] gap-2">
-        <div className="text-[#E65F2B] font-semibold flex gap-1">
+        <div className="text-[#0098f1] font-semibold flex gap-1">
           <h1 className="mt-2">TDS Calculation</h1>
           <button className="-mt-16">
             <LiaQuestionCircle className="text-lg" />
           </button>
         </div>
         <div className="mt-2">
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="tds"
@@ -25,7 +25,7 @@ const TdsConfig = () => {
             />
             Monthly TDS
           </label>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="tds"
@@ -36,7 +36,7 @@ const TdsConfig = () => {
             />
             Yearly TDS
           </label>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="tds"
@@ -47,21 +47,21 @@ const TdsConfig = () => {
             />
             Estimated TDS
           </label>
-          <p className="text-md text-[#E65F2B] font-semibold">
+          <p className="text-md text-[#0098f1] font-semibold">
             <a href="#" className="text-[#00C8D4] hover:underline">Click Here</a> to Know More
           </p>
         </div>
       </div>
 
       <div className="flex ml-[180px] gap-2 my-5">
-        <div className="text-[#E65F2B] font-semibold flex gap-1">
+        <div className="text-[#0098f1] font-semibold flex gap-1">
           <h1 className="">Tax Deduction Preference</h1>
           <button className="-mt-24">
             <LiaQuestionCircle className="text-lg" />
           </button>
         </div>
         <div className="">
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="preference"
@@ -76,7 +76,7 @@ const TdsConfig = () => {
               every month across the financial year
             </p>
           </label>
-          <label className="text-[#E65F2B] block font-semibold">
+          <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
               name="prefernce"

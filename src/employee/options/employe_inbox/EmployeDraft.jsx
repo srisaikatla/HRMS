@@ -4,7 +4,7 @@ import Checked from "../../../assets/project/inbox/checkbox.png";
 import filledStar from "../../../assets/project/inbox/filledstar.png";
 import unfilledstar from "../../../assets/project/inbox/unfilledstar.png";
 
-const Draft = ({draftMessage}) => {
+const EmployeDraft = ({draftMessage}) => {
   const [checkedStatus, setCheckedStatus] = useState(
     Array(draftMessage.length).fill(false)
   );
@@ -21,7 +21,7 @@ const Draft = ({draftMessage}) => {
   };
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE]">
+    <div className="rounded-r-xl min-w-[850px] bg-[#FCEFE9]">
       <div className="py-5 mx-10">
         <h1 className="text-xl font-semibold">Draft</h1>
         <ul className="">
@@ -62,4 +62,4 @@ const Draft = ({draftMessage}) => {
   );
 };
 
-export default Draft;
+export default EmployeDraft;

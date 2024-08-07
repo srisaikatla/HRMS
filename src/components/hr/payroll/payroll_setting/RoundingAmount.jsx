@@ -7,11 +7,11 @@ const RoundingAmount = () => {
   return (
     <div className="my-10 ">
       <div className="flex justify-center gap-x-2">
-        <h2 className="text-lg font-bold text-[#E65F2B]">
+        <h2 className="text-lg font-bold text-[#0098f1]">
           Rounding Amount Type
         </h2>
         <div className="mt-1">
-          <label className="block text-[#E65F2B] font-semibold">
+          <label className="block text-[#0098f1] font-semibold">
             <input
               type="radio"
               name="rounding"
@@ -22,7 +22,7 @@ const RoundingAmount = () => {
             />
             No Round
           </label>
-          <label className="block text-[#E65F2B] mt-2 font-semibold">
+          <label className="block text-[#0098f1] mt-2 font-semibold">
             <input
               type="radio"
               name="rounding"
@@ -33,7 +33,7 @@ const RoundingAmount = () => {
             />
             Actual Round
           </label>
-          <label className="block text-[#E65F2B] mt-2 font-semibold">
+          <label className="block text-[#0098f1] mt-2 font-semibold">
             <input
               type="radio"
               name="rounding"
@@ -44,7 +44,7 @@ const RoundingAmount = () => {
             />
             Round Up
           </label>
-          <label className="block text-[#E65F2B] mt-2 font-semibold">
+          <label className="block text-[#0098f1] mt-2 font-semibold">
             <input
               type="radio"
               name="rounding"
@@ -57,7 +57,7 @@ const RoundingAmount = () => {
           </label>
         </div>
       </div>
-      <button className="mt-[120px] flex items-center text-[#E65F2B] ml-16">
+      <button className="mt-[120px] flex items-center text-[#0098f1] ml-16">
         <RiChat3Line className="text-3xl " />
         <h1 className="font-semibold">Activity</h1>
       </button>

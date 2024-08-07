@@ -113,7 +113,8 @@ function PayrollDashboard() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-[#E65F2B]">Employee</h1>
+      <h1 className="text-xl font-bold text-[#E65F2B] mb-2">Employee</h1>
+      <h1 className="text-xl font-bold text-[#E65F2B]">Payroll / Dashboard</h1>
       <div className="flex justify-center mt-8">
         <div className="flex gap-4">
           <div className="bg-white shadow-lg rounded-lg w-[450px] h-[450px] p-4">

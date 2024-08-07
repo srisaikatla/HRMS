@@ -16,7 +16,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
 
   const handleSave = () => {
     if (batchName.length === 0) {
-      setErrorMessage("Batch Name is required!!");
+      setErrorMessage("Batch Name is requiblue!!");
       return;
     }
 
@@ -65,7 +65,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
         <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-[#E65F2B] p-2 px-4 rounded-lg text-white "
+          className="flex items-center gap-2 bg-[#0098f1] p-2 px-4 rounded-lg text-white "
         >
           <AiFillPlusCircle className="text-xl" />
           Add Batch
@@ -78,7 +78,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
 
       <div className="mt-5">
         <table className="min-w-full">
-          <thead className="bg-[#E65F2B] text-white">
+          <thead className="bg-[#0098f1] text-white">
             <tr>
               <th className="py-2 px-4 border-b border-r border-white">
                 Full Time Batch
@@ -120,7 +120,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
           </tbody>
         </table>
       </div>
-      <p className="my-3 text-[#E65F2B] font-bold">
+      <p className="my-3 text-[#0098f1] font-bold">
         Total Records : {batches.length}
       </p>
 
@@ -132,7 +132,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
             </h2>
             <div className="flex items-center gap-x-2 self-center">
               <label>
-                Batch Name <span className="text-red-600">*</span>
+                Batch Name <span className="text-blue-600">*</span>
               </label>
               <input
                 type="text"
@@ -143,14 +143,14 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
               />
             </div>
             {errorMessage && (
-              <div className="text-red-600 text-sm mt-2 self-center pr-32">
+              <div className="text-blue-600 text-sm mt-2 self-center pr-32">
                 {errorMessage}
               </div>
             )}
             <div className="flex justify-end gap-2 my-3">
               <button
                 type="button"
-                className="bg-red-500 text-white p-2 rounded-lg"
+                className="bg-blue-500 text-white p-2 rounded-lg"
                 onClick={handleCancel}
               >
                 Cancel
@@ -170,8 +170,8 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
         <div className="fixed inset-0 bg-orange-100 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-3 rounded-lg shadow-lg w-[400px]">
             <div className="flex flex-col justify-center items-center gap-3">
-              <BsCheck2Circle className="text-[#E65F2B] text-5xl" />
-              <span className="text-[#E65F2B] text-lg md:text-2xl text-center">
+              <BsCheck2Circle className="text-[#0098f1] text-5xl" />
+              <span className="text-[#0098f1] text-lg md:text-2xl text-center">
                 Batch Added Successfully
               </span>
             </div>

@@ -3,7 +3,7 @@ import { HiMiniArrowUturnLeft } from "react-icons/hi2";
 import { HiMiniArrowUturnRight } from "react-icons/hi2";
 import { PiArrowBendDoubleUpLeftBold } from "react-icons/pi";
 
-const MessageDetailsPage = ({ message }) => {
+const EmployeeMessageDetailsPage = ({ message }) => {
   // if (!message) {
   //   return <div>Select a message to view details</div>;
   // }
@@ -15,7 +15,7 @@ const MessageDetailsPage = ({ message }) => {
 
 
   return (
-    <div className="rounded-r-xl w-[850px] bg-[#E6F5FE] p-5">
+    <div className="rounded-r-xl w-[850px]  p-5">
       <h1 className="text-2xl mx-12">{message.subject}</h1>
       <div className="flex justify-between my-5 mr-3">
         <div className="flex gap-3">
@@ -51,4 +51,4 @@ const MessageDetailsPage = ({ message }) => {
   );
 };
 
-export default MessageDetailsPage;
+export default EmployeeMessageDetailsPage;

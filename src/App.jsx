@@ -20,6 +20,7 @@ import ForgotPassword from "./components/hr/authentication/forgotPassword/Forgot
 import NotFoundPage from "./components/hr/authentication/notFoundPage/NotFoundPage";
 import Register from "./components/hr/authentication/register/Register";
 import Options from "./optionsPages/Options";
+
 function App() {
   return (
     <div>
