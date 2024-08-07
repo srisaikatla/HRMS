@@ -22,7 +22,7 @@ function HrLogin() {
 
     const result = await dispatch(login(userData));
     if (result.success) {
-      navigate("/");
+      navigate("/hr");
     } else {
       setError(result.message || "Invalid credentials. Please try again.");
     }
