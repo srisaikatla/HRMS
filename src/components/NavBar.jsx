@@ -28,7 +28,7 @@ function NavBar({ onSearchChange }) {
   });
 
   return (
-    <div id="main" className="bg-white p-2 ">
+    <div id="main" className="bg-sky-100 p-2 ">
       <div
         id="topbar"
         className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-center"

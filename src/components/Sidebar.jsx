@@ -1136,6 +1136,7 @@ import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
+import OnBording from "./hr/hr_management/employeImport/EmployeImport"
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -1247,6 +1248,7 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
+        {activeTab === "Employee Import" && <OnBording />}
       </div>
     </div>
   );
