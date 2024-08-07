@@ -1139,6 +1139,9 @@ import { getUser } from "../State/Auth/Action";
 import OnBording from "./hr/hr_management/employeImport/EmployeImport"
 import Compensation from "./hr/hr_management/compensation/Compensation";
 import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
+import PaySlip from "./hr/payroll/paySlips/PaySlips"
+import Settlement from "./hr/payroll/settlement/Settlement";
+import PayrollSettings from "./hr/payroll/payroll_setting/PayrollSettings";
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -1253,6 +1256,9 @@ const SideBar = () => {
         {activeTab === "Employee Import" && <OnBording />}
         {activeTab === "Compensation" && <Compensation />}
         {activeTab === "DashBoard" && <PayrollDashboard />}
+        {activeTab === "Payslips" && <PaySlip />}
+        {activeTab === "Settlements" && <Settlement />}
+        {activeTab === "Payroll settings" && <PayrollSettings />}
       </div>
     </div>
   );

@@ -123,7 +123,7 @@ const Deduction = () => {
         <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-[#E65F2B] font-normal p-2 pr-5 rounded-lg text-white "
+          className="flex items-center gap-2 bg-[#0098f1] font-normal p-2 pr-5 rounded-lg text-white "
         >
           <AiFillPlusCircle className="text-xl" />
           Add
@@ -131,7 +131,7 @@ const Deduction = () => {
       </div>
       <div className="overflow-auto">
         <table className="w-[1100px]">
-          <thead className="bg-[#E65F2B] text-lg font-semibold">
+          <thead className="bg-[#0098f1] text-lg font-semibold">
             <tr>
               <th className="py-4 px-2 text-center w-[100px] border-r border-white border-opacity-60">
                 Display Name
@@ -155,30 +155,30 @@ const Deduction = () => {
             {currentRecords.map((value) => (
               <tr
                 key={value.id}
-                className="bg-[#E65F2B] bg-opacity-20 text-lg font-normal"
+                className="bg-[#0098f1] bg-opacity-20 text-lg font-normal"
               >
-                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.DisplayName}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.DeductionCode}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.Type}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.DeductionOn}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.Amount}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center border-[#E65F2B]">
+                <td className="py-2 px-4 border-b bg-transparent text-center border-[#0098f1]">
                   <div className="flex justify-center items-center space-x-2">
                     <button
                       className="flex items-center justify-center"
                       onClick={() => handleViewAllowance(value)}
                     >
-                      <MdRemoveRedEye className="mr-1 bg-[#E65F2B] text-white flex items-center size-6 p-1 rounded-md" />
+                      <MdRemoveRedEye className="mr-1 bg-[#0098f1] text-white flex items-center size-6 p-1 rounded-md" />
                     </button>
                     <button
                       className="text-blue-500 flex py-3 items-center"
@@ -202,14 +202,14 @@ const Deduction = () => {
       </div>
       <div className="flex justify-center my-4">
         <button
-          className="px-2 py-1 mx-1 bg-[#E65F2B] text-white rounded-md"
+          className="px-2 py-1 mx-1 bg-[#0098f1] text-white rounded-md"
           onClick={() => handlePageChange(1)}
           disabled={currentPage === 1}
         >
           <MdOutlineKeyboardDoubleArrowLeft />
         </button>
         <button
-          className="px-2 py-1 mx-1 bg-[#E65F2B] text-white rounded-md"
+          className="px-2 py-1 mx-1 bg-[#0098f1] text-white rounded-md"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -219,7 +219,7 @@ const Deduction = () => {
           <button
             key={index + 1}
             className={`px-3 py-1 mx-1 rounded-md ${currentPage === index + 1
-                ? "bg-[#E65F2B] text-white"
+                ? "bg-[#0098f1] text-white"
                 : "bg-gray-200 text-black"
               }`}
             onClick={() => handlePageChange(index + 1)}
@@ -228,14 +228,14 @@ const Deduction = () => {
           </button>
         ))}
         <button
-          className="px-2 py-1 mx-1 bg-[#E65F2B] text-white rounded-md"
+          className="px-2 py-1 mx-1 bg-[#0098f1] text-white rounded-md"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
           <MdKeyboardArrowRight />
         </button>
         <button
-          className="px-2 py-1 mx-1 bg-[#E65F2B] text-white rounded-md"
+          className="px-2 py-1 mx-1 bg-[#0098f1] text-white rounded-md"
           onClick={() => handlePageChange(totalPages)}
           disabled={currentPage === totalPages}
         >
@@ -245,65 +245,65 @@ const Deduction = () => {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 text-lg font-normal">
           <div className="bg-white rounded-lg p-6 px-10 w-[700px]">
-            <h2 className="text-2xl mb-4 text-[#E65F2B]">
+            <h2 className="text-2xl mb-4 text-[#0098f1]">
               {editAllowanceId ? "Edit Allowance" : "Add Allowance"}
             </h2>
             <div className="grid grid-cols-1 space-y-4">
-              <div className="relative text-[#E65F2B]">
+              <div className="relative text-[#0098f1]">
                 <input
                   type="text"
                   name="DisplayName"
                   placeholder="Display Name"
                   value={newAllowance.DisplayName}
                   onChange={handleInputChange}
-                  className="block w-full border border-[#E65F2B] placeholder-[#E65F2B] rounded-md focus:outline-none p-2 placeholder-opacity-60"
+                  className="block w-full border border-[#0098f1] placeholder-[#0098f1] rounded-md focus:outline-none p-2 placeholder-opacity-60"
                 />
               </div>
-              <div className="relative text-[#E65F2B]">
+              <div className="relative text-[#0098f1]">
                 <input
                   type="text"
                   name="DeductionCode"
                   placeholder="Deduction Code"
                   value={newAllowance.DeductionCode}
                   onChange={handleInputChange}
-                  className="block w-full border border-[#E65F2B] placeholder-[#E65F2B] rounded-md focus:outline-none p-2 placeholder-opacity-60"
+                  className="block w-full border border-[#0098f1] placeholder-[#0098f1] rounded-md focus:outline-none p-2 placeholder-opacity-60"
                 />
               </div>
-              <div className="relative text-[#E65F2B]">
+              <div className="relative text-[#0098f1]">
                 <input
                   type="text"
                   name="Type"
                   placeholder="Type"
                   value={newAllowance.Type}
                   onChange={handleInputChange}
-                  className="block w-full border border-[#E65F2B] placeholder-[#E65F2B] rounded-md focus:outline-none p-2 placeholder-opacity-60"
+                  className="block w-full border border-[#0098f1] placeholder-[#0098f1] rounded-md focus:outline-none p-2 placeholder-opacity-60"
                 />
               </div>
-              <div className="relative text-[#E65F2B]">
+              <div className="relative text-[#0098f1]">
                 <input
                   type="text"
                   name="DeductionOn"
                   placeholder="Deduction On"
                   value={newAllowance.DeductionOn}
                   onChange={handleInputChange}
-                  className="block w-full border border-[#E65F2B] placeholder-[#E65F2B] rounded-md focus:outline-none p-2 placeholder-opacity-60"
+                  className="block w-full border border-[#0098f1] placeholder-[#0098f1] rounded-md focus:outline-none p-2 placeholder-opacity-60"
                 />
               </div>
-              <div className="relative text-[#E65F2B]">
+              <div className="relative text-[#0098f1]">
                 <input
                   type="text"
                   name="Amount"
                   placeholder="Amount"
                   value={newAllowance.Amount}
                   onChange={handleInputChange}
-                  className="block w-full border border-[#E65F2B] placeholder-[#E65F2B] rounded-md focus:outline-none p-2 placeholder-opacity-60"
+                  className="block w-full border border-[#0098f1] placeholder-[#0098f1] rounded-md focus:outline-none p-2 placeholder-opacity-60"
                 />
               </div>
               <div className="flex justify-center space-x-4">
                 <button
                   type="button"
                   onClick={handleAddAllowance}
-                  className="px-4 py-2 bg-[#E65F2B] text-white rounded-md"
+                  className="px-4 py-2 bg-[#0098f1] text-white rounded-md"
                 >
                   {editAllowanceId ? "Update" : "Add"}
                 </button>
@@ -329,7 +329,7 @@ const Deduction = () => {
               <button
                 type="button"
                 onClick={handleDeleteAllowance}
-                className="px-4 py-2 bg-[#E65F2B] font-semibold text-white rounded-md"
+                className="px-4 py-2 bg-[#0098f1] font-semibold text-white rounded-md"
               >
                 Delete
               </button>
@@ -348,7 +348,7 @@ const Deduction = () => {
       {viewAllowance && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
-            <h3 className="text-xl font-semibold mb-4 text-[#E65F2B]">Allowance Details</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#0098f1]">Allowance Details</h3>
             <div className="mb-4 flex items-center space-x-3">
               <h2 className="text-lg font-semibold">Display Name:</h2><span> {viewAllowance.DisplayName} </span>
             </div>
@@ -365,7 +365,7 @@ const Deduction = () => {
               <h2 className="text-lg font-semibold">Amount:</h2><span> {viewAllowance.Amount}</span>
             </div>
             <button
-              className="bg-[#E65F2B] text-white font-semibold px-4 py-2 rounded-lg"
+              className="bg-[#0098f1] text-white font-semibold px-4 py-2 rounded-lg"
               onClick={() => setViewAllowance(null)}
             >
               Close

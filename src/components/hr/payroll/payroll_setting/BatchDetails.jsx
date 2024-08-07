@@ -118,7 +118,7 @@ const BatchDetails = ({ batch, onBack, batches }) => {
       </div>
       <div className="text-end my-5">
         <button
-          className=" px-2 py-1 rounded-lg bg-[#E65F2B] text-white"
+          className=" px-2 py-1 rounded-lg bg-[#0098f1] text-white"
           onClick={() => setShowModal(true)}
         >
           Add Employees
@@ -214,7 +214,7 @@ const BatchDetails = ({ batch, onBack, batches }) => {
 
       <div className="mt-5">
         <table className="min-w-full">
-          <thead className="bg-[#E65F2B] text-white">
+          <thead className="bg-[#0098f1] text-white">
             <tr>
               <th className="py-2 px-4 border-b border-r border-white">
                 EMPLOYEE NAME
@@ -252,7 +252,7 @@ const BatchDetails = ({ batch, onBack, batches }) => {
           </tbody>
         </table>
       </div>
-      <p className="my-3 text-[#E65F2B] font-bold">
+      <p className="my-3 text-[#0098f1] font-bold">
         Total Records : {currentEmployees.length}
       </p>
     </div>

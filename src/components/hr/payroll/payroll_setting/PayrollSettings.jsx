@@ -8,7 +8,7 @@ import PaySlipSetting from "./PaySlipSetting";
 import RoundingAmount from "./RoundingAmount";
 import BatchDetails from "./BatchDetails";
 
-const Tickets = () => {
+const PayrollSettings = () => {
   const [openTab, setOpenTab] = useState(1);
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [batches, setBatches] = useState([]); // state to store the list of batches
@@ -171,4 +171,4 @@ const Tickets = () => {
   );
 };
 
-export default Tickets;
+export default PayrollSettings;
