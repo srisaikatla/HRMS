@@ -160,7 +160,7 @@ function AllEmployees() {
     <>
       <div id="main" className="mr-4 ">
         <div className="ml-5 mb-4">
-          <p className="text-[#e65f2b] font-bold text-xl">
+          <p className="text-[#0098F1] font-bold text-xl">
             Employees/All Employees
           </p>
         </div>
@@ -243,7 +243,7 @@ function AllEmployees() {
                         <FiEdit />
                       </button>
                       <button
-                        className="text-red-500 hover:text-red-700"
+                        className="text-blue-500 hover:text-red-700"
                         onClick={() => handleDeleteEmployee(employee.employeeId)}
                       >
                         <FiTrash2 />

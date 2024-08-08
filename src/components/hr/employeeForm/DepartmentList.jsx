@@ -36,7 +36,7 @@ function DepartmentList() {
         className="h-screen w-auto bg-transparent p-4 ml-[240px]"
       >
         <div className="ml-5">
-          <p className="text-[#e65f2b] font-semibold">
+          <p className="text-[#0098F1] font-semibold">
             Employees/DepartmentList
           </p>
         </div>
@@ -90,7 +90,7 @@ function DepartmentList() {
                       onClick={() => handleDelete(department.id)}
                       className="flex items-center"
                     >
-                      <MdDelete className="text-red-500 text-2xl mr-1" />
+                      <MdDelete className="text-blue-500 text-2xl mr-1" />
                     </button>
                     <button
                       onClick={() =>
@@ -107,8 +107,8 @@ function DepartmentList() {
           </table>
         </div>
         {showSuccess && (
-          <div className="fixed inset-0 bg-[#f20b0b] bg-opacity-10 flex justify-center items-center">
-            <div className="bg-[#f20b0b] w-[320px] h-[240px] sm:w-[440px] sm:h-[320px] py-8 px-4 sm:py-10 sm:px-16 rounded-lg text-white flex flex-col justify-center items-center">
+          <div className="fixed inset-0 bg-[#0098F1] bg-opacity-10 flex justify-center items-center">
+            <div className="bg-[#0098F1] w-[320px] h-[240px] sm:w-[440px] sm:h-[320px] py-8 px-4 sm:py-10 sm:px-16 rounded-lg text-white flex flex-col justify-center items-center">
               <BsCheck2Circle className="text-3xl sm:text-4xl md:text-6xl mb-4" />
               <p className="text-center text-xl sm:text-2xl">
                 Saved Changes Successfully!

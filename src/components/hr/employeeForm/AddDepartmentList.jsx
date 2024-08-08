@@ -31,7 +31,7 @@ function AddDepartmentList() {
       <div>
         <div className="ml-[50px] w-auto">
           <div className="bg-white h-auto md:h-[1200px] mx-4 md:ml-10 my-4 md:my-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg w-full md:w-[1200px]">
-            <h1 className="text-[#E65F2B] px-8 md:px-32 mt-10 ml-0 md:ml-10 font-['Inter'] font-medium text-[20px] leading-[38.73px] tracking-[0.5%]">
+            <h1 className="text-[#0098F1] px-8 md:px-32 mt-10 ml-0 md:ml-10 font-['Inter'] font-medium text-[20px] leading-[38.73px] tracking-[0.5%]">
               Add Department List
             </h1>
 
@@ -133,7 +133,7 @@ function AddDepartmentList() {
               </div>
 
               <div>
-                <h2 className="text-[#E65F2B] mt-10 ml-0 md:ml-10 font-['Inter'] font-medium text-[20px] leading-[38.73px] tracking-[0.5%]">
+                <h2 className="text-[#0098F1] mt-10 ml-0 md:ml-10 font-['Inter'] font-medium text-[20px] leading-[38.73px] tracking-[0.5%]">
                   Module Permission
                 </h2>
 

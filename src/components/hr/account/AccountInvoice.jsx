@@ -67,7 +67,7 @@ const AccountInvoice = () => {
   }, []);
   return (
     <div className="mr-2 pt-2 ml-2">
-      <h1 className="text-[#e65f2b] text-xl font-bold mb-2">
+      <h1 className="text-[#0098F1] text-xl font-bold mb-2">
         <span>Accounts/Invoice</span>
       </h1>
       <div className=" ">

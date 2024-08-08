@@ -46,7 +46,7 @@ const initialData = [
 const AccountPayments = () => {
   return (
     <div className="ml-2 pt-2 mr-2">
-      <h1 className="text-[#e65f2b] font-bold  text-xl mb-2">
+      <h1 className="text-[#0098F1] font-bold  text-xl mb-2">
         <span>Accounts/Payments</span>
       </h1>
       <div className="">
