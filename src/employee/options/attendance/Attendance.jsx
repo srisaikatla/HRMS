@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import styles
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import { API_BASE_URL } from "../../../Config/api"
 
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
@@ -177,7 +178,7 @@ const Attendance = () => {
 
       // Save data to backend
       try {
-        await axios.post('http://localhost:8085/api/attendance', newEntry, {
+        await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
           headers: {
             "Authorization": `Bearer ${jwt}`,
             "Content-Type": "application/json",
@@ -217,7 +218,7 @@ const Attendance = () => {
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
-        const response = await axios.get('http://localhost:8085/api/attendance', {
+        const response = await axios.get(`${API_BASE_URL}/api/attendance`, {
           headers: {
             "Authorization": `Bearer ${jwt}`,
           }

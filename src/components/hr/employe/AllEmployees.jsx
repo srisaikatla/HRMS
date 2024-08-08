@@ -4,6 +4,7 @@ import axios from "axios";
 import uncheckbox from "../../../assets/hr/employee/checkbox/uncheck.png";
 import checkbox from "../../../assets/hr/employee/checkbox/checkbox.png";
 import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
+import { API_BASE_URL } from "../../../Config/api";
 
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
@@ -31,7 +32,7 @@ function AllEmployees() {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get("http://localhost:8085/employee/getAllEmployee");
+      const response = await axios.get(`${API_BASE_URL}/employee/getAllEmployee`);
       setEmployees(response.data);
       setLoading(false);
     } catch (error) {
@@ -62,7 +63,7 @@ function AllEmployees() {
   const handleAddEmployee = async () => {
     try {
       const password = generatePassword();
-      const response = await axios.post("http://localhost:8085/employee/register", {
+      const response = await axios.post(`${API_BASE_URL}/employee/register`, {
         ...newEmployee,
         password,
       });
