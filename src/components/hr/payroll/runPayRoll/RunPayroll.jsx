@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import PayrollSummary from "../payrollSummary/PayrollSummary";
+// import { Chrono } from "react-chrono";
 
 const batches = {
   "Full Time Batch": {
@@ -39,10 +41,52 @@ const batches = {
   },
 };
 
+// const items = [
+//   {
+//     title: "1",
+//     cardTitle: "Compensation",
+//     cardSubtitle: "Review employees' compensation information",
+//   },
+//   {
+//     title: "2",
+//     cardTitle: "Time & Attendance",
+//     cardSubtitle: "Review employees' attendance, missing days and overtime",
+//   },
+//   {
+//     title: "3",
+//     cardTitle: "IT Declarations",
+//     cardSubtitle: "Review employees' IT Declarations information",
+//   },
+// ];
+
+const steps = [
+  {
+    number: 1,
+    title: "Compensation",
+    description: "Review employees' compensation information",
+  },
+  {
+    number: 2,
+    title: "Time & Attendance",
+    description: "Review employees' attendance, missing days and overtime",
+  },
+  {
+    number: 3,
+    title: "IT Declarations",
+    description: "Review employees' IT Declarations information",
+  },
+  {
+    number: 4,
+    title: "Review",
+    description: "Review employees' information",
+  },
+];
+
 const RunPayroll = () => {
   const [selectedBatch, setSelectedBatch] = useState("");
   const [payPeriod, setPayPeriod] = useState("");
   const [payrollDetails, setPayrollDetails] = useState(null);
+  const [showSummary, setShowSummary] = useState(false);
 
   const handleBatchChange = (e) => {
     const batch = e.target.value;
@@ -56,6 +100,22 @@ const RunPayroll = () => {
       setPayrollDetails(null);
     }
   };
+
+  const handleResumePayroll = () => {
+    setShowSummary(true);
+  };
+
+  if (showSummary) {
+    return (
+      <PayrollSummary
+        payPeriod={payPeriod}
+        payrollType={payrollDetails?.type}
+        batchName={selectedBatch}
+        totalEmployees = {payrollDetails.employeesInBatch}
+
+      />
+    );
+  }
 
   return (
     <div className="p-4">
@@ -104,40 +164,64 @@ const RunPayroll = () => {
 
       {payrollDetails && (
         <div className="mt-4 p-4 rounded-md">
-          <div className="flex justify-between">
+          <div className="flex justify-between  border-b pb-2 border-px border-gray-600">
             <h1 className="text-lg font-bold mb-2">Payroll Information</h1>
-            <h1 className="text-lg font-bold mb-2">Process Flow</h1>
-            <button>Resume Payroll</button>
+            <h1 className="text-lg font-bold mb-2 ml-24">Process Flow</h1>
+            <button
+              className="border bg-gray-700 text-white px-5 py-1 rounded-lg "
+              onClick={handleResumePayroll}
+            >
+              Resume Payroll
+            </button>
           </div>
 
-          <div className="w-[40%] leading-7">
-            <p className="flex justify-between">
-              <strong>Payroll Type:</strong> <span>{payrollDetails.type}</span>
-            </p>
-            <p className="flex justify-between">
-              <strong>Employees in Batch:</strong>
-              <span>{payrollDetails.employeesInBatch}</span>
-            </p>
-            <p className="flex justify-between">
-              <strong>Processed Employees:</strong>
-              <span>{payrollDetails.processedEmployees}</span>
-            </p>
-            <p className="flex justify-between">
-              <strong>Remaining Employees:</strong>
-              <span>{payrollDetails.remainingEmployees}</span>
-            </p>
-            <p className="flex justify-between">
-              <strong>Total Days:</strong>
-              <span>{payrollDetails.totalDays}</span>
-            </p>
-            <p className="flex justify-between">
-              <strong>Payroll Started On:</strong>
-              <span>{payrollDetails.startedOn}</span>
-            </p>
-            <p className="flex justify-between">
-              <strong>Payroll Started By:</strong>
-              <span>{payrollDetails.startedBy}</span>
-            </p>
+          <div className="flex justify-between">
+            <div className=" leading-7 my-5 w-[45%]">
+              <p className="flex justify-between ">
+                <strong>Payroll Type:</strong>{" "}
+                <span>{payrollDetails.type}</span>
+              </p>
+              <p className="flex justify-between">
+                <strong>Employees in Batch:</strong>
+                <span>{payrollDetails.employeesInBatch}</span>
+              </p>
+              <p className="flex justify-between">
+                <strong>Processed Employees:</strong>
+                <span>{payrollDetails.processedEmployees}</span>
+              </p>
+              <p className="flex justify-between">
+                <strong>Remaining Employees:</strong>
+                <span>{payrollDetails.remainingEmployees}</span>
+              </p>
+              <p className="flex justify-between">
+                <strong>Total Days:</strong>
+                <span>{payrollDetails.totalDays}</span>
+              </p>
+              <p className="flex justify-between gap-24">
+                <strong>Payroll Started On:</strong>
+                <span>{payrollDetails.startedOn}</span>
+              </p>
+              <p className="flex justify-between">
+                <strong>Payroll Started By:</strong>
+                <span>{payrollDetails.startedBy}</span>
+              </p>
+            </div>
+            <div className="flex flex-col items-start my-5 space-y-4">
+              {steps.map((step) => (
+                <div key={step.number} className="flex items-center space-x-4">
+                  <div className="">
+                    <div className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#0098F1] text-[#0098F1]">
+                      {step.number}
+                    </div>
+                    {/* <div className="h-5 w-1 bg-gray-800"></div> */}
+                  </div>
+                  <div className="border border-r-4 p-2 bg-white shadow-md rounded-lg border-r-[#0098F1] w-[40` 0px]">
+                    <h3 className="text-lg font-semibold">{step.title}</h3>
+                    <p className="text-gray-600">{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
