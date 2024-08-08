@@ -8,7 +8,7 @@ import TwitterPosts from "./TwitterPosts";
 const HrSocial = () => {
   return (
     <div className=" p-6">
-      <h1 className="text-[#E65F2B] text-xl font-bold">
+      <h1 className="text-[#0098F1] text-xl font-bold">
         <span>Hr/Hr social</span>
       </h1>
       <SocialApps />

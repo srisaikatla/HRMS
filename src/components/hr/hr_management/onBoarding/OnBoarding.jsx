@@ -145,6 +145,12 @@ const OnBoarding = () => {
   };
   return (
     <div>
+          <div className="ml-5 mb-4 pt-2">
+          <p className="text-[#0098F1] font-bold text-xl">
+            HR Management/Employees/Employee Onboarding
+          </p>
+        </div>
+
       <div className="flex flex-col justify-center items-center mt-[170px]">
         <button
           className="bg-[#0098F1] flex justify-center text-[18px] mb-3 items-center gap-2 text-white p-2 rounded-lg px-4 font-normal"

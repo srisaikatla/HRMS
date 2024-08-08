@@ -82,7 +82,7 @@ const ReportExpenses = () => {
 
   return (
     <div className=" flex flex-col h-screen ml-2 ">
-      <h1 className="text-[#e65f2b] font-bold text-xl mb-2 ">
+      <h1 className="text-[#0098F1] font-bold text-xl mb-2 ">
         Report/ Expenses
       </h1>
 

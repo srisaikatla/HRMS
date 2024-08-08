@@ -157,8 +157,8 @@ const EmployeImport = () => {
   return (
     <div className="bg-sky-100 flex flex-col p-5">
       <div className="mb-4">
-        <h1 className="text-[#0098F1] text-2xl p-5">
-          HR Management &gt; Employee Import
+        <h1 className="text-[#0098F1] font-bold text-xl">
+        HR Management/Employees/Employee Import
         </h1>
       </div>
 
