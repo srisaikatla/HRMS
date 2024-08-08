@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LuImport } from 'react-icons/lu';
 import { GrSort } from 'react-icons/gr';
 import * as XLSX from 'xlsx';
+import { FaDownload } from 'react-icons/fa'; 
 import { saveAs } from 'file-saver';
 
 const defaultUserData = [
@@ -52,7 +53,7 @@ const defaultUserData = [
   }
 ];
 
-const OnBoarding = () => {
+const EmployeImport = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userData, setUserData] = useState(defaultUserData);
   const [tempFileData, setTempFileData] = useState(null);
@@ -67,7 +68,6 @@ const OnBoarding = () => {
   };
 
   const getNextId = () => {
-    // Get the maximum ID from userData and return the next one
     const maxId = userData.reduce((max, user) => (user.id > max ? user.id : max), 0);
     return maxId + 1;
   };
@@ -75,20 +75,17 @@ const OnBoarding = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Read and parse the uploaded Excel file
       const reader = new FileReader();
       reader.onload = (e) => {
         const ab = e.target.result;
         const wb = XLSX.read(ab, { type: 'array' });
-        const ws = wb.Sheets[wb.SheetNames[0]]; // Assumes data is in the first sheet
+        const ws = wb.Sheets[wb.SheetNames[0]];
         const data = XLSX.utils.sheet_to_json(ws);
 
-        // Get the next available ID
         const nextId = getNextId();
 
-        // Process the data and append to userData
         const processedData = data.map((row, index) => ({
-          id: nextId + index, // Increment ID for each new row
+          id: nextId + index,
           fileName: row.fileName || `File ${nextId + index}`,
           imported: row.imported || 'N/A',
           skipped: row.skipped || 'N/A',
@@ -125,9 +122,9 @@ const OnBoarding = () => {
     user.importedOn.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleDownload = () => {
+  const handleDownload = (user) => {
     // Convert JSON data to worksheet
-    const ws = XLSX.utils.json_to_sheet(filteredUserData);
+    const ws = XLSX.utils.json_to_sheet([user]);
 
     // Create a new workbook and append the worksheet
     const wb = XLSX.utils.book_new();
@@ -138,14 +135,30 @@ const OnBoarding = () => {
 
     // Create a blob and trigger download
     const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(blob, 'user_data.xlsx');
+    saveAs(blob, `${user.fileName.replace('.txt', '')}.xlsx`); // Adjust file name as needed
+  };
+
+  const handleOverallDownload = () => {
+    // Convert all user data to worksheet
+    const ws = XLSX.utils.json_to_sheet(userData);
+
+    // Create a new workbook and append the worksheet
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'UserData');
+
+    // Write workbook to binary string
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+
+    // Create a blob and trigger download
+    const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, 'all_user_data.xlsx'); // Filename for the overall download
   };
 
   return (
     <div className="bg-sky-100 flex flex-col p-5">
       <div className="mb-4">
-        <h1 className="text-[#E65F2B] text-2xl p-5">
-          HR Management &gt; Employee Import
+        <h1 className="text-[#0098F1] font-bold text-xl">
+        HR Management/Employees/Employee Import
         </h1>
       </div>
 
@@ -176,11 +189,11 @@ const OnBoarding = () => {
             Go
           </button>
           <button
-            onClick={handleDownload}
+            onClick={handleOverallDownload}
             className="px-4 py-2 border border-gray-300 border-l-0 bg-[#0098F1] text-white rounded-r-md flex items-center justify-center"
           >
             <GrSort className="mr-2" />
-            Download
+            Download All
           </button>
         </div>
       </div>
@@ -196,6 +209,7 @@ const OnBoarding = () => {
               <th className="border border-gray-300 p-3 text-center">Total</th>
               <th className="border border-gray-300 p-3 text-center">Imported By</th>
               <th className="border border-gray-300 p-3 text-center">Imported On</th>
+              <th className="border border-gray-300 p-3 text-center">Action</th> {/* New column */}
             </tr>
           </thead>
           <tbody>
@@ -207,6 +221,11 @@ const OnBoarding = () => {
                 <td className="border border-gray-300 p-3 text-center text-blue-500">{user.total}</td>
                 <td className="border border-gray-300 p-3 text-center text-blue-500">{user.importedBy}</td>
                 <td className="border border-gray-300 p-3 text-center text-blue-500">{user.importedOn}</td>
+                <td className="border border-gray-300 p-3 text-center">
+                  <button onClick={() => handleDownload(user)} className="text-blue-500">
+                    <FaDownload size={20} />
+                  </button>
+                </td> {/* New action column */}
               </tr>
             ))}
           </tbody>
@@ -218,10 +237,10 @@ const OnBoarding = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-[60vw]">
             <button
-              onClick={handleDownload}
+              onClick={handleOverallDownload}
               className="bg-[#0098F1] text-white h-[40px] w-[150px] rounded-lg mb-4"
             >
-              Download
+              Download All
             </button>
             <h2 className="text-2xl text-[#0098F1] font-bold mb-4">Import Employees</h2>
 
@@ -233,7 +252,7 @@ const OnBoarding = () => {
                   className="border border-[#0098F1]  md:w-[500px] text-white cursor-pointer file:bg-[#0098F1] file:h-[50px] file:w-[200px] file:text-white file:border-[#0098F1] mb-3"
                   aria-label="Upload File"
                 />
-                <p >Accepted file formats are csv, xls, and xlsx.</p>
+                <p>Accepted file formats are csv, xls, and xlsx.</p>
               </div>
             </div>
 
@@ -258,4 +277,4 @@ const OnBoarding = () => {
   );
 };
 
-export default OnBoarding;
+export default EmployeImport;

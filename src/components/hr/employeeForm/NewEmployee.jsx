@@ -8,8 +8,7 @@ const NewEmployee = () => {
         <SideBar />
     </div>
     <div>
-        addasavdshjvhsdjvhnisdkanvkhndvdjvndjvnd
-        DSVNDJSNVJSUDSASfadshbfjfbijrei
+       
     </div>
     </>
   )

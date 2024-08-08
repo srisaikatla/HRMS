@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 import LeaveRequest from "./components/hr/employe/LeaveRequest";
-import DepartmentList from "./components/hr/employe/DepartmentList";
+// import DepartmentList from "./components/hr/employe/DepartmentList";
 import AllEmployees from "./components/hr/employe/AllEmployees";
 // import Login from "./components/login/Login";
 import NewEmployee from "./components/hr/employeeForm/NewEmployee";
