@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PayrollSummary from "../payrollSummary/PayrollSummary";
-// import { Chrono } from "react-chrono";
 
 const batches = {
   "Full Time Batch": {
@@ -14,6 +13,36 @@ const batches = {
       startedOn: "Jul 24, 2024 at 5:50 PM",
       startedBy: "Sathish Chiluveru",
     },
+    employees: [
+      {
+        id: "STD-060",
+        name: "Captain",
+        gross: 45000,
+        actualGross: 64000,
+        basic: 32000,
+        allowances: 32450,
+        deductions: 2500,
+        lossOfPay: 0.0,
+        incomeTax: 3144,
+        surcharge: 0.0,
+        cess: 125,
+        netAmount: 69259,
+      },
+      {
+        id: "STD-080",
+        name: "Peter",
+        gross: 45000,
+        actualGross: 64000,
+        basic: 32000,
+        allowances: 32450,
+        deductions: 2500,
+        lossOfPay: 0.0,
+        incomeTax: 3144,
+        surcharge: 0.0,
+        cess: 125,
+        netAmount: 69259,
+      },
+    ],
   },
   "Part Time Batch": {
     period: "01 Aug, 2024 to 31 Aug, 2024",
@@ -26,6 +55,36 @@ const batches = {
       startedOn: "Aug 1, 2024 at 9:00 AM",
       startedBy: "Shyam Chiluveru",
     },
+    employees: [
+      {
+        id: "PT-010",
+        name: "Alice",
+        gross: 45000,
+        actualGross: 64000,
+        basic: 32000,
+        allowances: 32450,
+        deductions: 2500,
+        lossOfPay: 0.0,
+        incomeTax: 3144,
+        surcharge: 0.0,
+        cess: 125,
+        netAmount: 69259,
+      },
+      {
+        id: "PT-020",
+        name: "Bob",
+        gross: 45000,
+        actualGross: 64000,
+        basic: 32000,
+        allowances: 32450,
+        deductions: 2500,
+        lossOfPay: 0.0,
+        incomeTax: 3144,
+        surcharge: 0.0,
+        cess: 125,
+        netAmount: 69259,
+      },
+    ],
   },
   "Intern Batch": {
     period: "01 Sep, 2024 to 30 Sep, 2024",
@@ -38,26 +97,38 @@ const batches = {
       startedOn: "Sep 1, 2024 at 10:00 AM",
       startedBy: "Mounika ch",
     },
+    employees: [
+      {
+        id: "INT-001",
+        name: "John",
+        gross: 45000,
+        actualGross: 64000,
+        basic: 32000,
+        allowances: 32450,
+        deductions: 2500,
+        lossOfPay: 0.0,
+        incomeTax: 3144,
+        surcharge: 0.0,
+        cess: 125,
+        netAmount: 69259,
+      },
+      {
+        id: "INT-002",
+        name: "Jane",
+        gross: 45000,
+        actualGross: 64000,
+        basic: 32000,
+        allowances: 32450,
+        deductions: 2500,
+        lossOfPay: 0.0,
+        incomeTax: 3144,
+        surcharge: 0.0,
+        cess: 125,
+        netAmount: 69259,
+      },
+    ],
   },
 };
-
-// const items = [
-//   {
-//     title: "1",
-//     cardTitle: "Compensation",
-//     cardSubtitle: "Review employees' compensation information",
-//   },
-//   {
-//     title: "2",
-//     cardTitle: "Time & Attendance",
-//     cardSubtitle: "Review employees' attendance, missing days and overtime",
-//   },
-//   {
-//     title: "3",
-//     cardTitle: "IT Declarations",
-//     cardSubtitle: "Review employees' IT Declarations information",
-//   },
-// ];
 
 const steps = [
   {
@@ -87,6 +158,7 @@ const RunPayroll = () => {
   const [payPeriod, setPayPeriod] = useState("");
   const [payrollDetails, setPayrollDetails] = useState(null);
   const [showSummary, setShowSummary] = useState(false);
+  const [employees, setEmployees] = useState([]);
 
   const handleBatchChange = (e) => {
     const batch = e.target.value;
@@ -96,8 +168,10 @@ const RunPayroll = () => {
 
     if (batch) {
       setPayrollDetails(batches[batch]?.details || null);
+      setEmployees(batches[batch]?.employees || []);
     } else {
       setPayrollDetails(null);
+      setEmployees([]);
     }
   };
 
@@ -111,8 +185,8 @@ const RunPayroll = () => {
         payPeriod={payPeriod}
         payrollType={payrollDetails?.type}
         batchName={selectedBatch}
-        totalEmployees = {payrollDetails.employeesInBatch}
-
+        totalEmployees={payrollDetails.employeesInBatch}
+        employees={employees}
       />
     );
   }
@@ -176,7 +250,7 @@ const RunPayroll = () => {
           </div>
 
           <div className="flex justify-between">
-            <div className=" leading-7 my-5 w-[45%]">
+            <div className=" leading-7 my-5 w-[50%]">
               <p className="flex justify-between ">
                 <strong>Payroll Type:</strong>{" "}
                 <span>{payrollDetails.type}</span>
@@ -215,7 +289,7 @@ const RunPayroll = () => {
                     </div>
                     {/* <div className="h-5 w-1 bg-gray-800"></div> */}
                   </div>
-                  <div className="border border-r-4 p-2 bg-white shadow-md rounded-lg border-r-[#0098F1] w-[40` 0px]">
+                  <div className="border border-r-4 p-2 bg-white shadow-md rounded-lg border-r-[#0098F1] w-[420px]">
                     <h3 className="text-lg font-semibold">{step.title}</h3>
                     <p className="text-gray-600">{step.description}</p>
                   </div>
