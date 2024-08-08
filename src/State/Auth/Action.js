@@ -18,7 +18,13 @@ import {
   EMAIL_EXISTS,
   GET_ALL_CUSTOMERS_REQUEST,
   GET_ALL_CUSTOMERS_SUCCESS,
-  GET_ALL_CUSTOMERS_FAILURE
+  GET_ALL_CUSTOMERS_FAILURE,
+  EMPLOYEE_LOGIN_REQUEST,
+  EMPLOYEE_LOGIN_FAILURE,
+  EMPLOYEE_LOGIN_SUCCESS,
+  GET_EMPLOYEE_REQUEST,
+  GET_EMPLOYEE_FAILURE,
+  GET_EMPLOYEE_SUCCESS
 } from './ActionType';
 
 const token = localStorage.getItem('jwt');
@@ -74,17 +80,36 @@ export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest);
 
   try {
-    const response = await axios.post(`${API_BASE_URL}/api/v1/auth/signin`, userData);
+    const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
     const user = response.data;
-    if (user.token) {
-      localStorage.setItem('token1', user.token);
-
+    if (user.jwt) {
+      localStorage.setItem('jwt', user.jwt);
     }
-    dispatch(loginSuccess(user.token));
+    dispatch(loginSuccess(user.jwt));
   } catch (error) {
     dispatch(loginFailure(error.message));
   }
 };
+
+const employeeLoginRequest = () => ({ type: EMPLOYEE_LOGIN_REQUEST });
+const employeeLoginSuccess = (employee) => ({ type: EMPLOYEE_LOGIN_SUCCESS, payload: employee });
+const employeeLoginFailure = (error) => ({ type: EMPLOYEE_LOGIN_FAILURE, payload: error });
+
+export const employee = (userData) => async (dispatch) => {
+  dispatch(employeeLoginRequest);
+
+  try {
+    const response = await axios.post(`${API_BASE_URL}/employee/signin`, userData);
+    const employee = response.data;
+    if (employee.jwt) {
+      localStorage.setItem('jwt', employee.jwt);
+    }
+    dispatch(employeeLoginSuccess(employee.jwt));
+  } catch (error) {
+    dispatch(employeeLoginFailure(error.message));
+  }
+};
+
 
 export const getAllCustomers = (token) => {
   return async (dispatch) => {
@@ -120,10 +145,31 @@ export const getUser = (jwt) => async (dispatch) => {
       },
     });
     const user = response.data;
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('profile', JSON.stringify(user));
     dispatch(getUserSuccess(user));
   } catch (error) {
     dispatch(getUserFailure(error.message));
+  }
+};
+
+const getEmployeeRequest = () => ({ type: GET_EMPLOYEE_REQUEST });
+const getEmployeeSuccess = (employee) => ({ type: GET_EMPLOYEE_SUCCESS, payload: employee });
+const getEmployeeFailure = (error) => ({ type: GET_EMPLOYEE_FAILURE, payload: error });
+
+export const getTrainee = (jwt) => async (dispatch) => {
+  dispatch(getEmployeeRequest());
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}/employee/profile`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    const employee = response.data;
+    localStorage.setItem('employee', JSON.stringify(employee));
+    dispatch(getEmployeeSuccess(employee));
+  } catch (error) {
+    dispatch(getEmployeeFailure(error.message));
   }
 };
 

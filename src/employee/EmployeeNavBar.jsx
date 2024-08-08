@@ -1,4 +1,5 @@
-import { useState } from "react";
+// import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaFolder,
   FaEnvelope,
@@ -8,8 +9,8 @@ import {
 } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 
-function EmployeeNavBar() {
-  const [hoveredIcon, setHoveredIcon] = useState("");
+function EmployeeNavBar({ onSearch, onCalendarClick }) {
+  const [hoveredIcon, setHoveredIcon] = React.useState("");
 
   const handleMouseEnter = (iconName) => {
     setHoveredIcon(iconName);

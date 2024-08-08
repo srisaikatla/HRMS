@@ -1,16 +1,20 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
-import Events from "./options/events/Events";
+// import Events from "./options/events/Events";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Settlements from "./options/payslips/Settlements";
 import PayrollForms from "./options/payslips/PayrollForms";
 import DirectDeposits from "./options/payslips/DirectDeposits";
 import YTD from "./options/payslips/YTDimport";
-import Attendance from "./options/attendance/Attendance";
+// import Attendance from "./options/attendance/Attendance";
+// import Attendance from "./options/attendance/Attendance";
+import Events from "../components/hr/events/Events";
+// import ApplyLeave from "./options/applyLeave/ApplyLeave";
+import Payslip from "./options/payslips/Payslip";
 
 import {
   FaUsers,
@@ -27,17 +31,22 @@ import {
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
+import { FaLongArrowAltRight } from "react-icons/fa";
 import { SiHdfcbank } from "react-icons/si";
 import { GiPayMoney } from "react-icons/gi";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
-import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+// import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
-import { PiHandDepositFill } from "react-icons/pi";
+// import { PiHandDepositFill } from "react-icons/pi";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { TbMoneybag } from "react-icons/tb";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+// import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { PiHandDepositFill } from "react-icons/pi";
+// import AllEmployees from "../employee/options/allEmployees/AllEmployees";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -99,11 +108,34 @@ const EmployeeSideBar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case "payslips":
+        return <Payslips />;
+        break;
+      case "All Employees":
+        return <AllEmployees />;
+        break;
+      case "Events":
+        return <Events />;
+        break;
+      case "Apply Leave":
+        return <ApplyLeave />;
+        break;
+      default:
+        return (
+          <div className="text-2xl pt-20 font-bold">
+            Selected Option: {activeTab || "None"}
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="relative bg-[#e65f2b] bg-opacity-10">
       <EmployeeNavBar />
       <div
-        className={`flex ${
+        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
         } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
@@ -200,7 +232,7 @@ const EmployeeSideBar = () => {
           {/* {activeTab === "YTD import" && <YTD />} */}
           {/*  */}
           {/* Add additional conditional rendering for other active tabs if needed */}
-          {activeTab === "Attendance" && <Attendance />}
+          {/* {activeTab === "Attendance" && <Attendance />} */}
         </div>
       </div>
     </div>
