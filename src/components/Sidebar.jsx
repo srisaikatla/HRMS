@@ -7,7 +7,7 @@ import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
-import LeaveRequest from "../components/hr/employe/LeaveRequest";
+import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
 import Attendance from "../components/hr/employe/Attendance";
 import DepartmentList from "../components/hr/hr_management/department/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
@@ -135,7 +135,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {/* {activeTab === "Leave Requests" && <LeaveRequest />} */}
+        {activeTab === "Leaves" && <LeaveRequest />}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {activeTab === "Department" && <DepartmentList />}
         {activeTab === "Report Invoice" && <ReportInvoice />}
