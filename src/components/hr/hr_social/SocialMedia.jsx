@@ -75,7 +75,7 @@ const SocialMedia = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg my-5">
+    <div className="bg-white rounded-lg my-5 py-5 p-3">
       <h1 className="text-[20px] text-[#E65F2B] font-bold ">Social Media</h1>
       <div className="flex flex-col gap-5 my-5">
         <table className="">
@@ -112,7 +112,7 @@ const SocialMedia = () => {
             ))}
           </tbody>
         </table>
-        <div className="flex items-center gap-3 self-end ">
+        <div className="flex items-center gap-3 self-end mr-5 ">
           <p>
             {currentPage} of {totalPages}
           </p>

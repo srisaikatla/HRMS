@@ -28,13 +28,13 @@ const FacebookPosts = () => {
     imageRef.current.click();
   };
   return (
-    <div className="bg-white py-5 ">
+    <div className="bg-white py-5 px-2 ">
       <h1 className="text-[#E65F2B] text-xl font-bold">Facebook Recent Post</h1>
       <div className="border-2 rounded-md border-[#0098F1] my-2 p-2">
         <textarea
           className="outline-none"
           placeholder="Type here..........."
-          cols={55}
+          cols={40}
           rows={5}
         ></textarea>
       </div>
