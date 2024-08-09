@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
-import ViewEmployees from "../components/hr/employe/AllEmployees";
+import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/employe/LeaveRequest";
 import Attendance from "../components/hr/employe/Attendance";
 import DepartmentList from "../components/hr/hr_management/department/DepartmentList";
@@ -134,7 +134,7 @@ const SideBar = () => {
         {activeTab === "Events" && <Events />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
-        {activeTab === "All Employees" && <ViewEmployees />}
+        {activeTab === "All Employees" && <AllEmployee />}
         {/* {activeTab === "Leave Requests" && <LeaveRequest />} */}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {activeTab === "Department" && <DepartmentList />}
