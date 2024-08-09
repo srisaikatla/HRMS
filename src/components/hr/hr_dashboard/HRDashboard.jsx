@@ -61,28 +61,28 @@ const HRDashboard = () => {
                     <div className="flex w-full h-full justify-evenly items-center rounded-t-lg gap-2 bg-[#FF6C40]">
                       <BsPersonFillCheck className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
                       <div className="text-white">
-                        New Employee{" "}
+                        New Employee
                         <div className="text-center">{data.new_Employee}</div>
                       </div>
                     </div>
                     <div className="flex w-full h-full justify-evenly items-center gap-2 bg-[#FF6C40]">
                       <MdGroups className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
                       <div className="text-white">
-                        Total Employee{" "}
+                        Total Employee
                         <div className="text-center">{data.Total_Employee}</div>
                       </div>
                     </div>
                     <div className="flex w-full h-full justify-evenly items-center gap-2 bg-[#FF6C40]">
                       <RiMoneyRupeeCircleLine className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
                       <div className="text-white mr-6">
-                        Total Salary{" "}
+                        Total Salary
                         <div className="text-center">{data.Total_Salary}</div>
                       </div>
                     </div>
                     <div className="flex w-full h-full justify-evenly rounded-b-lg items-center gap-2 bg-[#FF6C40]">
                       <TbReportMoney className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
                       <div className="text-white mr-8">
-                        Avg Salary{" "}
+                        Avg Salary
                         <div className="text-center">{data.Avg_Salary}</div>
                       </div>
                     </div>

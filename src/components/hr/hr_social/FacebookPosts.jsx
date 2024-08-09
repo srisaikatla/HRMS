@@ -28,44 +28,43 @@ const FacebookPosts = () => {
     imageRef.current.click();
   };
   return (
-    <div className="bg-white py-5 px-2 ">
-      <h1 className="text-[#E65F2B] text-xl font-bold">Facebook Recent Post</h1>
-      <div className="border-2 rounded-md border-[#0098F1] my-2 p-2">
-        <textarea
-          className="outline-none"
-          placeholder="Type here..........."
-          cols={40}
-          rows={5}
-        ></textarea>
-      </div>
-      <div className="flex gap-3 justify-end my-5">
+    <div className="bg-white p-5 w-[465px]">
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">Facebook Recent Post</h1>
+
+      <textarea
+        className="outline-none border-2 rounded-md border-[#0098F1] w-full p-2 text-sm"
+        placeholder="Type here..........."
+        rows={5}
+      />
+
+      <div className="flex gap-3 justify-end">
         <button
           type="button"
-          className="bg-[#E65F2B] p-2 rounded-md"
+          className="bg-[#E65F2B] rounded-md px-2 "
           onClick={onClickfile}
         >
           <img
             src="src/assets/hr/hrSocial/facebook/vector.png"
-            className="w-[30px]"
+            className="w-[20px]"
             alt="file image"
           />
         </button>
         <input type="file" ref={imageRef} hidden />
-        <button className="bg-[#E65F2B] p-2 rounded-md">
+        <button className="bg-[#E65F2B] rounded-md px-2">
           <img
             src="src/assets/hr/hrSocial/facebook/camera.png"
-            className="w-[25px]"
+            className="w-[20px]"
             alt="camera image"
           />
         </button>
-        <button className="px-10 py-1 text-xl bg-[#E65F2B] text-white rounded-lg">
+        <button className=" text-lg bg-[#E65F2B] text-white rounded-lg px-6">
           Post
         </button>
       </div>
       <div className="my-5">
         {facebookPosts.map((post) => (
-          <div className="flex justify-between my-5  text-[#0098F1]">
-            <div className="flex gap-5">
+          <div className="flex justify-between my-5 text-[#0098F1]">
+            <div className="flex gap-x-2">
               <img src={post.image} alt="post pic" />
               <div>
                 <h1>{post.name}</h1>

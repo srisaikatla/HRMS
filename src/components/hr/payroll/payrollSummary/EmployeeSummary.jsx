@@ -2,15 +2,30 @@ import React, { useState } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { PiArrowLineDownBold } from "react-icons/pi";
 import { RiArrowDownSLine } from "react-icons/ri";
+import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 
 const EmployeeSummary = ({ employees }) => {
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredEmployees = employees
     ? employees.filter((employee) =>
         employee.name.toLowerCase().includes(search.toLowerCase())
       )
     : [];
+
+  const itemsPerPage = 2;
+  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredEmployees.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) return setCurrentPage(currentPage + 1);
+  };
+  const handlePreviousPage = () => {
+    if (currentPage > 1) return setCurrentPage(currentPage - 1);
+  };
 
   return (
     <div className="my-8">
@@ -80,7 +95,7 @@ const EmployeeSummary = ({ employees }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredEmployees.map((employee) => (
+                {currentItems.map((employee) => (
                   <tr key={employee.id} className="text-center">
                     <td className="py-2 px-4 border-r border-white">
                       {employee.name}
@@ -125,6 +140,22 @@ const EmployeeSummary = ({ employees }) => {
             Total Records :
             <span className="text-[#0098F1]"> {filteredEmployees.length}</span>
           </p>
+          <div className="flex justify-end items-center gap-3 mr-5 ">
+            <p>{currentPage} of {totalPages}</p>
+            <button
+              onClick={handlePreviousPage}
+              className="bg-[#0098F1] rounded-full h-8 w-8 flex items-center justify-center text-white"
+            >
+              <GoChevronLeft size={20} />
+            </button>
+
+            <button
+              onClick={handleNextPage}
+              className="bg-[#0098F1] rounded-full h-8 w-8 flex items-center justify-center text-white"
+            >
+              <GoChevronRight size={20} />
+            </button>
+          </div>
         </div>
       ) : (
         ""
