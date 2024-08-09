@@ -60,8 +60,8 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   ];
 
   const employeeOptions = [
-    { title: "New Employee", icon: <FaBuilding /> },
-    { title: "View Employees", icon: <FaUsers /> },
+    // { title: "New Employee", icon: <FaBuilding /> },
+    { title: "All Employees", icon: <FaUsers /> },
     { title: "Compensation", icon: <FaBuilding /> },
     { title: "Employee Import", icon: <FaBuilding /> },
     { title: "IT Declarations", icon: <FaBuilding /> },

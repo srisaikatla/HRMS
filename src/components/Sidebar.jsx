@@ -133,7 +133,7 @@ const SideBar = () => {
         {activeTab === "Events" && <Events />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
-        {activeTab === "View Employees" && <ViewEmployees />}
+        {activeTab === "All Employees" && <ViewEmployees />}
         {/* {activeTab === "Leave Requests" && <LeaveRequest />} */}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {activeTab === "Department" && <DepartmentList />}
