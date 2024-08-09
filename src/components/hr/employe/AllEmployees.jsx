@@ -96,7 +96,7 @@ function AllEmployees() {
 
   const handleUpdateEmployee = async () => {
     try {
-      const response = await axios.put(`http://localhost:8085/employee/update/${editEmployeeId}`, newEmployee);
+      const response = await axios.put(`${API_BASE_URL}/employee/update/${editEmployeeId}`, newEmployee);
       setEmployees((prev) =>
         prev.map((emp) => (emp.employeeId === editEmployeeId ? response.data : emp))
       );
@@ -112,7 +112,7 @@ function AllEmployees() {
 
   const handleDeleteEmployee = async (employeeId) => {
     try {
-      await axios.delete(`http://localhost:8085/employee/delete/${employeeId}`);
+      await axios.delete(`{API_BASE_URL}/employee/delete/${employeeId}`);
       setEmployees((prev) => prev.filter((employee) => employee.employeeId !== employeeId));
       setShowDeleteSuccessMessage(true);
       setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
