@@ -42,6 +42,8 @@ import PayrollSettings from "./hr/payroll/payroll_setting/PayrollSettings";
 import PayrollForms from "./hr/payroll/payroll_forms/PayrollForms";
 import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
+import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary"
+import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll"
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -162,6 +164,8 @@ const SideBar = () => {
         {activeTab === "Payroll Forms" && <PayrollForms />}
         {activeTab === "Onboarding" && <OnBoarding />}
         {activeTab === "IT Declarations" && <ITDeclarations />}
+        {activeTab === "Payroll Summary" && <PayrollSummary />}
+        {activeTab === "Run payroll" && <RunPayRoll />}
       </div>
     </div>
   );
