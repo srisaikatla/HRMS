@@ -14,7 +14,7 @@ const HrSocial = () => {
       <SocialApps />
       <SocialStatistics />
       <SocialMedia />
-      <div className="flex justify-between gap-10">
+      <div className="flex justify-between gap-5">
         <FacebookPosts />
         <TwitterPosts />
       </div>

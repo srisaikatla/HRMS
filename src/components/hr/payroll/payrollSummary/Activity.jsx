@@ -22,12 +22,12 @@ const Activity = () => {
         Activity
       </h1>
       <div>
-        {Messages.map((message) => {
+        {Messages.map((message, index) => {
           const nameParts = message.name.split(" ");
           const firstNameLetter = nameParts[0][0];
           const lastNameLetter = nameParts[nameParts.length - 1][0];
           return (
-            <div className="my-2 flex gap-x-3 items-center">
+            <div key={index} className="my-2 flex gap-x-3 items-center">
               <h1 className="bg-[#0098F1] text-white h-10 w-10 flex justify-center items-center rounded-full text-xl ">
                 {firstNameLetter}
                 {lastNameLetter}
