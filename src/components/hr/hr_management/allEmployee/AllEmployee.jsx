@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -404,6 +405,7 @@ import uncheckbox from "../../../../assets/hr/employee/checkbox/uncheck.png";
 import checkbox from "../../../../assets/hr/employee/checkbox/checkbox.png";
 import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
 import defaultProfileImg from "../../../../assets/hr/profile/man.png"; // Ensure to add a default profile image in your assets
+import { API_BASE_URL } from "../../../../Config/api";
 
 function AllEmployee() {
   const [employees, setEmployees] = useState([]);
@@ -438,7 +440,7 @@ function AllEmployee() {
   const fetchEmployees = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8085/employee/getAllEmployee"
+        `${API_BASE_URL}/employee/getAllEmployee`
       );
       setEmployees(response.data);
       setLoading(false);
@@ -460,7 +462,7 @@ function AllEmployee() {
   const handleAddEmployee = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8085/employee/register",
+        `${API_BASE_URL}/employee/register`,
         newEmployee
       );
       setEmployees((prev) => [...prev, response.data]);
@@ -484,7 +486,7 @@ function AllEmployee() {
   const handleUpdateEmployee = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8085/employee/update/${editEmployeeId}`,
+        `${API_BASE_URL}/employee/update/${editEmployeeId}`,
         newEmployee
       );
       setEmployees((prev) =>
@@ -493,6 +495,7 @@ function AllEmployee() {
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
       closeModal();
+      fetchEmployees();
     } catch (error) {
       console.error("Error updating employee:", error);
       setErrorMessage("Error updating employee");
@@ -502,12 +505,13 @@ function AllEmployee() {
 
   const handleDeleteEmployee = async (employeeId) => {
     try {
-      await axios.delete(`http://localhost:8085/employee/delete/${employeeId}`);
+      await axios.delete(`${API_BASE_URL}/employee/delete/${employeeId}`);
       setEmployees((prev) =>
         prev.filter((employee) => employee.ID !== employeeId)
       );
       setShowDeleteSuccessMessage(true);
       setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
+      fetchEmployees();
     } catch (error) {
       console.error("Error deleting employee:", error);
       setErrorMessage("Error deleting employee");
@@ -609,12 +613,10 @@ function AllEmployee() {
                   </th>
                   <th className="p-3 px-6 text-center border ">DOB</th>
                   <th className="p-3 px-6 text-center border ">Designation</th>
-                  <th className="p-3 px-6 text-center border ">Role</th>
                   <th className="p-3 px-6 text-center border ">PAN Number</th>
                   <th className="p-3 px-6 text-center border ">
                     Aadhar Card Number
                   </th>
-                  <th className="p-3 px-6 text-center border ">Profile</th>
                   <th className="p-3 px-6 text-center border ">Action</th>
                 </tr>
               </thead>
@@ -636,16 +638,16 @@ function AllEmployee() {
                       />
                     </td>
                     <td className="border p-3 px-6  text-center">
-                      {employee.ID}
+                      {employee.employeeId}
                     </td>
                     <td className="border p-3 px-6  text-center">
-                      {employee.Name}
+                      {`${employee.firstName} ${employee.lastName}`}
                     </td>
                     <td className="border p-3 px-6  text-center">
-                      {employee.DOJ}
+                      {employee.joinDate}
                     </td>
                     <td className="border p-3 px-6  text-center">
-                      {employee.ContactNo}
+                      {employee.phoneNumber}
                     </td>
                     <td className="border p-3 px-6  text-center">
                       {employee.BloodGroup}
@@ -654,16 +656,13 @@ function AllEmployee() {
                       {employee.PersonalMailID}
                     </td>
                     <td className="border p-3 px-6  text-center">
-                      {employee.OfficialMailID}
+                      {employee.email}
                     </td>
                     <td className="border p-3 px-6  text-center">
                       {employee.DOB}
                     </td>
                     <td className="border p-3 px-6  text-center">
-                      {employee.Designation}
-                    </td>
-                    <td className="border p-3 px-6  text-center">
-                      {employee.Role}
+                      {employee.role}
                     </td>
                     <td className="border p-3 px-6  text-center">
                       {employee.PANNumber}
@@ -674,13 +673,17 @@ function AllEmployee() {
                     <td className="border p-3 px-6  text-center flex justify-around">
                       <button
                         className="text-blue-500 hover:text-blue-700"
-                        onClick={() => handleEditEmployee(employee)}
+                        onClick={() => {
+                          setEditEmployeeId(employee.employeeId);
+                          setNewEmployee(employee);
+                          setShowModal(true);
+                        }}
                       >
                         <FiEdit />
                       </button>
                       <button
                         className="text-red-500 hover:text-red-700"
-                        onClick={() => handleDeleteEmployee(employee.ID)}
+                        onClick={() => handleDeleteEmployee(employee.employeeId)}
                       >
                         <FiTrash2 />
                       </button>
@@ -704,8 +707,8 @@ function AllEmployee() {
                 <label className="block mb-1">ID</label>
                 <input
                   type="text"
-                  name="ID"
-                  value={newEmployee.ID}
+                  name="employeeId"
+                  value={newEmployee.employeeId}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border rounded"
                 />
@@ -791,16 +794,6 @@ function AllEmployee() {
                 />
               </div>
               <div>
-                <label className="block mb-1">Role</label>
-                <input
-                  type="text"
-                  name="Role"
-                  value={newEmployee.Role}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <div>
                 <label className="block mb-1">PAN Number</label>
                 <input
                   type="text"
@@ -832,11 +825,7 @@ function AllEmployee() {
               <button
                 type="button"
                 className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={
-                  editEmployeeId !== null
-                    ? handleUpdateEmployee
-                    : handleAddEmployee
-                }
+                onClick={editEmployeeId !== null ? handleUpdateEmployee : handleAddEmployee}
               >
                 {editEmployeeId !== null ? "Update" : "Add"}
               </button>

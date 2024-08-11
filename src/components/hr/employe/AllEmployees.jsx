@@ -112,7 +112,7 @@ function AllEmployees() {
 
   const handleDeleteEmployee = async (employeeId) => {
     try {
-      await axios.delete(`{API_BASE_URL}/employee/delete/${employeeId}`);
+      await axios.delete(`${API_BASE_URL}/employee/delete/${employeeId}`);
       setEmployees((prev) => prev.filter((employee) => employee.employeeId !== employeeId));
       setShowDeleteSuccessMessage(true);
       setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
