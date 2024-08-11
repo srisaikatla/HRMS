@@ -7,7 +7,7 @@ import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
-import LeaveRequest from "../components/hr/employe/LeaveRequest";
+import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
 import Attendance from "../components/hr/employe/Attendance";
 import DepartmentList from "../components/hr/hr_management/department/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
@@ -42,6 +42,8 @@ import PayrollSettings from "./hr/payroll/payroll_setting/PayrollSettings";
 import PayrollForms from "./hr/payroll/payroll_forms/PayrollForms";
 import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
+import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary"
+import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll"
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -135,7 +137,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {/* {activeTab === "Leave Requests" && <LeaveRequest />} */}
+        {activeTab === "Leaves" && <LeaveRequest />}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {activeTab === "Department" && <DepartmentList />}
         {activeTab === "Report Invoice" && <ReportInvoice />}
@@ -162,6 +164,8 @@ const SideBar = () => {
         {activeTab === "Payroll Forms" && <PayrollForms />}
         {activeTab === "Onboarding" && <OnBoarding />}
         {activeTab === "IT Declarations" && <ITDeclarations />}
+        {activeTab === "Payroll Summary" && <PayrollSummary />}
+        {activeTab === "Run payroll" && <RunPayRoll />}
       </div>
     </div>
   );

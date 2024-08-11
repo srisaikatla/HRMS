@@ -65,6 +65,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
     { title: "Compensation", icon: <FaBuilding /> },
     { title: "Employee Import", icon: <FaBuilding /> },
     { title: "IT Declarations", icon: <FaBuilding /> },
+    { title: "Leaves", icon: <FaBuilding /> },
     // { title: "Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
 
