@@ -28,9 +28,9 @@ function PayrollForms() {
           className="flex mx-4 flex-row justify-between items-center"
         >
           <div>
-            <span className="flex text-lg font-bold">Hr</span>
-            <span className="text-[16px] font-medium">
-             Payroll /Payroll Forms
+            {/* <span className="flex text-lg font-bold">Hr</span> */}
+            <span className="text-[#E65F2B] text-xl font-bold mb-4">
+            Hr / Payroll /Payroll Forms
             </span>
           </div>
           <div className="w-auto h-[55px] px-4 flex rounded-lg bg-[#0098f1]">

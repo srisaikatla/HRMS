@@ -263,7 +263,7 @@ const Events = () => {
 
   return (
     <div className="p-5">
-      <h2 className="text-2xl text-[#0098F1] font-semibold mb-4">Hr/Events</h2>
+      <h2 className="text-[#E65F2B] text-xl font-bold">Hr/Events</h2>
 
       <div className="flex justify-end mb-4">
         <button
@@ -278,11 +278,11 @@ const Events = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-8/12 bg-white font-normal rounded-lg p-4 mr-4">
+        <div className="w-full md:w-6/12 bg-white font-base rounded-lg p-4 mr-4">
           <ReactCalendar onEventClick={handleEventClick} />
         </div>
 
-        <div className="w-full md:w-4/12 bg-[#0098F1] rounded-lg p-4 relative">
+        <div className="w-full md:w-6/12 bg-[#0098F1] rounded-lg p-4 relative">
           <div className="flex flex-col items-center justify-center">
             <div className="rounded-full overflow-hidden w-24 h-24 md:w-40 md:h-40 flex items-center justify-center">
               <img

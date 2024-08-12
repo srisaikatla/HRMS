@@ -289,7 +289,7 @@ const AllEmployees = () => {
             </span>
           </div>
 
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <button
             type="button"
             className="flex items-center bg-[#E65F2B] text-white h-[60px] w-full md:w-[230px] rounded-lg shadow hover:bg-[#f5d0c7] justify-center text-xl"
@@ -299,7 +299,7 @@ const AllEmployees = () => {
 
             <span className="ml-2">Add Employee</span>
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col md:flex-row justify-between gap-4 mt-6 mb-6">

@@ -41,7 +41,7 @@ import Profile from "./options/profile/Profile";
 import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("All Employees");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
 
