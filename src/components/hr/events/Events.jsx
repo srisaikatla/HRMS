@@ -54,9 +54,9 @@ const Events = () => {
 
   const getDayTextColor = (day) => {
     if (day === 1 || day === 15 || day === 28) {
-      return "text-[#E65F2B]";
+      return "text-[#0098f1]";
     } else if (day === 5 || day === 20) {
-      return "text-[#E65F2B]";
+      return "text-[#0098f1]";
     } else {
       return "text-[#0098F1]";
     }
@@ -188,7 +188,7 @@ const Events = () => {
     <>
       <div className="  mr-2">
         <div className="ml-5">
-          <p className="text-[#e65f2b] font-bold text-xl">Hr/Events</p>
+          <p className="text-[#0098f1] font-bold text-xl">Hr/Events</p>
         </div>
         <div className="flex justify-end mb-4 mr-2">
           <button
@@ -206,12 +206,12 @@ const Events = () => {
           <div className="w-full bg-white ml-10 rounded-lg p-4 ">
             <div className="w-auto  mx-auto rounded-lg overflow-hidden p-4 border">
               <div className="flex justify-between items-center mb-5">
-                <h2 className="font-medium text-xl text-[#E65F2B] mb-10">
+                <h2 className="font-medium text-xl text-[#0098f1] mb-10">
                   {getCurrentDateString()}
                 </h2>
                 <div className="mt-10">
                   <button
-                    className="text-[#E65F2B] hover:text-gray-800 focus:outline-none rounded-full border border-[#E65F2B] bg-transparent mr-3"
+                    className="text-[#0098f1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098f1] bg-transparent mr-3"
                     onClick={goToPreviousMonth}
                     style={{
                       width: "28px",
@@ -223,7 +223,7 @@ const Events = () => {
                     <GoChevronLeft style={{ fontSize: "15px" }} />
                   </button>
                   <button
-                    className="text-[#E65F2B] hover:text-gray-800 focus:outline-none rounded-full border border-[#E65F2B] bg-transparent"
+                    className="text-[#0098f1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098f1] bg-transparent"
                     onClick={goToNextMonth}
                     style={{
                       width: "28px",

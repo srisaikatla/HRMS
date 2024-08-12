@@ -10,30 +10,23 @@ import {
   FaUserFriends,
   FaMoneyCheckAlt,
   FaFileAlt,
-  FaUser,
   FaLock,
   FaChevronDown,
   FaChevronUp,
   FaUsers,
-  FaClipboardList,
   FaBuilding,
 } from "react-icons/fa";
-import { SiHdfcbank } from "react-icons/si";
+
 import { GiPayMoney } from "react-icons/gi";
 import { MdOutlinePayment } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
-import { PiHandDepositFill } from "react-icons/pi";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { TbMoneybag } from "react-icons/tb";
-import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { MdOutlineSocialDistance } from "react-icons/md";
-import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
-import { GrProjects } from "react-icons/gr";
-import { TbListDetails } from "react-icons/tb";
+import { logout } from "../State/Auth/Action";
+import { useDispatch } from "react-redux";
 
 const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const navigate = useNavigate();
@@ -43,6 +36,8 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const [showAccountOptions, setShowAccountOptions] = useState(false);
   const [showAuthOptions, setShowAuthOptions] = useState(false);
   const [showHrManagementOptions, setShowHrManagementOptions] = useState(false);
+  const jwt = localStorage.getItem("jwt");
+  const dispatch = useDispatch();
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
     { title: "Holiday", icon: <FaCalendarAlt /> },
@@ -62,13 +57,13 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   ];
 
   const employeeOptions = [
-    { title: "New Employee", icon: <FaBuilding /> },
-    { title: "View Employees", icon: <FaUsers /> },
+    // { title: "New Employee", icon: <FaBuilding /> },
+    { title: "All Employees", icon: <FaUsers /> },
+    { title: "Leaves", icon: <FaBuilding /> },
     { title: "Compensation", icon: <FaBuilding /> },
     { title: "IT Declarations", icon: <FaBuilding /> },
-    { title: "Employee Import", icon: <FaBuilding /> },
+    // { title: "Employee Import", icon: <FaBuilding /> },
 
-    // { title: "Leave Requests", icon: <FaClipboardList /> },
     // { title: "Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
 
@@ -101,7 +96,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   ];
 
   const authOptions = [
-    { title: "Login", link: "/login", icon: <FaBuilding /> },
+    { title: "Logout", link: "/login", icon: <FaBuilding /> },
     { title: "Register", link: "/register", icon: <FaBuilding /> },
     {
       title: "Forgot Password",
@@ -135,6 +130,12 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
         setActiveTab(option.title);
         break;
     }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("jwt");
+    navigate("/option");
   };
 
   const handleOptionClickNavigate = (authOption) => {
@@ -340,7 +341,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                           ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
                           : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
                       }`}
-                      onClick={() => handleOptionClickNavigate(authOption)}
+                      onClick={() =>
+                        authOption.title === "Logout"
+                          ? handleLogout()
+                          : handleOptionClickNavigate(authOption)
+                      }
                     >
                       {authOption.icon}
                       <span className="pl-2">{authOption.title}</span>

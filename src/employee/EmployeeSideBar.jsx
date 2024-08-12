@@ -48,6 +48,14 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
 // import AllEmployees from "../employee/options/allEmployees/AllEmployees";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
+import SalaryStructure from "./options/payslips/SalaryStructure"
+import Declaration from "./options/payslips/Declaration"
+import BankAccount from "./options/payslips/BankAccount"
+import Chat from "./options/chat/Chat";
+import Rules from "./options/rules/Rules"
+import ProjectList from "./options/projectList/ProjectList";
+import Profile from "./options/profile/Profile";
+import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -111,7 +119,7 @@ const EmployeeSideBar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "payslips":
-        return <Payslips />;
+        return <Payslip />;
         break;
       case "All Employees":
         return <AllEmployees />;
@@ -221,11 +229,18 @@ const EmployeeSideBar = () => {
           {activeTab === "Apply Leave" && <ApplyLeave />}
 
           {/* payroll */}
-          {activeTab === "Payslips" && <Main />}
-          {activeTab === "Salary Structure" && <Main />}
-          {activeTab === "Declaration" && <Main />}
-          {activeTab === "Bank Account" && <Main />}
-
+          {activeTab === "Payslips" && <Payslip />}
+          {activeTab === "Salary Structure" && <SalaryStructure />}
+          {activeTab === "Declaration" && <Declaration />}
+          {activeTab === "Bank Account" && <BankAccount />}
+          {activeTab === "Chats" && <Chat />}
+          {activeTab === "Projects" && <ProjectList />}
+          {activeTab === "Rules" && <Rules />}
+          {activeTab === "Bank Account Details" && <BankAccountDetails />}
+          {activeTab === "Activities" && <EmployeeActivities />}
+          {activeTab === "Profile" && <Profile />}
+          {activeTab === "Holidays" && <EmployeHoliday />}
+          {activeTab === "Inbox" && <EmployeInbox />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}

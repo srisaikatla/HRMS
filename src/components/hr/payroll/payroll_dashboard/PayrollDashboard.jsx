@@ -14,7 +14,7 @@ function PayrollDashboard() {
     datasets: [
       {
         data: [23100.00, 21400, 1500, 200],
-        backgroundColor: ['#379FFF', '#FF0099', '#FF3AE0', '#E65F2B'],
+        backgroundColor: ['#379FFF', '#FF0099', '#FF3AE0', '#0098f1'],
         borderColor: '#ffffff',
         borderWidth: 2,
       },
@@ -40,7 +40,7 @@ function PayrollDashboard() {
       {
         label: 'Yearly Deduction (Employee)',
         data: [1500, 200, 1200],
-        backgroundColor: ['#9D50FF', '#E65F2B', '#FFA800'],
+        backgroundColor: ['#9D50FF', '#0098f1', '#FFA800'],
         borderColor: '#ffffff',
         borderWidth: 2,
         barThickness: 80,
@@ -67,7 +67,7 @@ function PayrollDashboard() {
       legend: {
         position: 'right',
         labels: {
-          color: '#E65F2B',
+          color: '#0098f1',
         },
       },
       tooltip: {
@@ -91,7 +91,7 @@ function PayrollDashboard() {
     plugins: {
       legend: {
         labels: {
-          color: '#E65F2B',
+          color: '#0098f1',
         },
       },
     },
@@ -100,12 +100,12 @@ function PayrollDashboard() {
     scales: {
       x: {
         ticks: {
-          color: '#E65F2B',
+          color: '#0098f1',
         },
       },
       y: {
         ticks: {
-          color: '#E65F2B',
+          color: '#0098f1',
         },
       },
     },
@@ -113,45 +113,46 @@ function PayrollDashboard() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-[#E65F2B]">Employee</h1>
+      <h1 className="text-xl font-bold text-[#0098f1] mb-2">Hr</h1>
+      <h1 className="text-xl font-bold text-[#0098f1]">Payroll / Dashboard</h1>
       <div className="flex justify-center mt-8">
         <div className="flex gap-4">
           <div className="bg-white shadow-lg rounded-lg w-[450px] h-[450px] p-4">
-            <div className="flex items-center border-b-2 border-[#E65F2B] pb-2 mb-4">
-              <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#E65F2B]" />
-              <h2 className="text-semibold text-[20px] text-[#E65F2B] ml-2">Pay Details</h2>
-              <HiDotsVertical className="ml-auto text-[20px] text-[#E65F2B]" />
+            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+              <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#0098f1]" />
+              <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Pay Details</h2>
+              <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
             </div>
             <div className="flex justify-between bg-white items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Gross</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Gross</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />23100.00
               </p>
             </div>
             <div className="flex justify-between items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Net Pay</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Net Pay</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />21,400
               </p>
             </div>
             <div className="flex justify-between items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">TDS</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">TDS</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />1500
               </p>
             </div>
             <div className="flex justify-between items-center px-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">PT</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">PT</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />200
               </p>
             </div>
           </div>
           <div className="bg-white shadow-lg rounded-lg w-[450px] h-[450px] p-4">
-            <div className="flex items-center border-b-2 border-[#E65F2B] pb-2 mb-4">
-              <FaChartPie className="h-[20px] w-[40px] text-[#E65F2B]" />
-              <h2 className="text-semibold text-[20px] text-[#E65F2B] ml-2">Pay Chart</h2>
-              <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#E65F2B]" />
+            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+              <FaChartPie className="h-[20px] w-[40px] text-[#0098f1]" />
+              <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Pay Chart</h2>
+              <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#0098f1]" />
             </div>
             <div className="flex justify-center items-center h-[350px]">
               <Pie data={payDetailsData} options={pieOptions} />
@@ -162,54 +163,54 @@ function PayrollDashboard() {
       <div className="flex justify-center mt-8">
         <div className="flex gap-4">
           <div className="bg-white shadow-lg rounded-lg w-[460px] h-[450px] p-4">
-            <div className="flex items-center border-b-2 border-[#E65F2B] pb-2 mb-4">
-              <FaChartPie className="h-[20px] w-[40px] text-[#E65F2B]" />
-              <h2 className="text-semibold text-[20px] text-[#E65F2B] ml-2">PF/ESI Chart</h2>
-              <HiDotsVertical className="ml-auto text-[20px] text-[#E65F2B]" />
+            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+              <FaChartPie className="h-[20px] w-[40px] text-[#0098f1]" />
+              <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">PF/ESI Chart</h2>
+              <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
             </div>
             <div className="flex justify-center items-center h-[350px]">
               <Pie data={pfEsiData} options={pieOptions} />
             </div>
           </div>
           <div className="bg-white shadow-lg rounded-lg w-[450px] h-[450px] p-4">
-            <div className="flex items-center border-b-2 border-[#E65F2B] pb-2 mb-4">
-              <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#E65F2B]" />
-              <h2 className="text-semibold text-[20px] text-[#E65F2B] ml-2">Pay Details</h2>
-              <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#E65F2B]" />
+            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+              <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#0098f1]" />
+              <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Pay Details</h2>
+              <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#0098f1]" />
             </div>
             <div className="flex justify-between bg-white items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Employee PF</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Employee PF</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />1500.00
               </p>
             </div>
             <div className="flex justify-between items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Employer PF</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Employer PF</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />100.00
               </p>
             </div>
             <div className="flex justify-between items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Total PF</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Total PF</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />1600.00
               </p>
             </div>
             <div className="flex justify-between items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Employee ESI</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Employee ESI</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />1200.00
               </p>
             </div>
             <div className="flex justify-between items-center px-4 mb-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Employer ESI</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Employer ESI</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />1100.00
               </p>
             </div>
             <div className="flex justify-between items-center px-4">
-              <p className="text-[16px] text-[#E65F2B] font-normal">Total ESI</p>
-              <p className="flex items-center font-normal text-[16px] text-[#E65F2B]">
+              <p className="text-[16px] text-[#0098f1] font-normal">Total ESI</p>
+              <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
                 <FaIndianRupeeSign className="mr-1 font-normal" />2300.00
               </p>
             </div>
@@ -217,20 +218,20 @@ function PayrollDashboard() {
         </div>
       </div> 
       <div className="bg-white mt-4 ml-32 shadow-lg rounded-lg w-[930px] h-[450px] p-4">
-        <div className="flex items-center border-b-2 border-[#E65F2B] pb-2 mb-4">
-          <FaChartLine className="h-[20px] w-[40px] text-[#E65F2B]" />
-          <h2 className="text-semibold text-[20px] text-[#E65F2B] ml-2">Yearly Deduction (Employee)</h2>
-          <HiDotsVertical className="ml-auto text-[20px] text-[#E65F2B]" />
+        <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+          <FaChartLine className="h-[20px] w-[40px] text-[#0098f1]" />
+          <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Yearly Deduction (Employee)</h2>
+          <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
         </div>
         <div className="flex justify-center items-center h-[350px]">
           <Bar data={employeeDeductionData} options={barOptions} />
         </div>
       </div> 
       <div className="bg-white mt-4 ml-32 shadow-lg rounded-lg w-[930px] h-[450px] p-4">
-        <div className="flex items-center border-b-2 border-[#E65F2B] pb-2 mb-4">
-          <FaChartLine className="h-[20px] w-[40px] text-[#E65F2B]" />
-          <h2 className="text-semibold text-[20px] text-[#E65F2B] ml-2">Yearly Deduction (Employer)</h2>
-          <HiDotsVertical className="ml-auto text-[20px] text-[#E65F2B]" />
+        <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+          <FaChartLine className="h-[20px] w-[40px] text-[#0098f1]" />
+          <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Yearly Deduction (Employer)</h2>
+          <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
         </div>
         <div className="flex justify-center items-center h-[350px]">
           <Bar data={employerDeductionData} options={barOptions} />

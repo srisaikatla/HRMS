@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
+import { useDispatch } from "react-redux";
 import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
-import ViewEmployees from "../components/hr/employe/AllEmployees";
+import ViewEmployees from "../components/hr/hr_management/employeImport/EmployeImport";
 import Compensation from "./hr/employe/Compensation";
 import ITDeclarations from "./hr/employe/ITDeclarations";
-import LeaveRequest from "../components/hr/employe/LeaveRequest";
+import Leaves from "./hr/employe/Leaves/Leaves";
 import Attendance from "../components/hr/employe/Attendance";
+
 import DepartmentList from "../components/hr/employe/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
@@ -32,11 +34,22 @@ import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
+import { getUser } from "../State/Auth/Action";
+import OnBording from "./hr/hr_management/employeImport/EmployeImport";
+// import Compensation from "./hr/hr_management/compensation/Compensation";
+import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
+import PaySlip from "./hr/payroll/paySlips/PaySlips";
+import Settlement from "./hr/payroll/settlement/Settlement";
+import PayrollSettings from "./hr/payroll/payroll_setting/PayrollSettings";
+import PayrollForms from "./hr/payroll/payroll_forms/PayrollForms";
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
   const [selectedHeader, setSelectedHeader] = useState("Hr");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const jwt = localStorage.getItem("jwt");
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleHeaderClick = (header) => {
     setSelectedHeader(header);
   };
@@ -44,6 +57,12 @@ const SideBar = () => {
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
+
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUser(jwt));
+    }
+  }, [jwt, auth.jwt, dispatch]);
 
   return (
     <div className="relative h-auto bg-[#0098f1]  bg-opacity-10">
@@ -67,7 +86,9 @@ const SideBar = () => {
                 className="rounded-full w-[50px] h-[50px]"
                 alt="Profile"
               />
-              <p className="text-[16px] pl-2">Welcome User</p>
+              <p className="text-[16px] pl-2">
+                Welcome {auth.user ? auth.user.firstName : "user"}
+              </p>
             </div>
           )}
         </div>
@@ -127,7 +148,7 @@ const SideBar = () => {
         {activeTab === "Events" && <Events />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
-        {activeTab === "View Employees" && <ViewEmployees />}
+        {activeTab === "All Employees" && <ViewEmployees />}
         {activeTab === "Compensation" && <Compensation />}
         {activeTab === "IT Declarations" && <ITDeclarations />}
         {/* {activeTab === "Attendance" && <Attendance />} */}
@@ -147,6 +168,14 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
+        {/* {activeTab === "Employee Import" && <OnBording />} */}
+        {activeTab === "Compensation" && <Compensation />}
+        {activeTab === "Leaves" && <Leaves />}
+        {activeTab === "DashBoard" && <PayrollDashboard />}
+        {activeTab === "Payslips" && <PaySlip />}
+        {activeTab === "Settlements" && <Settlement />}
+        {activeTab === "Payroll settings" && <PayrollSettings />}
+        {activeTab === "Payroll Forms" && <PayrollForms />}
       </div>
     </div>
   );

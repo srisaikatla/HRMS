@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
-  FaCalendarAlt,
-  FaCalendarCheck,
   FaTasks,
   FaUserFriends,
-  FaMoneyCheckAlt,
   FaFileAlt,
   FaUser,
-  FaLock,
   FaChevronDown,
   FaChevronUp,
   FaUsers,
   FaClipboardList,
-  FaBuilding,
+
 } from "react-icons/fa";
 import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
 import { GrProjects } from "react-icons/gr";
@@ -56,17 +51,17 @@ const ForProjectSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
         {projectOptions.map((option) => (
           <React.Fragment key={option.title}>
             <li
-              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
-                activeTab === option.title
-                  ? "bg-white rounded-r-full text-[#ef5f2b]"
-                  : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
-              }`}
+              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${activeTab === option.title
+                ? "bg-white rounded-r-full text-[#ef5f2b]"
+                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+                }`}
               onClick={() => handleOptionClick(option)}
             >
               <div className="flex items-center">
                 {option.icon}
                 <span
-                  className={`pl-2 ${isSidebarCollapsed ? "hidden" : "inline"}`}
+                  className={`pl-2 ${isSidebarCollapsed ? "hidden" : "inline"
+                    }`}
                 >
                   {option.title}
                 </span>
@@ -88,11 +83,10 @@ const ForProjectSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                   {projectDropdownOptions.map((subOption) => (
                     <li
                       key={subOption.title}
-                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
-                        activeTab === subOption.title
-                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                      }`}
+                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${activeTab === subOption.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                        }`}
                       onClick={() => setActiveTab(subOption.title)}
                     >
                       {subOption.icon}

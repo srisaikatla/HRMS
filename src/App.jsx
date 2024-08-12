@@ -20,20 +20,22 @@ import ForgotPassword from "./components/hr/authentication/forgotPassword/Forgot
 import NotFoundPage from "./components/hr/authentication/notFoundPage/NotFoundPage";
 import Register from "./components/hr/authentication/register/Register";
 import Options from "./optionsPages/Options";
+import AdminSideBar from "./admin/AdminSideBar";
+
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Sidebar />} />
-          {/* <Route path="/" element={<EmployeeSideBar />} /> */}
+          <Route path="/hr" element={<Sidebar />} />
           <Route path="/login" element={<HrLogin />} />
-          <Route path="/e-login" element={<EmployeeLogin />} />
+          <Route path="/" element={<EmployeeLogin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgotPassword />} />
           <Route path="/404" element={<NotFoundPage />} />
           <Route path="/employee" element={<EmployeeSideBar />} />
           <Route path="/option" element={<Options />} />
+          <Route path="/admin" element={<AdminSideBar />} />
           {/* <Route path="/allemployees" element={<AllEmployees />} />
           <Route path="/leaverequest" element={<LeaveRequest />} /> */}
           {/* <Route path="/departmentlist" element={<DepartmentList />} /> */}
