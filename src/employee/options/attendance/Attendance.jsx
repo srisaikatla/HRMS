@@ -64,82 +64,36 @@ const Attendance = () => {
   };
 
   const accumulateTime = (prevTime, newTime) => {
-    const totalSeconds = (prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds) +
+    let totalSeconds = (prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds) +
       (newTime.hours * 3600 + newTime.minutes * 60 + newTime.seconds);
 
     const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 3600 % 60;
+    totalSeconds %= 3600;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
 
     return { hours, minutes, seconds };
   };
 
   const calculateBreakTime = (startTime, endTime) => {
     const diffMs = endTime - startTime;
-    const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+    const hours = Math.floor(diffMs / 3600000);
+    const minutes = Math.floor((diffMs % 3600000) / 60000);
+    const seconds = Math.floor((diffMs % 60000) / 1000);
 
     return { hours, minutes, seconds };
   };
 
+
   const updateBreakTime = (newBreakTime) => {
-    setTotalBreakTime(prevBreakTime => {
-      const updatedBreakTime = {
-        hours: prevBreakTime.hours + newBreakTime.hours,
-        minutes: prevBreakTime.minutes + newBreakTime.minutes,
-        seconds: prevBreakTime.seconds + newBreakTime.seconds,
-      };
-
-      // Normalize break time
-      if (updatedBreakTime.seconds >= 60) {
-        updatedBreakTime.minutes += Math.floor(updatedBreakTime.seconds / 60);
-        updatedBreakTime.seconds %= 60;
-      }
-
-      if (updatedBreakTime.minutes >= 60) {
-        updatedBreakTime.hours += Math.floor(updatedBreakTime.minutes / 60);
-        updatedBreakTime.minutes %= 60;
-      }
-
-      return updatedBreakTime;
-    });
+    setTotalBreakTime(prevBreakTime => accumulateTime(prevBreakTime, newBreakTime));
   };
 
-  // const calculateStatistics = () => {
-  //   let totalHours = 0;
-  //   let breakTime = { hours: 0, minutes: 0, seconds: 0 };
-  //   let overtime = 0;
-
-  //   attendanceData.forEach(({ production = { hours: 0, minutes: 0, seconds: 0 }, breakDuration = { hours: 0, minutes: 0, seconds: 0 } }) => {
-  //     totalHours += production.hours;
-
-  //     breakTime.hours += breakDuration.hours;
-  //     breakTime.minutes += breakDuration.minutes;
-  //     breakTime.seconds += breakDuration.seconds;
-
-  //     if (production.hours > officeHours) {
-  //       overtime += production.hours - officeHours;
-  //     }
-  //   });
-
-  //   if (breakTime.seconds >= 60) {
-  //     breakTime.minutes += Math.floor(breakTime.seconds / 60);
-  //     breakTime.seconds %= 60;
-  //   }
-
-  //   if (breakTime.minutes >= 60) {
-  //     breakTime.hours += Math.floor(breakTime.minutes / 60);
-  //     breakTime.minutes %= 60;
-  //   }
-
-  //   return { totalHours, breakTime, overtime };
-  // };
 
   const calculateWorkingHours = (productionTime, breakTime) => {
     const productionInSeconds = (productionTime.hours * 3600) + (productionTime.minutes * 60) + productionTime.seconds;
     const breakInSeconds = (breakTime.hours * 3600) + (breakTime.minutes * 60) + breakTime.seconds;
-    const workingSeconds = productionInSeconds - breakInSeconds;
+    const workingSeconds = Math.max(0, productionInSeconds - breakInSeconds); // Prevent negative working time
 
     const workingHours = Math.floor(workingSeconds / 3600);
     const workingMinutes = Math.floor((workingSeconds % 3600) / 60);
@@ -152,37 +106,6 @@ const Attendance = () => {
     };
   };
 
-  const calculateElapsedTime = (startTime, endTime) => {
-    const start = new Date(startTime);
-    const end = new Date(endTime);
-
-    const diffInSeconds = Math.floor((end - start) / 1000);
-
-    const hours = Math.floor(diffInSeconds / 3600);
-    const minutes = Math.floor((diffInSeconds % 3600) / 60);
-    const seconds = diffInSeconds % 60;
-
-    return { hours, minutes, seconds };
-  };
-
-  const calculateStatistics = () => {
-    let totalHours = { hours: 0, minutes: 0, seconds: 0 };
-    let breakTime = { hours: 0, minutes: 0, seconds: 0 };
-    let overtime = 0;
-
-    if (punchInTime && punchOutTime) {
-      const productionTime = calculateElapsedTime(punchInTime, punchOutTime);
-      const workingTime = calculateWorkingHours(productionTime, totalBreakTime);
-
-      totalHours = productionTime;
-      overtime = Math.max(0, productionTime.hours - 8);
-      breakTime = totalBreakTime;
-
-      return { totalHours, breakTime, overtime, workingTime };
-    }
-
-    return { totalHours, breakTime, overtime, workingTime: { hours: 0, minutes: 0, seconds: 0 } };
-  };
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -225,6 +148,7 @@ const Attendance = () => {
     return () => clearInterval(timer);
   }, [isPunchedIn, punchInTime, lastElapsedTime, totalBreakTime]);
 
+
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
 
@@ -234,14 +158,14 @@ const Attendance = () => {
 
       let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
 
-      if (breakStartTime) {
-        if (breakEndTime) {
-          breakDuration = calculateBreakTime(breakStartTime, breakEndTime);
-        } else {
-          breakDuration = calculateBreakTime(breakStartTime, newPunchOutTime);
-        }
-        updateBreakTime(breakDuration);
+      if (isOnBreak && breakStartTime) {
+        // If the break is ongoing when the user punches out, consider punch-out time as the break end time
+        const now = new Date();
+        breakDuration = calculateBreakTime(breakStartTime, now);
+        updateBreakTime(breakDuration); // Accumulate to the total break time
       }
+
+      const totalBreakDuration = { ...totalBreakTime }; // Total accumulated break time
 
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
 
@@ -251,18 +175,26 @@ const Attendance = () => {
         punchIn: punchInTime,
         punchOut: newPunchOutTime,
         production,
-        breakDuration,
+        breakDuration: totalBreakDuration,
         productionHours: production.hours,
         productionMinutes: production.minutes,
         productionSeconds: production.seconds,
-        breakHours: breakDuration.hours,
-        breakMinutes: breakDuration.minutes,
-        breakSeconds: breakDuration.seconds,
+        breakHours: totalBreakDuration.hours,
+        breakMinutes: totalBreakDuration.minutes,
+        breakSeconds: totalBreakDuration.seconds,
         overtime,
       };
 
-      const updatedAttendanceData = [...attendanceData, newEntry];
-      setAttendanceData(updatedAttendanceData);
+      // Reset state variables
+      setIsPunchedIn(false);
+      setPunchInTime(null);
+      setPunchOutTime(null);
+      setBreakStartTime(null);
+      setBreakEndTime(null);
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+
+      setAttendanceData([...attendanceData, newEntry]);
 
       // Save data to backend
       try {
@@ -275,27 +207,7 @@ const Attendance = () => {
       } catch (error) {
         console.error('Error saving data to backend:', error);
       }
-
-      setIsPunchedIn(false);
-      setPunchInTime(null);
-      setPunchOutTime(null);
-      setBreakStartTime(null);
-      setBreakEndTime(null);
-      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-
     } else {
-      // Check if already punched out today
-      const hasPunchedOutToday = attendanceData.some(entry => {
-        const entryDate = new Date(entry.punchOut).toLocaleDateString();
-        return entryDate === today;
-      });
-
-      if (hasPunchedOutToday) {
-        alert("You have already punched out today. You cannot punch in again.");
-        return;
-      }
-
       setPunchInTime(new Date());
       setIsPunchedIn(true);
       setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
@@ -346,16 +258,6 @@ const Attendance = () => {
   }, [isOnBreak, breakStartTime]);
 
 
-  const filteredData = attendanceData.filter((entry) => {
-    const entryDate = new Date(entry.punchIn).toLocaleDateString();
-    return entryDate === searchDate.toLocaleDateString() && (
-      entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
-
-  const statistics = calculateStatistics();
-  const { totalHours, breakTime, overtime } = calculateStatistics();
 
   return (
     <div className="max-w-4xl mx-auto p-6 ">
@@ -484,7 +386,7 @@ const Attendance = () => {
                       </td>
                       <td className="px-4 py-2 border">
                         {workingTime.hours} hours, {workingTime.minutes} mins, {workingTime.seconds} secs
-                      </td> {/* Display working hours */}
+                      </td>
                       <td className="px-4 py-2 border">{entry.overtime} hours</td>
                     </tr>
                   );
@@ -502,5 +404,4 @@ const Attendance = () => {
 };
 
 export default Attendance;
-
 
