@@ -135,7 +135,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout(jwt));
     localStorage.removeItem("jwt");
     navigate("/option");
   };

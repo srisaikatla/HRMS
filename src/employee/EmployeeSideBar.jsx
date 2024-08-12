@@ -43,7 +43,9 @@ import Profile from "./options/profile/Profile";
 import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployee } from "../State/Auth/Action";
+import { getEmployee, logout } from "../State/Auth/Action";
+import { useNavigate } from "react-router-dom";
+
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -52,6 +54,7 @@ const EmployeeSideBar = () => {
   const jwt = localStorage.getItem("jwt")
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
   const options = [
     { title: "All Employees", icon: <FaUsers /> },
@@ -77,6 +80,7 @@ const EmployeeSideBar = () => {
     { title: "Attendance", icon: <FaClipboardList /> },
     { title: "Rules", icon: <FaGavel /> },
     { title: "Tickets", icon: <FaTicketAlt /> },
+    { title: "Logout", icon: <FaSignOutAlt /> },
   ];
 
   useEffect(() => {
@@ -90,7 +94,10 @@ const EmployeeSideBar = () => {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
       setActiveTab(option.title);
-      setOpenDropdown(""); // Close other dropdowns
+      setOpenDropdown("");
+      if (option.title === "Logout") {
+        handleLogout();
+      }
     }
   };
 
@@ -102,6 +109,11 @@ const EmployeeSideBar = () => {
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("jwt");
+    navigate("/");
   };
 
   const renderContent = () => {
@@ -209,7 +221,6 @@ const EmployeeSideBar = () => {
           {activeTab === "All Employees" && <AllEmployees />}
           {activeTab === "Events" && <Events />}
           {activeTab === "Apply Leave" && <ApplyLeave />}
-
           {/* payroll */}
           {activeTab === "Payslips" && <Payslip />}
           {activeTab === "Salary Structure" && <SalaryStructure />}
