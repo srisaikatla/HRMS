@@ -4,6 +4,7 @@ import axios from "axios";
 import uncheckbox from "../../../../assets/hr/employee/checkbox/uncheck.png";
 import checkbox from "../../../../assets/hr/employee/checkbox/checkbox.png";
 import { FiPlusCircle, FiEdit, FiTrash2, FiUpload } from "react-icons/fi";
+import { LuImport } from "react-icons/lu";
 import { API_BASE_URL } from "../../../../Config/api";
 import * as XLSX from "xlsx";
 
@@ -174,6 +175,16 @@ function AllEmployees() {
     setIsChecked(newIsChecked);
   };
 
+  const excelDateToJSDate = (serial) => {
+    const excelEpoch = new Date(Date.UTC(1900, 0, 0)); // Excel epoch date
+    const jsDate = new Date(excelEpoch.getTime() + (serial - 1) * 86400 * 1000); // Convert days to ms
+    // Handle special case where Excel considers 1900 a leap year
+    if (serial < 60) {
+      jsDate.setDate(jsDate.getDate() - 1); // Adjust for leap year bug
+    }
+    return jsDate.toISOString().split('T')[0]; // Return date in YYYY-MM-DD format
+  };
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -185,34 +196,52 @@ function AllEmployees() {
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(sheet);
+        const existingEmployeeIds = new Set(employees.map((emp) => emp.employeeId));
+        const newEmployees = [];
 
-        const password = generatePassword()
+        // Format the data as needed and generate passwords
+        const formattedData = data.map((item) => {
+          const password = generatePassword();
+          return {
+            employee: {
+              firstName: item["First Name"],
+              lastName: item["Last Name"],
+              email: item["Email"],
+              phoneNumber: item["Phone Number"],
+              role: item["Role"],
+              employeeId: item["Employee ID"],
+              joinDate: excelDateToJSDate(item["DOJ"]),
+              aadharCardNumber: item["Aadhar Card Number"],
+              personalEmail: item["Personal Email"],
+              bloodGroup: item["Blood Group"],
+              dob: excelDateToJSDate(item["DOB"]),
+              panNumber: item["Pan Number"],
+              designation: item["Designation"],
+            },
+            password: password, // Include the generated password
+          };
+        });
 
-        // Format the data as needed
-        const formattedData = data.map((item) => ({
-          firstName: item["First Name"],
-          lastName: item["Last Name"],
-          email: item["Email"],
-          phoneNumber: item["Phone Number"],
-          role: item["Role"],
-          employeeId: item["Employee ID"],
-          joinDate: item["DOJ"],
-          password: password,
-          aadharCardNumber: item["Aadhar Card Number"],
-          personalEmail: item["Personal Email"],
-          bloodGroup: item["Blood Group"],
-          dob: item["DOB"],
-          panNumber: item["Pan Number"],
-          designation: item["Designation"]
-        }));
+        const employeesToAdd = formattedData.filter(
+          (employee) => !existingEmployeeIds.has(employee.employeeId)
+        );
 
+        if (employeesToAdd.length === 0) {
+          setErrorMessage("No new employees to add");
+          setTimeout(() => setErrorMessage(""), 3000);
+          return;
+        }
 
         // Post data to backend
         await Promise.all(
-          formattedData.map(async (employee) => {
+          formattedData.map(async ({ employee, password }) => {
             try {
-              const response = await axios.post(`${API_BASE_URL}/employee/register`, employee);
+              const response = await axios.post(`${API_BASE_URL}/employee/register`, {
+                ...employee,
+                password // Send password along with employee data
+              });
               console.log("Response for employee:", response.data);
+              newEmployees.push(response.data);
             } catch (error) {
               console.error("Error posting employee data:", error.response ? error.response.data : error.message);
               throw error; // Ensure error handling is applied in case of failure
@@ -221,9 +250,10 @@ function AllEmployees() {
         );
 
         // Update local state after successful upload
-        setEmployees((prev) => [...prev, ...formattedData]);
+        // setEmployees((prev) => [...prev, ...formattedData.map(({ employee }) => employee)]);
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
+        fetchEmployees();
       } catch (error) {
         console.error("Error processing file:", error);
         setErrorMessage("Error processing file");
@@ -235,7 +265,12 @@ function AllEmployees() {
 
     reader.readAsArrayBuffer(file); // Use readAsArrayBuffer for binary files
   };
-
+  const handleDownload = () => {
+    const worksheet = XLSX.utils.json_to_sheet(employees);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Employees");
+    XLSX.writeFile(workbook, "employees.xlsx");
+  };
 
   return (
     <>
@@ -269,8 +304,25 @@ function AllEmployees() {
               className="flex justify-center items-center w-[186px] h-[48px] text-white"
               onClick={() => setIsPopupOpen(true)}
             >
+
+              <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
+
+              Import Employee
+            </button>
+          </div>
+          <div
+            id="importexcel"
+            className="w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] ml-4"
+          >
+            <button
+              type="button"
+              className="flex justify-center items-center w-[186px] h-[48px] text-white"
+              onClick={handleDownload}
+            >
+
               <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
-              Import Employees
+
+              Download Data
             </button>
           </div>
         </div>
