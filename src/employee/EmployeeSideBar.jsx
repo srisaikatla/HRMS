@@ -1,4 +1,6 @@
-import { useState } from "react";
+/* eslint-disable no-unreachable */
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
@@ -40,10 +42,16 @@ import ProjectList from "./options/projectList/ProjectList";
 import Profile from "./options/profile/Profile";
 import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
+import { useDispatch, useSelector } from "react-redux";
+import { getEmployee } from "../State/Auth/Action";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+
+  const jwt = localStorage.getItem("jwt")
+  const dispatch = useDispatch()
+  const auth = useSelector((state) => state.auth);
 
   const options = [
     { title: "All Employees", icon: <FaUsers /> },
@@ -71,6 +79,12 @@ const EmployeeSideBar = () => {
     { title: "Tickets", icon: <FaTicketAlt /> },
   ];
 
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getEmployee(jwt));
+    }
+  }, [jwt, auth.jwt, dispatch]);
+
   const handleOptionClick = (option) => {
     if (option.subOptions) {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
@@ -93,7 +107,7 @@ const EmployeeSideBar = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "payslips":
-        return <Payslips />;
+        return <Payslip />;
         break;
       case "All Employees":
         return <AllEmployees />;
@@ -133,7 +147,7 @@ const EmployeeSideBar = () => {
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
-                <p className="text-[16px] text-white pl-2">Welcome! User</p>
+                <p className="text-[16px] text-white pl-2">Welcome {auth.employee ? auth.employee.firstName.toUpperCase() : "user"}</p>
               </div>
             )}
           </div>
