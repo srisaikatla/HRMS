@@ -155,7 +155,7 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
-        {activeTab === "Employee Import" && <EmployeImport />}
+        {/* {activeTab === "Employee Import" && <EmployeImport />} */}
         {activeTab === "Compensation" && <Compensation />}
         {activeTab === "DashBoard" && <PayrollDashboard />}
         {activeTab === "Payslips" && <PaySlip />}
