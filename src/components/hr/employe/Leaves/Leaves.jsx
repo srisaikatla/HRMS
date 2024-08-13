@@ -4,8 +4,37 @@ import SickLeaveNavigation from "./sickLeave/SickLeaveNavigation";
 import EarnedLeaveNavigation from "./earnedLeave/EarnedLeaveNavigation";
 
 const Leaves = () => {
-  const [activeCard, setActiveCard] = useState("card1"); // Default to casual leave
+  const [activeCard, setActiveCard] = useState("card1");
   const [employees, setEmployees] = useState([]);
+  const [causalPendingCount, setCausalPendingCount] = useState(0);
+  const [earnedPendingCount, setEarnedPendingCount] = useState(0);
+  const [sickPendingCount, setSickPendingCount] = useState(0);
+
+  const updateCounts = () => {
+    setCausalPendingCount(
+      JSON.parse(localStorage.getItem("causalPendingCount")) || 0
+    );
+    setEarnedPendingCount(
+      JSON.parse(localStorage.getItem("earnedPendingCount")) || 0
+    );
+    setSickPendingCount(
+      JSON.parse(localStorage.getItem("sickPendingCount")) || 0
+    );
+  };
+
+  useEffect(() => {
+    updateCounts();
+
+    const handleStorageChange = (event) => {
+      updateCounts();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     const causalLeaveEmployees =
@@ -22,25 +51,21 @@ const Leaves = () => {
     ]);
   }, []);
 
-  const countEmployeesByLeaveType = (leaveType) => {
-    return employees.filter((employee) => employee.type === leaveType).length;
-  };
-
   const leaveCards = [
     {
       id: "card1",
       title: "Casual leave",
-      count: `${countEmployeesByLeaveType("Casual Leave")} employees`,
+      count: causalPendingCount,
     },
     {
       id: "card2",
       title: "Sick leave",
-      count: `${countEmployeesByLeaveType("Sick Leave")} employees`,
+      count: sickPendingCount,
     },
     {
       id: "card3",
       title: "Earned leave",
-      count: `${countEmployeesByLeaveType("Earned Leave")} employees`,
+      count: earnedPendingCount,
     },
   ];
 
@@ -62,12 +87,11 @@ const Leaves = () => {
   };
 
   return (
-    <div className="  p-2 h-auto">
+    <div className="p-2 h-auto">
       <h1 className="text-xl ml-4">HR Management / Leaves</h1>
-
-      <div className="grid grid-cols-5 gap-4 ">
+      <div className="grid grid-cols-5 gap-4">
         <div className="col-span-1 p-4 mt-20">
-          <div className="flex flex-col gap-4  ">
+          <div className="flex flex-col gap-4">
             {leaveCards.map(({ id, title, count }) => (
               <div
                 key={id}
@@ -86,7 +110,7 @@ const Leaves = () => {
             ))}
           </div>
         </div>
-        <div className="h-auto col-span-4 p-4  ">{renderActiveComponent()}</div>
+        <div className="h-auto col-span-4 p-4">{renderActiveComponent()}</div>
       </div>
     </div>
   );
