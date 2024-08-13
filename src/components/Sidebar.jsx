@@ -45,6 +45,7 @@ import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary"
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll"
 import EmployeAttandance from "./hr/hr_management/employeAttandance/Attendance"
+import Leaves from "./hr/hr_management/Leaves/Leaves"
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -138,7 +139,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {activeTab === "Leaves" && <LeaveRequest />}
+        {/* {activeTab === "Leaves" && <LeaveRequest />} */}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {activeTab === "Department" && <DepartmentList />}
         {activeTab === "Report Invoice" && <ReportInvoice />}
@@ -168,6 +169,7 @@ const SideBar = () => {
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
         {activeTab === "Emp Attendance" && <EmployeAttandance />}
+        {activeTab === "Leaves" && <Leaves />}
       </div>
     </div>
   );

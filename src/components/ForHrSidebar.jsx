@@ -31,6 +31,7 @@ import { useDispatch } from "react-redux";
 
 
 
+
 const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const navigate = useNavigate();
   const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
@@ -44,6 +45,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
     { title: "Holiday", icon: <FaCalendarAlt /> },
+    // { title: "Leaves", icon: <MdOutlineSocialDistance /> },
     { title: "Events", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
     { title: "HR Social", icon: <MdOutlineSocialDistance /> },

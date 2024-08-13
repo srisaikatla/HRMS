@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../adminAssets/profile/boy.png";
 import AdminNavBar from "./AdminNavBar";
+// import AdminNavigation from "./options/accountDetails/AccountNavigation";
+import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
 
 import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
 
@@ -59,7 +61,7 @@ const AdminSideBar = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-[#e65f2b] bg-opacity-10">
       <AdminNavBar />
       <div
         style={{
@@ -153,8 +155,8 @@ const AdminSideBar = () => {
         }`}
       >
         <div className="">
-          {/* {activeTab === "Events" && <Events />}
-          {activeTab === "Apply Leave" && <ApplyLeave />} */}
+          {/* {activeTab === "Account Details" && <AdminNavigation />} */}
+          {activeTab === "Company Settings" && <CompanySettingsNavigation />}
         </div>
       </div>
     </div>
