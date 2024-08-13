@@ -53,7 +53,7 @@ const AccountExpenses = () => {
   }, []);
   return (
     <div className=" ml-2 mr-2 pt-2 ">
-      <h1 className="text-[#0098F1] font-bold text-xl  mb-2">
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
         <span>Accounts/Expenses</span>
       </h1>
       <div className="">

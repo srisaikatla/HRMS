@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 
-
+import AdminSideBar from "./admin/AdminSideBar";
 import EmployeeSideBar from "./employee/EmployeeSideBar"
 import HrLogin from "./components/hr/authentication/hrLogin/HrLogin";
 import EmployeeLogin from "./employee/EmployeeLogin";
@@ -19,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/hr" element={<Sidebar />} />
+          <Route path="/admin" element={<AdminSideBar />} />
           <Route path="/login" element={<HrLogin />} />
           <Route path="/" element={<EmployeeLogin />} />
           <Route path="/register" element={<Register />} />

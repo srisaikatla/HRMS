@@ -8,7 +8,7 @@ import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
-import Attendance from "../components/hr/employe/Attendance";
+// import Attendance from "../components/hr/employe/Attendance";
 import DepartmentList from "../components/hr/hr_management/department/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
@@ -33,6 +33,7 @@ import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
+// import EmployeImport from "./hr/hr_management/employeImport/EmployeImport"
 import Compensation from "./hr/hr_management/compensation/Compensation";
 import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
 import PaySlip from "./hr/payroll/paySlips/PaySlips"
@@ -43,6 +44,8 @@ import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary"
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll"
+import EmployeAttandance from "./hr/hr_management/employeAttandance/Attendance"
+import Leaves from "./hr/hr_management/Leaves/Leaves"
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -136,7 +139,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {activeTab === "Leaves" && <LeaveRequest />}
+        {/* {activeTab === "Leaves" && <LeaveRequest />} */}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {activeTab === "Department" && <DepartmentList />}
         {activeTab === "Report Invoice" && <ReportInvoice />}
@@ -154,7 +157,7 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
-
+        {/* {activeTab === "Employee Import" && <EmployeImport />} */}
         {activeTab === "Compensation" && <Compensation />}
         {activeTab === "DashBoard" && <PayrollDashboard />}
         {activeTab === "Payslips" && <PaySlip />}
@@ -165,6 +168,8 @@ const SideBar = () => {
         {activeTab === "IT Declarations" && <ITDeclarations />}
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
+        {activeTab === "Emp Attendance" && <EmployeAttandance />}
+        {activeTab === "Leaves" && <Leaves />}
       </div>
     </div>
   );
