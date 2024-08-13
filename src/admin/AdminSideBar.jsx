@@ -4,9 +4,9 @@ import profile from "../adminAssets/profile/boy.png";
 import AdminNavBar from "./AdminNavBar";
 // import AdminNavigation from "./options/accountDetails/AccountNavigation";
 import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
-
+import CompanyInformation from "./options/company_info/CompanyInformation"
 import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
-
+import User from "./options/users/User";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
@@ -157,6 +157,8 @@ const AdminSideBar = () => {
         <div className="">
           {/* {activeTab === "Account Details" && <AdminNavigation />} */}
           {activeTab === "Company Settings" && <CompanySettingsNavigation />}
+          {activeTab === "Company Information" && <CompanyInformation />}
+          {activeTab === "User" && <User />}
         </div>
       </div>
     </div>
