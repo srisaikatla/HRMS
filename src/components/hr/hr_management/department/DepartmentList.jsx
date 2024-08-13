@@ -140,10 +140,10 @@ function DepartmentList() {
   };
 
   return (
-    <div id="main" className="h-screen p-4 bg-sky-100">
+    <div id="main" className="h-screen p-4 ">
       <div className="ml-3 mb-4">
-        <p className="text-[#0098F1] font-bold text-xl">
-        HR Management/Employees/Department List
+        <p className="text-[#E65F2B] text-xl font-bold mb-4">
+        HR Management / Employees / Department List
         </p>
       </div>
 

@@ -81,7 +81,7 @@ const Education = ({ handleOpenModal, handleCloseModal, isModalOpen }) => {
                     className="flex items-center text-xl bg-[#E65F2B] text-white h-[50px] w-[120px] justify-center rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
                     onClick={handleOpenModal}
                 >
-                    <FaPlusCircle className="text-xl mr-2" aria-hidden="true" />
+                    <FaPlusCircle className="text-3xl mr-2" aria-hidden="true" />
                     Add
                 </button>
             </div>
@@ -89,7 +89,7 @@ const Education = ({ handleOpenModal, handleCloseModal, isModalOpen }) => {
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-5 rounded-lg relative ">
-                        <h2 className="text-2xl font-semibold mb-4 text-[#E65F2B]">Add Education Info</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-[#E65F2B]">Add Education Info</h2>
                         <div className="grid grid-cols-1 gap-4">
                             <div>
                                 <select

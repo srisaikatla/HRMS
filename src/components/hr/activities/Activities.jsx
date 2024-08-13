@@ -38,7 +38,7 @@ const Activities = () => {
 
   return (
     <div className="p-6 w-fit">
-      <h2 className="text-xl font-bold text-blue-600 mb-4">Hr/Activities</h2>
+      <h2 className="text-[#E65F2B] text-xl font-bold mb-4">Hr/Activities</h2>
       <div className="relative">
         <div className="absolute left-5 top-1 h-full  border-l-2 border-zinc-300"></div>
         {activities.map((activity, index) => (

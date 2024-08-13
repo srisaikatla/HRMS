@@ -440,8 +440,8 @@ const OnBoarding = () => {
   return (
     <div className="bg-sky-100 flex flex-col p-5">
       <div className="mb-4">
-        <h1 className="text-[#E65F2B] text-2xl p-5">
-          HR Management &gt; Employee Import
+        <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+          HR Management / Employee Import
         </h1>
       </div>
 

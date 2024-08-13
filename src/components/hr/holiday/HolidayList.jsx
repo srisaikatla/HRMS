@@ -105,7 +105,7 @@ function HolidayList() {
   return (
     <>
       <div className="p-4">
-        <h2 className="text-xl font-bold text-[#0098F1]">Hr/Holidays List</h2>
+        <h2 className="text-[#E65F2B] text-xl font-bold">Hr/Holidays List</h2>
 
         <div className="flex justify-end mb-4">
           <div

@@ -39,7 +39,7 @@ import BankAccount from "./options/payslips/BankAccount"
 import Chat from "./options/chat/Chat";
 import Rules from "./options/rules/Rules"
 import ProjectList from "./options/projectList/ProjectList";
-import Profile from "./options/profile/Profile";
+import Profile from "./options/profile/Profile"
 import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +47,7 @@ import { getEmployee, logout } from "../State/Auth/Action";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("All Employees");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
 

@@ -263,10 +263,19 @@ const Events = () => {
 
   return (
     <div className="p-5">
-      <h2 className="text-xl font-bold mb-4">Employee</h2>
-      <h3 className="text-lg font-semibold">Dashboard/Holidays</h3>
+   
+      <div className="ml-3 mb-4 flex flex-col md:flex-row justify-between">
 
-      <div className="flex justify-end mb-4">
+<div>
+    <span className="flex">Employee</span>
+    <span className="text-[16px] font-medium">
+    Dashboard/Holidays
+    </span>
+  </div>
+
+
+</div>
+      {/* <div className="flex justify-end mb-4">
         <button
           className="bg-[#E65F2B] text-white flex items-center rounded-lg px-6 py-3"
           onClick={() => setIsModalOpen(true)}
@@ -276,14 +285,14 @@ const Events = () => {
             Add New Event
           </span>
         </button>
-      </div>
+      </div> */}
 
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-8/12 bg-white rounded-lg p-4 mr-4 text-lg font-semibold">
+        <div className="w-full md:w-6/12 bg-white rounded-lg p-4 mr-4 text-lg font-semibold">
           <ReactCalendar onEventClick={handleEventClick} className="text-lg font-semibold"/>
         </div>
 
-        <div className="w-full md:w-4/12 bg-[#E65F2B] rounded-lg p-4 relative">
+        <div className="w-full md:w-6/12 bg-[#E65F2B] rounded-lg p-4 relative">
           <div className="flex flex-col items-center justify-center">
             <div className="rounded-full overflow-hidden w-24 h-24 md:w-40 md:h-40 flex items-center justify-center">
               <img
@@ -355,7 +364,7 @@ const Events = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-11/12 mx-auto bg-white rounded-lg p-4 mt-4">
+      {/* <div className="w-full md:w-11/12 mx-auto bg-white rounded-lg p-4 mt-4">
         <h1 className="text-lg font-semibold mb-4 text-[#E65F2B]">Events List</h1>
         <table className="w-full bg-white rounded-lg ">
           <thead className="bg-[#E65F2B]">
@@ -399,7 +408,7 @@ const Events = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6 w-[400px]">
