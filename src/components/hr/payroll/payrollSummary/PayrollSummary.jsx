@@ -14,7 +14,7 @@ const PayrollSummary = ({
     <div className="p-4">
       <div>
         <div className="flex justify-between items-center mb-4 border-b pb-2 border-gray-700">
-          <h1 className="text-xl font-bold">
+          <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
             Pay Period: <span className="text-[#0098F1]">{payPeriod}</span>
           </h1>
           <div className="flex items-center gap-x-5">

@@ -8,7 +8,7 @@ import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
-import Attendance from "../components/hr/employe/Attendance";
+// import Attendance from "../components/hr/employe/Attendance";
 import DepartmentList from "../components/hr/hr_management/department/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
@@ -44,6 +44,7 @@ import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary"
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll"
+import EmployeAttandance from "./hr/hr_management/employeAttandance/Attendance"
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -166,6 +167,7 @@ const SideBar = () => {
         {activeTab === "IT Declarations" && <ITDeclarations />}
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
+        {activeTab === "Emp Attendance" && <EmployeAttandance />}
       </div>
     </div>
   );
