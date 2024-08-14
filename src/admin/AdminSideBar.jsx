@@ -8,7 +8,7 @@ import CompanyInformation from "./options/company_info/CompanyInformation"
 import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
 import User from "./options/users/User";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-
+import Roles from "./options/roles/Roles"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { IoInformationCircle } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
@@ -17,6 +17,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 // import { FaUser } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import { RiBankFill } from "react-icons/ri";
+import AccountDetails from "./options/accountdetailes/AccountDetails"
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -159,6 +160,8 @@ const AdminSideBar = () => {
           {activeTab === "Company Settings" && <CompanySettingsNavigation />}
           {activeTab === "Company Information" && <CompanyInformation />}
           {activeTab === "User" && <User />}
+          {activeTab === "Roles" && <Roles />}
+          {activeTab === "Account Details" && <AccountDetails />}
         </div>
       </div>
     </div>
