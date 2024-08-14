@@ -8,7 +8,7 @@ import CompanyInformation from "./options/company_info/CompanyInformation"
 import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
 import User from "./options/users/User";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-
+import RolesDetails from "./options/roles/RolesDetails"
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { IoInformationCircle } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
@@ -159,6 +159,7 @@ const AdminSideBar = () => {
           {activeTab === "Company Settings" && <CompanySettingsNavigation />}
           {activeTab === "Company Information" && <CompanyInformation />}
           {activeTab === "User" && <User />}
+          {activeTab === "Roles" && <RolesDetails />}
         </div>
       </div>
     </div>
