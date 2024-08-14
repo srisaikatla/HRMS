@@ -390,15 +390,15 @@ function User() {
 
     return (
         <div className="p-10">
-            <div className='flex mb-5 text-[25px]'>
+            <div className='flex mb-5 text-lg'>
                 <h1 
-                    className={`font-bold mr-[40px] cursor-pointer px-4  py-2 rounded ${activeSection === 'users' ? 'bg-[#E65F2B]  text-white text-[20px] ' : 'text-[#E65F2B]'}`} 
+                    className={`font-bold mr-[40px] cursor-pointer px-4  py-2 rounded ${activeSection === 'users' ? 'bg-[#E65F2B]  text-white text-lg ' : 'text-[#E65F2B]'}`} 
                     onClick={() => handleSectionChange('users')}
                 >
                     Users
                 </h1>
                 <h1 
-                    className={`font-bold cursor-pointer px-4 py-2 rounded ${activeSection === 'invites' ? 'bg-[#E65F2B] text-white text-[20px] ' : 'text-[#E65F2B]'}`} 
+                    className={`font-bold cursor-pointer px-4 py-2 rounded ${activeSection === 'invites' ? 'bg-[#E65F2B] text-white text-lg ' : 'text-[#E65F2B]'}`} 
                     onClick={() => handleSectionChange('invites')}
                 >
                     Invites
