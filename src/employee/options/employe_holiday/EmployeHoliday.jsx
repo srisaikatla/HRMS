@@ -112,14 +112,17 @@ function EmployeHoliday() {
     <>
       <div className="ml-2 mt-0 h-screen">
         <div className="p-4">
-        <div>
+        <div className="ml-3 mb-4 flex flex-col md:flex-row justify-between">
+            <div>
             <span className="flex">Employee</span>
             <span className="text-[16px] font-medium">
             Dashboard / Holidays
             </span>
           </div>
+
+          </div>
          
-          <div className="flex justify-end mb-4">
+          {/* <div className="flex justify-end mb-4">
             <div
               id="addholiday"
               className="w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
@@ -132,7 +135,7 @@ function EmployeHoliday() {
                 <FiPlusCircle className="mr-2 bg-[#E65F2B] text-white text-lg font-semibold" /> Add Holiday
               </button>
             </div>
-          </div>
+          </div> */}
           <div id="table" className="overflow-x-auto">
           <table className="min-w-full">
             <thead className="bg-[#E65F2B]">

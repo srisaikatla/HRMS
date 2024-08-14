@@ -45,8 +45,8 @@ const initialData = [
 
 const AccountPayments = () => {
   return (
-    <div className="ml-2 h-screen pt-2 mr-2">
-      <h1 className="text-[#e65f2b] font-bold  text-xl mb-2">
+    <div className="ml-2 pt-2 mr-2">
+      <h1 className="text-[#E65F2B] text-xl font-bold">
         <span>Accounts/Payments</span>
       </h1>
       <div className="overflow-x-scroll">

@@ -37,7 +37,7 @@ const AddDepartment = () => {
     <>
       <SideBar />
       <div className="max-w-full px-14 py-11 rounded-lg bg-white">
-        <h2 className="text-2xl font-semibold mb-10 mt-4 text-center text-orange-400">
+        <h2 className="text-2xl font-semibold mb-10 mt-4 text-center text-blue-400">
           Add Department List
         </h2>
         <form

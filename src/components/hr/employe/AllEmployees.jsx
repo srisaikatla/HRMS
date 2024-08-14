@@ -3,7 +3,7 @@ import axios from "axios";
 import uncheckbox from "../../../assets/hr/employee/checkbox/uncheck.png";
 import checkbox from "../../../assets/hr/employee/checkbox/checkbox.png";
 import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
-import defaultProfileImg from "../../../assets/hr/profile/man.png"; // Ensure to add a default profile image in your assets
+import { API_BASE_URL } from "../../../Config/api";
 
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
@@ -38,7 +38,7 @@ function AllEmployees() {
   const fetchEmployees = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8085/employee/getAllEmployee"
+        `${API_BASE_URL}/employee/getAllEmployee`
       );
       setEmployees(response.data);
       setLoading(false);
@@ -59,10 +59,11 @@ function AllEmployees() {
 
   const handleAddEmployee = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8085/employee/register",
-        newEmployee
-      );
+      const password = generatePassword();
+      const response = await axios.post(`${API_BASE_URL}/employee/register`, {
+        ...newEmployee,
+        password,
+      });
       setEmployees((prev) => [...prev, response.data]);
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
@@ -84,7 +85,7 @@ function AllEmployees() {
   const handleUpdateEmployee = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8085/employee/update/${editEmployeeId}`,
+        `${API_BASE_URL}/employee/update/${editEmployeeId}`,
         newEmployee
       );
       setEmployees((prev) =>
@@ -102,9 +103,9 @@ function AllEmployees() {
 
   const handleDeleteEmployee = async (employeeId) => {
     try {
-      await axios.delete(`http://localhost:8085/employee/delete/${employeeId}`);
+      await axios.delete(`${API_BASE_URL}/employee/delete/${employeeId}`);
       setEmployees((prev) =>
-        prev.filter((employee) => employee.ID !== employeeId)
+        prev.filter((employee) => employee.employeeId !== employeeId)
       );
       setShowDeleteSuccessMessage(true);
       setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
@@ -156,7 +157,7 @@ function AllEmployees() {
     <>
       <div id="main" className="mr-4 h-screen ">
         <div className="ml-5 mb-4">
-          <p className="text-[#e65f2b] font-bold text-xl">
+          <p className="text-[#E65F2B] text-xl font-bold">
             Employees/All Employees
           </p>
         </div>
@@ -279,8 +280,10 @@ function AllEmployees() {
                         <FiEdit />
                       </button>
                       <button
-                        className="text-red-500 hover:text-red-700"
-                        onClick={() => handleDeleteEmployee(employee.ID)}
+                        className="text-blue-500 hover:text-red-700"
+                        onClick={() =>
+                          handleDeleteEmployee(employee.employeeId)
+                        }
                       >
                         <FiTrash2 />
                       </button>

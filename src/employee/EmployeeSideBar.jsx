@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-unreachable */
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
@@ -6,16 +8,8 @@ import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 // import Events from "./options/events/Events";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
-import Settlements from "./options/payslips/Settlements";
-import PayrollForms from "./options/payslips/PayrollForms";
-import DirectDeposits from "./options/payslips/DirectDeposits";
-import YTD from "./options/payslips/YTDimport";
-// import Attendance from "./options/attendance/Attendance";
-// import Attendance from "./options/attendance/Attendance";
-import Events from "../components/hr/events/Events";
-// import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip";
-
+import EmployeHoliday from "./options/employe_holiday/EmployeHoliday";
 import {
   FaUsers,
   FaCalendarAlt,
@@ -48,18 +42,28 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
 // import AllEmployees from "../employee/options/allEmployees/AllEmployees";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import SalaryStructure from "./options/payslips/SalaryStructure"
-import Declaration from "./options/payslips/Declaration"
-import BankAccount from "./options/payslips/BankAccount"
+import SalaryStructure from "./options/payslips/SalaryStructure";
+import Declaration from "./options/payslips/Declaration";
+import BankAccount from "./options/payslips/BankAccount";
 import Chat from "./options/chat/Chat";
-import Rules from "./options/rules/Rules"
+import Rules from "./options/rules/Rules";
 import ProjectList from "./options/projectList/ProjectList";
 import Profile from "./options/profile/Profile";
 import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
+import Tickets from "./options/tickets/Tickets";
+import { useDispatch, useSelector } from "react-redux";
+import { getEmployee, logout } from "../State/Auth/Action";
+import { useNavigate } from "react-router-dom";
+
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("All Employees");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+
+  const jwt = localStorage.getItem("jwt");
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const options = [
     { title: "All Employees", icon: <FaUsers /> },
@@ -95,14 +99,24 @@ const EmployeeSideBar = () => {
     { title: "Attendance", icon: <FaClipboardList /> },
     { title: "Rules", icon: <FaGavel /> },
     { title: "Tickets", icon: <FaTicketAlt /> },
+    { title: "Logout", icon: <FaSignOutAlt /> },
   ];
+
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getEmployee(jwt));
+    }
+  }, [jwt, auth.jwt, dispatch]);
 
   const handleOptionClick = (option) => {
     if (option.subOptions) {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
       setActiveTab(option.title);
-      setOpenDropdown(""); // Close other dropdowns
+      setOpenDropdown("");
+      if (option.title === "Logout") {
+        handleLogout();
+      }
     }
   };
 
@@ -114,6 +128,11 @@ const EmployeeSideBar = () => {
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("jwt");
+    navigate("/");
   };
 
   const renderContent = () => {
@@ -162,7 +181,12 @@ const EmployeeSideBar = () => {
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
-                <p className="text-[16px] pl-2">Welcome User</p>
+                <p className="text-[16px] text-white pl-2">
+                  Welcome{" "}
+                  {auth.employee
+                    ? auth.employee.firstName.toUpperCase()
+                    : "user"}
+                </p>
               </div>
             )}
           </div>
@@ -227,7 +251,6 @@ const EmployeeSideBar = () => {
           {activeTab === "All Employees" && <AllEmployees />}
           {activeTab === "Events" && <Events />}
           {activeTab === "Apply Leave" && <ApplyLeave />}
-
           {/* payroll */}
           {activeTab === "Payslips" && <Payslip />}
           {activeTab === "Salary Structure" && <SalaryStructure />}
@@ -241,6 +264,7 @@ const EmployeeSideBar = () => {
           {activeTab === "Profile" && <Profile />}
           {activeTab === "Holidays" && <EmployeHoliday />}
           {activeTab === "Inbox" && <EmployeInbox />}
+          {activeTab === "Tickets" && <Tickets />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}

@@ -408,7 +408,7 @@ function Attendance() {
   return (
     <div id="main" className="h-screen p-4">
       <div className="ml-5">
-        <p className="text-[#e65f2b] font-bold text-xl">Employees/Attendance</p>
+        <p className="text-[#0098F1] font-bold text-xl">Employees/Attendance</p>
       </div>
       <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
         <div className="relative">

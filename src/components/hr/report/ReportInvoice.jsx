@@ -65,72 +65,70 @@ const ReportInvoice = () => {
     setReportInvoiceData(ReportInvoiceData);
   }, []);
   return (
-    <div className="mr-2 ml-2 h-screen">
-      <h2 className="text-[#e65f2b] font-bold  text-xl mb-2">Report/Invoice</h2>
-      <div id="table" className=" overflow-x-scroll">
-        <table className="min-w-full md:table border-collapse mt-5  w-screen overflow-x-scroll text-nowrap">
-          <thead style={{ backgroundColor: "rgba(0, 152, 241, 0.3)" }}>
-            <tr className="text-left">
-              <th className="py-4 px-14 border-b bg-[#0098f1] text-white text-center">
-                Invoice Number
-              </th>
-              <th className="py-4 px-14 border-b bg-[#0098f1] text-white text-center">
-                Client
-              </th>
-              <th className="py-4 px-14 border-b bg-[#0098f1] text-white text-center">
-                Date
-              </th>
-              <th className="py-4 px-14 border-b bg-[#0098f1] text-white  text-center">
-                Type
-              </th>
-              <th className="py-4 px-14 border-b bg-[#0098f1] text-white text-center">
-                Status
-              </th>
-              <th className="py-4 px-14 border-b bg-[#0098f1] text-white text-center">
-                Amount
-              </th>
+    <div className="mr-2 ml-2">
+      <h2 className="text-[#0098F1] font-bold  text-xl mb-2">Report/Invoice</h2>
+      <table className="min-w-full md:table border-collapse mt-5">
+        <thead style={{ backgroundColor: "rgba(0, 152, 241, 0.3)" }}>
+          <tr className="text-left">
+            <th className="py-4 px-14 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              Invoice Number
+            </th>
+            <th className="py-4 px-14 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              Client
+            </th>
+            <th className="py-4 px-14 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              Date
+            </th>
+            <th className="py-4 px-14 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              Type
+            </th>
+            <th className="py-4 px-14 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              Status
+            </th>
+            <th className="py-4 px-14 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              Amount
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {ReportInvoiceList.map((item, index) => (
+            <tr key={index} className="text-left font-normal text-[15px]">
+              <td className="py-2 px-4 border-b bg-transparent text-center">
+                {item.Invoice_Number}
+              </td>
+              <td className="py-2 px-4 border-b bg-transparent text-center">
+                {item.Client}
+              </td>
+              <td className="py-2 px-4 border-b bg-transparent text-center">
+                {item.Date}
+              </td>
+              <td className="py-2 px-4 border-b bg-transparent text-center">
+                <img src={item.Type} alt="Type" />
+              </td>
+              <td className="py-2 px-4 border-b bg-transparent text-center">
+                {item.Status === "Approved" ? (
+                  <button
+                    className="text-white py-1 w-28 rounded-xl"
+                    style={{ backgroundColor: "rgba(42, 143, 76, 1)" }}
+                  >
+                    Approved
+                  </button>
+                ) : (
+                  <button
+                    className="text-white py-1 w-28 rounded-xl"
+                    style={{ backgroundColor: "rgba(247, 136, 34, 1)" }}
+                  >
+                    Pending
+                  </button>
+                )}
+              </td>
+              <td className="py-2 px-4 border-b bg-transparent text-center">
+                {item.Amount}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {ReportInvoiceList.map((item, index) => (
-              <tr key={index} className="text-left font-normal text-[15px]">
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {item.Invoice_Number}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {item.Client}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {item.Date}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  <img src={item.Type} alt="Type" />
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {item.Status === "Approved" ? (
-                    <button
-                      className="text-white py-1 w-28 rounded-xl"
-                      style={{ backgroundColor: "rgba(42, 143, 76, 1)" }}
-                    >
-                      Approved
-                    </button>
-                  ) : (
-                    <button
-                      className="text-white py-1 w-28 rounded-xl"
-                      style={{ backgroundColor: "rgba(247, 136, 34, 1)" }}
-                    >
-                      Pending
-                    </button>
-                  )}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {item.Amount}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -3,25 +3,6 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
 const Logs = () => {
-  // const [employees, setEmployees] = useState(() => {
-
-  //   const storedEmployees = localStorage.getItem("causalLeaveEmployees");
-  //   return storedEmployees
-  //     ? JSON.parse(storedEmployees)
-  //     : [
-  //         {
-  //           id: 1,
-  //           name: "John Doe",
-  //           department: "HR",
-  //           type: "Casual Leave",
-  //           startDate: "2024-08-01",
-  //           endDate: "2024-08-05",
-  //           days: "4",
-  //           status: "Pending",
-  //           isChecked: false,
-  //         },
-  //       ];
-  // });
   const [employees, setEmployees] = useState([
     {
       id: 1,
@@ -221,9 +202,6 @@ const Logs = () => {
         >
           Export
         </button>
-        <div className="ml-4 text-sm text-black">
-          Pending Count: {pendingCount}
-        </div>
       </div>
       <div className="overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] mt-2">
         <table

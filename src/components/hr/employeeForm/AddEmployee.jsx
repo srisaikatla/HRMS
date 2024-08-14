@@ -72,7 +72,7 @@ const AddEmployee = () => {
       <SideBar />
       <div className="ml-[240px] p-4 bg-fit">
         <div className="bg-white md:m-4 md:px-[88px] md:py-[44px] rounded-lg p-3">
-          <h1 className="text-orange-600 md:text-4xl text-xl">
+          <h1 className="text-blue-600 md:text-4xl text-xl">
             Add New Employee
           </h1>
           <form className="md:my-4" onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ const AddEmployee = () => {
                     errors.name ? "border-red-300" : "border-blue-300"
                   } w-full rounded-lg p-2`}
                 />
-                {errors.name && <p className="text-red-500">{errors.name}</p>}
+                {errors.name && <p className="text-blue-500">{errors.name}</p>}
               </div>
 
               {/* Employee ID */}
@@ -114,7 +114,7 @@ const AddEmployee = () => {
                     errors.empId ? "border-red-300" : "border-blue-300"
                   } w-full rounded-lg p-2`}
                 />
-                {errors.empId && <p className="text-red-500">{errors.empId}</p>}
+                {errors.empId && <p className="text-blue-500">{errors.empId}</p>}
               </div>
 
               {/* Contact Number */}
@@ -135,7 +135,7 @@ const AddEmployee = () => {
                   } w-full rounded-lg p-2`}
                 />
                 {errors.contact && (
-                  <p className="text-red-500">{errors.contact}</p>
+                  <p className="text-blue-500">{errors.contact}</p>
                 )}
               </div>
 
@@ -156,7 +156,7 @@ const AddEmployee = () => {
                     errors.date ? "border-red-300" : "border-blue-300"
                   } w-full rounded-lg p-2`}
                 />
-                {errors.date && <p className="text-red-500">{errors.date}</p>}
+                {errors.date && <p className="text-blue-500">{errors.date}</p>}
               </div>
 
               {/* Email */}
@@ -176,7 +176,7 @@ const AddEmployee = () => {
                     errors.email ? "border-red-300" : "border-blue-300"
                   } w-full rounded-lg p-2`}
                 />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}
+                {errors.email && <p className="text-blue-500">{errors.email}</p>}
               </div>
 
               {/* Role */}
@@ -196,7 +196,7 @@ const AddEmployee = () => {
                     errors.role ? "border-red-300" : "border-blue-300"
                   } w-full rounded-lg p-2`}
                 />
-                {errors.role && <p className="text-red-500">{errors.role}</p>}
+                {errors.role && <p className="text-blue-500">{errors.role}</p>}
               </div>
             </div>
 
@@ -204,7 +204,7 @@ const AddEmployee = () => {
             <div className="mt-4">
               <button
                 type="button"
-                className="border bg-orange-600 px-8 py-1 rounded-md text-white"
+                className="border bg-blue-600 px-8 py-1 rounded-md text-white"
                 onClick={onButtonClick}
               >
                 Choose File
@@ -219,7 +219,7 @@ const AddEmployee = () => {
                 className="hidden"
               />
               {errors.file && (
-                <p className="text-red-500 mt-2">{errors.file}</p>
+                <p className="text-blue-500 mt-2">{errors.file}</p>
               )}
             </div>
 

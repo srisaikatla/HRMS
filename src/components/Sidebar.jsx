@@ -5,13 +5,10 @@ import { useDispatch } from "react-redux";
 import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
-import ViewEmployees from "../components/hr/hr_management/employeImport/EmployeImport";
-import Compensation from "./hr/employe/Compensation";
-import ITDeclarations from "./hr/employe/ITDeclarations";
-import Leaves from "./hr/employe/Leaves/Leaves";
+import ViewEmployees from "../components/hr/employe/AllEmployees";
+import Leaves from "../components/hr/employe/Leaves/Leaves";
 import Attendance from "../components/hr/employe/Attendance";
-
-import DepartmentList from "../components/hr/employe/DepartmentList";
+// import DepartmentList from "../components/hr/employe/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
 import AccountInvoice from "../components/hr/account/AccountInvoice";
@@ -36,12 +33,16 @@ import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
 import OnBording from "./hr/hr_management/employeImport/EmployeImport";
-// import Compensation from "./hr/hr_management/compensation/Compensation";
+import Compensation from "./hr/hr_management/compensation/Compensation";
 import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
 import PaySlip from "./hr/payroll/paySlips/PaySlips";
 import Settlement from "./hr/payroll/settlement/Settlement";
 import PayrollSettings from "./hr/payroll/payroll_setting/PayrollSettings";
 import PayrollForms from "./hr/payroll/payroll_forms/PayrollForms";
+import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
+import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
+import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary";
+import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll";
 const SideBar = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
@@ -148,11 +149,10 @@ const SideBar = () => {
         {activeTab === "Events" && <Events />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
-        {activeTab === "All Employees" && <ViewEmployees />}
-        {activeTab === "Compensation" && <Compensation />}
-        {activeTab === "IT Declarations" && <ITDeclarations />}
+        {activeTab === "View Employees" && <ViewEmployees />}
+        {/* {activeTab === "Leave Requests" && <LeaveRequest />} */}
         {/* {activeTab === "Attendance" && <Attendance />} */}
-        {activeTab === "Department" && <DepartmentList />}
+        {/* {activeTab === "Department" && <DepartmentList />} */}
         {activeTab === "Report Invoice" && <ReportInvoice />}
         {activeTab === "Report Expenses" && <ReportExpenses />}
         {activeTab === "Account Payment" && <AccountPayments />}
@@ -168,7 +168,7 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
-        {/* {activeTab === "Employee Import" && <OnBording />} */}
+        {activeTab === "Employee Import" && <OnBording />}
         {activeTab === "Compensation" && <Compensation />}
         {activeTab === "Leaves" && <Leaves />}
         {activeTab === "DashBoard" && <PayrollDashboard />}
@@ -176,6 +176,10 @@ const SideBar = () => {
         {activeTab === "Settlements" && <Settlement />}
         {activeTab === "Payroll settings" && <PayrollSettings />}
         {activeTab === "Payroll Forms" && <PayrollForms />}
+        {activeTab === "Onboarding" && <OnBoarding />}
+        {activeTab === "IT Declarations" && <ITDeclarations />}
+        {activeTab === "Payroll Summary" && <PayrollSummary />}
+        {activeTab === "Run payroll" && <RunPayRoll />}
       </div>
     </div>
   );
