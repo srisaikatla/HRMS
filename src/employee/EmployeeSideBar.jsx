@@ -6,7 +6,7 @@ import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
-// import Events from "./options/events/Events";
+
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip";
 import EmployeHoliday from "./options/employe_holiday/EmployeHoliday";
@@ -52,7 +52,7 @@ import Profile from "./options/profile/Profile";
 // import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployee, logout } from "../State/Auth/Action";
+import { employee, getEmployee, logout } from "../State/Auth/Action";
 import EmployeDashboard from "./options/employe_dashboard/EmployeDashboard";
 import { useNavigate } from "react-router-dom";
 
@@ -76,20 +76,10 @@ const EmployeeSideBar = () => {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
       subOptions: [
-        // { name: "Run payroll", icon: <GiPayMoney /> },
-        // { name: "Payroll Summary", icon: <MdOutlinePayment /> },
-        // { name: "Payroll settings", icon: <MdAdminPanelSettings /> },
-        // { name: "Advances/loans", icon: <LiaMoneyCheckAltSolid /> },
         { name: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
         { name: "Salary Structure", icon: <FaMoneyBillTransfer /> },
         { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
         { name: "Bank Account", icon: <PiHandDepositFill /> },
-        // { name: "Settlements", icon: <FaMoneyBillTransfer /> },
-        // { name: "Payroll Forms", icon: <GiTakeMyMoney /> },
-        // { name: "Direct deposits", icon: <PiHandDepositFill /> },
-        // { name: "YTD import", icon: <FaMoneyBillTrendUp /> },
-        // { name: "Gratuity Calculator", icon: <TbMoneybag /> },
-        // { name: "Estimated tax sheet", icon: <BsFileEarmarkSpreadsheet /> },
       ],
     },
     { title: "Profile", icon: <FaUser /> },
@@ -159,10 +149,13 @@ const EmployeeSideBar = () => {
         );
     }
   };
+  const handleIconClick = (iconTitle) => {
+    setActiveTab(iconTitle);
+  };
 
   return (
     <div className="relative bg-[#e65f2b] bg-opacity-10">
-      <EmployeeNavBar />
+      <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
         className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
@@ -186,7 +179,9 @@ const EmployeeSideBar = () => {
                 <p className="text-[16px] text-white pl-2">
                   Welcome{" "}
                   {auth.employee
-                    ? auth.employee.firstName.toUpperCase()
+                    ? auth.employee.firstName.toUpperCase() +
+                      " " +
+                      auth.employee.lastName.toUpperCase()
                     : "user"}
                 </p>
               </div>
@@ -268,13 +263,6 @@ const EmployeeSideBar = () => {
           {activeTab === "Inbox" && <EmployeInbox />}
           {activeTab === "Tickets" && <Tickets />}
           {activeTab === "Employees Dashboard" && <EmployeDashboard />}
-          {/* {activeTab === "Settlements" && <Settlements />} */}
-          {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
-          {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}
-          {/* {activeTab === "YTD import" && <YTD />} */}
-          {/*  */}
-          {/* Add additional conditional rendering for other active tabs if needed */}
-          {/* {activeTab === "Attendance" && <Attendance />} */}
         </div>
       </div>
     </div>

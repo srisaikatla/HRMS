@@ -2,21 +2,16 @@ import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../adminAssets/profile/boy.png";
 import AdminNavBar from "./AdminNavBar";
-
+import { IoInformationCircle, IoSettings } from "react-icons/io5";
+import { MdManageAccounts, MdOutlinePayment } from "react-icons/md";
+import { FaUser, FaInbox, FaTasks } from "react-icons/fa";
+import { RiMoneyRupeeCircleFill, RiBankFill } from "react-icons/ri";
+import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
 import CompanyInformation from "./options/company_info/CompanyInformation";
-import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
 import User from "./options/users/User";
-import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-
-import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import { IoInformationCircle } from "react-icons/io5";
-import { MdManageAccounts } from "react-icons/md";
-import { IoSettings } from "react-icons/io5";
-import { FaPeopleGroup } from "react-icons/fa6";
-
-import { MdOutlinePayment } from "react-icons/md";
-import { RiBankFill } from "react-icons/ri";
+import Roles from "./options/roles/Roles";
+import AccountDetails from "./options/accountdetailes/AccountDetails";
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -27,7 +22,7 @@ const AdminSideBar = () => {
     { title: "Company Information", icon: <IoInformationCircle /> },
     { title: "Account Details", icon: <MdManageAccounts /> },
     { title: "Company Settings", icon: <IoSettings /> },
-    { title: "Roles", icon: <FaPeopleGroup /> },
+    { title: "Roles", icon: <FaUser /> },
     { title: "User", icon: <FaUser /> },
     {
       title: "Payroll",
@@ -59,21 +54,21 @@ const AdminSideBar = () => {
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
+
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
   };
 
   return (
     <div className="relative bg-[#e65f2b] bg-opacity-10">
-      {/* <AdminNavBar /> */}
-      <AdminNavBar onIconClick={handleIconClick} />
+      <AdminNavBar onIconClick={handleIconClick} options={options} />
       <div
         style={{
           backgroundImage: "linear-gradient(to bottom, #E65F2B, #FFC252)",
         }}
-        className={`flex flex-col h-screen   fixed mr-20 transition-all duration-300 ${
+        className={`flex flex-col h-screen fixed mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed  top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        } pb-10 h-screen fixed top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-4 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-5">
@@ -98,7 +93,7 @@ const AdminSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`flex   flex-col transition-all my-1 duration-500 cursor-pointer ${
+                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
                   activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
                     ? "bg-white text-[#e65f2b] rounded-r-3xl"
@@ -106,7 +101,7 @@ const AdminSideBar = () => {
                 }`}
                 onClick={() => handleOptionClick(option)}
               >
-                <div className="p-3   pl-4 text-[16px] flex items-center">
+                <div className="p-3 pl-4 text-[16px] flex items-center">
                   {option.icon}
                   {!isSidebarCollapsed && (
                     <span className="ml-3">{option.title}</span>
@@ -118,23 +113,21 @@ const AdminSideBar = () => {
                   )}
                 </div>
                 {option.subOptions && openDropdown === option.title && (
-                  <ul className="text-[#e65f2b] pr-2  rounded-br-3xl bg-transparent  transition-all duration-1000">
+                  <ul className="text-[#e65f2b] pr-2 rounded-br-3xl bg-transparent transition-all duration-1000">
                     {option.subOptions.map((subOption, subIndex) => (
                       <li
                         key={subIndex}
-                        className={`p-3  text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
+                        className={`p-3 text-nowrap pl-14 flex items-center cursor-pointer ${
                           activeTab === subOption.name
-                            ? "bg-[#e65f2b] bg-opacity-60 text-white rounded-r-full"
-                            : "hover:bg-[#e65f2b]  hover:bg-opacity-60 hover:rounded-r-full hover:text-white"
+                            ? "bg-[#e65f2b] bg-opacity-20 rounded-lg"
+                            : ""
                         }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
                       >
                         {subOption.icon}
-                        {!isSidebarCollapsed && (
-                          <span className="ml-3">{subOption.name}</span>
-                        )}
+                        <span className="ml-3">{subOption.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -144,6 +137,16 @@ const AdminSideBar = () => {
           </div>
         </div>
       </div>
+
+      {/* Render the corresponding component based on the activeTab */}
+      {/* <div className="ml-16 md:ml-[240px]  p-10">
+        {activeTab === "Company Information" && <CompanyInformation />}
+        {activeTab === "Company Settings" && <CompanySettingsNavigation />}
+        {activeTab === "Roles" && <Roles />}
+        {activeTab === "User" && <User />}
+        {activeTab === "Account Details" && <AccountDetails />}
+       
+      </div> */}
       <div
         className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
@@ -153,6 +156,8 @@ const AdminSideBar = () => {
           {activeTab === "Company Settings" && <CompanySettingsNavigation />}
           {activeTab === "Company Information" && <CompanyInformation />}
           {activeTab === "User" && <User />}
+          {activeTab === "Roles" && <Roles />}
+          {activeTab === "Account Details" && <AccountDetails />}
         </div>
       </div>
     </div>

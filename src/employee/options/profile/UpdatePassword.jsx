@@ -1,24 +1,40 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
-
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 const UpdatePassword = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
     const [formError, setFormError] = useState('');
+    const jwt = localStorage.getItem("jwt")
+    const auth = useSelector((state) => state.auth)
 
-    const handleChangeCurrentPassword = (e) => setCurrentPassword(e.target.value);
-    const handleChangeNewPassword = (e) => setNewPassword(e.target.value);
-    const handleChangeConfirmNewPassword = (e) => setConfirmNewPassword(e.target.value);
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent the default form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (newPassword !== confirmPassword) {
+            setMessage('New passwords do not match');
+            return;
+        }
 
-        if (currentPassword && newPassword && confirmNewPassword) {
-            if (newPassword === confirmNewPassword) {
-                // Add logic to update the password here (e.g., API call)
+        try {
+            // Replace with your API endpoint
+            const email = auth.employee.email  // You should get the user's email dynamically
+            const response = await axios.put(`http://13.234.49.187:8080/employee/password/${email}`, {
+                currentPassword,
+                newPassword,
+                confirmPassword,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`, // Pass the JWT token in the Authorization header
+                },
+            },);
+            if (response.data === "password updated successfully") {
                 setPopupMessage('Password updated successfully!');
                 setShowPopup(true); // Show the popup
 
@@ -27,16 +43,14 @@ const UpdatePassword = () => {
                     setShowPopup(false);
                 }, 2000);
             } else {
-                setPopupMessage('Passwords do not match.');
-                setShowPopup(true); // Show the popup
-
-                // Hide popup after 2 seconds
-                setTimeout(() => {
-                    setShowPopup(false);
-                }, 2000);
+                setMessage(response.data);
             }
-        } else {
-            setFormError('All fields are required.');
+        } catch (error) {
+            if (error.response && error.response.data) {
+                setMessage('Error updating password: ' + JSON.stringify(error.response.data));
+            } else {
+                setMessage('Error updating password: ' + error.message);
+            }
         }
     };
 
@@ -54,7 +68,7 @@ const UpdatePassword = () => {
                             id="currentPassword"
                             type="password"
                             value={currentPassword}
-                            onChange={handleChangeCurrentPassword}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
                             required
                             className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                         />
@@ -71,7 +85,7 @@ const UpdatePassword = () => {
                             id="newPassword"
                             type="password"
                             value={newPassword}
-                            onChange={handleChangeNewPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                             required
                             className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                         />
@@ -87,8 +101,8 @@ const UpdatePassword = () => {
                         <input
                             id="confirmNewPassword"
                             type="password"
-                            value={confirmNewPassword}
-                            onChange={handleChangeConfirmNewPassword}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                             className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                         />
@@ -103,8 +117,8 @@ const UpdatePassword = () => {
                 <div className="mt-4 text-center">
                     <button
                         type="submit"
-                        disabled={!(currentPassword && newPassword && confirmNewPassword)}
-                        className={`px-4 py-2 ${currentPassword && newPassword && confirmNewPassword ? 'bg-[#E65F2B]' : 'bg-gray-400'} text-white rounded-lg`}
+                        disabled={!(currentPassword && newPassword && confirmPassword)}
+                        className={`px-4 py-2 ${currentPassword && newPassword && confirmPassword ? 'bg-[#E65F2B]' : 'bg-gray-400'} text-white rounded-lg`}
                     >
                         Update Password
                     </button>

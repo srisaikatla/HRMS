@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
-import profile from "../../../assets/hr/employee/profile/profile.jpg";
-import importantprofilepic from "../../../assets/hr/profile/man.png";
+import profile from "../../../assets/hr/profile/man.png";
+import importantprofilepic from "../../../assets/hr/employee/profile/profile.jpg";
 import { GoArrowUpRight } from "react-icons/go";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCircleChevronLeft } from "react-icons/fa6";
@@ -14,6 +15,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useSelector } from "react-redux";
 function EmployeDashboard() {
   const data = [
     { day: "Mon", hours: 200 },
@@ -112,6 +114,7 @@ function EmployeDashboard() {
     // Add more projects here
   ];
   const containerRef = useRef(null);
+  const auth = useSelector((state) => state.auth);
 
   const handleScrollLeft = () => {
     if (containerRef.current) {
@@ -139,10 +142,15 @@ function EmployeDashboard() {
               }}
             >
               <div className="absolute inset-0 flex flex-col pl-[40px] items-center justify-center">
-                <h1 className="text-white pl-6 font-bold text-[16px]">
-                  Welcome Back, Ratnapriya
+                <h1 className="text-white pl-6 font-bold text-[23px]">
+                  Welcome Back,
                 </h1>
-                <p className="text-white mt-2 text-[16px]">
+                <h1 className="text-white mt-2 font-bold text-[20px]">
+                  {auth.employee
+                    ? auth.employee.firstName + " " + auth.employee.lastName
+                    : "employee"}
+                </h1>
+                <p className="text-white mt-2 text-[20px]">
                   You have 4 meetings today
                 </p>
                 <button className="bg-white text-[#E65F2B] h-[45px] w-[150px] mt-8 rounded-lg transition duration-300">
@@ -431,10 +439,10 @@ function EmployeDashboard() {
       {/* {projects} */}
       <div className="bg-white shadow-lg   h-[460px] mt-[18px]">
         <div className="flex justify-start p-3">
-          <h1 className="text-[#E65F2B] mt-[20px] font-semibold text-nowrap text-[16px]">
+          <h1 className="text-[#E65F2B] mt-[20px] font-semibold text-nowrap text-[20px]">
             On Going Projects
           </h1>
-          <div className="flex items-end text-end space-x-2 mb-8 w-[80px] ml-[800px]">
+          <div className="flex items-end text-end space-x-2 mb-8 w-[80px] ml-[1000px]">
             <FaCircleChevronLeft
               onClick={handleScrollLeft}
               className="text-[#E65F2B] cursor-pointer text-2xl" // Adjust size here

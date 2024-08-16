@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { FaBars } from "react-icons/fa";
 import {
   FaFolder,
   FaCalendarDay,
   FaEnvelope,
   FaBell,
   FaFilter,
-  FaBars,
 } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
-
-function AdminNavBar({ onIconClick }) {
-  const [hoveredIcon, setHoveredIcon] = React.useState("");
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+function AdminNavBar({ onIconClick, options }) {
+  const [hoveredIcon, setHoveredIcon] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredOptions, setFilteredOptions] = useState([]);
 
   const handleMouseEnter = (iconName) => {
     setHoveredIcon(iconName);
@@ -29,6 +30,27 @@ function AdminNavBar({ onIconClick }) {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+  //
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = options.filter((option) =>
+        option.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredOptions(filtered);
+    } else {
+      setFilteredOptions([]);
+    }
+  }, [searchQuery, options]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    onIconClick(suggestion.title);
+    setSearchQuery("");
+    setFilteredOptions([]);
+  };
 
   return (
     <>
@@ -44,7 +66,7 @@ function AdminNavBar({ onIconClick }) {
             style={{
               backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
             }}
-            className="h-[42px] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center"
+            className="h-[42px] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center relative"
           >
             <input
               style={{
@@ -53,7 +75,22 @@ function AdminNavBar({ onIconClick }) {
               className="pl-2 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
               type="search"
               placeholder="Search Anything here...."
+              value={searchQuery}
+              onChange={handleSearchChange}
             />
+            {filteredOptions.length > 0 && (
+              <div className="absolute top-[42px] left-0 bg-white w-full shadow-lg rounded-lg z-10">
+                {filteredOptions.map((option) => (
+                  <div
+                    key={option.title}
+                    className="py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b]"
+                    onClick={() => handleSuggestionClick(option)}
+                  >
+                    {option.title}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div className="flex justify-start md:hidden z-50 mr-2">
@@ -129,7 +166,6 @@ function AdminNavBar({ onIconClick }) {
             </div>
           )}
         </div>
-
         <div
           id="icons"
           className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"

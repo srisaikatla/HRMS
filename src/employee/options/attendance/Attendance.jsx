@@ -9,6 +9,8 @@ import { API_BASE_URL } from "../../../Config/api"
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState("");
+  const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [isOnBreak, setIsOnBreak] = useState(false);
   const [punchInTime, setPunchInTime] = useState(null);
   const [punchOutTime, setPunchOutTime] = useState(null);
   const [breakStartTime, setBreakStartTime] = useState(null);
@@ -86,7 +88,9 @@ const Attendance = () => {
 
 
   const updateBreakTime = (newBreakTime) => {
-    setTotalBreakTime(prevBreakTime => accumulateTime(prevBreakTime, newBreakTime));
+    const updatedBreakTime = accumulateTime(totalBreakTime, newBreakTime);
+    setTotalBreakTime(updatedBreakTime);
+    localStorage.setItem('totalBreakTime', JSON.stringify(updatedBreakTime));
   };
 
 
@@ -128,6 +132,28 @@ const Attendance = () => {
   }, []);
 
   useEffect(() => {
+    const storedPunchInTime = localStorage.getItem('punchInTime');
+    const storedElapsedTime = localStorage.getItem('elapsedTime');
+    const storedBreakTime = localStorage.getItem('totalBreakTime');
+    const storedIsPunchedIn = localStorage.getItem('isPunchedIn');
+    const storedLastElapsedTime = localStorage.getItem('lastElapsedTime');
+    const storedIsOnBreak = localStorage.getItem('isOnBreak');
+    const storedBreakStartTime = localStorage.getItem('breakStartTime');
+
+    if (storedPunchInTime) {
+      setPunchInTime(new Date(storedPunchInTime));
+      setIsPunchedIn(storedIsPunchedIn === 'true');
+      setElapsedTime(JSON.parse(storedElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime(JSON.parse(storedBreakTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setLastElapsedTime(JSON.parse(storedLastElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setIsOnBreak(storedIsOnBreak === 'true');
+      if (storedBreakStartTime) {
+        setBreakStartTime(new Date(storedBreakStartTime));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     let timer;
     if (isPunchedIn && punchInTime) {
       const startTime = lastElapsedTime.hours * 3600 * 1000 + lastElapsedTime.minutes * 60 * 1000 + lastElapsedTime.seconds * 1000;
@@ -140,6 +166,8 @@ const Attendance = () => {
         const minutes = Math.floor((diffMs % 3600000) / 60000);
         const seconds = Math.floor((diffMs % 60000) / 1000);
         setElapsedTime({ hours, minutes, seconds });
+        // Save to localStorage every second to persist data
+        localStorage.setItem('elapsedTime', JSON.stringify({ hours, minutes, seconds }));
       }, 1000);
     } else {
       clearInterval(timer);
@@ -148,10 +176,24 @@ const Attendance = () => {
     return () => clearInterval(timer);
   }, [isPunchedIn, punchInTime, lastElapsedTime, totalBreakTime]);
 
+  useEffect(() => {
+    let breakTimer;
+    if (isOnBreak && breakStartTime) {
+      breakTimer = setInterval(() => {
+        const now = new Date();
+        const breakDuration = calculateBreakTime(breakStartTime, now);
+        setCurrentBreakTime(breakDuration);
+      }, 1000);
+    } else {
+      clearInterval(breakTimer);
+      setCurrentBreakTime({ hours: 0, minutes: 0, seconds: 0 });
+    }
+
+    return () => clearInterval(breakTimer);
+  }, [isOnBreak, breakStartTime]);
 
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
-
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
@@ -159,23 +201,21 @@ const Attendance = () => {
       let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
 
       if (isOnBreak && breakStartTime) {
-        // If the break is ongoing when the user punches out, consider punch-out time as the break end time
         const now = new Date();
         breakDuration = calculateBreakTime(breakStartTime, now);
-        updateBreakTime(breakDuration); // Accumulate to the total break time
+        updateBreakTime(breakDuration);
       }
 
-      const totalBreakDuration = { ...totalBreakTime }; // Total accumulated break time
+      const totalBreakDuration = { ...totalBreakTime };
 
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
+      const workingHours = calculateWorkingHours(production, totalBreakDuration);
 
       const newEntry = {
         employeeId,
         employeeName,
-        punchIn: punchInTime,
+        punchIn: punchInTime, // Ensure to use Date objects
         punchOut: newPunchOutTime,
-        production,
-        breakDuration: totalBreakDuration,
         productionHours: production.hours,
         productionMinutes: production.minutes,
         productionSeconds: production.seconds,
@@ -185,78 +225,83 @@ const Attendance = () => {
         overtime,
       };
 
-      // Reset state variables
+      // Update attendanceData state properly
+
+
+      try {
+        const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data.message);
+        setAttendanceData((prevData) => [...prevData, response.data]);
+      } catch (error) {
+        console.error("Error saving attendance:", error);
+      }
+
+      // Reset state and clear localStorage after punch-out
+      setPunchOutTime(newPunchOutTime);
       setIsPunchedIn(false);
       setPunchInTime(null);
-      setPunchOutTime(null);
-      setBreakStartTime(null);
-      setBreakEndTime(null);
+      setLastElapsedTime(elapsedTime);
       setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-
-      setAttendanceData([...attendanceData, newEntry]);
-
-      // Save data to backend
-      try {
-        await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
-          headers: {
-            "Authorization": `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          }
-        });
-      } catch (error) {
-        console.error('Error saving data to backend:', error);
-      }
-    } else {
-      setPunchInTime(new Date());
-      setIsPunchedIn(true);
       setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
-      setBreakStartTime(null);
-      setBreakEndTime(null);
+
+      localStorage.removeItem('punchInTime');
+      localStorage.removeItem('elapsedTime');
+      localStorage.removeItem('totalBreakTime');
+      localStorage.removeItem('isPunchedIn');
+      localStorage.removeItem('lastElapsedTime');
+      localStorage.removeItem('isOnBreak');
+      localStorage.removeItem('breakStartTime');
+    } else {
+      //Check if already punched out today
+      const hasPunchedOutToday = attendanceData.some(entry => {
+        const entryDate = new Date(entry.punchOut).toLocaleDateString();
+        return entry.employeeId === employeeId && entryDate === today;
+      });
+
+      if (hasPunchedOutToday) {
+        alert("You have already punched out today. You cannot punch in again.");
+        return;
+      }
+      const newPunchInTime = new Date();
+      setPunchInTime(newPunchInTime);
+      setIsPunchedIn(true);
+      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      localStorage.setItem('punchInTime', newPunchInTime);
+      localStorage.setItem('isPunchedIn', 'true');
+      localStorage.setItem('lastElapsedTime', JSON.stringify({ hours: 0, minutes: 0, seconds: 0 }));
     }
   };
 
-  const [isOnBreak, setIsOnBreak] = useState(false);
 
-  const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
-  const [breakTimes, setBreakTimes] = useState([]); // Store individual break times
+
 
   const handleBreakButtonClick = () => {
-    if (isPunchedIn) {
-      if (isOnBreak) {
-        const breakEnd = new Date();
-        const newBreakTime = calculateBreakTime(breakStartTime, breakEnd);
-
-        // Update total break time
-        setTotalBreakTime(prevTime => accumulateTime(prevTime, newBreakTime));
-
-        // Add the break time to the array
-        setBreakTimes(prevTimes => [...prevTimes, newBreakTime]);
-
-        setIsOnBreak(false);
-      } else {
-        setBreakStartTime(new Date());
-        setCurrentBreakTime({ hours: 0, minutes: 0, seconds: 0 });
-        setIsOnBreak(true);
-      }
+    if (isOnBreak) {
+      const now = new Date();
+      const newBreakTime = calculateBreakTime(breakStartTime, now);
+      updateBreakTime(newBreakTime);
+      setBreakEndTime(now);
+      setIsOnBreak(false);
+      localStorage.removeItem('breakStartTime');
+      localStorage.setItem('isOnBreak', 'false');
+    } else {
+      const now = new Date();
+      setBreakStartTime(now);
+      setIsOnBreak(true);
+      localStorage.setItem('breakStartTime', now);
+      localStorage.setItem('isOnBreak', 'true');
     }
   };
 
-  useEffect(() => {
-    let breakInterval;
-    if (isOnBreak && breakStartTime) {
-      breakInterval = setInterval(() => {
-        const now = new Date();
-        const newBreakTime = calculateBreakTime(breakStartTime, now);
-        setCurrentBreakTime(newBreakTime);
-      }, 1000);
-    } else {
-      clearInterval(breakInterval);
-    }
-
-    return () => clearInterval(breakInterval);
-  }, [isOnBreak, breakStartTime]);
-
+  const handleDateChange = (date) => {
+    setSearchDate(date);
+  };
 
 
   return (
@@ -328,6 +373,7 @@ const Attendance = () => {
           <p className=" font-semibold text-[15px] text-[#E65F2B]">Punch Out Time: {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}</p>
           <p className=" font-semibold text-[15px] text-[#E65F2B]">Elapsed Time: {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
           <p className=" font-semibold text-[15px] text-[#E65F2B]"> Break Time: {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]"> Total Break Time: {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}</p>
         </div>
       </div>
 
@@ -400,8 +446,6 @@ const Attendance = () => {
     </div>
   );
 
-
 };
-
 export default Attendance;
 

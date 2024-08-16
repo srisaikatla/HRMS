@@ -1,138 +1,185 @@
-import React, { useState } from "react";
-import { IoInformationCircle, IoSettings } from "react-icons/io5";
-import { MdManageAccounts, MdOutlinePayment } from "react-icons/md";
-import { FaUser, FaInbox } from "react-icons/fa";
-import { RiMoneyRupeeCircleFill, RiBankFill } from "react-icons/ri";
-import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import AdminNavBar from "./AdminNavBar";
+import React from "react";
+import {
+  FaFolder,
+  FaCalendarDay,
+  FaEnvelope,
+  FaBell,
+  FaFilter,
+  FaBars,
+} from "react-icons/fa";
+import { TiMessages } from "react-icons/ti";
 
-// Placeholder components for each tab
-const CompanyInformation = () => <div>Company Information Content</div>;
-const AccountDetails = () => <div>Account Details Content</div>;
-const CompanySettings = () => <div>Company Settings Content</div>;
-const Roles = () => <div>Roles Content</div>;
-const User = () => <div>User Content</div>;
-const Payslips = () => <div>Payslips Content</div>;
-const SalaryStructure = () => <div>Salary Structure Content</div>;
-const Declaration = () => <div>Declaration Content</div>;
-const BankAccount = () => <div>Bank Account Content</div>;
-const Support = () => <div>Support Content</div>;
+function AdminNavBar({ onIconClick }) {
+  const [hoveredIcon, setHoveredIcon] = React.useState("");
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-const AdminSideBar = () => {
-  const [activeTab, setActiveTab] = useState("");
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
-  const options = [
-    {
-      title: "Company Information",
-      icon: <IoInformationCircle size={20} />,
-      subOptions: [
-        { name: "Account Details", icon: <MdManageAccounts size={20} /> },
-        { name: "Company Settings", icon: <IoSettings size={20} /> },
-      ],
-    },
-    { title: "Roles", icon: <FaUser size={20} /> },
-    { title: "User", icon: <FaUser size={20} /> },
-    {
-      title: "Payslips",
-      icon: <MdOutlinePayment size={20} />,
-      subOptions: [
-        {
-          name: "Salary Structure",
-          icon: <RiMoneyRupeeCircleFill size={20} />,
-        },
-        { name: "Declaration", icon: <BsFileEarmarkSpreadsheet size={20} /> },
-        { name: "Bank Account", icon: <RiBankFill size={20} /> },
-      ],
-    },
-    { title: "Support", icon: <FaInbox size={20} /> },
-  ];
-
-  const handleOptionClick = (option) => {
-    if (option.subOptions) {
-      setOpenDropdown(openDropdown === option.title ? null : option.title);
-    } else {
-      setActiveTab(option.title);
-    }
+  const handleMouseEnter = (iconName) => {
+    setHoveredIcon(iconName);
   };
 
-  const handleIconClick = (iconTitle) => {
-    setActiveTab(iconTitle);
+  const handleMouseLeave = () => {
+    setHoveredIcon("");
   };
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case "Company Information":
-        return <CompanyInformation />;
-      case "Account Details":
-        return <AccountDetails />;
-      case "Company Settings":
-        return <CompanySettings />;
-      case "Roles":
-        return <Roles />;
-      case "User":
-        return <User />;
-      case "Payslips":
-        return <Payslips />;
-      case "Salary Structure":
-        return <SalaryStructure />;
-      case "Declaration":
-        return <Declaration />;
-      case "Bank Account":
-        return <BankAccount />;
-      case "Support":
-        return <Support />;
-      default:
-        return <CompanyInformation />;
-    }
+  const iconStyle = (iconName) => ({
+    color: hoveredIcon === iconName ? "#ef5f2b" : "#ef5f2b",
+    fontSize: "1.5rem",
+  });
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <AdminNavBar onIconClick={handleIconClick} />
-      <div className="flex">
-        {/* Sidebar content */}
+    <>
+      <div
+        id="main"
+        className="w-full flex justify-between items-center relative pb-2 top-0"
+      >
         <div
-          className={`${
-            isSidebarCollapsed ? "w-20" : "w-60"
-          } bg-gray-800 h-screen text-white`}
+          id="topbar"
+          className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          <div className="flex flex-col">
-            {options.map((option, index) => (
-              <div key={index}>
-                <button
-                  onClick={() => handleOptionClick(option)}
-                  className="p-4 flex items-center hover:bg-gray-700"
-                >
-                  {option.icon}
-                  {!isSidebarCollapsed && (
-                    <span className="ml-4">{option.title}</span>
-                  )}
-                </button>
-                {option.subOptions &&
-                  openDropdown === option.title &&
-                  option.subOptions.map((subOption, subIndex) => (
-                    <button
-                      key={subIndex}
-                      onClick={() => setActiveTab(subOption.name)}
-                      className="p-4 pl-12 flex items-center hover:bg-gray-700"
-                    >
-                      {subOption.icon}
-                      {!isSidebarCollapsed && (
-                        <span className="ml-4">{subOption.name}</span>
-                      )}
-                    </button>
-                  ))}
-              </div>
-            ))}
+          <div
+            style={{
+              backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
+            }}
+            className="h-[42px] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center"
+          >
+            <input
+              style={{
+                backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
+              }}
+              className="pl-2 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
+              type="search"
+              placeholder="Search Anything here...."
+            />
           </div>
         </div>
-        {/* Main content */}
-        <div className="flex-grow">{renderTabContent()}</div>
-      </div>
-    </div>
-  );
-};
+        <div className="flex justify-start md:hidden z-50 mr-2">
+          <FaBars
+            className="text-[#e65f2b] text-3xl hover:cursor-pointer"
+            onClick={toggleDropdown}
+          />
+          {dropdownOpen && (
+            <div
+              id="icons"
+              className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
+            >
+              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out pb-1 px-2">
+                <FaFolder
+                  className="hover:cursor-pointer"
+                  style={iconStyle("folder")}
+                  onMouseEnter={() => handleMouseEnter("folder")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Company Information")}
+                />
+                <p className="pl-2 text-[#e65f2b]">Files</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 pt-1 px-2">
+                <FaCalendarDay
+                  className="hover:cursor-pointer"
+                  style={iconStyle("calendar")}
+                  onMouseEnter={() => handleMouseEnter("calendar")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Account Details")}
+                />
+                <p className="pl-2 text-[#e65f2b]">Calendar</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2">
+                <TiMessages
+                  className="hover:cursor-pointer"
+                  style={iconStyle("message")}
+                  onMouseEnter={() => handleMouseEnter("message")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Company Settings")}
+                />
+                <p className="pl-2 text-[#e65f2b]">Messages</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2">
+                <FaEnvelope
+                  className="hover:cursor-pointer"
+                  style={iconStyle("mail")}
+                  onMouseEnter={() => handleMouseEnter("mail")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Roles")}
+                />
+                <p className="pl-2 text-[#e65f2b]">Mails</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2">
+                <FaBell
+                  className="hover:cursor-pointer"
+                  style={iconStyle("bell")}
+                  onMouseEnter={() => handleMouseEnter("bell")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("User")}
+                />
+                <p className="pl-2 text-[#e65f2b]">Notification</p>
+              </div>
+              <div className="py-1 border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out px-2">
+                <FaFilter
+                  className="hover:cursor-pointer"
+                  style={iconStyle("filter")}
+                  onMouseEnter={() => handleMouseEnter("filter")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Company Information")}
+                />
+                <p className="pl-2 text-[#e65f2b]">Filter</p>
+              </div>
+            </div>
+          )}
+        </div>
 
-export default AdminSideBar;
+        <div
+          id="icons"
+          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"
+        >
+          <FaFolder
+            className="hover:cursor-pointer"
+            style={iconStyle("folder")}
+            onMouseEnter={() => handleMouseEnter("folder")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Company Information")}
+          />
+          <FaCalendarDay
+            className="hover:cursor-pointer"
+            style={iconStyle("calendar")}
+            onMouseEnter={() => handleMouseEnter("calendar")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Account Details")}
+          />
+          <TiMessages
+            className="hover:cursor-pointer"
+            style={iconStyle("message")}
+            onMouseEnter={() => handleMouseEnter("message")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Company Settings")}
+          />
+          <FaEnvelope
+            className="hover:cursor-pointer"
+            style={iconStyle("mail")}
+            onMouseEnter={() => handleMouseEnter("mail")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Roles")}
+          />
+          <FaBell
+            className="hover:cursor-pointer"
+            style={iconStyle("bell")}
+            onMouseEnter={() => handleMouseEnter("bell")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("User")}
+          />
+          <FaFilter
+            className="hover:cursor-pointer"
+            style={iconStyle("filter")}
+            onMouseEnter={() => handleMouseEnter("filter")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Company Information")}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default AdminNavBar;

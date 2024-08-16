@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { MdCancelPresentation } from 'react-icons/md';
 import Education from './Education';
 import Documents from './Documents';
 import UpdatePassword from './UpdatePassword'; // Import the new component
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
     // State for active tab
@@ -15,19 +17,20 @@ const Profile = () => {
     const [isAddressesModalOpen, setIsAddressesModalOpen] = useState(false);
     const [isDocumentsModalOpen, setIsDocumentsModalOpen] = useState(false);
     const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
+    const auth = useSelector((state) => state.auth)
 
     // State for form values
     const [personalInfo, setPersonalInfo] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
+        firstName: auth.employee.firstName,
+        lastName: auth.employee.lastName,
+        email: auth.employee.email,
+        phone: auth.employee.phoneNumber,
     });
 
     const [contactInfo, setContactInfo] = useState({
-        officialEmail: '',
-        personalEmail: '',
-        phoneNumber: '',
+        officialEmail: auth.employee.email,
+        personalEmail: auth.employee.personalEmail,
+        phoneNumber: auth.employee.phoneNumber,
         alternatePhone: '',
     });
 
@@ -321,7 +324,7 @@ const Profile = () => {
 
             {activeTab === 'education' && <Education />}
 
-           {activeTab === 'documents' && (
+            {activeTab === 'documents' && (
                 <Documents
                     handleOpenDocumentsModal={handleOpenDocumentsModal}
                     handleCloseDocumentsModal={handleCloseDocumentsModal}
@@ -331,209 +334,209 @@ const Profile = () => {
 
             {activeTab === 'password' && <UpdatePassword />}
 
-           
+
             {isPersonalModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                    <h2 className="text-xl  text-orange-500 mb-4">Edit Personal Information</h2>
-                    <div className="flex flex-col mb-4">
-                        <label htmlFor="firstName" className="mb-2 font-medium text-orange-500">First Name</label>
-                        <input
-                            id="firstName"
-                            type="text"
-                            value={personalInfo.firstName}
-                            onChange={handleChangePersonalInfo}
-                            className="border border-orange-500 rounded-lg p-2"
-                        />
-                    </div>
-                    <div className="flex flex-col mb-4">
-                        <label htmlFor="lastName" className="mb-2 font-medium text-orange-500">Last Name</label>
-                        <input
-                            id="lastName"
-                            type="text"
-                            value={personalInfo.lastName}
-                            onChange={handleChangePersonalInfo}
-                            className="border border-orange-500 rounded-lg p-2"
-                        />
-                    </div>
-                    <div className="flex flex-col mb-4">
-                        <label htmlFor="email" className="mb-2 font-medium text-orange-500">Email</label>
-                        <input
-                            id="email"
-                            type="email"
-                            value={personalInfo.email}
-                            onChange={handleChangePersonalInfo}
-                            className="border border-orange-500 rounded-lg p-2"
-                        />
-                    </div>
-                    <div className="flex flex-col mb-4">
-                        <label htmlFor="phone" className="mb-2 font-medium text-orange-500">Phone Number</label>
-                        <input
-                            id="phone"
-                            type="tel"
-                            value={personalInfo.phone}
-                            onChange={handleChangePersonalInfo}
-                            className="border border-orange-500 rounded-lg p-2"
-                        />
-                    </div>
-                    <div className="flex justify-end">
-                        <button
-                            onClick={handleSavePersonalInfo}
-                            className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg"
-                        >
-                            Save
-                        </button>
-                        <button
-                            onClick={handleClosePersonalModal}
-                            className="bg-gray-300 text-blackh-[40px] w-[120px] rounded-lg ml-2"
-                        >
-                            Cancel
-                        </button>
+                    <div className="bg-white p-6 rounded-lg w-full max-w-md">
+                        <h2 className="text-xl  text-orange-500 mb-4">Edit Personal Information</h2>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="firstName" className="mb-2 font-medium text-orange-500">First Name</label>
+                            <input
+                                id="firstName"
+                                type="text"
+                                value={personalInfo.firstName}
+                                onChange={handleChangePersonalInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="lastName" className="mb-2 font-medium text-orange-500">Last Name</label>
+                            <input
+                                id="lastName"
+                                type="text"
+                                value={personalInfo.lastName}
+                                onChange={handleChangePersonalInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="email" className="mb-2 font-medium text-orange-500">Email</label>
+                            <input
+                                id="email"
+                                type="email"
+                                value={personalInfo.email}
+                                onChange={handleChangePersonalInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="phone" className="mb-2 font-medium text-orange-500">Phone Number</label>
+                            <input
+                                id="phone"
+                                type="tel"
+                                value={personalInfo.phone}
+                                onChange={handleChangePersonalInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handleSavePersonalInfo}
+                                className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={handleClosePersonalModal}
+                                className="bg-gray-300 text-blackh-[40px] w-[120px] rounded-lg ml-2"
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
+
             )}
 
             {/* Modal for Contact Information */}
             {isContactModalOpen && (
-               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-               <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                   <h2 className="text-xl mb-4 text-orange-500">Edit Contact Information</h2>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="officialEmail" className="mb-2 font-medium text-orange-500">Official Email</label>
-                       <input
-                           id="officialEmail"
-                           type="email"
-                           value={contactInfo.officialEmail}
-                           onChange={handleChangeContactInfo}
-                           className="border border-orange-500 rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="personalEmail" className="mb-2 font-medium text-orange-500">Personal Email</label>
-                       <input
-                           id="personalEmail"
-                           type="email"
-                           value={contactInfo.personalEmail}
-                           onChange={handleChangeContactInfo}
-                           className="border border-orange-500 rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="phoneNumber" className="mb-2 font-medium text-orange-500">Phone Number</label>
-                       <input
-                           id="phoneNumber"
-                           type="tel"
-                           value={contactInfo.phoneNumber}
-                           onChange={handleChangeContactInfo}
-                           className="border border-orange-500 rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="alternatePhone" className="mb-2 font-medium text-orange-500">Alternate Phone</label>
-                       <input
-                           id="alternatePhone"
-                           type="tel"
-                           value={contactInfo.alternatePhone}
-                           onChange={handleChangeContactInfo}
-                           className="border border-orange-500 rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex justify-end">
-                       <button
-                           onClick={handleSaveContactInfo}
-                           className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg"
-                       >
-                           Save
-                       </button>
-                       <button
-                           onClick={handleCloseContactModal}
-                           className="bg-gray-300 text-black h-[40px] w-[120px] rounded-lg ml-2"
-                       >
-                           Cancel
-                       </button>
-                   </div>
-               </div>
-           </div>
-           
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg w-full max-w-md">
+                        <h2 className="text-xl mb-4 text-orange-500">Edit Contact Information</h2>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="officialEmail" className="mb-2 font-medium text-orange-500">Official Email</label>
+                            <input
+                                id="officialEmail"
+                                type="email"
+                                value={contactInfo.officialEmail}
+                                onChange={handleChangeContactInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="personalEmail" className="mb-2 font-medium text-orange-500">Personal Email</label>
+                            <input
+                                id="personalEmail"
+                                type="email"
+                                value={contactInfo.personalEmail}
+                                onChange={handleChangeContactInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="phoneNumber" className="mb-2 font-medium text-orange-500">Phone Number</label>
+                            <input
+                                id="phoneNumber"
+                                type="tel"
+                                value={contactInfo.phoneNumber}
+                                onChange={handleChangeContactInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="alternatePhone" className="mb-2 font-medium text-orange-500">Alternate Phone</label>
+                            <input
+                                id="alternatePhone"
+                                type="tel"
+                                value={contactInfo.alternatePhone}
+                                onChange={handleChangeContactInfo}
+                                className="border border-orange-500 rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handleSaveContactInfo}
+                                className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={handleCloseContactModal}
+                                className="bg-gray-300 text-black h-[40px] w-[120px] rounded-lg ml-2"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             )}
 
             {/* Modal for Addresses */}
             {isAddressesModalOpen && (
-               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-               <div className="bg-white p-6 rounded-lg w-full max-w-md">
-                   <h2 className="text-xl mb-4 text-[#E65F2B]">Edit Address Information</h2>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="currentAddress" className="mb-2 font-medium text-[#E65F2B]">Current Address</label>
-                       <input
-                           id="currentAddress"
-                           type="text"
-                           value={addressInfo.currentAddress}
-                           onChange={handleChangeAddressInfo}
-                           className="border border-[#E65F2B] rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="permanentAddress" className="mb-2 font-medium text-[#E65F2B]">Permanent Address</label>
-                       <input
-                           id="permanentAddress"
-                           type="text"
-                           value={addressInfo.permanentAddress}
-                           onChange={handleChangeAddressInfo}
-                           className="border border-[#E65F2B] rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="houseType" className="mb-2 font-medium text-[#E65F2B]">House Type</label>
-                       <input
-                           id="houseType"
-                           type="text"
-                           value={addressInfo.houseType}
-                           onChange={handleChangeAddressInfo}
-                           className="border border-[#E65F2B] rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="currentResidenceSince" className="mb-2 font-medium text-[#E65F2B]">Current Residence Since</label>
-                       <input
-                           id="currentResidenceSince"
-                           type="text"
-                           value={addressInfo.currentResidenceSince}
-                           onChange={handleChangeAddressInfo}
-                           className="border border-[#E65F2B] rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex flex-col mb-4">
-                       <label htmlFor="currentResidence" className="mb-2 font-medium text-[#E65F2B]">Current Residence</label>
-                       <input
-                           id="currentResidence"
-                           type="text"
-                           value={addressInfo.currentResidence}
-                           onChange={handleChangeAddressInfo}
-                           className="border border-[#E65F2B] rounded-lg p-2"
-                       />
-                   </div>
-                   <div className="flex justify-end">
-                       <button
-                           onClick={handleSaveAddressInfo}
-                           className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg"
-                       >
-                           Save
-                       </button>
-                       <button
-                           onClick={handleCloseAddressesModal}
-                           className="bg-gray-300 text-black h-[40px] w-[120px] rounded-lg ml-2"
-                       >
-                           Cancel
-                       </button>
-                   </div>
-               </div>
-           </div>
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg w-full max-w-md">
+                        <h2 className="text-xl mb-4 text-[#E65F2B]">Edit Address Information</h2>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="currentAddress" className="mb-2 font-medium text-[#E65F2B]">Current Address</label>
+                            <input
+                                id="currentAddress"
+                                type="text"
+                                value={addressInfo.currentAddress}
+                                onChange={handleChangeAddressInfo}
+                                className="border border-[#E65F2B] rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="permanentAddress" className="mb-2 font-medium text-[#E65F2B]">Permanent Address</label>
+                            <input
+                                id="permanentAddress"
+                                type="text"
+                                value={addressInfo.permanentAddress}
+                                onChange={handleChangeAddressInfo}
+                                className="border border-[#E65F2B] rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="houseType" className="mb-2 font-medium text-[#E65F2B]">House Type</label>
+                            <input
+                                id="houseType"
+                                type="text"
+                                value={addressInfo.houseType}
+                                onChange={handleChangeAddressInfo}
+                                className="border border-[#E65F2B] rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="currentResidenceSince" className="mb-2 font-medium text-[#E65F2B]">Current Residence Since</label>
+                            <input
+                                id="currentResidenceSince"
+                                type="text"
+                                value={addressInfo.currentResidenceSince}
+                                onChange={handleChangeAddressInfo}
+                                className="border border-[#E65F2B] rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex flex-col mb-4">
+                            <label htmlFor="currentResidence" className="mb-2 font-medium text-[#E65F2B]">Current Residence</label>
+                            <input
+                                id="currentResidence"
+                                type="text"
+                                value={addressInfo.currentResidence}
+                                onChange={handleChangeAddressInfo}
+                                className="border border-[#E65F2B] rounded-lg p-2"
+                            />
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handleSaveAddressInfo}
+                                className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={handleCloseAddressesModal}
+                                className="bg-gray-300 text-black h-[40px] w-[120px] rounded-lg ml-2"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
 
             {/* Modal for Documents (from Documents component) */}
-           
+
 
             {/* Modal for Education */}
             {isEducationModalOpen && (
@@ -555,7 +558,7 @@ const Profile = () => {
             )}
 
             {/* Modal for Update Password */}
-           
+
         </div>
     );
 };
