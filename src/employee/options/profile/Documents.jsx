@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { FiEdit } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { useSelector } from 'react-redux';
 
 const initialDocumentsData = [{
     id: 1,
@@ -25,11 +28,14 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
     const [editingId, setEditingId] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
 
+    const auth = useSelector((state) => state.auth)
+    const aadhar_card = auth.employee.aadharCardNumber
+
     const handleDocumentSave = () => {
         const newDocument = {
             id: editMode ? editingId : (documentsData.length ? Math.max(...documentsData.map(item => item.id)) + 1 : 1),
             idType,
-            idNumber,
+            aadhar_card,
             isVerified,
             isSubmitted,
             fileName
@@ -55,7 +61,7 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
         const documentToEdit = documentsData.find(item => item.id === id);
         if (documentToEdit) {
             setIdType(documentToEdit.idType);
-            setIdNumber(documentToEdit.idNumber);
+            setIdNumber(aadhar_card);
             setIsVerified(documentToEdit.isVerified);
             setIsSubmitted(documentToEdit.isSubmitted);
             setFileName(documentToEdit.fileName);
@@ -122,7 +128,7 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                         {documentsData.map(item => (
                             <tr key={item.id}>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.idType}</td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{item.idNumber}</td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{aadhar_card}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{item.isVerified ? 'Yes' : 'No'}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{item.isSubmitted ? 'Yes' : 'No'}</td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{item.fileName}</td>
@@ -243,13 +249,13 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
 
             {successMessage && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-                <div className="bg-[#E65F2B] p-8 rounded-lg text-center text-white">
-                    <h2 className="text-3xl mb-4">
-                        <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
-                    </h2>
-                    {successMessage}
+                    <div className="bg-[#E65F2B] p-8 rounded-lg text-center text-white">
+                        <h2 className="text-3xl mb-4">
+                            <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+                        </h2>
+                        {successMessage}
+                    </div>
                 </div>
-            </div>
             )}
         </div>
     );

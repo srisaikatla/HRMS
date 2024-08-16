@@ -166,16 +166,19 @@ function HolidayList() {
                   <td className="py-2 px-4 border-b text-center truncate">{holiday.day}</td>
                   <td className="py-2 px-4 border-b text-center truncate">{holiday.date}</td>
                   <td className="py-2 px-4 border-b text-center truncate">{holiday.holidayName}</td>
-                  <td className="border p-2">
+                  <td className="py-2 px-4 border-b  truncate">
                     <FiEdit
                       className="text-blue-500 cursor-pointer mr-2"
                       onClick={() => handleEditHoliday(holiday)}
 
                     />
                     <FiTrash2
-                      className="text-red-500 cursor-pointer"
+                      className="text-red-500 cursor-pointer mt-2"
                       onClick={() => handleDeleteHoliday(holiday.holidayName)}
                     />
+
+
+
                   </td>
                 </tr>
               ))}

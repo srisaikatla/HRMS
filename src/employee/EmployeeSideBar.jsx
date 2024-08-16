@@ -43,7 +43,7 @@ import Profile from "./options/profile/Profile";
 // import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployee, logout } from "../State/Auth/Action";
+import { employee, getEmployee, logout } from "../State/Auth/Action";
 import EmployeDashboard from "./options/employe_dashboard/EmployeDashboard"
 import { useNavigate } from "react-router-dom";
 
@@ -74,7 +74,7 @@ const EmployeeSideBar = () => {
       ],
     },
     { title: "Profile", icon: <FaUser /> },
-  
+
     { title: "Apply Leave", icon: <FaSignOutAlt /> },
     { title: "Projects", icon: <FaProjectDiagram /> },
     { title: "Inbox", icon: <FaInbox /> },
@@ -161,7 +161,7 @@ const EmployeeSideBar = () => {
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
-                <p className="text-[16px] text-white pl-2">Welcome {auth.employee ? auth.employee.firstName.toUpperCase() : "user"}</p>
+                <p className="text-[16px] text-white pl-2">Welcome {auth.employee ? auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase() : "user"}</p>
               </div>
             )}
           </div>

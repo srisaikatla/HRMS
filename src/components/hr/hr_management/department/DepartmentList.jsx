@@ -89,11 +89,11 @@ function DepartmentList() {
       setDepartments(departments.map(department =>
         department.id === editId
           ? {
-              ...department,
-              department: departmentName,
-              departmentHead: departmentHead,
-              totalEmployees: parseInt(totalEmployees, 10) || 0,
-            }
+            ...department,
+            department: departmentName,
+            departmentHead: departmentHead,
+            totalEmployees: parseInt(totalEmployees, 10) || 0,
+          }
           : department
       ));
     } else {
@@ -143,7 +143,7 @@ function DepartmentList() {
     <div id="main" className="h-screen p-4 ">
       <div className="ml-3 mb-4">
         <p className="text-[#E65F2B] text-xl font-bold mb-4">
-        HR Management / Employees / Department List
+          HR Management / Employees / Department List
         </p>
       </div>
 

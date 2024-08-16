@@ -260,7 +260,7 @@ const Attendance = () => {
       //Check if already punched out today
       const hasPunchedOutToday = attendanceData.some(entry => {
         const entryDate = new Date(entry.punchOut).toLocaleDateString();
-        return entryDate === today;
+        return entry.employeeId === employeeId && entryDate === today;
       });
 
       if (hasPunchedOutToday) {
