@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 const LOCALHOST = 'http://13.234.49.187:8080'
-// const LOCALHOST = 'http://localhost:8081'
+// const LOCALHOST = 'http://localhost:8080'
 
 export const API_BASE_URL = LOCALHOST
 
