@@ -91,8 +91,8 @@ function EmployeDashboard() {
                 background: 'radial-gradient(circle, #E65F2B 0%, #FF9900 100%)',
               }}>
               <div className="absolute inset-0 flex flex-col pl-[40px] items-center justify-center">
-                <h1 className="text-white pl-6 font-bold text-[23px]">Welcome Back</h1>
-                <h1 className="text-white mt-2 font-bold text-[20px]">{auth.employee.firstName + " " + auth.employee.lastName}</h1>
+                <h1 className="text-white pl-6 font-bold text-[23px]">Welcome Back,</h1>
+                <h1 className="text-white mt-2 font-bold text-[20px]">{auth.employee ? auth.employee.firstName + " " + auth.employee.lastName : "employee"}</h1>
                 <p className="text-white mt-2 text-[20px]">You have 4 meetings today</p>
                 <button className="bg-white text-[#E65F2B] h-[45px] w-[150px] mt-8 rounded-lg transition duration-300">
                   View Profile
