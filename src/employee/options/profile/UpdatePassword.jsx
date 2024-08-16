@@ -39,6 +39,10 @@ const UpdatePassword = () => {
                 setPopupMessage('Password updated successfully!');
                 setShowPopup(true); // Show the popup
 
+                setCurrentPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
+
                 // Hide popup after 2 seconds
                 setTimeout(() => {
                     setShowPopup(false);
