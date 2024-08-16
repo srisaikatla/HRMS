@@ -41,6 +41,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
     { title: "Holiday", icon: <FaCalendarAlt /> },
+    // { title: "Leaves", icon: <MdOutlineSocialDistance /> },
     { title: "Events", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
     { title: "HR Social", icon: <MdOutlineSocialDistance /> },
@@ -59,12 +60,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const employeeOptions = [
     // { title: "New Employee", icon: <FaBuilding /> },
     { title: "All Employees", icon: <FaUsers /> },
-    { title: "Leaves", icon: <FaBuilding /> },
     { title: "Compensation", icon: <FaBuilding /> },
-    { title: "IT Declarations", icon: <FaBuilding /> },
     // { title: "Employee Import", icon: <FaBuilding /> },
-
-    // { title: "Attendance", icon: <FaCalendarCheck /> },
+    { title: "IT Declarations", icon: <FaBuilding /> },
+    { title: "Leaves", icon: <FaBuilding /> },
+    { title: "Emp Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
 
     { title: "Onboarding", icon: <FaBuilding /> },

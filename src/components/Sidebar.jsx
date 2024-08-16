@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import HolidayTab from "../components/hr/holiday/HolidayList";
-import ViewEmployees from "../components/hr/employe/AllEmployees";
-import Leaves from "../components/hr/employe/Leaves/Leaves";
-import Attendance from "../components/hr/employe/Attendance";
-// import DepartmentList from "../components/hr/employe/DepartmentList";
+import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
+import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
+// import Attendance from "../components/hr/employe/Attendance";
+// import DepartmentList from "../components/hr/hr_management/department/DepartmentList";
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
 import AccountInvoice from "../components/hr/account/AccountInvoice";
@@ -32,7 +32,7 @@ import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
-import OnBording from "./hr/hr_management/employeImport/EmployeImport";
+import EmployeImport from "./hr/hr_management/employeImport/EmployeImport";
 import Compensation from "./hr/hr_management/compensation/Compensation";
 import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
 import PaySlip from "./hr/payroll/paySlips/PaySlips";
@@ -65,9 +65,12 @@ const SideBar = () => {
     }
   }, [jwt, auth.jwt, dispatch]);
 
+  const handleIconClick = (iconTitle) => {
+    setActiveTab(iconTitle);
+  };
   return (
     <div className="relative h-auto bg-[#0098f1]  bg-opacity-10">
-      <NavBar />
+      <NavBar onIconClick={handleIconClick} />
       <div
         className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
@@ -144,13 +147,13 @@ const SideBar = () => {
           isSidebarCollapsed ? "ml-[100px]" : "ml-[240px]"
         }`}
       >
-        {activeTab === "Hr Dashboard" && <HrDashboard />}
+        {/* {activeTab === "Hr Dashboard" && <HrDashboard />} */}
         {activeTab === "Holiday" && <HolidayTab />}
         {activeTab === "Events" && <Events />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
-        {activeTab === "View Employees" && <ViewEmployees />}
-        {/* {activeTab === "Leave Requests" && <LeaveRequest />} */}
+        {activeTab === "All Employees" && <AllEmployee />}
+        {activeTab === "Leaves" && <LeaveRequest />}
         {/* {activeTab === "Attendance" && <Attendance />} */}
         {/* {activeTab === "Department" && <DepartmentList />} */}
         {activeTab === "Report Invoice" && <ReportInvoice />}
@@ -168,7 +171,7 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
-        {activeTab === "Employee Import" && <OnBording />}
+        {activeTab === "Employee Import" && <EmployeImport />}
         {activeTab === "Compensation" && <Compensation />}
         {activeTab === "Leaves" && <Leaves />}
         {activeTab === "DashBoard" && <PayrollDashboard />}
@@ -180,6 +183,8 @@ const SideBar = () => {
         {activeTab === "IT Declarations" && <ITDeclarations />}
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
+        {activeTab === "Emp Attendance" && <EmployeAttandance />}
+        {activeTab === "Leaves" && <Leaves />}
       </div>
     </div>
   );

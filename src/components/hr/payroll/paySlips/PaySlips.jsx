@@ -276,6 +276,9 @@ const PaySlips = () => {
 
   return (
     <div className="p-4">
+        <p className="text-[#E65F2B] text-xl font-bold mb-4">
+        <span>PayRoll</span> / <span>Payslips</span>
+      </p>
       <div className="text-center my-8">
         <div className="mb-4">
           <label className="text-gray-700">Select Financial Year : </label>

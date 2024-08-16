@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
 
+// import AdminSideBar from "./admin/AdminSideBar";
 import EmployeeSideBar from "./employee/EmployeeSideBar";
 import HrLogin from "./components/hr/authentication/hrLogin/HrLogin";
 import EmployeeLogin from "./employee/EmployeeLogin";
@@ -12,6 +13,7 @@ import NotFoundPage from "./components/hr/authentication/notFoundPage/NotFoundPa
 import Register from "./components/hr/authentication/register/Register";
 import Options from "./optionsPages/Options";
 import AdminSideBar from "./admin/AdminSideBar";
+import AdminNavbar from "./admin/AdminNavBar";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/hr" element={<Sidebar />} />
+          <Route path="/admin" element={<AdminSideBar />} />
           <Route path="/login" element={<HrLogin />} />
           <Route path="/" element={<EmployeeLogin />} />
           <Route path="/register" element={<Register />} />
@@ -27,6 +30,7 @@ function App() {
           <Route path="/employee" element={<EmployeeSideBar />} />
           <Route path="/option" element={<Options />} />
           <Route path="/admin" element={<AdminSideBar />} />
+          <Route path="/adminnavbar" element={<AdminNavbar />} />
           {/* <Route path="/allemployees" element={<AllEmployees />} />
           <Route path="/leaverequest" element={<LeaveRequest />} /> */}
           {/* <Route path="/departmentlist" element={<DepartmentList />} /> */}

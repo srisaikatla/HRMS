@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../adminAssets/profile/boy.png";
 import AdminNavBar from "./AdminNavBar";
-import AdminNavigation from "./options/accountDetails/AccountNavigation";
-import CompanySettingsNavigation from "./options/companySettings/CompanySettingsNavigation";
 
+import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
+import CompanyInformation from "./options/company_info/CompanyInformation";
 import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
-
+import User from "./options/users/User";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
@@ -14,7 +14,7 @@ import { IoInformationCircle } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
 import { IoSettings } from "react-icons/io5";
 import { FaPeopleGroup } from "react-icons/fa6";
-// import { FaUser } from "react-icons/fa";
+
 import { MdOutlinePayment } from "react-icons/md";
 import { RiBankFill } from "react-icons/ri";
 
@@ -59,17 +59,21 @@ const AdminSideBar = () => {
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
+  const handleIconClick = (iconTitle) => {
+    setActiveTab(iconTitle);
+  };
 
   return (
     <div className="relative bg-[#e65f2b] bg-opacity-10">
-      <AdminNavBar />
+      {/* <AdminNavBar /> */}
+      <AdminNavBar onIconClick={handleIconClick} />
       <div
         style={{
           backgroundImage: "linear-gradient(to bottom, #E65F2B, #FFC252)",
         }}
-        className={`flex flex-col h-screen fixed mr-20 transition-all duration-300 ${
+        className={`flex flex-col h-screen   fixed mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        } pb-10 h-screen fixed  top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-4 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-5">
@@ -114,16 +118,7 @@ const AdminSideBar = () => {
                   )}
                 </div>
                 {option.subOptions && openDropdown === option.title && (
-                  <ul
-                    // style={{
-                    //   backgroundImage:
-                    //     "linear-gradient(to bottom, #f18b3c, #Fab14b)",
-                    //   backgroundColor: "transparent",
-                    //   border: "none",
-                    //   boxShadow: "none",
-                    // }}
-                    className="text-[#e65f2b] pr-2  rounded-br-3xl bg-transparent  transition-all duration-1000"
-                  >
+                  <ul className="text-[#e65f2b] pr-2  rounded-br-3xl bg-transparent  transition-all duration-1000">
                     {option.subOptions.map((subOption, subIndex) => (
                       <li
                         key={subIndex}
@@ -155,8 +150,9 @@ const AdminSideBar = () => {
         }`}
       >
         <div className="">
-          {activeTab === "Account Details" && <AdminNavigation />}
           {activeTab === "Company Settings" && <CompanySettingsNavigation />}
+          {activeTab === "Company Information" && <CompanyInformation />}
+          {activeTab === "User" && <User />}
         </div>
       </div>
     </div>

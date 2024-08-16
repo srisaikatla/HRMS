@@ -365,7 +365,7 @@ function Types() {
   return (
     <div className="ml-20  p-4">
       {showSuccessMessage && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 w-auto h-full flex justify-center items-center ">
+        <div className="absolute inset-0 bg-gray-600 bg-opacity-50 w-auto h-full flex justify-center items-center ">
           <div className="text-white bg-gradient-to-b from-[#E65F2B] to-[#FFC252]  w-[320px] h-[240px] py-8 px-4 sm:py-10 sm:px-16 rounded-lg  flex flex-col justify-center items-center relative">
             <BsCheck2Circle className="text-6xl text-white  mb-4" />
             {successMessage}
@@ -383,7 +383,7 @@ function Types() {
 
       {/* Add Modal */}
       {showAddModal && (
-        <div className="absolute text-[#e65f2b] inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed text-[#e65f2b] inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white w-auto flex-col p-4 rounded shadow-lg">
             <div className="w-[400px] h-[200px]">
               <h2 className="text-xl mb-2">Add Employee Type</h2>

@@ -266,7 +266,7 @@ const EmployeeNavigation = () => {
                 </>
               )}
               <p className="text-sm pt-2">
-                <strong></strong> {item.timestamp}
+                <strong>Timestamp:</strong> {item.timestamp}
               </p>
             </div>
           ))

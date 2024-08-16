@@ -1,29 +1,45 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
-import { MdEditSquare } from "react-icons/md";
-
-const initialHolidays = [
-  {
-    id: 1,
-    day: "Thursday",
-    date: "25 Apr 2024",
-    name: "Maharshi Parasuram Jayanti",
-  },
-  // Add more holidays here
-];
+import { API_BASE_URL } from "../../../Config/api";
 
 function HolidayList() {
-  const [holidays, setHolidays] = useState(initialHolidays);
+  const [holidays, setHolidays] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
   const [newHoliday, setNewHoliday] = useState({
     day: "",
     date: "",
-    name: "",
+    holidayName: "",
   });
   const [editHolidayId, setEditHolidayId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
     useState(false);
+  const jwt = localStorage.getItem("jwt");
+
+  // Fetch holidays from the backend when the component loads
+  useEffect(() => {
+    fetchHolidays();
+  }, []);
+
+  const fetchHolidays = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/holidays`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      setHolidays(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+      setErrorMessage("Error fetching employees");
+      setLoading(false);
+    }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -31,7 +47,7 @@ function HolidayList() {
     setNewHoliday({
       day: "",
       date: "",
-      name: "",
+      holidayName: "",
     });
   };
 
@@ -43,63 +59,67 @@ function HolidayList() {
     }));
   };
 
-  const handleAddHoliday = () => {
-    if (editHolidayId !== null) {
-      const updatedHolidays = holidays.map((holiday) => {
-        if (holiday.id === editHolidayId) {
-          return {
-            ...holiday,
-            day: newHoliday.day,
-            date: newHoliday.date,
-            name: newHoliday.name,
-          };
-        }
-        return holiday;
+  const handleAddHoliday = async () => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/holidays`, {
+        ...newHoliday,
       });
-      setHolidays(updatedHolidays);
+      setHolidays((prev) => [...prev, response.data]);
       setShowSuccessMessage(true);
-    } else {
-      const newHolidayObject = {
-        id:
-          holidays.length > 0
-            ? Math.max(...holidays.map((holiday) => holiday.id)) + 1
-            : 1,
-        day: newHoliday.day,
-        date: newHoliday.date,
-        name: newHoliday.name,
-      };
-      setHolidays([...holidays, newHolidayObject]);
-      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+      closeModal();
+      fetchHolidays();
+    } catch (error) {
+      console.error("Error adding Holiday:", error);
+      setErrorMessage("Error adding Holiday");
+      setTimeout(() => setErrorMessage(""), 3000);
     }
-
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
-
-    closeModal();
   };
 
-  const openEditModal = (holidayId) => {
-    const holidayToEdit = holidays.find((holiday) => holiday.id === holidayId);
-    setEditHolidayId(holidayId);
+  const handleEditHoliday = (holiday) => {
     setNewHoliday({
-      day: holidayToEdit.day,
-      date: holidayToEdit.date,
-      name: holidayToEdit.name,
+      day: holiday.day,
+      date: holiday.date,
+      holidayName: holiday.holidayName,
     });
+    setEditHolidayId(holiday.holidayName);
     setIsModalOpen(true);
   };
 
-  const handleDeleteHoliday = (holidayId) => {
-    const updatedHolidays = holidays.filter(
-      (holiday) => holiday.id !== holidayId
-    );
-    setHolidays(updatedHolidays);
-    setShowDeleteSuccessMessage(true);
+  const handleUpdateHoliday = async () => {
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/holidays/${editHolidayId}`,
+        newHoliday
+      );
+      setHolidays((prev) =>
+        prev.map((emp) =>
+          emp.holidayName === editHolidayId ? response.data : emp
+        )
+      );
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+      closeModal();
+    } catch (error) {
+      console.error("Error updating holiday:", error);
+      setErrorMessage("Error updating holiday");
+      setTimeout(() => setErrorMessage(""), 3000);
+    }
+  };
 
-    setTimeout(() => {
-      setShowDeleteSuccessMessage(false);
-    }, 3000);
+  const handleDeleteHoliday = async (holidayId) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/holidays/delete/${holidayId}`);
+      setHolidays((prev) =>
+        prev.filter((holiday) => holiday.holidayName !== holidayId)
+      );
+
+      setShowDeleteSuccessMessage(true);
+      setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
+      fetchHolidays();
+    } catch (error) {
+      console.error("Error deleting holiday:", error);
+    }
   };
 
   return (
@@ -121,10 +141,15 @@ function HolidayList() {
             </button>
           </div>
         </div>
-        <div id="table" className=" overflow-x-scroll">
-          <table className="min-w-full w-screen overflow-x-scroll text-nowrap border-collapse">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <table className="min-w-full border-collapse">
             <thead className="bg-[#0098f1] text-white">
               <tr>
+                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                  Sl.No
+                </th>
                 <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
                   Day
                 </th>
@@ -140,8 +165,11 @@ function HolidayList() {
               </tr>
             </thead>
             <tbody>
-              {holidays.map((holiday) => (
-                <tr key={holiday.id}>
+              {holidays.map((holiday, index) => (
+                <tr key={holiday.holidayName}>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {index + 1}
+                  </td>
                   <td className="py-2 px-4 border-b text-center truncate">
                     {holiday.day}
                   </td>
@@ -149,29 +177,23 @@ function HolidayList() {
                     {holiday.date}
                   </td>
                   <td className="py-2 px-4 border-b text-center truncate">
-                    {holiday.name}
+                    {holiday.holidayName}
                   </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    <div className="flex justify-center items-center space-x-2">
-                      <button
-                        className="text-blue-500 flex items-center"
-                        onClick={() => openEditModal(holiday.id)}
-                      >
-                        <FiEdit className="text-white bg-[#2A8F4C] rounded-md w-7 h-7 p-1" />
-                      </button>
-                      <button
-                        className="text-red-500 flex items-center"
-                        onClick={() => handleDeleteHoliday(holiday.id)}
-                      >
-                        <FiTrash2 className="text-white bg-[#FF3636] w-7 h-7 rounded-md p-1" />
-                      </button>
-                    </div>
+                  <td className="border p-2">
+                    <FiEdit
+                      className="text-blue-500 cursor-pointer mr-2"
+                      onClick={() => handleEditHoliday(holiday)}
+                    />
+                    <FiTrash2
+                      className="text-red-500 cursor-pointer"
+                      onClick={() => handleDeleteHoliday(holiday.holidayName)}
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
+        )}
       </div>
 
       {isModalOpen && (
@@ -180,65 +202,75 @@ function HolidayList() {
             <h2 className="text-2xl mb-4">
               {editHolidayId ? "Edit Holiday" : "Add Holiday"}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-2">Day</label>
+            <form>
+              <div className="mb-4">
+                <label className="block text-gray-700">Day</label>
                 <input
                   type="text"
                   name="day"
                   value={newHoliday.day}
                   onChange={handleInputChange}
-                  className="border border-blue-300 focus:outline-none p-2 w-full"
+                  className="border p-2 w-full"
                 />
               </div>
-              <div>
-                <label className="block mb-2">Date</label>
+              <div className="mb-4">
+                <label className="block text-gray-700">Date</label>
                 <input
                   type="date"
                   name="date"
                   value={newHoliday.date}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="border p-2 w-full"
                 />
               </div>
-              <div className="col-span-2">
-                <label className="block mb-2">Holiday Name</label>
+              <div className="mb-4">
+                <label className="block text-gray-700">Name</label>
                 <input
                   type="text"
-                  name="name"
-                  value={newHoliday.name}
+                  name="holidayName"
+                  value={newHoliday.holidayName}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="border p-2 w-full"
                 />
               </div>
-            </div>
-            <div className="mt-4 flex justify-end">
-              <button
-                className="bg-red-500 text-white  px-4 py-2 rounded mr-2"
-                onClick={closeModal}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={handleAddHoliday}
-              >
-                {editHolidayId ? "Update" : "Add"}
-              </button>
-            </div>
+
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={
+                    editHolidayId ? handleUpdateHoliday : handleAddHoliday
+                  }
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                  {editHolidayId ? "Update" : "Add"}
+                </button>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="ml-2 bg-gray-500 text-white px-4 py-2 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
 
       {showSuccessMessage && (
-        <div className="fixed bottom-0 right-0 bg-green-500 text-white p-4 rounded">
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded">
           Holiday {editHolidayId ? "updated" : "added"} successfully!
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed bottom-0 right-0 bg-red-500 text-white p-4 rounded">
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white py-2 px-4 rounded">
           Holiday deleted successfully!
+        </div>
+      )}
+      {errorMessage && (
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
+          {errorMessage}
         </div>
       )}
     </>

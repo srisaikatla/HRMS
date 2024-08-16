@@ -49,14 +49,15 @@ import Chat from "./options/chat/Chat";
 import Rules from "./options/rules/Rules";
 import ProjectList from "./options/projectList/ProjectList";
 import Profile from "./options/profile/Profile";
-import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
+// import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployee, logout } from "../State/Auth/Action";
+import EmployeDashboard from "./options/employe_dashboard/EmployeDashboard";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState("All Employees");
+  const [activeTab, setActiveTab] = useState("Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
 
@@ -66,6 +67,7 @@ const EmployeeSideBar = () => {
   const navigate = useNavigate();
 
   const options = [
+    { title: "Employees Dashboard", icon: <FaUsers /> },
     { title: "All Employees", icon: <FaUsers /> },
     { title: "Holidays", icon: <FaCalendarAlt /> },
     { title: "Events", icon: <FaCalendarCheck /> },
@@ -91,7 +93,7 @@ const EmployeeSideBar = () => {
       ],
     },
     { title: "Profile", icon: <FaUser /> },
-    { title: "Bank Account Details", icon: <SiHdfcbank /> },
+
     { title: "Apply Leave", icon: <FaSignOutAlt /> },
     { title: "Projects", icon: <FaProjectDiagram /> },
     { title: "Inbox", icon: <FaInbox /> },
@@ -259,12 +261,13 @@ const EmployeeSideBar = () => {
           {activeTab === "Chats" && <Chat />}
           {activeTab === "Projects" && <ProjectList />}
           {activeTab === "Rules" && <Rules />}
-          {activeTab === "Bank Account Details" && <BankAccountDetails />}
+          {/* {activeTab === "Bank Account Details" && <BankAccountDetails />} */}
           {activeTab === "Activities" && <EmployeeActivities />}
           {activeTab === "Profile" && <Profile />}
           {activeTab === "Holidays" && <EmployeHoliday />}
           {activeTab === "Inbox" && <EmployeInbox />}
           {activeTab === "Tickets" && <Tickets />}
+          {activeTab === "Employees Dashboard" && <EmployeDashboard />}
           {/* {activeTab === "Settlements" && <Settlements />} */}
           {/* {activeTab === "Payroll Forms" && <PayrollForms />} */}
           {/* {activeTab === "Direct deposits" && <DirectDeposits />} */}

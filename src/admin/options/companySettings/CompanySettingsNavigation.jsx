@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-// Replace the imports with your new components
 import LeaveAndHolidaysPolicies from "./Leaves&HolidaysPolicy";
 import Employee from "./employee/EmployeeNavigation";
 import Shifts from "./Shifts";
 import WorkSchedule from "./WorkShedule";
-import Notification from "./Notification";
+import Notification from "../company_settings/notifications/NotificationNavigation";
 import TimeSheet from "./TimeSheet";
 import Company from "./Company";
 
