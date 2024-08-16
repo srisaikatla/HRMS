@@ -25,7 +25,7 @@ const UpdatePassword = () => {
         try {
             // Replace with your API endpoint
             const email = auth.employee.email  // You should get the user's email dynamically
-            const response = await axios.put(`http://http://13.234.49.187:8080/employee/password/${email}`, {
+            const response = await axios.put(`http://13.234.49.187:8080/employee/password/${email}`, {
                 currentPassword,
                 newPassword,
                 confirmPassword,
