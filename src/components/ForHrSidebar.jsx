@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-// 
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -29,9 +26,13 @@ import { MdOutlineSocialDistance } from "react-icons/md";
 import { logout } from "../State/Auth/Action";
 import { useDispatch } from "react-redux";
 
-
-
-const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
+const ForHrSidebar = ({
+  isSidebarCollapsed,
+  activeTab,
+  setActiveTab,
+  handleMouseOver,
+  handleMouseOut,
+}) => {
   const navigate = useNavigate();
   const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
   const [showReportOptions, setShowReportOptions] = useState(false);
@@ -39,11 +40,12 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const [showAccountOptions, setShowAccountOptions] = useState(false);
   const [showAuthOptions, setShowAuthOptions] = useState(false);
   const [showHrManagementOptions, setShowHrManagementOptions] = useState(false);
-  const jwt = localStorage.getItem("jwt")
-  const dispatch = useDispatch()
+  const jwt = localStorage.getItem("jwt");
+  const dispatch = useDispatch();
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
     { title: "Holiday", icon: <FaCalendarAlt /> },
+
     { title: "Events", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
     { title: "HR Social", icon: <MdOutlineSocialDistance /> },
@@ -60,13 +62,12 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   ];
 
   const employeeOptions = [
-    // { title: "New Employee", icon: <FaBuilding /> },
     { title: "All Employees", icon: <FaUsers /> },
     { title: "Compensation", icon: <FaBuilding /> },
-    { title: "Employee Import", icon: <FaBuilding /> },
+
     { title: "IT Declarations", icon: <FaBuilding /> },
     { title: "Leaves", icon: <FaBuilding /> },
-    // { title: "Attendance", icon: <FaCalendarCheck /> },
+    { title: "Emp Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
 
     { title: "Onboarding", icon: <FaBuilding /> },
@@ -87,14 +88,10 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
     { title: "Run payroll", icon: <GiPayMoney /> },
     { title: "Payroll Summary", icon: <MdOutlinePayment /> },
     { title: "Payroll settings", icon: <MdAdminPanelSettings /> },
-    // { title: "Advances/loans", icon: <LiaMoneyCheckAltSolid /> },
+
     { title: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
     { title: "Settlements", icon: <FaMoneyBillTransfer /> },
     { title: "Payroll Forms", icon: <GiTakeMyMoney /> },
-    // { title: "Direct deposits", icon: <PiHandDepositFill /> },
-    // { title: "YTD import", icon: <FaMoneyBillTrendUp /> },
-    // { title: "Gratuity Calculator", icon: <TbMoneybag /> },
-    // { title: "Estimated tax sheet", icon: <BsFileEarmarkSpreadsheet /> },
   ];
 
   const authOptions = [
@@ -150,17 +147,19 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
         {options.map((option) => (
           <React.Fragment key={option.title}>
             <li
-              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${activeTab === option.title
-                ? "bg-white rounded-r-full text-[#ef5f2b]"
-                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
-                }`}
+              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
+                activeTab === option.title
+                  ? "bg-white rounded-r-full text-[#ef5f2b]"
+                  : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+              }`}
               onClick={() => handleOptionClick(option)}
+              onMouseOver={(event) => handleMouseOver(event, option.title)}
+              onMouseOut={handleMouseOut}
             >
               <div className="flex items-center">
                 {option.icon}
                 <span
-                  className={`pl-2 ${isSidebarCollapsed ? "hidden" : "inline"
-                    }`}
+                  className={`pl-2 ${isSidebarCollapsed ? "hidden" : "inline"}`}
                 >
                   {option.title}
                 </span>
@@ -176,11 +175,9 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                     <FaChevronUp />
                   ) : option.title === "PayRoll" && showPayrollOptions ? (
                     <FaChevronUp />
-                  ) : option.title === "Accounts" &&
-                    showAccountOptions ? (
+                  ) : option.title === "Accounts" && showAccountOptions ? (
                     <FaChevronUp />
-                  ) : option.title === "Authentication" &&
-                    showAuthOptions ? (
+                  ) : option.title === "Authentication" && showAuthOptions ? (
                     <FaChevronUp />
                   ) : (
                     <FaChevronDown />
@@ -188,39 +185,18 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                 </span>
               )}
             </li>
-            {/*  */}
-            {/* {!isSidebarCollapsed &&
-                    option.title === "Employee" &&
-                    showEmployeeOptions && (
-                      <ul className="">
-                        {employeeOptions.map((subOption) => (
-                          <li
-                            key={subOption.title}
-                            className={`flex justify-start items-center text-[16px] pl-5 py-2 cursor-pointer  mb-1 ${
-                              activeTab === subOption.title
-                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                            }`}
-                            onClick={() => setActiveTab(subOption.title)}
-                          >
-                            {subOption.icon}
-                            <span className="pl-2">{subOption.title}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )} */}
+
             {!isSidebarCollapsed &&
               option.title === "HR Management" &&
               showHrManagementOptions && (
                 <ul className="">
                   <li
-                    className={`flex justify-between text-[16px] bg-opacity-50  pl-8 py-3 mb-1 cursor-pointer   ${activeTab === showHrManagementOptions.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                      }`}
-                    onClick={() =>
-                      handleOptionClick({ title: "Employee" })
-                    }
+                    className={`flex justify-between text-[16px] bg-opacity-50  pl-8 py-3 mb-1 cursor-pointer   ${
+                      activeTab === showHrManagementOptions.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                    }`}
+                    onClick={() => handleOptionClick({ title: "Employee" })}
                   >
                     <div className="flex items-center ">
                       <span className="text-[20px]">
@@ -245,10 +221,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                       {employeeOptions.map((employeeOption) => (
                         <li
                           key={employeeOption.title}
-                          className={`text-[16px] pl-12 py-3 mb-1 cursor-pointer   ${activeTab === employeeOption.title
-                            ? "bg-white bg-opacity-30 rounded-r-full text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-30 hover:text-[#ef5f2b] hover:rounded-r-full"
-                            }`}
+                          className={`text-[16px] pl-12 py-3 mb-1 cursor-pointer   ${
+                            activeTab === employeeOption.title
+                              ? "bg-white bg-opacity-30 rounded-r-full text-[#ef5f2b]"
+                              : "hover:bg-white hover:bg-opacity-30 hover:text-[#ef5f2b] hover:rounded-r-full"
+                          }`}
                           onClick={() => {
                             handleOptionClick(employeeOption);
                             setActiveTab(employeeOption.title);
@@ -278,10 +255,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                   {payrollOptions.map((subOption) => (
                     <li
                       key={subOption.title}
-                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${activeTab === subOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                        }`}
+                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                        activeTab === subOption.title
+                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                       onClick={() => setActiveTab(subOption.title)}
                     >
                       {subOption.icon}
@@ -297,10 +275,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                   {reportOptions.map((subOption) => (
                     <li
                       key={subOption.title}
-                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${activeTab === subOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                        }`}
+                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                        activeTab === subOption.title
+                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                       onClick={() => setActiveTab(subOption.title)}
                     >
                       {subOption.icon}
@@ -318,10 +297,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                   {accountOptions.map((subOption) => (
                     <li
                       key={subOption.title}
-                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${activeTab === subOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                        }`}
+                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                        activeTab === subOption.title
+                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                       onClick={() => setActiveTab(subOption.title)}
                     >
                       {subOption.icon}
@@ -337,10 +317,11 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                   {authOptions.map((authOption) => (
                     <li
                       key={authOption.title}
-                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${activeTab === authOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                        }`}
+                      className={`flex justify-start items-center text-[16px] pl-8 py-2 cursor-pointer  mb-1 ${
+                        activeTab === authOption.title
+                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                       onClick={() =>
                         authOption.title === "Logout"
                           ? handleLogout()

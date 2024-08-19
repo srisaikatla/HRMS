@@ -1,19 +1,77 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaFolder,
+  FaCalendarDay,
   FaEnvelope,
-  FaCommentDots,
   FaBell,
   FaFilter,
-  FaCalendarDay,
+  FaBars,
 } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 
-function NavBar({ onSearchChange }) {
-  const [hoveredIcon, setHoveredIcon] = useState("");
+function NavBar({ onIconClick, options, projectOptions }) {
+  const [hoveredIcon, setHoveredIcon] = React.useState("");
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredOptions, setFilteredOptions] = useState([]);
 
+  // Flatten options including projectOptions
+  const flattenedOptions = [...options, ...projectOptions].flatMap((option) => {
+    if (option.subOptions) {
+      return [
+        option,
+        ...option.subOptions.map((subOption) => ({
+          ...subOption,
+          isSubOption: true, // Flag to identify if it's a subOption
+          parentTitle: option.title, // Store parent title to use if needed
+        })),
+      ];
+    }
+
+    return option;
+  });
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter options based on search query
+  useEffect(() => {
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      const filtered = flattenedOptions.filter(
+        (option) =>
+          option.title?.toLowerCase().includes(query) ||
+          option.name?.toLowerCase().includes(query) ||
+          (option.isSubOption &&
+            option.parentTitle?.toLowerCase().includes(query))
+      );
+      setFilteredOptions(filtered);
+    } else {
+      setFilteredOptions([]);
+    }
+  }, [searchQuery, flattenedOptions]);
+
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion) => {
+    onIconClick(suggestion.title);
+    setSearchQuery("");
+    setFilteredOptions([]);
+  };
+
+  // Style for hovered icon
+  const iconStyle = (iconName) => ({
+    color: hoveredIcon === iconName ? "#0098f1" : "#0098f1",
+    fontSize: "1.5rem",
+  });
+
+  // Toggle dropdown menu
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  // Handle mouse enter and leave for icons
   const handleMouseEnter = (iconName) => {
     setHoveredIcon(iconName);
   };
@@ -22,61 +80,166 @@ function NavBar({ onSearchChange }) {
     setHoveredIcon("");
   };
 
-  const iconStyle = (iconName) => ({
-    color: hoveredIcon === iconName ? "#FF6A00" : "#0098F1",
-    fontSize: "1.5rem",
-  });
-
   return (
-    <div id="main" className="bg-sky-100 p-2 ">
+    <>
       <div
-        id="topbar"
-        className="flex flex-row items-center pt-2 mx-2 gap-x-10 justify-center"
+        id="main"
+        className="w-full flex justify-between items-center relative pb-2 top-0"
       >
-        <div className="w-auto ml-[210px] h-[48px] bg-[#0098f1] rounded-xl flex justify-center items-center">
-          <input
-            className="pl-20 placeholder:text-white outline-none placeholder:text-start w-[428px] rounded-xl text-white h-[48px] border-none bg-[#0098f1]"
-            type="search"
-            placeholder="Search Anything here...."
-          />
+        <div
+          id="topbar"
+          className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
+        >
+          <div className="h-[42px] bg-[#0098f1] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center relative">
+            <input
+              className="pl-2 px-4 bg-[#0098f1] text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none"
+              type="search"
+              placeholder="Search Anything here...."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+
+            {filteredOptions.length > 0 && (
+              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg z-10">
+                {filteredOptions.map((option, index) => (
+                  <div
+                    key={index}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#0098f1] ${
+                      option.isSubOption ? "" : ""
+                    }`}
+                    onClick={() => handleSuggestionClick(option)}
+                  >
+                    {option.isSubOption ? option.title : option.title}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
+        <div className="flex justify-start md:hidden z-50 mr-2">
+          <FaBars
+            className="text-[#0098f1] text-3xl hover:cursor-pointer"
+            onClick={toggleDropdown}
+          />
+          {dropdownOpen && (
+            <div
+              id="icons"
+              className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
+            >
+              {/* Mobile dropdown menu items */}
+              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out pb-1 px-2">
+                <FaFolder
+                  className="hover:cursor-pointer"
+                  style={iconStyle("folder")}
+                  onMouseEnter={() => handleMouseEnter("folder")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Company Information")}
+                />
+                <p className="pl-2 text-[#0098f1]">Files</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2">
+                <FaCalendarDay
+                  className="hover:cursor-pointer"
+                  style={iconStyle("calendar")}
+                  onMouseEnter={() => handleMouseEnter("calendar")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Events")}
+                />
+                <p className="pl-2 text-[#0098f1]">Calendar</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
+                <TiMessages
+                  className="hover:cursor-pointer"
+                  style={iconStyle("message")}
+                  onMouseEnter={() => handleMouseEnter("message")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Chat")}
+                />
+                <p className="pl-2 text-[#0098f1]">Messages</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
+                <FaEnvelope
+                  className="hover:cursor-pointer"
+                  style={iconStyle("mail")}
+                  onMouseEnter={() => handleMouseEnter("mail")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Inbox")}
+                />
+                <p className="pl-2 text-[#0098f1]">Mails</p>
+              </div>
+              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
+                <FaBell
+                  className="hover:cursor-pointer"
+                  style={iconStyle("bell")}
+                  onMouseEnter={() => handleMouseEnter("bell")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("User")}
+                />
+                <p className="pl-2 text-[#0098f1]">Notification</p>
+              </div>
+              <div className="py-1 border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out px-2">
+                <FaFilter
+                  className="hover:cursor-pointer"
+                  style={iconStyle("filter")}
+                  onMouseEnter={() => handleMouseEnter("filter")}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => onIconClick("Company Information")}
+                />
+                <p className="pl-2 text-[#0098f1]">Filter</p>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div
           id="icons"
-          className="flex justify-around items-center w-full md:w-auto space-x-4 md:space-x-6"
+          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"
         >
           <FaFolder
+            className="hover:cursor-pointer"
             style={iconStyle("folder")}
             onMouseEnter={() => handleMouseEnter("folder")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Company Information")}
           />
           <FaCalendarDay
+            className="hover:cursor-pointer"
             style={iconStyle("calendar")}
             onMouseEnter={() => handleMouseEnter("calendar")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Events")}
           />
           <TiMessages
+            className="hover:cursor-pointer"
             style={iconStyle("message")}
             onMouseEnter={() => handleMouseEnter("message")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Chat")}
           />
           <FaEnvelope
+            className="hover:cursor-pointer"
             style={iconStyle("mail")}
             onMouseEnter={() => handleMouseEnter("mail")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Inbox")}
           />
           <FaBell
+            className="hover:cursor-pointer"
             style={iconStyle("bell")}
             onMouseEnter={() => handleMouseEnter("bell")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("User")}
           />
           <FaFilter
+            className="hover:cursor-pointer"
             style={iconStyle("filter")}
             onMouseEnter={() => handleMouseEnter("filter")}
             onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Company Information")}
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
