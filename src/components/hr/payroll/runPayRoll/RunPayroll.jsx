@@ -346,7 +346,7 @@ const RunPayroll = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Payroll - Batch & Period</h1>
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">Payroll - Batch & Period</h1>
       <div className="text-center">
         <div className="mb-4">
           <label

@@ -9,6 +9,8 @@ import { API_BASE_URL } from "../../../Config/api"
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState("");
+  const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [isOnBreak, setIsOnBreak] = useState(false);
   const [punchInTime, setPunchInTime] = useState(null);
   const [punchOutTime, setPunchOutTime] = useState(null);
   const [breakStartTime, setBreakStartTime] = useState(null);
@@ -64,82 +66,38 @@ const Attendance = () => {
   };
 
   const accumulateTime = (prevTime, newTime) => {
-    const totalSeconds = (prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds) +
+    let totalSeconds = (prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds) +
       (newTime.hours * 3600 + newTime.minutes * 60 + newTime.seconds);
 
     const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 3600 % 60;
+    totalSeconds %= 3600;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
 
     return { hours, minutes, seconds };
   };
 
   const calculateBreakTime = (startTime, endTime) => {
     const diffMs = endTime - startTime;
-    const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+    const hours = Math.floor(diffMs / 3600000);
+    const minutes = Math.floor((diffMs % 3600000) / 60000);
+    const seconds = Math.floor((diffMs % 60000) / 1000);
 
     return { hours, minutes, seconds };
   };
 
+
   const updateBreakTime = (newBreakTime) => {
-    setTotalBreakTime(prevBreakTime => {
-      const updatedBreakTime = {
-        hours: prevBreakTime.hours + newBreakTime.hours,
-        minutes: prevBreakTime.minutes + newBreakTime.minutes,
-        seconds: prevBreakTime.seconds + newBreakTime.seconds,
-      };
-
-      // Normalize break time
-      if (updatedBreakTime.seconds >= 60) {
-        updatedBreakTime.minutes += Math.floor(updatedBreakTime.seconds / 60);
-        updatedBreakTime.seconds %= 60;
-      }
-
-      if (updatedBreakTime.minutes >= 60) {
-        updatedBreakTime.hours += Math.floor(updatedBreakTime.minutes / 60);
-        updatedBreakTime.minutes %= 60;
-      }
-
-      return updatedBreakTime;
-    });
+    const updatedBreakTime = accumulateTime(totalBreakTime, newBreakTime);
+    setTotalBreakTime(updatedBreakTime);
+    localStorage.setItem('totalBreakTime', JSON.stringify(updatedBreakTime));
   };
 
-  // const calculateStatistics = () => {
-  //   let totalHours = 0;
-  //   let breakTime = { hours: 0, minutes: 0, seconds: 0 };
-  //   let overtime = 0;
-
-  //   attendanceData.forEach(({ production = { hours: 0, minutes: 0, seconds: 0 }, breakDuration = { hours: 0, minutes: 0, seconds: 0 } }) => {
-  //     totalHours += production.hours;
-
-  //     breakTime.hours += breakDuration.hours;
-  //     breakTime.minutes += breakDuration.minutes;
-  //     breakTime.seconds += breakDuration.seconds;
-
-  //     if (production.hours > officeHours) {
-  //       overtime += production.hours - officeHours;
-  //     }
-  //   });
-
-  //   if (breakTime.seconds >= 60) {
-  //     breakTime.minutes += Math.floor(breakTime.seconds / 60);
-  //     breakTime.seconds %= 60;
-  //   }
-
-  //   if (breakTime.minutes >= 60) {
-  //     breakTime.hours += Math.floor(breakTime.minutes / 60);
-  //     breakTime.minutes %= 60;
-  //   }
-
-  //   return { totalHours, breakTime, overtime };
-  // };
 
   const calculateWorkingHours = (productionTime, breakTime) => {
     const productionInSeconds = (productionTime.hours * 3600) + (productionTime.minutes * 60) + productionTime.seconds;
     const breakInSeconds = (breakTime.hours * 3600) + (breakTime.minutes * 60) + breakTime.seconds;
-    const workingSeconds = productionInSeconds - breakInSeconds;
+    const workingSeconds = Math.max(0, productionInSeconds - breakInSeconds); // Prevent negative working time
 
     const workingHours = Math.floor(workingSeconds / 3600);
     const workingMinutes = Math.floor((workingSeconds % 3600) / 60);
@@ -152,37 +110,6 @@ const Attendance = () => {
     };
   };
 
-  const calculateElapsedTime = (startTime, endTime) => {
-    const start = new Date(startTime);
-    const end = new Date(endTime);
-
-    const diffInSeconds = Math.floor((end - start) / 1000);
-
-    const hours = Math.floor(diffInSeconds / 3600);
-    const minutes = Math.floor((diffInSeconds % 3600) / 60);
-    const seconds = diffInSeconds % 60;
-
-    return { hours, minutes, seconds };
-  };
-
-  const calculateStatistics = () => {
-    let totalHours = { hours: 0, minutes: 0, seconds: 0 };
-    let breakTime = { hours: 0, minutes: 0, seconds: 0 };
-    let overtime = 0;
-
-    if (punchInTime && punchOutTime) {
-      const productionTime = calculateElapsedTime(punchInTime, punchOutTime);
-      const workingTime = calculateWorkingHours(productionTime, totalBreakTime);
-
-      totalHours = productionTime;
-      overtime = Math.max(0, productionTime.hours - 8);
-      breakTime = totalBreakTime;
-
-      return { totalHours, breakTime, overtime, workingTime };
-    }
-
-    return { totalHours, breakTime, overtime, workingTime: { hours: 0, minutes: 0, seconds: 0 } };
-  };
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -205,6 +132,28 @@ const Attendance = () => {
   }, []);
 
   useEffect(() => {
+    const storedPunchInTime = localStorage.getItem('punchInTime');
+    const storedElapsedTime = localStorage.getItem('elapsedTime');
+    const storedBreakTime = localStorage.getItem('totalBreakTime');
+    const storedIsPunchedIn = localStorage.getItem('isPunchedIn');
+    const storedLastElapsedTime = localStorage.getItem('lastElapsedTime');
+    const storedIsOnBreak = localStorage.getItem('isOnBreak');
+    const storedBreakStartTime = localStorage.getItem('breakStartTime');
+
+    if (storedPunchInTime) {
+      setPunchInTime(new Date(storedPunchInTime));
+      setIsPunchedIn(storedIsPunchedIn === 'true');
+      setElapsedTime(JSON.parse(storedElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime(JSON.parse(storedBreakTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setLastElapsedTime(JSON.parse(storedLastElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setIsOnBreak(storedIsOnBreak === 'true');
+      if (storedBreakStartTime) {
+        setBreakStartTime(new Date(storedBreakStartTime));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     let timer;
     if (isPunchedIn && punchInTime) {
       const startTime = lastElapsedTime.hours * 3600 * 1000 + lastElapsedTime.minutes * 60 * 1000 + lastElapsedTime.seconds * 1000;
@@ -217,6 +166,8 @@ const Attendance = () => {
         const minutes = Math.floor((diffMs % 3600000) / 60000);
         const seconds = Math.floor((diffMs % 60000) / 1000);
         setElapsedTime({ hours, minutes, seconds });
+        // Save to localStorage every second to persist data
+        localStorage.setItem('elapsedTime', JSON.stringify({ hours, minutes, seconds }));
       }, 1000);
     } else {
       clearInterval(timer);
@@ -225,137 +176,133 @@ const Attendance = () => {
     return () => clearInterval(timer);
   }, [isPunchedIn, punchInTime, lastElapsedTime, totalBreakTime]);
 
+  useEffect(() => {
+    let breakTimer;
+    if (isOnBreak && breakStartTime) {
+      breakTimer = setInterval(() => {
+        const now = new Date();
+        const breakDuration = calculateBreakTime(breakStartTime, now);
+        setCurrentBreakTime(breakDuration);
+      }, 1000);
+    } else {
+      clearInterval(breakTimer);
+      setCurrentBreakTime({ hours: 0, minutes: 0, seconds: 0 });
+    }
+
+    return () => clearInterval(breakTimer);
+  }, [isOnBreak, breakStartTime]);
+
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
-
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
 
       let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
 
-      if (breakStartTime) {
-        if (breakEndTime) {
-          breakDuration = calculateBreakTime(breakStartTime, breakEndTime);
-        } else {
-          breakDuration = calculateBreakTime(breakStartTime, newPunchOutTime);
-        }
+      if (isOnBreak && breakStartTime) {
+        const now = new Date();
+        breakDuration = calculateBreakTime(breakStartTime, now);
         updateBreakTime(breakDuration);
       }
 
+      const totalBreakDuration = { ...totalBreakTime };
+
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
+      const workingHours = calculateWorkingHours(production, totalBreakDuration);
 
       const newEntry = {
         employeeId,
         employeeName,
-        punchIn: punchInTime,
+        punchIn: punchInTime, // Ensure to use Date objects
         punchOut: newPunchOutTime,
-        production,
-        breakDuration,
         productionHours: production.hours,
         productionMinutes: production.minutes,
         productionSeconds: production.seconds,
-        breakHours: breakDuration.hours,
-        breakMinutes: breakDuration.minutes,
-        breakSeconds: breakDuration.seconds,
+        breakHours: totalBreakDuration.hours,
+        breakMinutes: totalBreakDuration.minutes,
+        breakSeconds: totalBreakDuration.seconds,
         overtime,
       };
 
-      const updatedAttendanceData = [...attendanceData, newEntry];
-      setAttendanceData(updatedAttendanceData);
+      // Update attendanceData state properly
 
-      // Save data to backend
+
       try {
-        await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
+        const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
           headers: {
-            "Authorization": `Bearer ${jwt}`,
+            Authorization: `Bearer ${jwt}`,
             "Content-Type": "application/json",
-          }
+          },
         });
+        console.log(response.data.message);
+        setAttendanceData((prevData) => [...prevData, response.data]);
       } catch (error) {
-        console.error('Error saving data to backend:', error);
+        console.error("Error saving attendance:", error);
       }
 
+      // Reset state and clear localStorage after punch-out
+      setPunchOutTime(newPunchOutTime);
       setIsPunchedIn(false);
       setPunchInTime(null);
-      setPunchOutTime(null);
-      setBreakStartTime(null);
-      setBreakEndTime(null);
+      setLastElapsedTime(elapsedTime);
       setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
 
+      localStorage.removeItem('punchInTime');
+      localStorage.removeItem('elapsedTime');
+      localStorage.removeItem('totalBreakTime');
+      localStorage.removeItem('isPunchedIn');
+      localStorage.removeItem('lastElapsedTime');
+      localStorage.removeItem('isOnBreak');
+      localStorage.removeItem('breakStartTime');
     } else {
-      // Check if already punched out today
+      //Check if already punched out today
       const hasPunchedOutToday = attendanceData.some(entry => {
         const entryDate = new Date(entry.punchOut).toLocaleDateString();
-        return entryDate === today;
+        return entry.employeeId === employeeId && entryDate === today;
       });
 
       if (hasPunchedOutToday) {
         alert("You have already punched out today. You cannot punch in again.");
         return;
       }
-
-      setPunchInTime(new Date());
+      const newPunchInTime = new Date();
+      setPunchInTime(newPunchInTime);
       setIsPunchedIn(true);
-      setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
-      setBreakStartTime(null);
-      setBreakEndTime(null);
+      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      localStorage.setItem('punchInTime', newPunchInTime);
+      localStorage.setItem('isPunchedIn', 'true');
+      localStorage.setItem('lastElapsedTime', JSON.stringify({ hours: 0, minutes: 0, seconds: 0 }));
     }
   };
 
-  const [isOnBreak, setIsOnBreak] = useState(false);
 
-  const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
-  const [breakTimes, setBreakTimes] = useState([]); // Store individual break times
+
 
   const handleBreakButtonClick = () => {
-    if (isPunchedIn) {
-      if (isOnBreak) {
-        const breakEnd = new Date();
-        const newBreakTime = calculateBreakTime(breakStartTime, breakEnd);
-
-        // Update total break time
-        setTotalBreakTime(prevTime => accumulateTime(prevTime, newBreakTime));
-
-        // Add the break time to the array
-        setBreakTimes(prevTimes => [...prevTimes, newBreakTime]);
-
-        setIsOnBreak(false);
-      } else {
-        setBreakStartTime(new Date());
-        setCurrentBreakTime({ hours: 0, minutes: 0, seconds: 0 });
-        setIsOnBreak(true);
-      }
+    if (isOnBreak) {
+      const now = new Date();
+      const newBreakTime = calculateBreakTime(breakStartTime, now);
+      updateBreakTime(newBreakTime);
+      setBreakEndTime(now);
+      setIsOnBreak(false);
+      localStorage.removeItem('breakStartTime');
+      localStorage.setItem('isOnBreak', 'false');
+    } else {
+      const now = new Date();
+      setBreakStartTime(now);
+      setIsOnBreak(true);
+      localStorage.setItem('breakStartTime', now);
+      localStorage.setItem('isOnBreak', 'true');
     }
   };
 
-  useEffect(() => {
-    let breakInterval;
-    if (isOnBreak && breakStartTime) {
-      breakInterval = setInterval(() => {
-        const now = new Date();
-        const newBreakTime = calculateBreakTime(breakStartTime, now);
-        setCurrentBreakTime(newBreakTime);
-      }, 1000);
-    } else {
-      clearInterval(breakInterval);
-    }
+  const handleDateChange = (date) => {
+    setSearchDate(date);
+  };
 
-    return () => clearInterval(breakInterval);
-  }, [isOnBreak, breakStartTime]);
-
-
-  const filteredData = attendanceData.filter((entry) => {
-    const entryDate = new Date(entry.punchIn).toLocaleDateString();
-    return entryDate === searchDate.toLocaleDateString() && (
-      entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
-
-  const statistics = calculateStatistics();
-  const { totalHours, breakTime, overtime } = calculateStatistics();
 
   return (
     <div className="max-w-4xl mx-auto p-6 ">
@@ -426,6 +373,7 @@ const Attendance = () => {
           <p className=" font-semibold text-[15px] text-[#E65F2B]">Punch Out Time: {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}</p>
           <p className=" font-semibold text-[15px] text-[#E65F2B]">Elapsed Time: {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
           <p className=" font-semibold text-[15px] text-[#E65F2B]"> Break Time: {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]"> Total Break Time: {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}</p>
         </div>
       </div>
 
@@ -484,7 +432,7 @@ const Attendance = () => {
                       </td>
                       <td className="px-4 py-2 border">
                         {workingTime.hours} hours, {workingTime.minutes} mins, {workingTime.seconds} secs
-                      </td> {/* Display working hours */}
+                      </td>
                       <td className="px-4 py-2 border">{entry.overtime} hours</td>
                     </tr>
                   );
@@ -498,9 +446,6 @@ const Attendance = () => {
     </div>
   );
 
-
 };
-
 export default Attendance;
-
 

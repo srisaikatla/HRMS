@@ -31,7 +31,7 @@ import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
-import EmployeImport from "./hr/hr_management/employeImport/EmployeImport";
+// import EmployeImport from "./hr/hr_management/";
 import Compensation from "./hr/hr_management/compensation/Compensation";
 import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
 import PaySlip from "./hr/payroll/paySlips/PaySlips";

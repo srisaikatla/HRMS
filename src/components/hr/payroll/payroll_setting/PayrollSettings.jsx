@@ -42,8 +42,8 @@ const PayrollSettings = () => {
 
   return (
     <div className="px-4 py-2">
-      <h1 className="font-bold text-xl">Hr</h1>
-      <p className="font-semibold my-1">
+   
+      <p className="text-[#E65F2B] text-xl font-bold mb-4">
         <span>Payroll</span> / <span>Payroll Settings</span>
       </p>
 
