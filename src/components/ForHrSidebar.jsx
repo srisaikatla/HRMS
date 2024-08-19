@@ -1,5 +1,3 @@
-//
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -28,7 +26,13 @@ import { MdOutlineSocialDistance } from "react-icons/md";
 import { logout } from "../State/Auth/Action";
 import { useDispatch } from "react-redux";
 
-const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
+const ForHrSidebar = ({
+  isSidebarCollapsed,
+  activeTab,
+  setActiveTab,
+  handleMouseOver,
+  handleMouseOut,
+}) => {
   const navigate = useNavigate();
   const [showEmployeeOptions, setShowEmployeeOptions] = useState(false);
   const [showReportOptions, setShowReportOptions] = useState(false);
@@ -41,7 +45,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   const options = [
     { title: "Hr Dashboard", icon: <FaTachometerAlt /> },
     { title: "Holiday", icon: <FaCalendarAlt /> },
-    // { title: "Leaves", icon: <MdOutlineSocialDistance /> },
+
     { title: "Events", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
     { title: "HR Social", icon: <MdOutlineSocialDistance /> },
@@ -58,10 +62,9 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
   ];
 
   const employeeOptions = [
-    // { title: "New Employee", icon: <FaBuilding /> },
     { title: "All Employees", icon: <FaUsers /> },
     { title: "Compensation", icon: <FaBuilding /> },
-    // { title: "Employee Import", icon: <FaBuilding /> },
+
     { title: "IT Declarations", icon: <FaBuilding /> },
     { title: "Leaves", icon: <FaBuilding /> },
     { title: "Emp Attendance", icon: <FaCalendarCheck /> },
@@ -85,14 +88,10 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
     { title: "Run payroll", icon: <GiPayMoney /> },
     { title: "Payroll Summary", icon: <MdOutlinePayment /> },
     { title: "Payroll settings", icon: <MdAdminPanelSettings /> },
-    // { title: "Advances/loans", icon: <LiaMoneyCheckAltSolid /> },
+
     { title: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
     { title: "Settlements", icon: <FaMoneyBillTransfer /> },
     { title: "Payroll Forms", icon: <GiTakeMyMoney /> },
-    // { title: "Direct deposits", icon: <PiHandDepositFill /> },
-    // { title: "YTD import", icon: <FaMoneyBillTrendUp /> },
-    // { title: "Gratuity Calculator", icon: <TbMoneybag /> },
-    // { title: "Estimated tax sheet", icon: <BsFileEarmarkSpreadsheet /> },
   ];
 
   const authOptions = [
@@ -154,6 +153,8 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                   : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
               }`}
               onClick={() => handleOptionClick(option)}
+              onMouseOver={(event) => handleMouseOver(event, option.title)}
+              onMouseOut={handleMouseOut}
             >
               <div className="flex items-center">
                 {option.icon}
@@ -184,27 +185,7 @@ const ForHrSidebar = ({ isSidebarCollapsed, activeTab, setActiveTab }) => {
                 </span>
               )}
             </li>
-            {/*  */}
-            {/* {!isSidebarCollapsed &&
-                    option.title === "Employee" &&
-                    showEmployeeOptions && (
-                      <ul className="">
-                        {employeeOptions.map((subOption) => (
-                          <li
-                            key={subOption.title}
-                            className={`flex justify-start items-center text-[16px] pl-5 py-2 cursor-pointer  mb-1 ${
-                              activeTab === subOption.title
-                                ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                                : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                            }`}
-                            onClick={() => setActiveTab(subOption.title)}
-                          >
-                            {subOption.icon}
-                            <span className="pl-2">{subOption.title}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )} */}
+
             {!isSidebarCollapsed &&
               option.title === "HR Management" &&
               showHrManagementOptions && (

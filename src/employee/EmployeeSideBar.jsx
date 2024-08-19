@@ -1,12 +1,9 @@
-/* eslint-disable no-unreachable */
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
 import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
-
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip";
 import EmployeHoliday from "./options/employe_holiday/EmployeHoliday";
@@ -25,22 +22,9 @@ import {
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import { SiHdfcbank } from "react-icons/si";
-import { GiPayMoney } from "react-icons/gi";
-import { MdOutlinePayment } from "react-icons/md";
-import { MdAdminPanelSettings } from "react-icons/md";
-// import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
-import { GiTakeMyMoney } from "react-icons/gi";
-// import { PiHandDepositFill } from "react-icons/pi";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
-import { TbMoneybag } from "react-icons/tb";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-// import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { PiHandDepositFill } from "react-icons/pi";
-// import AllEmployees from "../employee/options/allEmployees/AllEmployees";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import SalaryStructure from "./options/payslips/SalaryStructure";
 import Declaration from "./options/payslips/Declaration";
@@ -49,7 +33,6 @@ import Chat from "./options/chat/Chat";
 import Rules from "./options/rules/Rules";
 import ProjectList from "./options/projectList/ProjectList";
 import Profile from "./options/profile/Profile";
-// import BankAccountDetails from "./options/bankAccountDetails/BankAccountDetails";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
 import { employee, getEmployee, logout } from "../State/Auth/Action";
@@ -60,6 +43,11 @@ const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+  const [tooltip, setTooltip] = useState({
+    show: false,
+    title: "",
+    position: { x: 0, y: 0 },
+  });
 
   const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
@@ -81,9 +69,9 @@ const EmployeeSideBar = () => {
         { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
         { name: "Bank Account", icon: <PiHandDepositFill /> },
       ],
+      showAlways: true, // This is a custom flag to indicate that the icon should always be shown
     },
     { title: "Profile", icon: <FaUser /> },
-
     { title: "Apply Leave", icon: <FaSignOutAlt /> },
     { title: "Projects", icon: <FaProjectDiagram /> },
     { title: "Inbox", icon: <FaInbox /> },
@@ -100,6 +88,37 @@ const EmployeeSideBar = () => {
     }
   }, [jwt, auth.jwt, dispatch]);
 
+  useEffect(() => {
+    // Automatically collapse sidebar on small screens
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarCollapsed(true);
+      }
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleMouseOver = (event, title) => {
+    if (isSidebarCollapsed) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setTooltip({
+        show: true,
+        title,
+        position: { x: rect.right + 10, y: rect.top },
+      });
+    }
+  };
+
+  const handleMouseOut = () => {
+    setTooltip({ show: false, title: "", position: { x: 0, y: 0 } });
+  };
+
   const handleOptionClick = (option) => {
     if (option.subOptions) {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
@@ -113,42 +132,23 @@ const EmployeeSideBar = () => {
   };
 
   const handleSubOptionClick = (event, subOption) => {
-    event.stopPropagation(); // Prevent event propagation to avoid closing dropdown
+    event.stopPropagation();
     setActiveTab(subOption.name);
-    // The dropdown remains open
   };
 
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
+    // Disable sidebar toggle on small screens
+    if (window.innerWidth >= 768) {
+      setIsSidebarCollapsed(!isSidebarCollapsed);
+    }
   };
+
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("jwt");
     navigate("/");
   };
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case "payslips":
-        return <Payslip />;
-        break;
-      case "All Employees":
-        return <AllEmployees />;
-        break;
-      case "Events":
-        return <Events />;
-        break;
-      case "Apply Leave":
-        return <ApplyLeave />;
-        break;
-      default:
-        return (
-          <div className="text-2xl pt-20 font-bold">
-            Selected Option: {activeTab || "None"}
-          </div>
-        );
-    }
-  };
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
   };
@@ -187,6 +187,7 @@ const EmployeeSideBar = () => {
               </div>
             )}
           </div>
+
           <div className="flex flex-col">
             {options.map((option, index) => (
               <div
@@ -194,25 +195,30 @@ const EmployeeSideBar = () => {
                 className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
                   activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
-                    ? "bg-white text-[#e65f2b]   rounded-r-3xl"
-                    : " hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
+                    ? "bg-white text-[#e65f2b] rounded-r-3xl"
+                    : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
                 }`}
                 onClick={() => handleOptionClick(option)}
+                onMouseOver={(event) => handleMouseOver(event, option.title)}
+                onMouseOut={handleMouseOut}
               >
                 <div className="p-3 pl-4 text-[16px] flex items-center">
                   {option.icon}
+
                   {!isSidebarCollapsed && (
                     <span className="ml-3">{option.title}</span>
                   )}
-                  {option.subOptions && (
-                    <span className="ml-16  ">
+
+                  {option.subOptions && !isSidebarCollapsed && (
+                    <span className="ml-auto">
                       {openDropdown === option.title ? "▲" : "▼"}
                     </span>
                   )}
                 </div>
+
                 {option.subOptions && openDropdown === option.title && (
                   <div
-                    className={`bg-[#e65f2b]  text-white transition-all duration-300`}
+                    className={`bg-[#e65f2b] text-white transition-all duration-300`}
                   >
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
@@ -248,15 +254,16 @@ const EmployeeSideBar = () => {
           {activeTab === "All Employees" && <AllEmployees />}
           {activeTab === "Events" && <Events />}
           {activeTab === "Apply Leave" && <ApplyLeave />}
-          {/* payroll */}
+
           {activeTab === "Payslips" && <Payslip />}
           {activeTab === "Salary Structure" && <SalaryStructure />}
+
           {activeTab === "Declaration" && <Declaration />}
           {activeTab === "Bank Account" && <BankAccount />}
           {activeTab === "Chats" && <Chat />}
           {activeTab === "Projects" && <ProjectList />}
           {activeTab === "Rules" && <Rules />}
-          {/* {activeTab === "Bank Account Details" && <BankAccountDetails />} */}
+
           {activeTab === "Activities" && <EmployeeActivities />}
           {activeTab === "Profile" && <Profile />}
           {activeTab === "Holidays" && <EmployeHoliday />}
@@ -265,6 +272,17 @@ const EmployeeSideBar = () => {
           {activeTab === "Employees Dashboard" && <EmployeDashboard />}
         </div>
       </div>
+      {tooltip.show && (
+        <div
+          className="absolute bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          style={{
+            top: `${tooltip.position.y}px`,
+            left: `${tooltip.position.x}px`,
+          }}
+        >
+          {tooltip.title}
+        </div>
+      )}
     </div>
   );
 };

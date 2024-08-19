@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../adminAssets/profile/boy.png";
 import AdminNavBar from "./AdminNavBar";
@@ -17,6 +17,45 @@ const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+  const [tooltip, setTooltip] = useState({
+    show: false,
+    title: "",
+    position: { x: 0, y: 0 },
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarCollapsed(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleIconClick = (iconTitle) => {
+    setActiveTab(iconTitle);
+  };
+
+  const handleMouseOver = (event, title) => {
+    if (isSidebarCollapsed) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setTooltip({
+        show: true,
+        title,
+        position: { x: rect.right + 10, y: rect.top },
+      });
+    }
+  };
+
+  const handleMouseOut = () => {
+    setTooltip({ show: false, title: "", position: { x: 0, y: 0 } });
+  };
 
   const options = [
     { title: "Company Information", icon: <IoInformationCircle /> },
@@ -52,11 +91,9 @@ const AdminSideBar = () => {
   };
 
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
-
-  const handleIconClick = (iconTitle) => {
-    setActiveTab(iconTitle);
+    if (window.innerWidth >= 768) {
+      setIsSidebarCollapsed(!isSidebarCollapsed);
+    }
   };
 
   return (
@@ -100,6 +137,8 @@ const AdminSideBar = () => {
                     : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
                 }`}
                 onClick={() => handleOptionClick(option)}
+                onMouseOver={(event) => handleMouseOver(event, option.title)}
+                onMouseOut={handleMouseOut}
               >
                 <div className="p-3 pl-4 text-[16px] flex items-center">
                   {option.icon}
@@ -138,15 +177,6 @@ const AdminSideBar = () => {
         </div>
       </div>
 
-      {/* Render the corresponding component based on the activeTab */}
-      {/* <div className="ml-16 md:ml-[240px]  p-10">
-        {activeTab === "Company Information" && <CompanyInformation />}
-        {activeTab === "Company Settings" && <CompanySettingsNavigation />}
-        {activeTab === "Roles" && <Roles />}
-        {activeTab === "User" && <User />}
-        {activeTab === "Account Details" && <AccountDetails />}
-       
-      </div> */}
       <div
         className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
@@ -160,6 +190,18 @@ const AdminSideBar = () => {
           {activeTab === "Account Details" && <AccountDetails />}
         </div>
       </div>
+
+      {tooltip.show && (
+        <div
+          className="absolute bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          style={{
+            top: `${tooltip.position.y}px`,
+            left: `${tooltip.position.x}px`,
+          }}
+        >
+          {tooltip.title}
+        </div>
+      )}
     </div>
   );
 };

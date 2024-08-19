@@ -13,6 +13,20 @@ function AdminNavBar({ onIconClick, options }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
+  const flattenedOptions = options.flatMap((option) => {
+    if (option.subOptions) {
+      return [
+        option,
+        ...option.subOptions.map((subOption) => ({
+          ...subOption,
+          isSubOption: true, // Flag to identify if it's a subOption
+          parentTitle: option.title, // Store parent title to use if needed
+        })),
+      ];
+    }
+
+    return option;
+  });
 
   const handleMouseEnter = (iconName) => {
     setHoveredIcon(iconName);
@@ -30,17 +44,19 @@ function AdminNavBar({ onIconClick, options }) {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-  //
+
   useEffect(() => {
     if (searchQuery) {
-      const filtered = options.filter((option) =>
-        option.title.toLowerCase().includes(searchQuery.toLowerCase())
+      const filtered = flattenedOptions.filter(
+        (option) =>
+          option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          option.name?.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredOptions(filtered);
     } else {
       setFilteredOptions([]);
     }
-  }, [searchQuery, options]);
+  }, [searchQuery, flattenedOptions]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -72,21 +88,24 @@ function AdminNavBar({ onIconClick, options }) {
               style={{
                 backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
               }}
-              className="pl-2 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
+              className="pl-2 px-4 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
               onChange={handleSearchChange}
             />
+
             {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] left-0 bg-white w-full shadow-lg rounded-lg z-10">
-                {filteredOptions.map((option) => (
+              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg rounded-lg z-10">
+                {filteredOptions.map((option, index) => (
                   <div
-                    key={option.title}
-                    className="py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b]"
+                    key={index}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b] ${
+                      option.isSubOption ? "" : "" // Indent subOptions
+                    }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
-                    {option.title}
+                    {option.isSubOption ? option.name : option.title}
                   </div>
                 ))}
               </div>

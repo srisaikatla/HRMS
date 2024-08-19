@@ -16,6 +16,21 @@ function EmployeeNavBar({ onIconClick, options }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
 
+  const flattenedOptions = options.flatMap((option) => {
+    if (option.subOptions) {
+      return [
+        option,
+        ...option.subOptions.map((subOption) => ({
+          ...subOption,
+          isSubOption: true, // Flag to identify if it's a subOption
+          parentTitle: option.title, // Store parent title to use if needed
+        })),
+      ];
+    }
+
+    return option;
+  });
+
   const handleMouseEnter = (iconName) => {
     setHoveredIcon(iconName);
   };
@@ -32,16 +47,19 @@ function EmployeeNavBar({ onIconClick, options }) {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
   useEffect(() => {
     if (searchQuery) {
-      const filtered = options.filter((option) =>
-        option.title.toLowerCase().includes(searchQuery.toLowerCase())
+      const filtered = flattenedOptions.filter(
+        (option) =>
+          option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          option.name?.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredOptions(filtered);
     } else {
       setFilteredOptions([]);
     }
-  }, [searchQuery, options]);
+  }, [searchQuery, flattenedOptions]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -63,53 +81,26 @@ function EmployeeNavBar({ onIconClick, options }) {
           id="topbar"
           className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          {/* <div className="h-[42px] bg-[#ef5f2b] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center">
+          <div className="h-[42px] bg-[#ef5f2b] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center relative">
             <input
-              className="pl-2 bg-[#ef5f2b] text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none "
+              className="pl-2 px-4 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
               onChange={handleSearchChange}
             />
+
             {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] left-0 bg-white w-auto shadow-lg rounded-lg z-10">
-                {filteredOptions.map((option) => (
+              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg rounded-lg z-10">
+                {filteredOptions.map((option, index) => (
                   <div
-                    key={option.title}
-                    className="py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b]"
+                    key={index}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b] ${
+                      option.isSubOption ? "" : "" // Indent subOptions
+                    }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
-                    {option.title}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div> */}
-          <div
-            style={{
-              backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
-            }}
-            className="h-[42px] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center relative"
-          >
-            <input
-              style={{
-                backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
-              }}
-              className="pl-2 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
-              type="search"
-              placeholder="Search Anything here...."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] left-0 bg-white w-full shadow-lg rounded-lg z-10">
-                {filteredOptions.map((option) => (
-                  <div
-                    key={option.title}
-                    className="py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b]"
-                    onClick={() => handleSuggestionClick(option)}
-                  >
-                    {option.title}
+                    {option.isSubOption ? option.name : option.title}
                   </div>
                 ))}
               </div>
