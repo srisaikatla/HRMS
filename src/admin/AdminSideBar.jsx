@@ -1,34 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../adminAssets/profile/boy.png";
 import AdminNavBar from "./AdminNavBar";
-// import AdminNavigation from "./options/accountDetails/AccountNavigation";
-import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
-import CompanyInformation from "./options/company_info/CompanyInformation"
-import { FaTasks, FaUser, FaInbox } from "react-icons/fa";
-import User from "./options/users/User";
-import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-import Roles from "./options/roles/Roles"
+import { IoInformationCircle, IoSettings } from "react-icons/io5";
+import { MdManageAccounts, MdOutlinePayment } from "react-icons/md";
+import { FaUser, FaInbox, FaTasks } from "react-icons/fa";
+import { RiMoneyRupeeCircleFill, RiBankFill } from "react-icons/ri";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import { IoInformationCircle } from "react-icons/io5";
-import { MdManageAccounts } from "react-icons/md";
-import { IoSettings } from "react-icons/io5";
-import { FaPeopleGroup } from "react-icons/fa6";
-// import { FaUser } from "react-icons/fa";
-import { MdOutlinePayment } from "react-icons/md";
-import { RiBankFill } from "react-icons/ri";
-import AccountDetails from "./options/accountdetailes/AccountDetails"
+import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
+import CompanyInformation from "./options/company_info/CompanyInformation";
+import User from "./options/users/User";
+import Roles from "./options/roles/Roles";
+import AccountDetails from "./options/accountdetailes/AccountDetails";
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+  const [tooltip, setTooltip] = useState({
+    show: false,
+    title: "",
+    position: { x: 0, y: 0 },
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarCollapsed(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleIconClick = (iconTitle) => {
+    setActiveTab(iconTitle);
+  };
+
+  const handleMouseOver = (event, title) => {
+    if (isSidebarCollapsed) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setTooltip({
+        show: true,
+        title,
+        position: { x: rect.right + 10, y: rect.top },
+      });
+    }
+  };
+
+  const handleMouseOut = () => {
+    setTooltip({ show: false, title: "", position: { x: 0, y: 0 } });
+  };
 
   const options = [
     { title: "Company Information", icon: <IoInformationCircle /> },
     { title: "Account Details", icon: <MdManageAccounts /> },
     { title: "Company Settings", icon: <IoSettings /> },
-    { title: "Roles", icon: <FaPeopleGroup /> },
+    { title: "Roles", icon: <FaUser /> },
     { title: "User", icon: <FaUser /> },
     {
       title: "Payroll",
@@ -58,19 +91,21 @@ const AdminSideBar = () => {
   };
 
   const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
+    if (window.innerWidth >= 768) {
+      setIsSidebarCollapsed(!isSidebarCollapsed);
+    }
   };
 
   return (
     <div className="relative bg-[#e65f2b] bg-opacity-10">
-      <AdminNavBar />
+      <AdminNavBar onIconClick={handleIconClick} options={options} />
       <div
         style={{
           backgroundImage: "linear-gradient(to bottom, #E65F2B, #FFC252)",
         }}
         className={`flex flex-col h-screen fixed mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        } pb-10 h-screen fixed top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-4 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-5">
@@ -95,15 +130,17 @@ const AdminSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`flex   flex-col transition-all my-1 duration-500 cursor-pointer ${
+                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
                   activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
                     ? "bg-white text-[#e65f2b] rounded-r-3xl"
                     : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
                 }`}
                 onClick={() => handleOptionClick(option)}
+                onMouseOver={(event) => handleMouseOver(event, option.title)}
+                onMouseOut={handleMouseOut}
               >
-                <div className="p-3   pl-4 text-[16px] flex items-center">
+                <div className="p-3 pl-4 text-[16px] flex items-center">
                   {option.icon}
                   {!isSidebarCollapsed && (
                     <span className="ml-3">{option.title}</span>
@@ -115,32 +152,21 @@ const AdminSideBar = () => {
                   )}
                 </div>
                 {option.subOptions && openDropdown === option.title && (
-                  <ul
-                    // style={{
-                    //   backgroundImage:
-                    //     "linear-gradient(to bottom, #f18b3c, #Fab14b)",
-                    //   backgroundColor: "transparent",
-                    //   border: "none",
-                    //   boxShadow: "none",
-                    // }}
-                    className="text-[#e65f2b] pr-2  rounded-br-3xl bg-transparent  transition-all duration-1000"
-                  >
+                  <ul className="text-[#e65f2b] pr-2 rounded-br-3xl bg-transparent transition-all duration-1000">
                     {option.subOptions.map((subOption, subIndex) => (
                       <li
                         key={subIndex}
-                        className={`p-3  text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
+                        className={`p-3 text-nowrap pl-14 flex items-center cursor-pointer ${
                           activeTab === subOption.name
-                            ? "bg-[#e65f2b] bg-opacity-60 text-white rounded-r-full"
-                            : "hover:bg-[#e65f2b]  hover:bg-opacity-60 hover:rounded-r-full hover:text-white"
+                            ? "bg-[#e65f2b] bg-opacity-20 rounded-lg"
+                            : ""
                         }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
                       >
                         {subOption.icon}
-                        {!isSidebarCollapsed && (
-                          <span className="ml-3">{subOption.name}</span>
-                        )}
+                        <span className="ml-3">{subOption.name}</span>
                       </li>
                     ))}
                   </ul>
@@ -150,13 +176,13 @@ const AdminSideBar = () => {
           </div>
         </div>
       </div>
+
       <div
         className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
         <div className="">
-          {/* {activeTab === "Account Details" && <AdminNavigation />} */}
           {activeTab === "Company Settings" && <CompanySettingsNavigation />}
           {activeTab === "Company Information" && <CompanyInformation />}
           {activeTab === "User" && <User />}
@@ -164,6 +190,18 @@ const AdminSideBar = () => {
           {activeTab === "Account Details" && <AccountDetails />}
         </div>
       </div>
+
+      {tooltip.show && (
+        <div
+          className="absolute bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          style={{
+            top: `${tooltip.position.y}px`,
+            left: `${tooltip.position.x}px`,
+          }}
+        >
+          {tooltip.title}
+        </div>
+      )}
     </div>
   );
 };
