@@ -73,7 +73,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker run -d --name hrms-frontend -p 80:80 ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}
+                    docker run -d --name hrms-frontend -p 8080:8080 ${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}
                     """
                 }
             }
