@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { API_BASE_URL } from '../../../Config/api';
 const UpdatePassword = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -25,7 +26,7 @@ const UpdatePassword = () => {
         try {
             // Replace with your API endpoint
             const email = auth.employee.email  // You should get the user's email dynamically
-            const response = await axios.put(`http://13.234.49.187:8080/employee/password/${email}`, {
+            const response = await axios.put(`${API_BASE_URL}/employee/password/${email}`, {
                 currentPassword,
                 newPassword,
                 confirmPassword,
@@ -37,6 +38,10 @@ const UpdatePassword = () => {
             if (response.data === "password updated successfully") {
                 setPopupMessage('Password updated successfully!');
                 setShowPopup(true); // Show the popup
+
+                setCurrentPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
 
                 // Hide popup after 2 seconds
                 setTimeout(() => {
@@ -99,7 +104,7 @@ const UpdatePassword = () => {
                             Confirm New Password
                         </label>
                         <input
-                            id="confirmNewPassword"
+                            id="confirmPassword"
                             type="password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import Select from "react-select";
 import LeaveAndHolidaysPolicies from "./Leaves&HolidaysPolicy";
 import Employee from "./employee/EmployeeNavigation";
 import Shifts from "./Shifts";
 import WorkSchedule from "./WorkShedule";
-import Notification from "./notifications/NotificationNavigation";
+import Notification from "../company_settings/notifications/NotificationNavigation";
 import TimeSheet from "./TimeSheet";
 import Company from "./Company";
 
@@ -31,11 +31,32 @@ function CompanySettingsNavigation() {
         return <LeaveAndHolidaysPolicies />;
     }
   };
-
+  const options = [
+    { value: "Company", label: "Company" },
+    { value: "LeaveAndHolidaysPolicies", label: "Leave & Holidays Policies" },
+    { value: "Employee", label: "Employee" },
+    { value: "Shifts", label: "Shifts" },
+    { value: "WorkSchedule", label: "Work Schedule" },
+    { value: "Notification", label: "Notification" },
+    { value: "TimeSheet", label: "TimeSheet" },
+  ];
   return (
     <>
       <div id="main" className="text-[16px] w-auto h-auto text-nowrap px-4 ">
-        <div className="text-lg h-16 px-4 pr-6 flex justify-between items-center">
+        {/* Dropdown for Small Screens */}
+        <div className="lg:hidden w-auto  mb-4 flex justify-center items-center">
+          <Select
+            value={options.find((option) => option.value === activeTab)}
+            onChange={(selectedOption) => setActiveTab(selectedOption.value)}
+            options={options}
+            className="w-full"
+            classNamePrefix="react-select"
+            isSearchable={false}
+          />
+        </div>
+
+        {/* Tabs for Medium and Larger Screens */}
+        <div className="hidden lg:flex text-lg h-16 px-4 pr-6 justify-between items-center">
           <div
             className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
               activeTab === "Company" ? "text-[#e65f2b]" : "text-black"
@@ -52,7 +73,6 @@ function CompanySettingsNavigation() {
               Company
             </span>
           </div>
-
           <div
             className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
               activeTab === "LeaveAndHolidaysPolicies"
@@ -153,7 +173,8 @@ function CompanySettingsNavigation() {
           </div>
         </div>
 
-        <div className="">{renderComponent()}</div>
+        {/* Render the selected component */}
+        <div className="mt-4">{renderComponent()}</div>
       </div>
     </>
   );

@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   FaFolder,
   FaCalendarDay,
@@ -6,30 +8,58 @@ import {
   FaBell,
   FaFilter,
   FaBars,
+  FaCalendarAlt,
+  FaCalendarCheck,
+  FaTasks,
 } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { TiMessages } from "react-icons/ti";
-
+import { IoMdLogOut } from "react-icons/io";
+import { logout } from "../State/Auth/Action";
 function NavBar({ onIconClick, options, projectOptions }) {
+  const navigate = useNavigate();
   const [hoveredIcon, setHoveredIcon] = React.useState("");
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
 
   // Flatten options including projectOptions
-  const flattenedOptions = [...options, ...projectOptions].flatMap((option) => {
-    if (option.subOptions) {
-      return [
-        option,
-        ...option.subOptions.map((subOption) => ({
-          ...subOption,
-          isSubOption: true, // Flag to identify if it's a subOption
-          parentTitle: option.title, // Store parent title to use if needed
-        })),
-      ];
-    }
+  // const flattenedOptions = [...options, ...projectOptions].flatMap((option) => {
+  //   if (option.subOptions) {
+  //     return [
+  //       option,
+  //       ...option.subOptions.map((subOption) => ({
+  //         ...subOption,
+  //         isSubOption: true, // Flag to identify if it's a subOption
+  //         parentTitle: option.title, // Store parent title to use if needed
+  //       })),
+  //     ];
+  //   }
 
-    return option;
-  });
+  //   return option;
+  // });
+  const jwt = localStorage.getItem("jwt");
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout(jwt));
+    localStorage.removeItem("jwt");
+    navigate("/");
+  };
+  const flattenedOptions = useMemo(() => {
+    return [...options, ...projectOptions].flatMap((option) => {
+      if (option.subOptions) {
+        return [
+          option,
+          ...option.subOptions.map((subOption) => ({
+            ...subOption,
+            isSubOption: true, // Flag to identify if it's a subOption
+            parentTitle: option.title, // Store parent title to use if needed
+          })),
+        ];
+      }
+      return option;
+    });
+  }, [options, projectOptions]);
 
   // Handle search input change
   const handleSearchChange = (e) => {
@@ -127,29 +157,18 @@ function NavBar({ onIconClick, options, projectOptions }) {
               className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
             >
               <div
-                onClick={() => onIconClick("Company Information")}
+                onClick={() => onIconClick("Events")}
                 className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out pb-1 px-2"
               >
-                <FaFolder
+                <FaCalendarCheck
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
                   onMouseEnter={() => handleMouseEnter("folder")}
                   onMouseLeave={handleMouseLeave}
                 />
-                <p className="pl-2 text-[#0098f1]">Files</p>
+                <p className="pl-2 text-[#0098f1]">Events</p>
               </div>
-              <div
-                onClick={() => onIconClick("Events")}
-                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
-              >
-                <FaCalendarDay
-                  className="hover:cursor-pointer"
-                  style={iconStyle("calendar")}
-                  onMouseEnter={() => handleMouseEnter("calendar")}
-                  onMouseLeave={handleMouseLeave}
-                />
-                <p className="pl-2 text-[#0098f1]">Calendar</p>
-              </div>
+
               <div
                 onClick={() => onIconClick("Chat")}
                 className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2"
@@ -174,27 +193,40 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 />
                 <p className="pl-2 text-[#0098f1]">Mails</p>
               </div>
+              <div
+                onClick={() => onIconClick("Holiday")}
+                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
+              >
+                <FaCalendarAlt
+                  className="hover:cursor-pointer"
+                  style={iconStyle("calendar")}
+                  onMouseEnter={() => handleMouseEnter("calendar")}
+                  onMouseLeave={handleMouseLeave}
+                />
+                <p className="pl-2 text-[#0098f1]">Holidays</p>
+              </div>
               <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
-                <FaBell
+                <FaTasks
                   className="hover:cursor-pointer"
                   style={iconStyle("bell")}
                   onMouseEnter={() => handleMouseEnter("bell")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("User")}
+                  onClick={() => onIconClick("Activities")}
                 />
-                <p className="pl-2 text-[#0098f1]">Notification</p>
+                <p className="pl-2 text-[#0098f1]">Activities</p>
               </div>
               <div
-                onClick={() => onIconClick("Company Information")}
+                // onClick={() => onIconClick("Logout")}
+                onClick={handleLogout}
                 className="py-1 border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out px-2"
               >
-                <FaFilter
+                <IoMdLogOut
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
                   onMouseEnter={() => handleMouseEnter("filter")}
                   onMouseLeave={handleMouseLeave}
                 />
-                <p className="pl-2 text-[#0098f1]">Filter</p>
+                <p className="pl-2 text-[#0098f1]">Logout</p>
               </div>
             </div>
           )}
@@ -204,20 +236,14 @@ function NavBar({ onIconClick, options, projectOptions }) {
           id="icons"
           className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"
         >
-          <FaFolder
+          <FaCalendarCheck
             className="hover:cursor-pointer"
             style={iconStyle("folder")}
             onMouseEnter={() => handleMouseEnter("folder")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Company Information")}
-          />
-          <FaCalendarDay
-            className="hover:cursor-pointer"
-            style={iconStyle("calendar")}
-            onMouseEnter={() => handleMouseEnter("calendar")}
-            onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("Events")}
           />
+
           <TiMessages
             className="hover:cursor-pointer"
             style={iconStyle("message")}
@@ -232,19 +258,27 @@ function NavBar({ onIconClick, options, projectOptions }) {
             onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("Inbox")}
           />
-          <FaBell
+          <FaCalendarAlt
+            className="hover:cursor-pointer"
+            style={iconStyle("calendar")}
+            onMouseEnter={() => handleMouseEnter("calendar")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Holiday")}
+          />
+          <FaTasks
             className="hover:cursor-pointer"
             style={iconStyle("bell")}
             onMouseEnter={() => handleMouseEnter("bell")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("User")}
+            onClick={() => onIconClick("Activities")}
           />
-          <FaFilter
+          <IoMdLogOut
             className="hover:cursor-pointer"
             style={iconStyle("filter")}
             onMouseEnter={() => handleMouseEnter("filter")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Company Information")}
+            // onClick={() => onIconClick("Logout")}
+            onClick={handleLogout}
           />
         </div>
       </div>

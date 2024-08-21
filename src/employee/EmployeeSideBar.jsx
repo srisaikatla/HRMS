@@ -7,6 +7,7 @@ import AllEmployees from "./options/allEmployees/AllEmployees";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip";
 import EmployeHoliday from "./options/employe_holiday/EmployeHoliday";
+import Inbox from "./options/employe_inbox/EmployeInbox";
 import {
   FaUsers,
   FaCalendarAlt,
@@ -22,6 +23,9 @@ import {
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
+import { BsCalendarEvent } from "react-icons/bs";
+import { MdEvent } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
@@ -39,7 +43,8 @@ import { getEmployee, logout } from "../State/Auth/Action";
 import EmployeDashboard from "./options/employe_dashboard/EmployeDashboard";
 import { useNavigate } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
-
+import { ImProfile } from "react-icons/im";
+import { TiMessages } from "react-icons/ti";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -59,7 +64,7 @@ const EmployeeSideBar = () => {
     { title: "Employees Dashboard", icon: <MdSpaceDashboard /> },
     { title: "All Employees", icon: <FaUsers /> },
     { title: "Holidays", icon: <FaCalendarAlt /> },
-    { title: "Events", icon: <FaCalendarCheck /> },
+    { title: "Events", icon: <BsCalendarEvent /> },
     { title: "Activities", icon: <FaTasks /> },
     {
       title: "Payroll",
@@ -72,11 +77,11 @@ const EmployeeSideBar = () => {
       ],
       showAlways: true,
     },
-    { title: "Profile", icon: <FaUser /> },
-    { title: "Apply Leave", icon: <FaSignOutAlt /> },
+    { title: "Profile", icon: <ImProfile /> },
+    { title: "Apply Leave", icon: <FaCalendarCheck /> },
     { title: "Projects", icon: <FaProjectDiagram /> },
-    { title: "Inbox", icon: <FaInbox /> },
-    { title: "Chats", icon: <FaComments /> },
+    { title: "Inbox", icon: <FaEnvelope /> },
+    { title: "Chats", icon: <TiMessages /> },
     { title: "Attendance", icon: <FaClipboardList /> },
     { title: "Rules", icon: <FaGavel /> },
     { title: "Tickets", icon: <FaTicketAlt /> },
@@ -227,7 +232,7 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-                        className={`p-2 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
+                        className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
                           activeTab === subOption.name
                             ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
                             : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
@@ -270,7 +275,7 @@ const EmployeeSideBar = () => {
         {activeTab === "Declaration" && <Declaration />}
         {activeTab === "Bank Account" && <BankAccount />}
         {activeTab === "Projects" && <ProjectList />}
-        {activeTab === "Inbox" && <Chat />}
+        {activeTab === "Inbox" && <Inbox />}
         {activeTab === "Chats" && <Chat />}
         {activeTab === "Attendance" && <EmployeDashboard />}
         {activeTab === "Rules" && <Rules />}

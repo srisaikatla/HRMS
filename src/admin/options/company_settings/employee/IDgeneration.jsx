@@ -58,15 +58,18 @@ function IDgeneration() {
 
   return (
     <>
-      <div className="ml-20 p-4">
-        <div className="text-[#e65f2b] text-start pl-20 space-y-3">
-          <p>
+      <div className="ml-4 p-2 lg:ml-20">
+        {/* <div className="text-[#e65f2b] text-start space-y-3 lg:pl-20">
+          <p className="flex">
             Your Employee ID is set on auto-generate mode to save your time.
           </p>
-          <p>Are you sure about changing this setting?</p>
+          <p className="break-words">
+            Are you sure about changing this setting?
+          </p>
         </div>
+        
 
-        <div className="pl-20 text-[#e65f2b] mt-4 space-y-4">
+        <div className="text-[#e65f2b] mt-4 space-y-4 lg:pl-20">
           <div>
             <input
               type="radio"
@@ -76,7 +79,7 @@ function IDgeneration() {
               checked={autoGenerate}
               onChange={handleAutoGenerateChange}
             />
-            <label htmlFor="autoGenerate" className="ml-2">
+            <label htmlFor="autoGenerate" className="ml-2 break-words">
               Continue auto-generating Employee ID
             </label>
           </div>
@@ -90,17 +93,54 @@ function IDgeneration() {
               checked={!autoGenerate}
               onChange={handleManualEntryChange}
             />
-            <label htmlFor="manualEntry" className="ml-2">
+            <label htmlFor="manualEntry" className="ml-2 break-words">
+              I will add them manually each time
+            </label>
+          </div>
+        </div> */}
+
+        <div className="text-[#e65f2b] text-start space-y-3 p-2 lg:pl-20">
+          <p className="flex text-wrap">
+            Your Employee ID is set on auto-generate mode to save your time.
+          </p>
+          <p className="text-wrap">Are you sure about changing this setting?</p>
+        </div>
+
+        <div className="text-[#e65f2b] mt-4 space-y-4 p-4 lg:pl-20">
+          <div className="flex items-start">
+            <input
+              type="radio"
+              id="autoGenerate"
+              name="idMode"
+              value="auto"
+              checked={autoGenerate}
+              onChange={handleAutoGenerateChange}
+            />
+            <label htmlFor="autoGenerate" className="ml-2 text-wrap w-full">
+              Continue auto-generating Employee ID
+            </label>
+          </div>
+
+          <div className="flex items-start">
+            <input
+              type="radio"
+              id="manualEntry"
+              name="idMode"
+              value="manual"
+              checked={!autoGenerate}
+              onChange={handleManualEntryChange}
+            />
+            <label htmlFor="manualEntry" className="ml-2 text-wrap w-full">
               I will add them manually each time
             </label>
           </div>
         </div>
 
         {autoGenerate && (
-          <div className="pl-20 text-[#e65f2b] mt-6 space-y-4">
-            <div className="flex gap-x-2">
-              <div className="">
-                <label className="w-32 pb-1 block" htmlFor="prefix">
+          <div className="text-[#e65f2b] mt-6 space-y-4 lg:pl-20">
+            <div className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-2">
+              <div className="w-full lg:w-auto">
+                <label className="w-32 pb-1 block break-words" htmlFor="prefix">
                   Prefix:
                 </label>
                 <input
@@ -112,8 +152,11 @@ function IDgeneration() {
                 />
               </div>
 
-              <div className="">
-                <label className="w-32 pb-1 block" htmlFor="employeeId">
+              <div className="w-full lg:w-auto">
+                <label
+                  className="w-32 pb-1 block break-words"
+                  htmlFor="employeeId"
+                >
                   Employee ID:
                 </label>
                 <input
@@ -125,8 +168,8 @@ function IDgeneration() {
                 />
               </div>
 
-              <div className="">
-                <label className="w-32 pb-1 block" htmlFor="suffix">
+              <div className="w-full lg:w-auto">
+                <label className="w-32 pb-1 block break-words" htmlFor="suffix">
                   Suffix:
                 </label>
                 <input
@@ -140,14 +183,14 @@ function IDgeneration() {
             </div>
 
             <div className="mt-4">
-              <p className="text-[#e65f2b]">
+              <p className="text-[#e65f2b] break-words">
                 Preview: <strong>{`${prefix}${employeeId}${suffix}`}</strong>
               </p>
             </div>
 
             <button
               onClick={handleSave}
-              className=" bg-gradient-to-r from-[#E65F2B] to-[#FFC252]  text-white px-4 py-2 rounded mt-4"
+              className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white px-4 py-2 rounded mt-4"
             >
               Save
             </button>
