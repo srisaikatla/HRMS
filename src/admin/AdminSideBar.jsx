@@ -13,6 +13,7 @@ import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -67,7 +68,7 @@ const AdminSideBar = () => {
     { title: "Company Information", icon: <IoInformationCircle /> },
     { title: "Account Details", icon: <MdManageAccounts /> },
     { title: "Company Settings", icon: <IoSettings /> },
-    { title: "Roles", icon: <FaUser /> },
+    { title: "Roles", icon: <FaPeopleGroup /> },
     { title: "User", icon: <FaUserCircle /> },
     {
       title: "Payroll",
@@ -146,7 +147,7 @@ const AdminSideBar = () => {
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
                 onMouseOut={handleMouseOut}
               >
-                <div className="p-2 pl-4 text-[16px] flex items-center">
+                <div className="p-3 pl-4 text-[16px] flex items-center">
                   {option.icon}
                   {!isSidebarCollapsed && (
                     <span className="ml-3">{option.title}</span>

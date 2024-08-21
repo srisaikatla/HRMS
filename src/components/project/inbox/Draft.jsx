@@ -4,7 +4,7 @@ import Checked from "../../../assets/project/inbox/checkbox.png";
 import filledStar from "../../../assets/project/inbox/filledstar.png";
 import unfilledstar from "../../../assets/project/inbox/unfilledstar.png";
 
-const Draft = ({draftMessage}) => {
+const Draft = ({ draftMessage }) => {
   const [checkedStatus, setCheckedStatus] = useState(
     Array(draftMessage.length).fill(false)
   );

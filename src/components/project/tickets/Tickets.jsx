@@ -113,7 +113,7 @@ const Tickets = () => {
 
   return (
     <>
-      <div className="flex-1 p-6 bg-white">
+      <div className="flex-1 p-4   mx-4 mt-4">
         <div className="flex justify-around items-center mb-6">
           {cardsData.map((card, index) => (
             <div
@@ -133,67 +133,39 @@ const Tickets = () => {
             </div>
           ))}
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-300">
+        <div className="overflow-x-scroll">
+          <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
             <thead>
               <tr className="bg-blue-500 text-white">
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  ID
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  Assign By
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  Assign To
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  E-mail ID
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  Subject
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  Status
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  Date
-                </th>
-                <th className="py-2 px-4 border-b border-blue-600 text-left text-sm">
-                  Action
-                </th>
+                <th className="py-4 px-4  text-left text-sm">ID</th>
+                <th className="py-4 px-4  text-left text-sm">Assign By</th>
+                <th className="py-4 px-4  text-left text-sm">Assign To</th>
+                <th className="py-4 px-4  text-left text-sm">E-mail ID</th>
+                <th className="py-4 px-4  text-left text-sm">Subject</th>
+                <th className="py-4 px-4  text-left text-sm">Status</th>
+                <th className="py-4 px-4  text-left text-sm">Date</th>
+                <th className="py-4 px-4  text-left text-sm">Action</th>
               </tr>
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr key={ticket.id} className="hover:bg-gray-100">
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm">
-                    {ticket.id}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm">
-                    {ticket.assignBy}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm">
-                    {ticket.assignTo}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm">
-                    {ticket.email}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm">
-                    {ticket.subject}
-                  </td>
+                <tr key={ticket.id} className="">
+                  <td className="py-4 px-4  text-sm">{ticket.id}</td>
+                  <td className="py-4 px-4  text-sm">{ticket.assignBy}</td>
+                  <td className="py-4 px-4  text-sm">{ticket.assignTo}</td>
+                  <td className="py-4 px-4  text-sm">{ticket.email}</td>
+                  <td className="py-4 px-4  text-sm">{ticket.subject}</td>
                   <td
-                    className={`py-2 px-4 mx-5 border-b border-gray-300 rounded-lg text-sm ${
+                    className={` text-center p-4  rounded-lg text-sm ${
                       ticket.status === "PENDING"
-                        ? "text-white bg-[#2A8F4C]"
+                        ? "text-white   bg-[#2A8F4C]"
                         : "text-white bg-yellow-500"
                     }`}
                   >
                     {ticket.status}
                   </td>
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm">
-                    {ticket.date}
-                  </td>
-                  <td className="py-2 px-4 border-b border-gray-300 text-sm flex items-center">
+                  <td className="py-4 px-4  text-sm">{ticket.date}</td>
+                  <td className="py-4 px-4  text-sm flex items-center">
                     <button
                       className={`py-1 px-3 text-xs rounded-lg text-white ${
                         ticket.buttonType === "green"

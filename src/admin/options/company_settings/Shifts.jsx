@@ -8,6 +8,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsCheck2Circle } from "react-icons/bs";
 
 function Shifts() {
+
   const [addNew, setAddNew] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
@@ -614,6 +615,7 @@ function Shifts() {
       </div>
     </div>
   );
+
 }
 
 export default Shifts;

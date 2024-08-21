@@ -50,7 +50,12 @@ const ReactCalendar = ({ onEventClick }) => {
     let daysArray = [];
 
     for (let i = 0; i < startDay; i++) {
-      daysArray.push(<div key={`empty-${i}`} className="day empty text-lg font-semibold"></div>);
+      daysArray.push(
+        <div
+          key={`empty-${i}`}
+          className="day empty text-lg font-semibold"
+        ></div>
+      );
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
@@ -92,7 +97,7 @@ const ReactCalendar = ({ onEventClick }) => {
   };
 
   return (
-    <div className="calendar-container bg-[#E65F2B] ">
+    <div className="calendar-container  ">
       <div className="max-w-full mx-auto bg-white rounded-lg overflow-hidden p-4">
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-lg font-semibold text-[#E65F2B] mb-5">
@@ -143,7 +148,8 @@ const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [deleteEventId, setDeleteEventId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEvent((prevEvent) => ({
@@ -153,7 +159,9 @@ const Events = () => {
   };
 
   const handleDeleteEvent = () => {
-    const updatedHolidays = holidays.filter(holiday => holiday.id !== deleteHolidayId);
+    const updatedHolidays = holidays.filter(
+      (holiday) => holiday.id !== deleteHolidayId
+    );
     setHolidays(updatedHolidays);
     setShowDeleteSuccessMessage(true);
 
@@ -165,7 +173,7 @@ const Events = () => {
   const handleAddEvent = () => {
     const dateObj = new Date(newEvent.date);
     const dayName = dateObj.toLocaleString("default", { weekday: "long" });
-  
+
     if (editEventId !== null) {
       const updatedEvents = events.map((event) => {
         if (event.id === editEventId) {
@@ -196,10 +204,9 @@ const Events = () => {
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 3000);
-  
+
     closeModal();
   };
-  
 
   const openEditModal = (eventId) => {
     const eventToEdit = events.find((event) => event.id === eventId);
@@ -227,7 +234,7 @@ const Events = () => {
     });
   };
 
-    const openDeleteModal = (holidayId) => {
+  const openDeleteModal = (holidayId) => {
     setDeleteEventId(holidayId);
     setIsDeleteModalOpen(true);
   };
@@ -250,7 +257,7 @@ const Events = () => {
       selectedDate.getMonth() + 1
     ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
     const dayName = selectedDate.toLocaleString("default", { weekday: "long" });
-  
+
     setSelectedDate(day);
     setNewEvent((prev) => ({
       ...prev,
@@ -259,22 +266,15 @@ const Events = () => {
     }));
     setIsModalOpen(true);
   };
-  
 
   return (
     <div className="p-5">
-   
       <div className="ml-3 mb-4 flex flex-col md:flex-row justify-between">
-
-<div>
-    <span className="flex">Employee</span>
-    <span className="text-[16px] font-medium">
-    Dashboard/Holidays
-    </span>
-  </div>
-
-
-</div>
+        <div>
+          <span className="flex">Employee</span>
+          <span className="text-[16px] font-medium">Dashboard/Holidays</span>
+        </div>
+      </div>
       {/* <div className="flex justify-end mb-4">
         <button
           className="bg-[#E65F2B] text-white flex items-center rounded-lg px-6 py-3"
@@ -289,7 +289,10 @@ const Events = () => {
 
       <div className="flex flex-col md:flex-row gap-4">
         <div className="w-full md:w-6/12 bg-white rounded-lg p-4 mr-4 text-lg font-semibold">
-          <ReactCalendar onEventClick={handleEventClick} className="text-lg font-semibold"/>
+          <ReactCalendar
+            onEventClick={handleEventClick}
+            className="text-lg font-semibold"
+          />
         </div>
 
         <div className="w-full md:w-6/12 bg-[#E65F2B] rounded-lg p-4 relative">
@@ -369,25 +372,36 @@ const Events = () => {
         <table className="w-full bg-white rounded-lg ">
           <thead className="bg-[#E65F2B]">
             <tr>
-              <th className="p-2 text-lg font-semibold">Day</th>
-              <th className="p-2 text-lg font-semibold" >Date</th>
-              <th className="p-2 text-lg font-semibold">Event</th>
-              <th className="p-2 text-lg font-semibold">Actions</th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Day
+              </th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Date
+              </th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Event
+              </th>
+              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="text-center">
             {events.map((event) => (
-              <tr key={event.id} className="bg-[#E65F2B] bg-opacity-20">
-                <td className="py-2 px-4 border-b text-lg font-semibold bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+              <tr
+                key={event.id}
+                className="text-[#e65f2b] border-b border-[#e65f2b]"
+              >
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   {event.day}
                 </td>
-                <td className="py-2 px-4 border-b text-lg font-semibold bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   {event.date}
                 </td>
-                <td className="py-2 px-4 border-b text-lg font-semibold bg-transparent text-center border-r border-[#E65F2B] border-opacity-80">
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   {event.name}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center border-r-0 border-[#E65F2B] border-opacity-80">
+                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
                   <div className="flex justify-center items-center space-x-2">
                     <button
                       className="text-blue-500 flex py-3 items-center text-lg font-semibold"
@@ -399,8 +413,10 @@ const Events = () => {
                       className="flex items-center justify-center"
                       onClick={() => handleDeleteEvent(event.id)}
                     >
-                      <FiTrash2 className="mr-1 text-lg font-semibold bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" 
-                      onClick={() => openDeleteModal(event.id)}/>
+                      <FiTrash2
+                        className="mr-1 text-lg font-semibold bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md"
+                        onClick={() => openDeleteModal(event.id)}
+                      />
                     </button>
                   </div>
                 </td>
@@ -413,7 +429,7 @@ const Events = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6 w-[400px]">
             <h2 className="text-2xl mb-4 text-[#E65F2B]">
-              {editEventId ? 'Edit Holiday' : 'Add Holiday'}
+              {editEventId ? "Edit Holiday" : "Add Holiday"}
             </h2>
             <div className="grid grid-cols-1 gap-4">
               <div>
@@ -427,7 +443,9 @@ const Events = () => {
                 />
               </div>
               <div>
-                <label className="block mb-2 text-lg font-semibold">Holiday Name</label>
+                <label className="block mb-2 text-lg font-semibold">
+                  Holiday Name
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -448,7 +466,7 @@ const Events = () => {
                 className="bg-[#E65F2B] text-white px-4 py-2 rounded text-lg font-semibold"
                 onClick={handleAddEvent}
               >
-                {editEventId ? 'Update' : 'Add'}
+                {editEventId ? "Update" : "Add"}
               </button>
             </div>
           </div>
@@ -458,8 +476,12 @@ const Events = () => {
       {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-10 w-[400px] flex flex-col items-center justify-center">
-            <h2 className=" mb-4 text-[#E65F2B] text-lg font-semibold">Delete Holiday</h2>
-            <p className='text-[#E65F2B] text-lg font-semibold'>Are you sure you want to delete?</p>
+            <h2 className=" mb-4 text-[#E65F2B] text-lg font-semibold">
+              Delete Holiday
+            </h2>
+            <p className="text-[#E65F2B] text-lg font-semibold">
+              Are you sure you want to delete?
+            </p>
             <div className="mt-4 flex gap-5">
               <button
                 className="bg-[#E65F2B] text-white px-10 py-2 rounded text-lg font-semibold"
@@ -480,7 +502,7 @@ const Events = () => {
 
       {showSuccessMessage && (
         <div className="fixed top-4 text-lg font-semibold left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
-          Holiday {editEventId ? 'updated' : 'added'} successfully!
+          Holiday {editEventId ? "updated" : "added"} successfully!
         </div>
       )}
 

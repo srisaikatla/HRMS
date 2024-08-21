@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { FaBars } from "react-icons/fa";
 import {
   FaFolder,
@@ -7,27 +8,47 @@ import {
   FaBell,
   FaFilter,
 } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { MdManageAccounts, MdOutlinePayment } from "react-icons/md";
+import { IoInformationCircle, IoSettings } from "react-icons/io5";
 import { TiMessages } from "react-icons/ti";
+import { FaUser, FaInbox, FaTasks } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 function AdminNavBar({ onIconClick, options }) {
   const [hoveredIcon, setHoveredIcon] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
-  const flattenedOptions = options.flatMap((option) => {
-    if (option.subOptions) {
-      return [
-        option,
-        ...option.subOptions.map((subOption) => ({
-          ...subOption,
-          isSubOption: true, // Flag to identify if it's a subOption
-          parentTitle: option.title, // Store parent title to use if needed
-        })),
-      ];
-    }
 
-    return option;
-  });
+  // const flattenedOptions = options.flatMap((option) => {
+  //   if (option.subOptions) {
+  //     return [
+  //       option,
+  //       ...option.subOptions.map((subOption) => ({
+  //         ...subOption,
+  //         isSubOption: true, // Flag to identify if it's a subOption
+  //         parentTitle: option.title, // Store parent title to use if needed
+  //       })),
+  //     ];
+  //   }
 
+  //   return option;
+  // });
+  const flattenedOptions = useMemo(() => {
+    return options.flatMap((option) => {
+      if (option.subOptions) {
+        return [
+          option,
+          ...option.subOptions.map((subOption) => ({
+            ...subOption,
+            isSubOption: true, // Flag to identify if it's a subOption
+            parentTitle: option.title, // Store parent title to use if needed
+          })),
+        ];
+      }
+      return option;
+    });
+  }, [options]);
   const handleMouseEnter = (iconName) => {
     setHoveredIcon(iconName);
   };
@@ -66,6 +87,7 @@ function AdminNavBar({ onIconClick, options }) {
     onIconClick(suggestion.title);
     setSearchQuery("");
     setFilteredOptions([]);
+    // setDropdownOpen(false);
   };
 
   return (
@@ -123,58 +145,63 @@ function AdminNavBar({ onIconClick, options }) {
               className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
             >
               <div
-                onClick={() => onIconClick("Company Information")}
+                // onClick={() => onIconClick("Company Information")}
+                onClick={() => {
+                  onIconClick("Company Information");
+                  setDropdownOpen(false);
+                }}
                 className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out pb-1 px-2"
               >
-                <FaFolder
+                <IoInformationCircle
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
                   onMouseEnter={() => handleMouseEnter("folder")}
                   onMouseLeave={handleMouseLeave}
                 />
-                <p className="pl-2 text-[#e65f2b]">Files</p>
+                <p className="pl-2 text-[#e65f2b]">Company Information</p>
               </div>
               <div
-                onClick={() => onIconClick("Account Details")}
+                // onClick={() => onIconClick("Account Details")}
+                onClick={() => {
+                  onIconClick("Account Details");
+                  setDropdownOpen(false);
+                }}
                 className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
               >
-                <FaCalendarDay
+                <MdManageAccounts
                   className="hover:cursor-pointer"
                   style={iconStyle("calendar")}
                   onMouseEnter={() => handleMouseEnter("calendar")}
                   onMouseLeave={handleMouseLeave}
                 />
-                <p className="pl-2 text-[#e65f2b]">Calendar</p>
+                <p className="pl-2 text-[#e65f2b]">Account Details</p>
               </div>
+
               <div
-                onClick={() => onIconClick("Company Settings")}
+                // onClick={() => onIconClick("Roles")}
+                onClick={() => {
+                  onIconClick("Roles");
+                  setDropdownOpen(false);
+                }}
                 className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
               >
-                <TiMessages
-                  className="hover:cursor-pointer"
-                  style={iconStyle("message")}
-                  onMouseEnter={() => handleMouseEnter("message")}
-                  onMouseLeave={handleMouseLeave}
-                />
-                <p className="pl-2 text-[#e65f2b]">Messages</p>
-              </div>
-              <div
-                onClick={() => onIconClick("Roles")}
-                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
-              >
-                <FaEnvelope
+                <FaPeopleGroup
                   className="hover:cursor-pointer"
                   style={iconStyle("mail")}
                   onMouseEnter={() => handleMouseEnter("mail")}
                   onMouseLeave={handleMouseLeave}
                 />
-                <p className="pl-2 text-[#e65f2b]">Mails</p>
+                <p className="pl-2 text-[#e65f2b]">Roles</p>
               </div>
               <div
-                onClick={() => onIconClick("User")}
+                // onClick={() => onIconClick("User")}
+                onClick={() => {
+                  onIconClick("User");
+                  setDropdownOpen(false);
+                }}
                 className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
               >
-                <FaBell
+                <FaUserCircle
                   className="hover:cursor-pointer"
                   style={iconStyle("bell")}
                   onMouseEnter={() => handleMouseEnter("bell")}
@@ -183,7 +210,27 @@ function AdminNavBar({ onIconClick, options }) {
                 <p className="pl-2 text-[#e65f2b]">Notification</p>
               </div>
               <div
-                onClick={() => onIconClick("Company Information")}
+                // onClick={() => onIconClick("Company Settings")}
+                onClick={() => {
+                  onIconClick("Company Settings");
+                  setDropdownOpen(false);
+                }}
+                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
+                <IoSettings
+                  className="hover:cursor-pointer"
+                  style={iconStyle("message")}
+                  onMouseEnter={() => handleMouseEnter("message")}
+                  onMouseLeave={handleMouseLeave}
+                />
+                <p className="pl-2 text-[#e65f2b]">Company Settings</p>
+              </div>
+              {/* <div
+                // onClick={() => onIconClick("Company Information")}
+                onClick={() => {
+                  onIconClick("Company Information");
+                  setDropdownOpen(false);
+                }}
                 className="py-1 border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out px-2"
               >
                 <FaFilter
@@ -193,7 +240,7 @@ function AdminNavBar({ onIconClick, options }) {
                   onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Filter</p>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
@@ -201,48 +248,49 @@ function AdminNavBar({ onIconClick, options }) {
           id="icons"
           className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"
         >
-          <FaFolder
-            className="hover:cursor-pointer"
+          <IoInformationCircle
+            className="hover:cursor-pointer w-8 h-8 pt-1"
             style={iconStyle("folder")}
             onMouseEnter={() => handleMouseEnter("folder")}
             onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("Company Information")}
           />
-          <FaCalendarDay
-            className="hover:cursor-pointer"
+          <MdManageAccounts
+            className="hover:cursor-pointer  w-8 h-8 pt-1"
             style={iconStyle("calendar")}
             onMouseEnter={() => handleMouseEnter("calendar")}
             onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("Account Details")}
           />
-          <TiMessages
-            className="hover:cursor-pointer"
-            style={iconStyle("message")}
-            onMouseEnter={() => handleMouseEnter("message")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Company Settings")}
-          />
-          <FaEnvelope
+
+          <FaPeopleGroup
             className="hover:cursor-pointer"
             style={iconStyle("mail")}
             onMouseEnter={() => handleMouseEnter("mail")}
             onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("Roles")}
           />
-          <FaBell
+          <FaUserCircle
             className="hover:cursor-pointer"
             style={iconStyle("bell")}
             onMouseEnter={() => handleMouseEnter("bell")}
             onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("User")}
           />
-          <FaFilter
+          <IoSettings
+            className="hover:cursor-pointer"
+            style={iconStyle("message")}
+            onMouseEnter={() => handleMouseEnter("message")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onIconClick("Company Settings")}
+          />
+          {/* <FaFilter
             className="hover:cursor-pointer"
             style={iconStyle("filter")}
             onMouseEnter={() => handleMouseEnter("filter")}
             onMouseLeave={handleMouseLeave}
             onClick={() => onIconClick("Company Information")}
-          />
+          /> */}
         </div>
       </div>
     </>

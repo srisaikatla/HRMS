@@ -89,57 +89,59 @@ const Dashboard = () => {
   };
   return (
     <>
-      {/* <SideBar /> */}
-      <div className="flex pt-6  justify-around items-center bg-white ">
-        {cardsData.map((card, index) => (
-          <div
-            key={index}
-            className={`w-[200px] h-[140px] text-white rounded-lg flex flex-col justify-center items-center shadow-lg relative ${
-              card.color.startsWith("#") ? "" : card.color
-            }`}
-            style={{
-              backgroundColor: card.color,
-              // clipPath: "circle(32% at 99% 100%)",
-            }}
-          >
-            <span className="text-3xl font-bold">{card.count}</span>
-            <span className="text-xl">{card.label}</span>
-            <div className="absolute bottom-0 right-0 bg-white opacity-20 rounded-full w-20 h-20 transform translate-x-1/4 translate-y-1/4"></div>
+      <div className="h-full pb-10">
+        {/* <SideBar /> */}
+        <div className="flex mt-6 p-4 mx-4  justify-around items-center  ">
+          {cardsData.map((card, index) => (
+            <div
+              key={index}
+              className={`w-[200px] h-[140px] text-white rounded-lg flex flex-col justify-center items-center shadow-lg relative ${
+                card.color.startsWith("#") ? "" : card.color
+              }`}
+              style={{
+                backgroundColor: card.color,
+                // clipPath: "circle(32% at 99% 100%)",
+              }}
+            >
+              <span className="text-3xl font-bold">{card.count}</span>
+              <span className="text-xl">{card.label}</span>
+              <div className="absolute bottom-0 right-0 bg-white opacity-20 rounded-full w-20 h-20 transform translate-x-1/4 translate-y-1/4"></div>
+            </div>
+          ))}
+        </div>
+        <div className="flex  justify-center items-center mt-12">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-[500px] h-[400px] mr-4">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">
+              Work Report
+            </h2>
+            <Line data={data} options={options} />
           </div>
-        ))}
-      </div>
-      <div className="flex justify-center items-center mt-12">
-        <div className="bg-white p-4 rounded shadow-lg w-[600px] mr-4">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">
-            Work Report
-          </h2>
-          <Line data={data} options={options} />
+          <div>
+            <ToDoList />
+          </div>
         </div>
-        <div>
-          <ToDoList />
-        </div>
-      </div>
-      <div className="flex justify-center items-center ">
-        <div className="flex-1">
-          <SectionItems />
-        </div>
-        {/* <div className="flex-1">
+        <div className="flex justify-center items-center ">
+          <div className="flex-1">
+            <SectionItems />
+          </div>
+          {/* <div className="flex-1">
           <ProfileList />
         </div> */}
-        <div className="flex-1 w-[300px]">
-          <IncomeAnalysis />
+          <div className="flex-1 w-[300px]">
+            <IncomeAnalysis />
+          </div>
         </div>
-      </div>
-      <div className="flex  space-x-1">
-        <div className="flex-1">
-          <ProjectListTable />
+        <div className="flex  space-x-1">
+          <div className="flex-1">
+            <ProjectListTable />
+          </div>
+          <div className="flex-1 mt-14 mr-12">
+            <SalesIncome />
+          </div>
         </div>
-        <div className="flex-1 mt-14 mr-12">
-          <SalesIncome />
+        <div className="  mt-10">
+          <TeamList />
         </div>
-      </div>
-      <div className=" mt-10">
-        <TeamList />
       </div>
     </>
   );

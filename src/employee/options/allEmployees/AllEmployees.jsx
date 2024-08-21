@@ -28,14 +28,15 @@ const AllEmployees = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/employee/getAllEmployee`);
+      const response = await axios.get(
+        `${API_BASE_URL}/employee/getAllEmployee`
+      );
       setEmployees(response.data);
       setFilteredData(response.data);
       setLoading(false);
@@ -79,9 +80,7 @@ const AllEmployees = () => {
       <div className="ml-3 mb-4 flex flex-col md:flex-row justify-between">
         <div>
           <span className="flex">Employee</span>
-          <span className="text-[16px] font-medium">
-            Dashboard / Employee
-          </span>
+          <span className="text-[16px] font-medium">Dashboard / Employee</span>
         </div>
       </div>
 
@@ -118,7 +117,6 @@ const AllEmployees = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredData.map((employee) => (
-
             <EmployeeCard
               key={employee.employeeId}
               teamname={employee.designation}

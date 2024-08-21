@@ -197,7 +197,6 @@
 
 // export default Attendance;
 
-
 import React, { useState } from "react";
 import { FaSearch, FaFilter } from "react-icons/fa";
 
@@ -398,8 +397,12 @@ function Attendance() {
 
   // Filter data based on search query and filter
   const filteredData = sampleData.filter((employee) => {
-    const matchesSearch = employee.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = filter === "All" || employee.attendance.some((day) => day.status === filter.toLowerCase());
+    const matchesSearch = employee.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchesFilter =
+      filter === "All" ||
+      employee.attendance.some((day) => day.status === filter.toLowerCase());
     return matchesSearch && matchesFilter;
   });
   return (
@@ -438,7 +441,10 @@ function Attendance() {
           </div>
         </div>
       </div>
-      <div id="table" className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]">
+      <div
+        id="table"
+        className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]"
+      >
         <table className="min-w-full bg-white text-white  text-nowrap">
           <thead className="bg-[#0098F1]">
             <tr>
@@ -488,16 +494,36 @@ function Attendance() {
                   <td className="py-2 px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
                     {employee.name}
                   </td>
-                  <td className="py-2 px-4 text-center border-b">{employee.id}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.present}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.weekend}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.holiday}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.timeoff}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.overtime}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.lop}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.late}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.early}</td>
-                  <td className="py-2 px-4 text-center border-b">{totals.source}</td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {employee.id}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.present}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.weekend}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.holiday}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.timeoff}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.overtime}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.lop}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.late}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.early}
+                  </td>
+                  <td className="py-2 px-4 text-center border-b">
+                    {totals.source}
+                  </td>
                 </tr>
               );
             })}
@@ -506,8 +532,6 @@ function Attendance() {
       </div>
     </div>
   );
-  
- 
 }
 
 export default Attendance;

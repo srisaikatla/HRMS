@@ -75,10 +75,10 @@ const Chat = () => {
     }
   };
   return (
-    <div className=" mx-8  min-h-screen">
+    <div className=" mx-8  pb-10 h-auto">
       <h2 className="text-[#e65f2b] font-bold  text-xl mb-3 ml-4">Chat</h2>
       <div className="flex w-full  gap-1">
-        <div className="flex border-r-2 flex-col bg-white overflow-x-auto h-[400px] w-[300px] p-3">
+        <div className="flex border-r-2 flex-col bg-white overflow-x-auto h-auto w-[300px] p-3">
           <div className="flex flex-row justify-center items-center">
             <IoSearchSharp className="bg-[#E65F2B] rounded-l text-white w-[47px] h-full p-3" />
             <input
