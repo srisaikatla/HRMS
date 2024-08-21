@@ -117,63 +117,75 @@ function EmployeeNavBar({ onIconClick, options }) {
               id="icons"
               className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
             >
-              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out pb-1 px-2">
+              <div
+                onClick={() => onIconClick("Company Information")}
+                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out pb-1 px-2"
+              >
                 <FaFolder
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
                   onMouseEnter={() => handleMouseEnter("folder")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Company Information")}
                 />
                 <p className="pl-2 text-[#e65f2b]">Files</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 pt-1 px-2">
+              <div
+                onClick={() => onIconClick("Account Details")}
+                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
+              >
                 <FaCalendarDay
                   className="hover:cursor-pointer"
                   style={iconStyle("calendar")}
                   onMouseEnter={() => handleMouseEnter("calendar")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Account Details")}
                 />
                 <p className="pl-2 text-[#e65f2b]">Calendar</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2">
+              <div
+                onClick={() => onIconClick("Chats")}
+                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
                 <TiMessages
                   className="hover:cursor-pointer"
                   style={iconStyle("message")}
                   onMouseEnter={() => handleMouseEnter("message")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Chats")}
                 />
                 <p className="pl-2 text-[#e65f2b]">Messages</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2">
+              <div
+                onClick={() => onIconClick("Roles")}
+                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
                 <FaEnvelope
                   className="hover:cursor-pointer"
                   style={iconStyle("mail")}
                   onMouseEnter={() => handleMouseEnter("mail")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Roles")}
                 />
                 <p className="pl-2 text-[#e65f2b]">Mails</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2">
+              <div
+                onClick={() => onIconClick("User")}
+                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
                 <FaBell
                   className="hover:cursor-pointer"
                   style={iconStyle("bell")}
                   onMouseEnter={() => handleMouseEnter("bell")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("User")}
                 />
                 <p className="pl-2 text-[#e65f2b]">Notification</p>
               </div>
-              <div className="py-1 border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out px-2">
+              <div
+                onClick={() => onIconClick("Company Information")}
+                className="py-1 border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out px-2"
+              >
                 <FaFilter
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
                   onMouseEnter={() => handleMouseEnter("filter")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Company Information")}
                 />
                 <p className="pl-2 text-[#e65f2b]">Filter</p>
               </div>

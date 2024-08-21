@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
@@ -35,9 +35,10 @@ import ProjectList from "./options/projectList/ProjectList";
 import Profile from "./options/profile/Profile";
 import Tickets from "./options/tickets/Tickets";
 import { useDispatch, useSelector } from "react-redux";
-import { employee, getEmployee, logout } from "../State/Auth/Action";
+import { getEmployee, logout } from "../State/Auth/Action";
 import EmployeDashboard from "./options/employe_dashboard/EmployeDashboard";
 import { useNavigate } from "react-router-dom";
+import { MdSpaceDashboard } from "react-icons/md";
 
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("Employees Dashboard");
@@ -55,7 +56,7 @@ const EmployeeSideBar = () => {
   const navigate = useNavigate();
 
   const options = [
-    { title: "Employees Dashboard", icon: <FaUsers /> },
+    { title: "Employees Dashboard", icon: <MdSpaceDashboard /> },
     { title: "All Employees", icon: <FaUsers /> },
     { title: "Holidays", icon: <FaCalendarAlt /> },
     { title: "Events", icon: <FaCalendarCheck /> },
@@ -69,7 +70,7 @@ const EmployeeSideBar = () => {
         { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
         { name: "Bank Account", icon: <PiHandDepositFill /> },
       ],
-      showAlways: true, // This is a custom flag to indicate that the icon should always be shown
+      showAlways: true,
     },
     { title: "Profile", icon: <FaUser /> },
     { title: "Apply Leave", icon: <FaSignOutAlt /> },
@@ -89,14 +90,13 @@ const EmployeeSideBar = () => {
   }, [jwt, auth.jwt, dispatch]);
 
   useEffect(() => {
-    // Automatically collapse sidebar on small screens
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setIsSidebarCollapsed(true);
       }
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -113,6 +113,11 @@ const EmployeeSideBar = () => {
         position: { x: rect.right + 10, y: rect.top },
       });
     }
+  };
+
+  const handleSubOptionMouseOver = (event, subOptionTitle) => {
+    event.stopPropagation(); // Prevent event from bubbling up to parent options
+    handleMouseOver(event, subOptionTitle);
   };
 
   const handleMouseOut = () => {
@@ -137,7 +142,6 @@ const EmployeeSideBar = () => {
   };
 
   const toggleSidebar = () => {
-    // Disable sidebar toggle on small screens
     if (window.innerWidth >= 768) {
       setIsSidebarCollapsed(!isSidebarCollapsed);
     }
@@ -162,7 +166,7 @@ const EmployeeSideBar = () => {
         } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
-          <div className="flex justify-between items-center pt-10 pb-5 pl-5">
+          <div className="flex justify-between items-center pt-10 pb-5 pl-4">
             <IoMdMenu
               className="text-white h-[30px] absolute top-4 cursor-pointer"
               onClick={toggleSidebar}
@@ -223,7 +227,7 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-                        className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
+                        className={`p-2 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
                           activeTab === subOption.name
                             ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
                             : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
@@ -231,10 +235,14 @@ const EmployeeSideBar = () => {
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
+                        onMouseOver={(event) =>
+                          handleSubOptionMouseOver(event, subOption.name)
+                        }
+                        onMouseOut={handleMouseOut}
                       >
-                        {subOption.icon}
+                        <span className="mr-2">{subOption.icon}</span>
                         {!isSidebarCollapsed && (
-                          <span className="ml-3">{subOption.name}</span>
+                          <span className="text-[14px]">{subOption.name}</span>
                         )}
                       </div>
                     ))}
@@ -246,38 +254,34 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 py-4 overflow-y-auto transition-all duration-300 ${
+        className={`flex-1 p-4 transition-all duration-300 ${
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
-        <div className="">
-          {activeTab === "All Employees" && <AllEmployees />}
-          {activeTab === "Events" && <Events />}
-          {activeTab === "Apply Leave" && <ApplyLeave />}
-
-          {activeTab === "Payslips" && <Payslip />}
-          {activeTab === "Salary Structure" && <SalaryStructure />}
-
-          {activeTab === "Declaration" && <Declaration />}
-          {activeTab === "Bank Account" && <BankAccount />}
-          {activeTab === "Chats" && <Chat />}
-          {activeTab === "Projects" && <ProjectList />}
-          {activeTab === "Rules" && <Rules />}
-
-          {activeTab === "Activities" && <EmployeeActivities />}
-          {activeTab === "Profile" && <Profile />}
-          {activeTab === "Holidays" && <EmployeHoliday />}
-          {activeTab === "Inbox" && <EmployeInbox />}
-          {activeTab === "Tickets" && <Tickets />}
-          {activeTab === "Employees Dashboard" && <EmployeDashboard />}
-        </div>
+        {activeTab === "Employees Dashboard" && <EmployeDashboard />}
+        {activeTab === "All Employees" && <AllEmployees />}
+        {activeTab === "Holidays" && <EmployeHoliday />}
+        {activeTab === "Events" && <EmployeHoliday />}
+        {activeTab === "Activities" && <EmployeDashboard />}
+        {activeTab === "Payslips" && <Payslip />}
+        {activeTab === "Profile" && <Profile />}
+        {activeTab === "Apply Leave" && <ApplyLeave />}
+        {activeTab === "Salary Structure" && <SalaryStructure />}
+        {activeTab === "Declaration" && <Declaration />}
+        {activeTab === "Bank Account" && <BankAccount />}
+        {activeTab === "Projects" && <ProjectList />}
+        {activeTab === "Inbox" && <Chat />}
+        {activeTab === "Chats" && <Chat />}
+        {activeTab === "Attendance" && <EmployeDashboard />}
+        {activeTab === "Rules" && <Rules />}
+        {activeTab === "Tickets" && <Tickets />}
       </div>
       {tooltip.show && (
         <div
-          className="absolute bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          className="fixed p-2 bg-[#e65f2b] text-white rounded-lg shadow-md z-50"
           style={{
-            top: `${tooltip.position.y}px`,
             left: `${tooltip.position.x}px`,
+            top: `${tooltip.position.y}px`,
           }}
         >
           {tooltip.title}

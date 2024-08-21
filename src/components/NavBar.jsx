@@ -126,44 +126,51 @@ function NavBar({ onIconClick, options, projectOptions }) {
               id="icons"
               className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
             >
-              {/* Mobile dropdown menu items */}
-              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out pb-1 px-2">
+              <div
+                onClick={() => onIconClick("Company Information")}
+                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out pb-1 px-2"
+              >
                 <FaFolder
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
                   onMouseEnter={() => handleMouseEnter("folder")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Company Information")}
                 />
                 <p className="pl-2 text-[#0098f1]">Files</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2">
+              <div
+                onClick={() => onIconClick("Events")}
+                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
+              >
                 <FaCalendarDay
                   className="hover:cursor-pointer"
                   style={iconStyle("calendar")}
                   onMouseEnter={() => handleMouseEnter("calendar")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Events")}
                 />
                 <p className="pl-2 text-[#0098f1]">Calendar</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
+              <div
+                onClick={() => onIconClick("Chat")}
+                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
                 <TiMessages
                   className="hover:cursor-pointer"
                   style={iconStyle("message")}
                   onMouseEnter={() => handleMouseEnter("message")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Chat")}
                 />
                 <p className="pl-2 text-[#0098f1]">Messages</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
+              <div
+                onClick={() => onIconClick("Inbox")}
+                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
                 <FaEnvelope
                   className="hover:cursor-pointer"
                   style={iconStyle("mail")}
                   onMouseEnter={() => handleMouseEnter("mail")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Inbox")}
                 />
                 <p className="pl-2 text-[#0098f1]">Mails</p>
               </div>
@@ -177,13 +184,15 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 />
                 <p className="pl-2 text-[#0098f1]">Notification</p>
               </div>
-              <div className="py-1 border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out px-2">
+              <div
+                onClick={() => onIconClick("Company Information")}
+                className="py-1 border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out px-2"
+              >
                 <FaFilter
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
                   onMouseEnter={() => handleMouseEnter("filter")}
                   onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Company Information")}
                 />
                 <p className="pl-2 text-[#0098f1]">Filter</p>
               </div>
