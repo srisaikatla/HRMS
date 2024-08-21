@@ -112,7 +112,7 @@ const Education = () => {
     };
 
     return (
-        <div className='bg-white p-6 ml-10 mr-10 h-[500px] flex flex-col'>
+        <div className='bg-white p-6 h-[500px] flex flex-col'>
             <div className="flex justify-between items-center py-2">
                 <h1 className="text-xl text-[#E65F2B]">EDUCATION INFO</h1>
                 <button

@@ -1,68 +1,49 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
-import { API_BASE_URL } from '../../../Config/api';
+
 const UpdatePassword = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
     const [formError, setFormError] = useState('');
-    const jwt = localStorage.getItem("jwt")
-    const auth = useSelector((state) => state.auth)
 
+    const handleChangeCurrentPassword = (e) => setCurrentPassword(e.target.value);
+    const handleChangeNewPassword = (e) => setNewPassword(e.target.value);
+    const handleChangeConfirmNewPassword = (e) => setConfirmNewPassword(e.target.value);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (newPassword !== confirmPassword) {
-            setMessage('New passwords do not match');
-            return;
-        }
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent the default form submission
 
-        try {
-            // Replace with your API endpoint
-            const email = auth.employee.email  // You should get the user's email dynamically
-            const response = await axios.put(`${API_BASE_URL}/employee/password/${email}`, {
-                currentPassword,
-                newPassword,
-                confirmPassword,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${jwt}`, // Pass the JWT token in the Authorization header
-                },
-            },);
-            if (response.data === "password updated successfully") {
+        if (currentPassword && newPassword && confirmNewPassword) {
+            if (newPassword === confirmNewPassword) {
+                // Add logic to update the password here (e.g., API call)
                 setPopupMessage('Password updated successfully!');
                 setShowPopup(true); // Show the popup
-
-                setCurrentPassword('');
-                setNewPassword('');
-                setConfirmPassword('');
 
                 // Hide popup after 2 seconds
                 setTimeout(() => {
                     setShowPopup(false);
                 }, 2000);
             } else {
-                setMessage(response.data);
+                setPopupMessage('Passwords do not match.');
+                setShowPopup(true); // Show the popup
+
+                // Hide popup after 2 seconds
+                setTimeout(() => {
+                    setShowPopup(false);
+                }, 2000);
             }
-        } catch (error) {
-            if (error.response && error.response.data) {
-                setMessage('Error updating password: ' + JSON.stringify(error.response.data));
-            } else {
-                setMessage('Error updating password: ' + error.message);
-            }
+        } else {
+            setFormError('All fields are required.');
         }
     };
 
     return (
         <div className="bg-white ml-10 mr-10 mt-5 p-4">
-            <h1 className="text-lg text-[#E65F2B]">UPDATE PASSWORD</h1>
-
+            <h1 className="text-xl text-[#E65F2B] mb-3">UPDATE PASSWORD</h1>
+            <hr className="border-t-2 border-[#E65F2B] mb-4" />
             <form onSubmit={handleSubmit} className="mt-4">
                 <div className="flex justify-center">
                     <div className="w-200">
@@ -73,7 +54,7 @@ const UpdatePassword = () => {
                             id="currentPassword"
                             type="password"
                             value={currentPassword}
-                            onChange={(e) => setCurrentPassword(e.target.value)}
+                            onChange={handleChangeCurrentPassword}
                             required
                             className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                         />
@@ -90,7 +71,7 @@ const UpdatePassword = () => {
                             id="newPassword"
                             type="password"
                             value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
+                            onChange={handleChangeNewPassword}
                             required
                             className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                         />
@@ -104,10 +85,10 @@ const UpdatePassword = () => {
                             Confirm New Password
                         </label>
                         <input
-                            id="confirmPassword"
+                            id="confirmNewPassword"
                             type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            value={confirmNewPassword}
+                            onChange={handleChangeConfirmNewPassword}
                             required
                             className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                         />
@@ -122,8 +103,8 @@ const UpdatePassword = () => {
                 <div className="mt-4 text-center">
                     <button
                         type="submit"
-                        disabled={!(currentPassword && newPassword && confirmPassword)}
-                        className={`px-4 py-2 ${currentPassword && newPassword && confirmPassword ? 'bg-[#E65F2B]' : 'bg-gray-400'} text-white rounded-lg`}
+                        disabled={!(currentPassword && newPassword && confirmNewPassword)}
+                        className={`px-4 py-2 ${currentPassword && newPassword && confirmNewPassword ? 'bg-[#E65F2B]' : 'bg-gray-400'} text-white rounded-lg`}
                     >
                         Update Password
                     </button>
