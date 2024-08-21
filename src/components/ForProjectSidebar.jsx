@@ -13,6 +13,7 @@ import {
 import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
 import { GrProjects } from "react-icons/gr";
 import { TbListDetails } from "react-icons/tb";
+import { GrDashboard } from "react-icons/gr";
 
 const ForProjectSidebar = ({
   isSidebarCollapsed,
@@ -24,7 +25,7 @@ const ForProjectSidebar = ({
   const [showProjectOptions, setShowProjectOptions] = useState(false);
 
   const projectOptions = [
-    { title: "Dashboard", icon: <FaTachometerAlt /> },
+    { title: "Dashboard", icon: <GrDashboard /> },
     { title: "Inbox", icon: <FaFileAlt /> },
     { title: "Chat", icon: <FaUser /> },
     { title: "Project", icon: <FaTasks />, hasSubOptions: true },
@@ -41,13 +42,10 @@ const ForProjectSidebar = ({
   ];
 
   const handleOptionClick = (option) => {
-    switch (option.title) {
-      case "Project":
-        setShowProjectOptions(!showProjectOptions);
-        break;
-      default:
-        setActiveTab(option.title);
-        break;
+    if (option.hasSubOptions) {
+      setShowProjectOptions(!showProjectOptions);
+    } else {
+      setActiveTab(option.title);
     }
   };
 
@@ -56,7 +54,7 @@ const ForProjectSidebar = ({
       {projectOptions.map((option) => (
         <React.Fragment key={option.title}>
           <li
-            className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
+            className={`flex justify-between text-[16px] pl-5 py-3 mb-1 items-center cursor-pointer ${
               activeTab === option.title
                 ? "bg-white rounded-r-full text-[#ef5f2b]"
                 : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
@@ -75,34 +73,38 @@ const ForProjectSidebar = ({
             </div>
             {!isSidebarCollapsed && option.hasSubOptions && (
               <span className="pr-5">
-                {option.title === "Project" && showProjectOptions ? (
-                  <FaChevronUp />
-                ) : (
-                  <FaChevronDown />
-                )}
+                {showProjectOptions ? <FaChevronUp /> : <FaChevronDown />}
               </span>
             )}
           </li>
-          {!isSidebarCollapsed &&
-            option.title === "Project" &&
-            showProjectOptions && (
-              <ul className="">
-                {projectDropdownOptions.map((dropdownOption) => (
-                  <li
-                    key={dropdownOption.title}
-                    className={`flex text-[16px] pl-16 py-3  mb-1 items-center cursor-pointer ${
-                      activeTab === dropdownOption.title
-                        ? "bg-white rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+          {option.title === "Project" && showProjectOptions && (
+            <ul className="">
+              {projectDropdownOptions.map((dropdownOption) => (
+                <li
+                  key={dropdownOption.title}
+                  className={`flex text-[16px] pl-6 py-2 mb-1 items-center cursor-pointer ${
+                    activeTab === dropdownOption.title
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                  }`}
+                  onClick={() => setActiveTab(dropdownOption.title)}
+                  onMouseOver={(event) =>
+                    handleMouseOver(event, dropdownOption.title)
+                  }
+                  onMouseOut={handleMouseOut}
+                >
+                  {dropdownOption.icon}
+                  <span
+                    className={`pl-2 ${
+                      isSidebarCollapsed ? "hidden" : "inline"
                     }`}
-                    onClick={() => setActiveTab(dropdownOption.title)}
                   >
-                    {dropdownOption.icon}
-                    <span className="pl-2">{dropdownOption.title}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+                    {dropdownOption.title}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </React.Fragment>
       ))}
     </ul>

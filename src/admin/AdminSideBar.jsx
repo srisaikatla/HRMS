@@ -12,6 +12,7 @@ import CompanyInformation from "./options/company_info/CompanyInformation";
 import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
+import { FaUserCircle } from "react-icons/fa";
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState("");
@@ -53,6 +54,11 @@ const AdminSideBar = () => {
     }
   };
 
+  const handleSubOptionMouseOver = (event, subOptionTitle) => {
+    event.stopPropagation();
+    handleMouseOver(event, subOptionTitle);
+  };
+
   const handleMouseOut = () => {
     setTooltip({ show: false, title: "", position: { x: 0, y: 0 } });
   };
@@ -62,7 +68,7 @@ const AdminSideBar = () => {
     { title: "Account Details", icon: <MdManageAccounts /> },
     { title: "Company Settings", icon: <IoSettings /> },
     { title: "Roles", icon: <FaUser /> },
-    { title: "User", icon: <FaUser /> },
+    { title: "User", icon: <FaUserCircle /> },
     {
       title: "Payroll",
       icon: <MdOutlinePayment />,
@@ -108,7 +114,7 @@ const AdminSideBar = () => {
         } pb-10 h-screen fixed top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-4 text-white">
-          <div className="flex justify-between items-center pt-10 pb-5 pl-5">
+          <div className="flex justify-between items-center pt-10 pb-5 pl-4">
             <IoMdMenu
               className="text-white h-[30px] absolute top-4 cursor-pointer"
               onClick={toggleSidebar}
@@ -140,7 +146,7 @@ const AdminSideBar = () => {
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
                 onMouseOut={handleMouseOut}
               >
-                <div className="p-3 pl-4 text-[16px] flex items-center">
+                <div className="p-2 pl-4 text-[16px] flex items-center">
                   {option.icon}
                   {!isSidebarCollapsed && (
                     <span className="ml-3">{option.title}</span>
@@ -151,22 +157,29 @@ const AdminSideBar = () => {
                     </span>
                   )}
                 </div>
+
                 {option.subOptions && openDropdown === option.title && (
                   <ul className="text-[#e65f2b] pr-2 rounded-br-3xl bg-transparent transition-all duration-1000">
                     {option.subOptions.map((subOption, subIndex) => (
                       <li
                         key={subIndex}
-                        className={`p-3 text-nowrap pl-14 flex items-center cursor-pointer ${
+                        className={`py-2 my-1 text-nowrap pl-4 flex items-center cursor-pointer ${
                           activeTab === subOption.name
                             ? "bg-[#e65f2b] bg-opacity-20 rounded-lg"
-                            : ""
+                            : "hover:bg-[#e65f2b] hover:bg-opacity-20  hover:rounded-lg"
                         }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
+                        onMouseOver={(event) =>
+                          handleSubOptionMouseOver(event, subOption.name)
+                        }
+                        onMouseOut={handleMouseOut}
                       >
                         {subOption.icon}
-                        <span className="ml-3">{subOption.name}</span>
+                        {!isSidebarCollapsed && (
+                          <span className="ml-2">{subOption.name}</span>
+                        )}
                       </li>
                     ))}
                   </ul>
