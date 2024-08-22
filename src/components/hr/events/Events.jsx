@@ -1,31 +1,18 @@
 import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { FiEdit } from "react-icons/fi";
-import { FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 const initialEvents = [
   { id: 1, day: "Thursday", date: "25 Apr 2024", name: "New Event" },
-  // Add more Events
+  // Add more Events if needed
 ];
 
-const Events = () => {
+const ReactCalendar = ({ onEventClick }) => {
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const currentDate = new Date();
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
-
-  const [Events, setEvents] = useState(initialEvents);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newEvent, setNewEvent] = useState({
-    day: "",
-    date: "",
-    name: "",
-  });
-  const [editEventId, setEditEventId] = useState(null);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
-    useState(false);
 
   const months = [
     "January",
@@ -46,17 +33,14 @@ const Events = () => {
   const startDay = new Date(currentYear, currentMonth, 1).getDay();
 
   const getCurrentDateString = () => {
-    const currentDay = currentDate.getDate();
-    const currentDayOfWeek = days[currentDate.getDay()]; // Get current day of the week
-
-    return `${months[currentMonth]} ${currentDay}, ${currentDayOfWeek}`;
+    return `${months[currentMonth]} ${currentYear}`;
   };
 
   const getDayTextColor = (day) => {
     if (day === 1 || day === 15 || day === 28) {
-      return "text-[#E65F2B]";
+      return "text-[#0098F1]";
     } else if (day === 5 || day === 20) {
-      return "text-[#E65F2B]";
+      return "text-[#0098F1]";
     } else {
       return "text-[#0098F1]";
     }
@@ -65,24 +49,22 @@ const Events = () => {
   const renderDays = () => {
     let daysArray = [];
 
-    // Render empty cells for days before the start of the current month
     for (let i = 0; i < startDay; i++) {
       daysArray.push(<div key={`empty-${i}`} className="day empty"></div>);
     }
 
-    // Render actual days of the month
     for (let i = 1; i <= daysInMonth; i++) {
       const dayTextColor = getDayTextColor(i);
       const isToday =
         i === currentDate.getDate() &&
         currentMonth === currentDate.getMonth() &&
         currentYear === currentDate.getFullYear();
-      const dayClasses = `day text-center text-xl ${dayTextColor} ${
+      const dayClasses = `day text-center text-3xl m-5 ${dayTextColor} ${
         isToday ? "bg-[#FDE68A] rounded-full" : ""
       }`;
 
       daysArray.push(
-        <div key={i} className={dayClasses} style={{ margin: "4px" }}>
+        <div key={i} className={dayClasses} onClick={() => onEventClick(i)}>
           <span className="font-roboto font-medium">{i}</span>
         </div>
       );
@@ -109,6 +91,134 @@ const Events = () => {
     }
   };
 
+  return (
+    <div className="calendar-container bg-[#0098F1] ">
+      <div className="max-w-full mx-auto bg-white rounded-lg overflow-hidden p-4">
+        <div className="flex justify-between items-center mb-5">
+          <h2 className="font-semibold text-2xl text-[#0098F1] mb-5">
+            {getCurrentDateString()}
+          </h2>
+          <div className="mb-5">
+            <button
+              className="text-[#0098F1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098F1] bg-transparent p-2"
+              onClick={goToPreviousMonth}
+            >
+              <GoChevronLeft />
+            </button>
+            <button
+              className="text-[#0098F1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098F1] bg-transparent p-2 ml-2"
+              onClick={goToNextMonth}
+            >
+              <GoChevronRight />
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-7 gap-2">
+          {days.map((day) => (
+            <div
+              key={day}
+              className="text-center text-[20px] text-black font-roboto font-semibold"
+            >
+              {day}
+            </div>
+          ))}
+          {renderDays()}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Events = () => {
+  const [events, setEvents] = useState(initialEvents);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [newEvent, setNewEvent] = useState({
+    day: "",
+    date: "",
+    name: "",
+  });
+  const [editEventId, setEditEventId] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [deleteEventId, setDeleteEventId] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewEvent((prevEvent) => ({
+      ...prevEvent,
+      [name]: value,
+    }));
+  };
+
+  const handleDeleteEvent = () => {
+    const updatedHolidays = holidays.filter(
+      (holiday) => holiday.id !== deleteHolidayId
+    );
+    setHolidays(updatedHolidays);
+    setShowDeleteSuccessMessage(true);
+
+    setTimeout(() => {
+      setShowDeleteSuccessMessage(false);
+    }, 3000);
+  };
+
+  const handleAddEvent = () => {
+    const dateObj = new Date(newEvent.date);
+    const dayName = dateObj.toLocaleString("default", { weekday: "long" });
+
+    if (editEventId !== null) {
+      const updatedEvents = events.map((event) => {
+        if (event.id === editEventId) {
+          return {
+            ...event,
+            day: dayName,
+            date: newEvent.date,
+            name: newEvent.name,
+          };
+        }
+        return event;
+      });
+      setEvents(updatedEvents);
+      setShowSuccessMessage(true);
+    } else {
+      const newEventObject = {
+        id:
+          events.length > 0
+            ? Math.max(...events.map((event) => event.id)) + 1
+            : 1,
+        day: dayName,
+        date: newEvent.date,
+        name: newEvent.name,
+      };
+      setEvents([...events, newEventObject]);
+      setShowSuccessMessage(true);
+    }
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+
+    closeModal();
+  };
+
+  const openEditModal = (eventId) => {
+    const eventToEdit = events.find((event) => event.id === eventId);
+    setEditEventId(eventId);
+    setNewEvent({
+      day: eventToEdit.day,
+      date: eventToEdit.date,
+      name: eventToEdit.name,
+    });
+    setIsModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setDeleteEventId(null);
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setEditEventId(null);
@@ -119,255 +229,177 @@ const Events = () => {
     });
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewEvent((prevEvent) => ({
-      ...prevEvent,
-      [name]: value,
-    }));
+  const openDeleteModal = (holidayId) => {
+    setDeleteEventId(holidayId);
+    setIsDeleteModalOpen(true);
   };
 
-  const handleAddEvent = () => {
-    if (editEventId !== null) {
-      const updatedEvents = Events.map((Event) => {
-        if (Event.id === editEventId) {
-          return {
-            ...Event,
-            day: newEvent.day,
-            date: newEvent.date,
-            name: newEvent.name,
-          };
-        }
-        return holiday;
-      });
-      setEvents(updatedEvents);
-      setShowSuccessMessage(true);
-    } else {
-      const newEventObject = {
-        id:
-          Events.length > 0
-            ? Math.max(...Events.map((Event) => Event.id)) + 1
-            : 1,
-        day: newEvent.day,
-        date: newEvent.date,
-        name: newEvent.name,
-      };
-      setEvents([...Events, newEventObject]);
-      setShowSuccessMessage(true);
-    }
-
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
-
-    closeModal();
-  };
-
-  const openEditModal = (EventId) => {
-    const EventToEdit = Events.find((Event) => Event.id === EventId);
-    setEditEventId(EventId);
-    setNewEvent({
-      day: EventToEdit.day,
-      date: EventToEdit.date,
-      name: EventToEdit.name,
-    });
-    setIsModalOpen(true);
-  };
-
-  const handleDeleteEvent = (EventId) => {
-    const updatedEvent = Events.filter((Event) => Event.id !== EventId);
-    setEvents(updatedEvent);
+  const handleDeleteHoliday = () => {
+    const updatedEvents = events.filter((event) => event.id !== deleteEventId);
+    setEvents(updatedEvents);
     setShowDeleteSuccessMessage(true);
 
     setTimeout(() => {
       setShowDeleteSuccessMessage(false);
     }, 3000);
+
+    closeDeleteModal();
+  };
+
+  const handleEventClick = (day) => {
+    const selectedDate = new Date(currentYear, currentMonth, day);
+    const dateString = `${selectedDate.getFullYear()}-${String(
+      selectedDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
+    const dayName = selectedDate.toLocaleString("default", { weekday: "long" });
+
+    setSelectedDate(day);
+    setNewEvent((prev) => ({
+      ...prev,
+      date: dateString,
+      day: dayName,
+    }));
+    setIsModalOpen(true);
   };
 
   return (
-    <>
-      <div className=" h-screen mr-2">
-        <div className="ml-5">
-          <p className="text-[#e65f2b] font-bold text-xl">Hr/Events</p>
+    <div className="p-5">
+      <h2 className="text-[#E65F2B] text-xl font-bold">Hr/Events</h2>
+
+      <div className="flex justify-end mb-4">
+        <button
+          className="bg-[#0098F1] text-white flex items-center rounded-lg px-6 py-3"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <FaPlusCircle className="text-white text-1xl mr-2" />
+          <span className="text-white bg-[#0098F1] font-medium text-lg">
+            Add New Event
+          </span>
+        </button>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="w-full md:w-6/12 bg-white font-base rounded-lg p-4 mr-4">
+          <ReactCalendar onEventClick={handleEventClick} />
         </div>
-        <div className="flex justify-end mb-4 mr-2">
-          <button
-            className="bg-[#0098F1] text-white flex items-center rounded-lg px-6 py-3"
-            onClick={() => setIsModalOpen(true)}
-          >
-            <FaPlusCircle className="text-white text-2xl mr-2" />
-            <span className="text-white font-medium text-lg">
-              Add new Events
-            </span>
-          </button>
-        </div>
 
-        <div className="flex md:flex-row flex-col gap-48 mr-10">
-          <div className="w-full bg-white rounded-lg p-4 ">
-            <div className="w-[150%] mx-auto rounded-lg overflow-hidden p-4 border">
-              <div className="flex justify-between items-center mb-5">
-                <h2 className="font-medium text-xl text-[#E65F2B] mb-10">
-                  {getCurrentDateString()}
-                </h2>
-                <div className="mt-10">
-                  <button
-                    className="text-[#E65F2B] hover:text-gray-800 focus:outline-none rounded-full border border-[#E65F2B] bg-transparent mr-3"
-                    onClick={goToPreviousMonth}
-                    style={{
-                      width: "28px",
-                      height: "28px",
-                      padding: "4px",
-                      borderWidth: "2px",
-                    }}
-                  >
-                    <GoChevronLeft style={{ fontSize: "15px" }} />
-                  </button>
-                  <button
-                    className="text-[#E65F2B] hover:text-gray-800 focus:outline-none rounded-full border border-[#E65F2B] bg-transparent"
-                    onClick={goToNextMonth}
-                    style={{
-                      width: "28px",
-                      height: "28px",
-                      padding: "4px",
-                      borderWidth: "2px",
-                    }}
-                  >
-                    <GoChevronRight style={{ fontSize: "15px" }} />
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-7 gap-4">
-                {days.map((day) => (
-                  <div
-                    key={day}
-                    className="text-center text-sm text-black font-roboto font-[600]"
-                  >
-                    {day}
-                  </div>
-                ))}
-                {renderDays()}
-              </div>
-            </div>
-          </div>
-
-          <div className=" w-full bg-[#0098F1] rounded-lg p-4 ml-10 ">
-            <div className="flex flex-col items-center justify-center">
-              <div className="rounded-full overflow-hidden flex items-center justify-center">
-                <img
-                  className="rounded-full h-24 w-24 object-cover"
-                  src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
-                  alt="User"
-                />
-              </div>
-              <h1 className="text-white text-2xl  mb-1 text-center mt-1">
-                Mounika
-              </h1>
-
-              <div className="flex flex-row space-x-4 text-white">
-                <div className="font-roboto text-center pl-3 pr-3">
-                  <p className="font-medium">17</p>
-                  <p>Completed</p>
-                </div>
-                <div className="font-roboto text-center pl-3 pr-3">
-                  <h1 className="font-medium">34</h1>
-                  <h1>To Do</h1>
-                </div>
-                <div className="font-roboto text-center pl-3 pr-3">
-                  <h1 className="font-medium">78</h1>
-                  <h1>All Tasks</h1>
-                </div>
-              </div>
-
-              <hr
-                className="w-full border-white my-4"
-                style={{ opacity: "0.5" }}
+        <div className="w-full md:w-6/12 bg-[#0098F1] rounded-lg p-4 relative">
+          <div className="flex flex-col items-center justify-center">
+            <div className="rounded-full overflow-hidden w-24 h-24 md:w-40 md:h-40 flex items-center justify-center">
+              <img
+                className="rounded-full h-24 w-24 object-cover"
+                src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
+                alt="User"
               />
+            </div>
+            <h1 className="text-white text-2xl font-medium mb-1 text-center">
+              Mounika
+            </h1>
 
-              <div className="grid grid-cols-2 gap-2 mb-2">
-                <h1 className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-sm m-1 text-center">
-                  Marketing
-                </h1>
-                <h1 className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-sm m-1 text-center">
-                  Design Task
-                </h1>
-                <h1 className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-sm m-1 text-center">
-                  Development
-                </h1>
-                <h1 className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-sm m-1 text-center">
-                  Finance
-                </h1>
-                <h1 className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-sm m-1 text-center">
-                  Meeting
-                </h1>
-                <h1 className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-sm m-1 text-center">
-                  Conference
-                </h1>
+            <div className="flex flex-row space-x-4 text-white">
+              <div className="font-roboto text-center text-xl">
+                <h1 className="font-medium">17</h1>
+                <h1>Completed</h1>
+              </div>
+              <div className="font-roboto text-center text-xl">
+                <h1 className="font-medium">17</h1>
+                <h1>To Do</h1>
+              </div>
+              <div className="font-roboto text-center text-xl">
+                <h1 className="font-medium">17</h1>
+                <h1>All Tasks</h1>
               </div>
             </div>
 
             <hr
-              className="w-full border-white my-1"
+              className="w-full border-white my-4"
               style={{ opacity: "0.5" }}
             />
-            <div className="font-roboto text-xl">
-              <h1 className="text-white">Team</h1>
-              <div className="flex items-center ml-4">
-                {[...Array(5)].map((_, index) => (
-                  <img
-                    key={index}
-                    src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
-                    alt={`Image ${index + 1}`}
-                    className={`w-8 h-8 rounded-full -ml-3 z-${5 - index}`}
-                    style={{ zIndex: 5 - index }}
-                  />
-                ))}
-              </div>
+
+            <div className="grid grid-cols-2 gap-2 mt-2">
+              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
+                Marketing
+              </button>
+              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
+                Design Task
+              </button>
+              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
+                Development
+              </button>
+              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
+                Finance
+              </button>
+              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
+                Meeting
+              </button>
+              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
+                Conference
+              </button>
+            </div>
+          </div>
+
+          <hr className="w-full border-white my-4" style={{ opacity: "0.5" }} />
+          <div className="font-roboto text-2xl mt-4">
+            <h1 className="text-white">Team</h1>
+            <div className="flex items-center ml-4">
+              {[...Array(5)].map((_, index) => (
+                <img
+                  key={index}
+                  src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
+                  alt={`Image ${index + 1}`}
+                  className={`w-10 h-10 rounded-full -ml-3 mt-4 z-${5 - index}`}
+                  style={{ zIndex: 5 - index }}
+                />
+              ))}
             </div>
           </div>
         </div>
-        <table className="min-w-full mt-2 ml-2 ">
-          <thead style={{ background: "rgba(0, 152, 241, 0.1)" }} className="">
+      </div>
+      <div className="w-full md:w-11/12 mx-auto bg-white rounded-lg p-4 mt-4">
+        <h1 className="text-xl font-bold mb-4 text-[#0098F1]">Events List</h1>
+        <table className="w-full bg-white rounded-lg">
+          <thead className="bg-[#0098F1]">
             <tr>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="p-2 border-r border-white text-center border-opacity-80">
                 Day
               </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="p-2 border-r border-white text-center border-opacity-80">
                 Date
               </th>
-              <th className="py-4   border-b bg-[#0098f1] bg-opacity-30 text-center">
-                Event Name
+              <th className="p-2 border-r border-white text-center border-opacity-80">
+                Event
               </th>
-              <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center">
-                Action
-              </th>
+              <th className="p-2 text-center">Actions</th>
             </tr>
           </thead>
-          <tbody>
-            {Events.map((Event) => (
-              <tr key={Event.id}>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {Event.day}
+          <tbody className="text-center">
+            {events.map((event) => (
+              <tr key={event.id} className="bg-[#0098F1] bg-opacity-20">
+                <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
+                  {event.day}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  {Event.date}
+                <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
+                  {event.date}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center ">
-                  {Event.name}
+                <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
+                  {event.name}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
-                  <div className="flex justify-center space-x-2">
+                <td className="py-2 px-4 border-b bg-transparent text-center border-r-0 border-[#0098F1] border-opacity-80">
+                  <div className="flex justify-center items-center space-x-2">
                     <button
                       className="text-blue-500 flex py-3 items-center"
-                      onClick={() => openEditModal(Event.id)}
+                      onClick={() => openEditModal(event.id)}
                     >
                       <FiEdit className="mr-1 bg-[#2A8F4C] text-white rounded-md size-6 p-1" />
                     </button>
                     <button
-                      className="flex  items-center justify-center"
-                      onClick={() => handleDeleteEvent(Event.id)}
+                      className="flex items-center justify-center"
+                      onClick={() => handleDeleteEvent(event.id)}
                     >
-                      <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" />
+                      <FiTrash2
+                        className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md"
+                        onClick={() => openDeleteModal(event.id)}
+                      />
                     </button>
                   </div>
                 </td>
@@ -376,24 +408,13 @@ const Events = () => {
           </tbody>
         </table>
       </div>
-
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-6 w-1/2">
-            <h2 className="text-2xl mb-4">
+          <div className="bg-white rounded-lg p-6 w-[400px]">
+            <h2 className="text-2xl mb-4 text-[#0098F1]">
               {editEventId ? "Edit Holiday" : "Add Holiday"}
             </h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-2">Day</label>
-                <input
-                  type="text"
-                  name="day"
-                  value={newEvent.day}
-                  onChange={handleInputChange}
-                  className="border border-blue-300 focus:outline-none p-2 w-full"
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <label className="block mb-2">Date</label>
                 <input
@@ -401,29 +422,29 @@ const Events = () => {
                   name="date"
                   value={newEvent.date}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="border p-2 w-full border-[#0098F1] border-opacity-40 focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block mb-2">Event Name</label>
+                <label className="block mb-2">Holiday Name</label>
                 <input
                   type="text"
                   name="name"
                   value={newEvent.name}
                   onChange={handleInputChange}
-                  className="border p-2 w-full border-blue-300 focus:outline-none"
+                  className="border p-2 w-full border-[#0098F1] border-opacity-40 focus:outline-none"
                 />
               </div>
             </div>
             <div className="mt-4 flex justify-end">
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+                className="bg-white border border-[#0098F1] font-semibold text-[#0098F1] px-4 py-2 rounded mr-2"
                 onClick={closeModal}
               >
                 Cancel
               </button>
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-[#0098F1] text-white px-4 py-2 rounded"
                 onClick={handleAddEvent}
               >
                 {editEventId ? "Update" : "Add"}
@@ -433,18 +454,43 @@ const Events = () => {
         </div>
       )}
 
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-10 w-[400px] flex flex-col items-center justify-center">
+            <h2 className="text-2xl font-semibold mb-4 text-[#0098F1]">
+              Delete Holiday
+            </h2>
+            <p className="text-[#0098F1]">Are you sure you want to delete?</p>
+            <div className="mt-4 flex gap-5">
+              <button
+                className="bg-[#0098F1] text-white px-10 py-2 rounded"
+                onClick={handleDeleteHoliday}
+              >
+                Delete
+              </button>
+              <button
+                className="bg-white border border-[#0098F1] font-semibold text-[#0098F1] px-10 py-2 rounded mr-2"
+                onClick={closeDeleteModal}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showSuccessMessage && (
-        <div className="fixed bottom-0 right-0 bg-green-500 text-white p-4 rounded">
-          Event {editEventId ? "updated" : "added"} successfully!
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
+          Holiday {editEventId ? "updated" : "added"} successfully!
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed bottom-0 right-0 bg-red-500 text-white p-4 rounded">
-          Event deleted successfully!
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded">
+          Holiday deleted successfully!
         </div>
       )}
-    </>
+    </div>
   );
 };
 

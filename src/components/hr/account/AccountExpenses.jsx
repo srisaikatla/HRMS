@@ -53,11 +53,11 @@ const AccountExpenses = () => {
   }, []);
   return (
     <div className=" ml-2 mr-2 pt-2 ">
-      <h1 className="text-[#e65f2b] font-bold text-xl  mb-2">
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
         <span>Accounts/Expenses</span>
       </h1>
-      <div className="">
-        <table className="w-full text-left">
+      <div className="overflow-x-scroll">
+        <table className="text-left min-w-full w-screen overflow-x-scroll text-nowrap border-collapse">
           <thead className="bg-[#0098f1]  text-white ">
             <tr>
               <th className="py-2 px-7">Items</th>

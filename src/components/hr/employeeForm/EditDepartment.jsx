@@ -28,12 +28,12 @@ const EditDepartment = () => {
     };  
     return (
         <div className="max-w-full max-h-screen mx-32 my-10 shadow-2xl px-14 py-11 rounded-lg bg-white">
-            <h2 className="text-2xl font-semibold mb-10 mt-4 text-orange-400">Edit Department List</h2>
+            <h2 className="text-2xl font-semibold mb-10 mt-4 text-blue-400">Edit Department List</h2>
             <form onSubmit={handleSubmit} className='flex flex-col md:mx-[240px] mx-[0px]'>
             <div className="mb-6">
                 <div className='flex flex-row justify-between items-center'>
                 <label className="block text-md font-medium text-gray-700">Department Name</label>
-                <BiEditAlt className='text-orange-500 text-lg'/>
+                <BiEditAlt className='text-blue-500 text-lg'/>
                 </div>
                     <input
                         className="w-full mt-4 px-3 py-2 border-cyan-300 border rounded-md focus:outline-none focus:border-cyan-500"
@@ -45,7 +45,7 @@ const EditDepartment = () => {
                 <div className="mb-6">
                 <div className='flex flex-row justify-between items-center'>
                 <label className="block text-md font-medium text-gray-700">Department Head</label>
-                <BiEditAlt className='text-orange-500 text-lg'/>
+                <BiEditAlt className='text-blue-500 text-lg'/>
                 </div>
                     <input
                         className="w-full mt-4 px-3 py-2 border-cyan-300 border rounded-md focus:outline-none focus:border-cyan-500"
@@ -58,7 +58,7 @@ const EditDepartment = () => {
                 <div className="mb-6">
                 <div className='flex flex-row justify-between items-center'>
                 <label className="block text-md font-medium text-gray-700">Total Employees</label>
-                <BiEditAlt className='text-orange-500 text-lg'/>
+                <BiEditAlt className='text-blue-500 text-lg'/>
                 </div>
                     <input
                         className="w-full mt-4 px-3 py-2 border-cyan-300 border rounded-md focus:outline-none focus:border-cyan-500"

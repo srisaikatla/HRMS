@@ -66,7 +66,7 @@ const ReportInvoice = () => {
   }, []);
   return (
     <div className="mr-2 ml-2">
-      <h2 className="text-[#e65f2b] font-bold  text-xl mb-2">Report/Invoice</h2>
+      <h2 className="text-[#E65F2B] text-xl font-bold mb-4">Report/Invoice</h2>
       <table className="min-w-full md:table border-collapse mt-5">
         <thead style={{ backgroundColor: "rgba(0, 152, 241, 0.3)" }}>
           <tr className="text-left">

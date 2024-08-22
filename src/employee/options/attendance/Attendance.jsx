@@ -1,31 +1,58 @@
-
-
-
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import styles
-import { FaClock } from "react-icons/fa";
+import axios from 'axios';
+import { useSelector } from "react-redux";
+import { API_BASE_URL } from "../../../Config/api"
 
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState("");
+  const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [isOnBreak, setIsOnBreak] = useState(false);
   const [punchInTime, setPunchInTime] = useState(null);
   const [punchOutTime, setPunchOutTime] = useState(null);
   const [breakStartTime, setBreakStartTime] = useState(null);
-const [breakEndTime, setBreakEndTime] = useState(null);
-
+  const [breakEndTime, setBreakEndTime] = useState(null);
   const [totalBreakTime, setTotalBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [lastElapsedTime, setLastElapsedTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [elapsedTime, setElapsedTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
-
-
   const [attendanceData, setAttendanceData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1); // Default to current month
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear()); // Default to current year
+  const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-
+  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
+  const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
+  const jwt = localStorage.getItem("jwt");
   const officeHours = 9;
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/attendance`, {
+          headers: {
+            "Authorization": `Bearer ${jwt}`,
+          }
+        });
+        setAttendanceData(response.data);
+      } catch (error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    };
+    fetchAttendanceData();
+  }, [jwt]);
+
+  const filteredData1 = attendanceData.filter((entry) => entry.employeeId === employeeId);
+
+  // Filtered data for search query
+  const searchedData = filteredData1.filter((entry) => {
+    const entryDate = new Date(entry.punchIn).toLocaleDateString();
+    return entryDate === searchDate.toLocaleDateString() && (
+      entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   const calculateHours = (inTime, outTime) => {
     const inDate = new Date(inTime);
@@ -38,72 +65,51 @@ const [breakEndTime, setBreakEndTime] = useState(null);
     return { hours: diffHrs, minutes: diffMins, seconds: diffSecs };
   };
 
-  const calculateBreakTime = (breakStart, breakEnd) => {
-    const totalBreakMs = new Date(breakEnd) - new Date(breakStart);
-    const breakHrs = Math.floor(totalBreakMs / 3600000);
-    const breakMins = Math.floor((totalBreakMs % 3600000) / 60000);
-    const breakSecs = Math.floor((totalBreakMs % 60000) / 1000);
+  const accumulateTime = (prevTime, newTime) => {
+    let totalSeconds = (prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds) +
+      (newTime.hours * 3600 + newTime.minutes * 60 + newTime.seconds);
 
-    return { hours: breakHrs, minutes: breakMins, seconds: breakSecs };
+    const hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    return { hours, minutes, seconds };
   };
+
+  const calculateBreakTime = (startTime, endTime) => {
+    const diffMs = endTime - startTime;
+    const hours = Math.floor(diffMs / 3600000);
+    const minutes = Math.floor((diffMs % 3600000) / 60000);
+    const seconds = Math.floor((diffMs % 60000) / 1000);
+
+    return { hours, minutes, seconds };
+  };
+
 
   const updateBreakTime = (newBreakTime) => {
-    setTotalBreakTime(prevBreakTime => {
-      const updatedBreakTime = {
-        hours: prevBreakTime.hours + newBreakTime.hours,
-        minutes: prevBreakTime.minutes + newBreakTime.minutes,
-        seconds: prevBreakTime.seconds + newBreakTime.seconds,
-      };
-
-      // Normalize break time
-      if (updatedBreakTime.seconds >= 60) {
-        updatedBreakTime.minutes += Math.floor(updatedBreakTime.seconds / 60);
-        updatedBreakTime.seconds %= 60;
-      }
-
-      if (updatedBreakTime.minutes >= 60) {
-        updatedBreakTime.hours += Math.floor(updatedBreakTime.minutes / 60);
-        updatedBreakTime.minutes %= 60;
-      }
-
-      return updatedBreakTime;
-    });
-  }; 
-
-
- 
-
-  const calculateStatistics = () => {
-    let totalHours = 0;
-    let breakTime = { hours: 0, minutes: 0, seconds: 0 };
-    let overtime = 0;
-  
-    attendanceData.forEach(({ production, breakDuration }) => {
-      totalHours += production.hours;
-  
-      breakTime.hours += breakDuration.hours;
-      breakTime.minutes += breakDuration.minutes;
-      breakTime.seconds += breakDuration.seconds;
-  
-      if (production.hours > officeHours) {
-        overtime += production.hours - officeHours;
-      }
-    });
-  
-    if (breakTime.seconds >= 60) {
-      breakTime.minutes += Math.floor(breakTime.seconds / 60);
-      breakTime.seconds %= 60;
-    }
-  
-    if (breakTime.minutes >= 60) {
-      breakTime.hours += Math.floor(breakTime.minutes / 60);
-      breakTime.minutes %= 60;
-    }
-  
-    return { totalHours, breakTime, overtime };
+    const updatedBreakTime = accumulateTime(totalBreakTime, newBreakTime);
+    setTotalBreakTime(updatedBreakTime);
+    localStorage.setItem('totalBreakTime', JSON.stringify(updatedBreakTime));
   };
-  
-  
+
+
+  const calculateWorkingHours = (productionTime, breakTime) => {
+    const productionInSeconds = (productionTime.hours * 3600) + (productionTime.minutes * 60) + productionTime.seconds;
+    const breakInSeconds = (breakTime.hours * 3600) + (breakTime.minutes * 60) + breakTime.seconds;
+    const workingSeconds = Math.max(0, productionInSeconds - breakInSeconds); // Prevent negative working time
+
+    const workingHours = Math.floor(workingSeconds / 3600);
+    const workingMinutes = Math.floor((workingSeconds % 3600) / 60);
+    const workingSecondsLeft = workingSeconds % 60;
+
+    return {
+      hours: workingHours,
+      minutes: workingMinutes,
+      seconds: workingSecondsLeft,
+    };
+  };
+
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -124,12 +130,35 @@ const [breakEndTime, setBreakEndTime] = useState(null);
     const interval = setInterval(getCurrentDateTime, 1000); // Update every second
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const storedPunchInTime = localStorage.getItem('punchInTime');
+    const storedElapsedTime = localStorage.getItem('elapsedTime');
+    const storedBreakTime = localStorage.getItem('totalBreakTime');
+    const storedIsPunchedIn = localStorage.getItem('isPunchedIn');
+    const storedLastElapsedTime = localStorage.getItem('lastElapsedTime');
+    const storedIsOnBreak = localStorage.getItem('isOnBreak');
+    const storedBreakStartTime = localStorage.getItem('breakStartTime');
+
+    if (storedPunchInTime) {
+      setPunchInTime(new Date(storedPunchInTime));
+      setIsPunchedIn(storedIsPunchedIn === 'true');
+      setElapsedTime(JSON.parse(storedElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime(JSON.parse(storedBreakTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setLastElapsedTime(JSON.parse(storedLastElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setIsOnBreak(storedIsOnBreak === 'true');
+      if (storedBreakStartTime) {
+        setBreakStartTime(new Date(storedBreakStartTime));
+      }
+    }
+  }, []);
+
   useEffect(() => {
     let timer;
     if (isPunchedIn && punchInTime) {
       const startTime = lastElapsedTime.hours * 3600 * 1000 + lastElapsedTime.minutes * 60 * 1000 + lastElapsedTime.seconds * 1000;
       const punchInDate = new Date(punchInTime);
-      
+
       timer = setInterval(() => {
         const now = new Date();
         const diffMs = now - punchInDate + startTime - (totalBreakTime.hours * 3600 * 1000 + totalBreakTime.minutes * 60 * 1000 + totalBreakTime.seconds * 1000);
@@ -137,379 +166,286 @@ const [breakEndTime, setBreakEndTime] = useState(null);
         const minutes = Math.floor((diffMs % 3600000) / 60000);
         const seconds = Math.floor((diffMs % 60000) / 1000);
         setElapsedTime({ hours, minutes, seconds });
+        // Save to localStorage every second to persist data
+        localStorage.setItem('elapsedTime', JSON.stringify({ hours, minutes, seconds }));
       }, 1000);
     } else {
       clearInterval(timer);
     }
-  
+
     return () => clearInterval(timer);
   }, [isPunchedIn, punchInTime, lastElapsedTime, totalBreakTime]);
-  
-   
+
   useEffect(() => {
-    const storedAttendanceData = localStorage.getItem('attendanceData');
-    if (storedAttendanceData) {
-      const data = JSON.parse(storedAttendanceData);
-      // Convert date strings back to Date objects
-      const updatedData = data.map(entry => ({
-        ...entry,
-        punchIn: new Date(entry.punchIn),
-        punchOut: entry.punchOut ? new Date(entry.punchOut) : null,
-      }));
-      setAttendanceData(updatedData);
+    let breakTimer;
+    if (isOnBreak && breakStartTime) {
+      breakTimer = setInterval(() => {
+        const now = new Date();
+        const breakDuration = calculateBreakTime(breakStartTime, now);
+        setCurrentBreakTime(breakDuration);
+      }, 1000);
+    } else {
+      clearInterval(breakTimer);
+      setCurrentBreakTime({ hours: 0, minutes: 0, seconds: 0 });
     }
-  
-    const storedStatistics = localStorage.getItem('statistics');
-    if (storedStatistics) {
-      const stats = JSON.parse(storedStatistics);
-      setTotalBreakTime(stats.breakTime || { hours: 0, minutes: 0, seconds: 0 });
-      setLastElapsedTime(stats.lastElapsedTime || { hours: 0, minutes: 0, seconds: 0 });
-    }
-  }, []);
-  
-  
-  
-  
-  
-  const handlePunchButtonClick = () => {
+
+    return () => clearInterval(breakTimer);
+  }, [isOnBreak, breakStartTime]);
+
+  const handlePunchButtonClick = async () => {
+    const today = new Date().toLocaleDateString();
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
-  
+
       let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
-  
-      if (breakStartTime) {
-        if (breakEndTime) {
-          breakDuration = calculateBreakTime(breakStartTime, breakEndTime);
-        } else {
-          breakDuration = calculateBreakTime(breakStartTime, newPunchOutTime);
-        }
+
+      if (isOnBreak && breakStartTime) {
+        const now = new Date();
+        breakDuration = calculateBreakTime(breakStartTime, now);
         updateBreakTime(breakDuration);
       }
-  
-      const newEntry = {
-        punchIn: punchInTime,
-        punchOut: newPunchOutTime,
-        production,
-        breakDuration,
-        overtime: production.hours > officeHours ? production.hours - officeHours : 0,
-      };
-  
-      const updatedAttendanceData = [...attendanceData, newEntry];
-      setAttendanceData(updatedAttendanceData);
-      localStorage.setItem('attendanceData', JSON.stringify(updatedAttendanceData));
-  
-      const stats = calculateStatistics();
-      localStorage.setItem('statistics', JSON.stringify(stats));
-  
-      setLastElapsedTime(elapsedTime);
-      setPunchInTime(null);
-      setPunchOutTime(null);
-      setBreakStartTime(null);
-      setBreakEndTime(null);
-    } else {
-      handlePunchIn(); // Call handlePunchIn to set punch in time
-    }
-    setIsPunchedIn(!isPunchedIn);
-  };
-  
-  
-  const handlePunchIn = () => {
-    const now = new Date();
-    if (breakStartTime && !breakEndTime) {
-      // Set breakEndTime when punching in again
-      setBreakEndTime(now);
-    }
-    setPunchInTime(now);
-  };
-  
-  
-  
-  
-  // const handlePunchOut = () => {
-  //   const now = new Date();
-  //   if (punchInTime && (now - punchInTime) < (officeHours * 3600000)) {
-  //     // If punch-out is before office hours, set breakStartTime
-  //     setBreakStartTime(now);
-  //   }
-  //   setBreakEndTime(null); // Reset break end time
-  // };
-  // const handlePunchIn = () => {
-  //   const now = new Date();
-  //   if (breakStartTime && !breakEndTime) {
-  //     // Set breakEndTime when punching in again
-  //     setBreakEndTime(now);
-  //   }
-  //   setPunchInTime(now);
-  // };
-  
-  
-  
-  
-  
-  
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+      const totalBreakDuration = { ...totalBreakTime };
+
+      const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
+      const workingHours = calculateWorkingHours(production, totalBreakDuration);
+
+      const newEntry = {
+        employeeId,
+        employeeName,
+        punchIn: punchInTime, // Ensure to use Date objects
+        punchOut: newPunchOutTime,
+        productionHours: production.hours,
+        productionMinutes: production.minutes,
+        productionSeconds: production.seconds,
+        breakHours: totalBreakDuration.hours,
+        breakMinutes: totalBreakDuration.minutes,
+        breakSeconds: totalBreakDuration.seconds,
+        overtime,
+      };
+
+      // Update attendanceData state properly
+
+
+      try {
+        const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data.message);
+        setAttendanceData((prevData) => [...prevData, response.data]);
+      } catch (error) {
+        console.error("Error saving attendance:", error);
+      }
+
+      // Reset state and clear localStorage after punch-out
+      setPunchOutTime(newPunchOutTime);
+      setIsPunchedIn(false);
+      setPunchInTime(null);
+      setLastElapsedTime(elapsedTime);
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
+
+      localStorage.removeItem('punchInTime');
+      localStorage.removeItem('elapsedTime');
+      localStorage.removeItem('totalBreakTime');
+      localStorage.removeItem('isPunchedIn');
+      localStorage.removeItem('lastElapsedTime');
+      localStorage.removeItem('isOnBreak');
+      localStorage.removeItem('breakStartTime');
+    } else {
+      //Check if already punched out today
+      const hasPunchedOutToday = attendanceData.some(entry => {
+        const entryDate = new Date(entry.punchOut).toLocaleDateString();
+        return entry.employeeId === employeeId && entryDate === today;
+      });
+
+      if (hasPunchedOutToday) {
+        alert("You have already punched out today. You cannot punch in again.");
+        return;
+      }
+      const newPunchInTime = new Date();
+      setPunchInTime(newPunchInTime);
+      setIsPunchedIn(true);
+      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      localStorage.setItem('punchInTime', newPunchInTime);
+      localStorage.setItem('isPunchedIn', 'true');
+      localStorage.setItem('lastElapsedTime', JSON.stringify({ hours: 0, minutes: 0, seconds: 0 }));
+    }
+  };
+
+
+
+
+  const handleBreakButtonClick = () => {
+    if (isOnBreak) {
+      const now = new Date();
+      const newBreakTime = calculateBreakTime(breakStartTime, now);
+      updateBreakTime(newBreakTime);
+      setBreakEndTime(now);
+      setIsOnBreak(false);
+      localStorage.removeItem('breakStartTime');
+      localStorage.setItem('isOnBreak', 'false');
+    } else {
+      const now = new Date();
+      setBreakStartTime(now);
+      setIsOnBreak(true);
+      localStorage.setItem('breakStartTime', now);
+      localStorage.setItem('isOnBreak', 'true');
+    }
   };
 
   const handleDateChange = (date) => {
     setSearchDate(date);
-    // Filter attendance data based on selected date
   };
 
-  const handleMonthChange = (e) => {
-    setSelectedMonth(Number(e.target.value));
-  };
-
-  const handleYearChange = (e) => {
-    setSelectedYear(Number(e.target.value));
-  };
-  
-  
-
-  const filteredAttendanceData = attendanceData.filter(entry => {
-    const entryDate = new Date(entry.punchIn);
-    return (
-      entryDate.getFullYear() === selectedYear &&
-      entryDate.getMonth() + 1 === selectedMonth &&
-      (
-        entry.punchIn.toLocaleDateString().toLowerCase().includes(searchQuery.toLowerCase()) ||
-        entry.punchIn.toLocaleTimeString().toLowerCase().includes(searchQuery.toLowerCase()) ||
-        entry.punchOut.toLocaleTimeString().toLowerCase().includes(searchQuery.toLowerCase()) ||
-        `${entry.production.hours} hrs ${entry.production.minutes} mins ${entry.production.seconds} secs`.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        `${entry.breakDuration.hours} hrs ${entry.breakDuration.minutes} mins ${entry.breakDuration.seconds} secs`.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        `${entry.overtime} hrs`.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    );
-  });
-
-  const statistics = calculateStatistics();
-  const totalHours = attendanceData.reduce((sum, { production }) => sum + production.hours, 0);
-  const totalPercentage = (totalHours / (officeHours * 20)) * 100;
-  const circumference = Math.PI * 54;
-  const strokeDashoffset = circumference - (totalPercentage / 100) * circumference;
 
   return (
-    <div className="p-6 min-h-screen    bg-opacity-10">
+    <div className="max-w-4xl mx-auto p-6 ">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Employee Attendance</h1>
+      <div className="flex justify-center items-center space-x-4 mb-4">
+        <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
+        <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
+      </div>
+      <div className="flex space-x-4">
+        {/* TimeSheet Container */}
 
-      <h1 className="text-2xl font-bold mb-4">Employee</h1>
-      <h1 className="text-xl  mb-4">Dashboard / Attendance</h1>
-      <div className="flex flex-col md:flex-row gap-6 mb-8">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-          <h2 className="text-xl font-semibold mb-4">Timesheet</h2>
-          {/* <div className="bg-[#0098F1] text-white p-4 rounded-lg mb-4">
-            <h3 className="text-[20px] font-semibold">Punch In at</h3>
-            <p className="text-xl">{currentDateTime}</p>
-          </div> */}
+        <div className="bg-white w-[500px] shadow-md rounded-lg p-6 mb-6 flex flex-col space-y-4">
+          <h1 className="text-2xl font-bold text-gray-800">TimeSheet</h1>
+
           <div className="bg-[#0098F1] text-white p-4 rounded-lg mb-4">
-  <h3 className="text-[20px] font-semibold">Punch In at</h3>
-  <p className="text-[20px] font-normal">{currentDateTime}</p>
- 
-</div>
+            <h3 className="text-[20px] font-semibold">Punch In at</h3>
+            <p className="text-[20px] font-normal">{currentDateTime}</p>
+          </div>
 
-          <div className="relative flex items-center justify-center mb-4">
-            <svg className="w-24 h-24" viewBox="0 0 120 120">
+          <div className="relative w-[200px] h-[200px] ml-[60px]">
+            <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 120 60">
+              <defs>
+                <clipPath id="half-circle">
+                  <rect x="0" y="0" width="200" height="80" />
+                </clipPath>
+              </defs>
               <circle
                 cx="60"
                 cy="60"
-                r={54}
-                stroke="#e5e7eb"
+                r="54"
+                stroke={isPunchedIn ? "green" : "#FF6F00"} // Orange color by default, green when punched in
                 strokeWidth="10"
                 fill="none"
+                clipPath="url(#half-circle)"
               />
-              <circle
-                cx="60"
-                cy="60"
-                r={54}
-                stroke={isPunchedIn ? "#34D399" : "#F59E0B"}
-                strokeWidth="10"
-                strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffset}
-                fill="none"
-                strokeLinecap="round"
-              />
-             
-              <text
-            x="50%"
-            y="50%"
-            textAnchor="middle"
-            dy=".3em"
-            className="text-lg font-semibold text-gray-800"
-          >
-            {elapsedTime.hours} : {elapsedTime.minutes} : {elapsedTime.seconds}
-            {/* Keep the date and time display if needed */}
-            <p className="text-xl">{currentDateTime}</p>
-          </text>
-
             </svg>
+            <p className=" font-semibold text-[15px] mt-[110px] ml-[60px] text-[#E65F2B]"> {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
           </div>
-          <button
-  onClick={handlePunchButtonClick}
-  className="bg-[#0098F1] text-[20px] text-white py-2 px-4 rounded-lg w-full hover:bg-blue-600 transition"
->
-  {isPunchedIn ? "Punch Out" : "Punch In"}
-</button>
-
-          <div className="flex justify-between mt-4 text-sm text-gray-600">
-            <span className="border border-[#E65F2B] text-[#E65F2B] p-2 rounded-lg">
-              Break {statistics.breakTime.hours} hrs {statistics.breakTime.minutes} mins {statistics.breakTime.seconds} secs
-            </span>
-            <span className="border border-[#E65F2B] text-[#E65F2B] p-2 rounded-lg">
-              Overtime {statistics.overtime} Hrs
-            </span>
+          <div className="flex justify-between items-center">
+            <p className={`text-lg font-semibold ${isPunchedIn ? 'text-blue-600' : 'text-red-600'}`}>
+              {/* {isPunchedIn ? "Punched In" : "Punched Out"} */}
+            </p>
+          </div>
+          <div className="flex flex-col space-y-4">
+            <button
+              onClick={handlePunchButtonClick}
+              className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isPunchedIn ? 'bg-[#0098F1]' : 'bg-[#0098F1]'}`}
+            >
+              {isPunchedIn ? "Punch Out" : "Punch In"}
+            </button>
+            {isPunchedIn && (
+              <button
+                onClick={handleBreakButtonClick}
+                className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isOnBreak ? 'bg-[#0098F1] hover:bg-[#0098F1]' : 'bg-[#0098F1] hover:bg-[#0098F1]'}`}
+              >
+                {isOnBreak ? "End Break" : "Start Break"}
+              </button>
+            )}
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
-          <h2 className="text-xl font-semibold mb-6">Statistics</h2>
-          {[
-            { label: "Today", percentage: (totalHours / officeHours) * 100, color: "bg-blue-500", value: `${totalHours}/${officeHours}hrs` },
-            { label: "This week", percentage: (totalHours / (officeHours * 5)) * 100, color: "bg-green-500", value: `${totalHours}/${officeHours * 5}hrs` },
-            { label: "This month", percentage: (totalHours / (officeHours * 20)) * 100, color: "bg-purple-500", value: `${totalHours}/${officeHours * 20}hrs` },
-            { label: "Remaining", percentage: ((officeHours * 20 - totalHours) / (officeHours * 20)) * 100, color: "bg-yellow-500", value: `${officeHours * 20 - totalHours}/${officeHours * 20}hrs` },
-            { label: "Overtime", percentage: (statistics.overtime / (officeHours * 20)) * 100, color: "bg-red-500", value: `${statistics.overtime}hrs` },
-          ].map((stat, index) => (
-            <div key={index} className="mb-6">
-              <div className="flex justify-between mb-2 text-sm font-semibold text-gray-700">
-                <span className="text-[15px] font-bold">{stat.label}</span>
-                <span>{stat.value}</span>
-              </div>
-              <div className="relative h-3 bg-gray-200 rounded-full shadow-inner">
-                <div
-                  className={`${stat.color} h-3 rounded-full shadow`}
-                  style={{ width: `${stat.percentage}%` }}
-                ></div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3 h-[450px] overflow-y-auto scrollbar-hidden">
-  <h2 className="text-xl font-semibold mb-4">Timeline</h2>
-  <div className="relative">
-    <div className="absolute left-5 top-1 h-full border-l-2 border-gray-300"></div>
-    {attendanceData.map((activity, index) => (
-      <div className="flex items-start mb-8 ml-8" key={index}>
-        <div className={`w-3 h-3 bg-blue-500 rounded-full z-10 mt-1.5 pl-3 -ml-4`}></div>
-        <div className="ml-6">
-          <p className="text-sm text-gray-600">{activity.punchIn.toLocaleString()}</p>
-          <p className="font-semibold flex text-[17px] items-center">
-            <FaClock className="mr-2 text-blue-500 text-[15px]" />
-            Punch In
-          </p>
-          {activity.punchOut && (
-            <>
-              <p className="text-sm text-gray-600">{activity.punchOut.toLocaleString()}</p>
-              <p className="font-semibold flex text-[17px] items-center">
-                <FaClock className="mr-2 text-red-500 text-[15px]" />
-                Punch Out
-              </p>
-            </>
-          )}
-          <p className="text-sm text-gray-700">
-            {activity.production.hours} hrs {activity.production.minutes} mins {activity.production.seconds} secs
-          </p>
-          <p className="text-sm text-gray-700">
-            Break: {activity.breakDuration.hours} hrs {activity.breakDuration.minutes} mins {activity.breakDuration.seconds} secs
-          </p>
-          <p className="text-sm text-gray-700">Overtime: {activity.overtime} hrs</p>
+
+
+        {/* Employee Info Container */}
+        <div className="bg-white shadow-md rounded-lg p-6 w-[500px] mb-6 space-y-4">
+          <h2 className="text-[20px] font-bold   mt-6 mb-4  text-[#E65F2B]">Time Info</h2>
+          <p className=" font-semibold text-[15px] text-[#E65F2B] ">Punch In Time: {punchInTime ? punchInTime.toLocaleString() : "N/A"}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]">Punch Out Time: {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]">Elapsed Time: {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]"> Break Time: {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]"> Total Break Time: {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}</p>
         </div>
       </div>
-    ))}
-  </div>
-</div>
 
-</div>
-    <div className="flex items-center gap-4 mb-6">
-  <DatePicker
-    selected={searchDate}
-    onChange={handleDateChange}
-    className="p-2 border border-gray-300 w-[150px] h-[50px] rounded-xl bg-[#FFFFFF] text-[#E65F2B] text-[20px] shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    dateFormat="yyyy-MM-dd"
-  />
-  <select 
-    className="p-2 border border-gray-300 rounded-xl w-[150px] h-[50px] bg-white text-[#E65F2B] text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    value={selectedMonth}
-    onChange={handleMonthChange}
-  >
-    {[
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ].map((month, index) => (
-      <option key={index + 1} value={index + 1}>
-        {month}
-      </option>
-    ))}
-  </select>
+      <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
+        <h2 className="text-gray-800 mb-4">Attendance Log</h2>
+        <div className="flex flex-col space-y-4 mb-6">
+        </div>
 
-  <select 
-    className="p-2 border border-gray-300 rounded-xl w-[150px] h-[50px] bg-[#FFFFFF] text-[#E65F2B] text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    value={selectedYear}
-    onChange={handleYearChange}
-  >
-    {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map(year => (
-      <option key={year} value={year}>
-        {year}
-      </option>
-    ))}
-  </select>
+        <div className="overflow-x-auto scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#E65F2B]">
+          <table className="min-w-full divide-y divide-red-200">
+            <thead className="bg-[#E65F2B] text-white">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Employee ID</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Employee Name</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Punch In</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Punch Out</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Production Hours</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Break Duration</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Working Hours</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Overtime</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchedData.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className="text-center py-4">
+                    No attendance records found.
+                  </td>
+                </tr>
+              ) : (
+                searchedData.map((entry, index) => {
+                  const workingTime = calculateWorkingHours(
+                    {
+                      hours: entry.productionHours,
+                      minutes: entry.productionMinutes,
+                      seconds: entry.productionSeconds,
+                    },
+                    {
+                      hours: entry.breakHours,
+                      minutes: entry.breakMinutes,
+                      seconds: entry.breakSeconds,
+                    }
+                  );
 
-  <input
-    type="search"
-    placeholder="Search..."
-    value={searchQuery}
-    onChange={handleSearchChange}
-    className="p-2 border border-white rounded-lg bg-[#E65F2B] text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-  />
-</div>
+                  return (
+                    <tr key={index}>
+                      <td className="px-4 py-2 border">{entry.employeeId}</td>
+                      <td className="px-4 py-2 border">{entry.employeeName}</td>
+                      <td className="px-4 py-2 border">{new Date(entry.punchIn).toLocaleString()}</td>
+                      <td className="px-4 py-2 border">{new Date(entry.punchOut).toLocaleString()}</td>
+                      <td className="px-4 py-2 border">
+                        {entry.productionHours} hours, {entry.productionMinutes} mins, {entry.productionSeconds} secs
+                      </td>
+                      <td className="px-4 py-2 border">
+                        {entry.breakHours} hours, {entry.breakMinutes} mins, {entry.breakSeconds} secs
+                      </td>
+                      <td className="px-4 py-2 border">
+                        {workingTime.hours} hours, {workingTime.minutes} mins, {workingTime.seconds} secs
+                      </td>
+                      <td className="px-4 py-2 border">{entry.overtime} hours</td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
 
-
-<table className="min-w-full bg-white  rounded-lg shadow-lg border border-orange-900">
-  <thead className="bg-[#E65F2B]  text-white text-[20px]">
-    <tr>
-      {[
-        "No",
-        "Punch In Date",
-        "Punch In Time",
-        "Punch Out Time",
-        "Production Time",
-        "Break Time",
-        "Overtime",
-      ].map((header, index) => (
-        <th
-          key={index}
-          className="py-2 px-4 text-left text-white font-semibold border border-orange-500"
-        >
-          {header}
-        </th>
-      ))}
-    </tr>
-  </thead>
-  <tbody>
-  {filteredAttendanceData.map((entry, index) => {
-  const { punchIn, punchOut, production, breakDuration, overtime } = entry;
-
-  return (
-    <tr key={index} className="border-t border-orange-500">
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{index + 1}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchIn.toLocaleDateString()}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchIn.toLocaleTimeString()}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">{punchOut ? punchOut.toLocaleTimeString() : 'N/A'}</td>
-      <td className="py-2 px-4 text-orange-600 text-[14px] border border-orange-500">
-        {production.hours} hrs {production.minutes} mins {production.seconds} secs
-      </td>
-      <td className="py-2 px-4 text-orange-600 border text-[14px] border-orange-500">
-        {breakDuration.hours} hrs {breakDuration.minutes} mins {breakDuration.seconds} secs
-      </td>
-      <td className="py-2 px-4 text-orange-600 border text-[14px] border-orange-500">{overtime} hrs</td>
-    </tr>
+      </div>
+    </div>
   );
-})}
 
-  </tbody>
-</table>
-</div>
-  );
 };
-
 export default Attendance;
+

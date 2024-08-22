@@ -96,7 +96,7 @@ const EditEmployee = () => {
       <SideBar />
       <div className="ml-[240px] p-4 bg-fit">
         <div className="bg-white md:m-4 md:px-[88px] md:py-[44px] rounded-lg p-3">
-          <h1 className="text-orange-600 md:text-4xl text-xl">Edit Employee</h1>
+          <h1 className="text-blue-600 md:text-4xl text-xl">Edit Employee</h1>
           <form className="md:my-4">
             <div className="grid md:grid-cols-2 md:gap-6">
               <div>
@@ -106,7 +106,7 @@ const EditEmployee = () => {
                   </label>
                   <button type="button">
                     <FiEdit3
-                      className="text-orange-600"
+                      className="text-blue-600"
                       onClick={() => onEditClick("name")}
                     />
                   </button>
@@ -128,7 +128,7 @@ const EditEmployee = () => {
                   </label>
                   <button type="button">
                     <FiEdit3
-                      className="text-orange-600"
+                      className="text-blue-600"
                       onClick={() => onEditClick("empId")}
                     />
                   </button>
@@ -150,7 +150,7 @@ const EditEmployee = () => {
                   </label>
                   <button type="button">
                     <FiEdit3
-                      className="text-orange-600"
+                      className="text-blue-600"
                       onClick={() => onEditClick("contact")}
                     />
                   </button>
@@ -174,7 +174,7 @@ const EditEmployee = () => {
                   </label>
                   <button type="button">
                     <FiEdit3
-                      className="text-orange-600"
+                      className="text-blue-600"
                       onClick={() => onEditClick("date")}
                     />
                   </button>
@@ -196,7 +196,7 @@ const EditEmployee = () => {
                   </label>
                   <button type="button">
                     <FiEdit3
-                      className="text-orange-600"
+                      className="text-blue-600"
                       onClick={() => onEditClick("email")}
                     />
                   </button>
@@ -218,7 +218,7 @@ const EditEmployee = () => {
                   </label>
                   <button type="button">
                     <FiEdit3
-                      className="text-orange-600"
+                      className="text-blue-600"
                       onClick={() => onEditClick("role")}
                     />
                   </button>
@@ -237,7 +237,7 @@ const EditEmployee = () => {
             <div className="mt-4">
               <button
                 type="button"
-                className="border bg-orange-600 px-8 py-1 rounded-md text-white"
+                className="border bg-blue-600 px-8 py-1 rounded-md text-white"
                 onClick={onButtonClick}
               >
                 Choose File

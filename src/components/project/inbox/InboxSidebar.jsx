@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 
-const InboxSidebar = ({onItemClick}) => {
+const InboxSidebar = ({ onItemClick }) => {
   const [selectedItem, setSelectedItem] = useState("Inbox");
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    onItemClick(item)
+    onItemClick(item);
   };
 
   return (
-    <div className="w-40 bg-[#E6F5FE] rounded-l-xl">
-      <button onClick={() => handleItemClick("Compose")} className="my-5 mx-3 rounded-md w-[130px] bg-[#E65F2B] border hover:bg-white hover:text-[#E65F2B] border-[#E65F2B] text-white py-2 ">
+    <div className="w-40 mb-10 rounded-l-xl">
+      <button
+        onClick={() => handleItemClick("Compose")}
+        className="my-5 mx-3 rounded-md w-[130px] bg-[#E65F2B] border hover:bg-white hover:text-[#E65F2B] border-[#E65F2B] text-white py-2 "
+      >
         Compose
       </button>
       <div className="">

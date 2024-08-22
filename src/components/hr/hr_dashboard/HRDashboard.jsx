@@ -45,18 +45,18 @@ const HRDashboard = () => {
   };
   return (
     <div>
-      <div className="  pb-6 ml-4  w-auto">
+      <div className="pb-6 ml-4 w-[1080px]">
         <h2 className="text-[#E65F2B] text-xl font-bold mb-8">
           Hr/Hrdashboard
         </h2>
         <div className="w-auto">
-          <div className="flex gap-6 mb-6">
+          <div className="flex gap-3 mb-6">
             <div className="w-auto h-[360px] rounded-lg ">
-              <div className="flex flex-col justify-center rounded-lg items-center w-[400px] h-full">
+              <div className="flex flex-col justify-center rounded-lg items-center w-[300px] h-full">
                 {EmpolyeeData.map((data, index) => (
                   <div
                     key={index}
-                    className="w-full flex flex-col justify-center items-center h-full gap-y-[2px]"
+                    className="w-full  flex flex-col justify-center items-center h-full gap-y-[2px]"
                   >
                     <div className="flex w-full h-full justify-evenly items-center rounded-t-lg gap-2 bg-[#FF6C40]">
                       <BsPersonFillCheck className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
@@ -123,10 +123,10 @@ const HRDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="w-auto h-auto bg-[#0098F1] rounded-lg">
+            <div className="w-[445px] h-auto bg-[#0098F1] rounded-lg">
               <div className="flex flex-col px-4 gap-y-[40px] mt-8 justify-center items-center h-full">
                 <div className="text-white text-2xl">Salary Statistics</div>
-                <div className="w-full h-full">
+                <div className="w-full h-full flex justify-center items-center">
                   <Bar
                     data={data}
                     options={{
@@ -179,7 +179,7 @@ const HRDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#0098F1] max-w-full mb-6">
+          <div className="bg-[#0098F1] w-[1070px] mb-6">
             <div className="px-5 py-10 flex flex-col justify-center items-center">
               <div className="text-white text-2xl mb-4">
                 Total Salary By Unit
@@ -220,7 +220,7 @@ const HRDashboard = () => {
               />
             </div>
           </div>
-          <div className="flex flex-row gap-6 w-full">
+          <div className="flex flex-row gap-6 w-[1070px]">
             <div className="bg-[#0098F1] w-2/3 py-8">
               <div className="text-white text-2xl px-6">
                 Employee Performance

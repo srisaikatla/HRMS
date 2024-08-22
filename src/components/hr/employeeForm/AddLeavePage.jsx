@@ -173,7 +173,7 @@ function AddLeavePage({ onLeaveAdded }) {
       <SideBar />
       <div className="flex ml-[240px] justify-center items-center min-h-screen bg-blue-100">
         <div className="bg-white rounded-lg shadow-md w-[900px] p-6">
-          <h2 className="text-xl font-semibold text-orange-600 mb-4">
+          <h2 className="text-xl font-semibold text-blue-600 mb-4">
             Add Leave
           </h2>
           <form onSubmit={handleSave}>

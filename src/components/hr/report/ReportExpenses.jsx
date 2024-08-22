@@ -82,33 +82,33 @@ const ReportExpenses = () => {
 
   return (
     <div className=" flex flex-col h-screen ml-2 ">
-      <h1 className="text-[#e65f2b] font-bold text-xl mb-2 ">
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
         Report/ Expenses
       </h1>
 
-      <div className="overflow-x-auto ">
-        <table className="min-w-full">
+      <div id="table" className=" overflow-x-scroll">
+        <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F14D] text-white">
             <tr className="text-left">
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 Items
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 Order By
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 From
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 Date
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 Paid By
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 Status
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1] bg-opacity-30 text-center">
+              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
                 Amount
               </th>
             </tr>
