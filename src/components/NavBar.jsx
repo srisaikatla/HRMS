@@ -100,7 +100,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
           id="topbar"
           className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          <div className="h-[42px] bg-[#0098f1] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center relative">
+          <div className="h-[42px]  bg-[#0098f1] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px] rounded-lg flex justify-center items-center relative">
             <input
               className="pl-2 px-4 bg-[#0098f1] text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none"
               type="search"

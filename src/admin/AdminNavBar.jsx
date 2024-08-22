@@ -84,7 +84,7 @@ function AdminNavBar({ onIconClick, options }) {
             style={{
               backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
             }}
-            className="h-[42px] ml-10 w-[200px] sm:w-[300px] md:w-[428px] rounded-lg flex justify-center items-center relative"
+            className="h-[42px] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px]   rounded-lg flex justify-center items-center relative"
           >
             <input
               style={{
