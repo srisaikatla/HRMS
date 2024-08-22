@@ -48,7 +48,7 @@ const Payroll = ({ isHrManagerSelected, isPayrollManagerSelected, isSuperAdminSe
         <AiOutlineQuestionCircle className="text-sm text-gray-400 cursor-pointer" />
         <input type="checkbox" checked={isHrManagerSelected || isPayrollManagerSelected || isSuperAdminSelected} className="" />
       </h1>
-      <ul className="mt-2 h-52 w-72 overflow-y-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#E65F2B]">
+      <ul className="mt-2 h-52 lg:w-72 overflow-y-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#E65F2B]">
         {payrollOptions.map((option, index) => (
           <li key={index} className="flex items-center gap-1 text-sm mb-1">
             <input

@@ -20,7 +20,7 @@ const RolesDetails = ({ selectedRole }) => {
           Make Copy
         </button>
       </div>
-      <div className="my-5 grid grid-cols-3 gap-10 mr-5">
+      <div className="my-5 grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-x-20 md:gap-y-8 lg:grid-cols-3 lg:gap-x-32  md:mr-5">
         <Payroll
           isHrManagerSelected={isHrManagerSelected}
           isPayrollManagerSelected={isPayrollManagerSelected}
