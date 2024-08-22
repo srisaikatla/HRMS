@@ -1,38 +1,16 @@
-// import React from "react";
 import React, { useState, useEffect, useMemo } from "react";
 import { ImProfile } from "react-icons/im";
-import {
-  FaFolder,
-  FaCalendarDay,
-  FaEnvelope,
-  FaBell,
-  FaFilter,
-  FaBars,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaEnvelope, FaBars, FaSignOutAlt } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 import { FaCalendarAlt, FaCalendarCheck } from "react-icons/fa";
 
 function EmployeeNavBar({ onIconClick, options }) {
-  const [hoveredIcon, setHoveredIcon] = React.useState("");
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [hoveredIcon, setHoveredIcon] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
+  const [tooltip, setTooltip] = useState("");
 
-  // const flattenedOptions = options.flatMap((option) => {
-  //   if (option.subOptions) {
-  //     return [
-  //       option,
-  //       ...option.subOptions.map((subOption) => ({
-  //         ...subOption,
-  //         isSubOption: true, // Flag to identify if it's a subOption
-  //         parentTitle: option.title, // Store parent title to use if needed
-  //       })),
-  //     ];
-  //   }
-
-  //   return option;
-  // });
   const flattenedOptions = useMemo(() => {
     return options.flatMap((option) => {
       if (option.subOptions) {
@@ -40,25 +18,29 @@ function EmployeeNavBar({ onIconClick, options }) {
           option,
           ...option.subOptions.map((subOption) => ({
             ...subOption,
-            isSubOption: true, // Flag to identify if it's a subOption
-            parentTitle: option.title, // Store parent title to use if needed
+            isSubOption: true,
+            parentTitle: option.title,
           })),
         ];
       }
       return option;
     });
   }, [options]);
-  const handleMouseEnter = (iconName) => {
+
+  const handleMouseEnter = (iconName, tooltipText) => {
     setHoveredIcon(iconName);
+    setTooltip(tooltipText);
   };
 
   const handleMouseLeave = () => {
     setHoveredIcon("");
+    setTooltip("");
   };
 
   const iconStyle = (iconName) => ({
     color: hoveredIcon === iconName ? "#ef5f2b" : "#ef5f2b",
     fontSize: "1.5rem",
+    position: "relative",
   });
 
   const toggleDropdown = () => {
@@ -135,7 +117,6 @@ function EmployeeNavBar({ onIconClick, options }) {
               className="absolute right-2 mt-14 py-2 w-auto flex flex-col space-y-0 transition-all duration-1000 ease-in-out bg-white shadow-lg rounded-lg"
             >
               <div
-                // onClick={() => onIconClick("Company Information")}
                 onClick={() => {
                   onIconClick("Profile");
                   setDropdownOpen(false);
@@ -145,13 +126,10 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <ImProfile
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
-                  onMouseEnter={() => handleMouseEnter("folder")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Profile</p>
               </div>
               <div
-                // onClick={() => onIconClick("Account Details")}
                 onClick={() => {
                   onIconClick("Holidays");
                   setDropdownOpen(false);
@@ -161,14 +139,11 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <FaCalendarAlt
                   className="hover:cursor-pointer"
                   style={iconStyle("calendar")}
-                  onMouseEnter={() => handleMouseEnter("calendar")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Holidays</p>
               </div>
 
               <div
-                // onClick={() => onIconClick("Chats")}
                 onClick={() => {
                   onIconClick("Chats");
                   setDropdownOpen(false);
@@ -178,13 +153,10 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <TiMessages
                   className="hover:cursor-pointer"
                   style={iconStyle("message")}
-                  onMouseEnter={() => handleMouseEnter("message")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Messages</p>
               </div>
               <div
-                // onClick={() => onIconClick("Roles")}
                 onClick={() => {
                   onIconClick("Inbox");
                   setDropdownOpen(false);
@@ -194,13 +166,10 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <FaEnvelope
                   className="hover:cursor-pointer"
                   style={iconStyle("mail")}
-                  onMouseEnter={() => handleMouseEnter("mail")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Mails</p>
               </div>
               <div
-                // onClick={() => onIconClick("User")}
                 onClick={() => {
                   onIconClick("Apply Leave");
                   setDropdownOpen(false);
@@ -210,14 +179,11 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <FaCalendarCheck
                   className="hover:cursor-pointer"
                   style={iconStyle("bell")}
-                  onMouseEnter={() => handleMouseEnter("bell")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Apply Leave</p>
               </div>
 
               <div
-                // onClick={() => onIconClick("Company Information")}
                 onClick={() => {
                   onIconClick("Logout");
                   setDropdownOpen(false);
@@ -227,8 +193,6 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <FaSignOutAlt
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
-                  onMouseEnter={() => handleMouseEnter("filter")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#e65f2b]">Logout</p>
               </div>
@@ -238,51 +202,94 @@ function EmployeeNavBar({ onIconClick, options }) {
 
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"
+          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
         >
-          <ImProfile
-            className="hover:cursor-pointer"
-            style={iconStyle("folder")}
-            onMouseEnter={() => handleMouseEnter("folder")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Profile")}
-          />
-          <FaCalendarAlt
-            className="hover:cursor-pointer"
-            style={iconStyle("calendar")}
-            onMouseEnter={() => handleMouseEnter("calendar")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Holidays")}
-          />
-
-          <TiMessages
-            className="hover:cursor-pointer"
-            style={iconStyle("message")}
-            onMouseEnter={() => handleMouseEnter("message")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Chats")}
-          />
-          <FaEnvelope
-            className="hover:cursor-pointer"
-            style={iconStyle("mail")}
-            onMouseEnter={() => handleMouseEnter("mail")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Inbox")}
-          />
-          <FaCalendarCheck
-            className="hover:cursor-pointer"
-            style={iconStyle("bell")}
-            onMouseEnter={() => handleMouseEnter("bell")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Apply Leave")}
-          />
-          <FaSignOutAlt
-            className="hover:cursor-pointer"
-            style={iconStyle("filter")}
-            onMouseEnter={() => handleMouseEnter("filter")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Logout")}
-          />
+          <div className="relative">
+            <ImProfile
+              className="hover:cursor-pointer"
+              style={iconStyle("profile")}
+              onMouseEnter={() => handleMouseEnter("profile", "Profile")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Profile")}
+            />
+            {hoveredIcon === "profile" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <FaCalendarAlt
+              className="hover:cursor-pointer"
+              style={iconStyle("calendar")}
+              onMouseEnter={() => handleMouseEnter("calendar", "Holidays")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Holidays")}
+            />
+            {hoveredIcon === "calendar" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <TiMessages
+              className="hover:cursor-pointer"
+              style={iconStyle("messages")}
+              onMouseEnter={() => handleMouseEnter("messages", "Chats")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Chats")}
+            />
+            {hoveredIcon === "messages" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <FaEnvelope
+              className="hover:cursor-pointer"
+              style={iconStyle("mail")}
+              onMouseEnter={() => handleMouseEnter("mail", "Inbox")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Inbox")}
+            />
+            {hoveredIcon === "mail" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <FaCalendarCheck
+              className="hover:cursor-pointer"
+              style={iconStyle("apply-leave")}
+              onMouseEnter={() =>
+                handleMouseEnter("apply-leave", "Apply Leave")
+              }
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Apply Leave")}
+            />
+            {hoveredIcon === "apply-leave" && (
+              <div className="absolute text-nowrap bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <FaSignOutAlt
+              className="hover:cursor-pointer"
+              style={iconStyle("logout")}
+              onMouseEnter={() => handleMouseEnter("logout", "Logout")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Logout")}
+            />
+            {hoveredIcon === "logout" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

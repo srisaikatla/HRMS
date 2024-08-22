@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
-// import { useNavigate } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 import {
-  FaFolder,
-  FaCalendarDay,
   FaEnvelope,
-  FaBell,
-  FaFilter,
   FaBars,
   FaCalendarAlt,
   FaCalendarCheck,
@@ -18,26 +14,12 @@ import { IoMdLogOut } from "react-icons/io";
 import { logout } from "../State/Auth/Action";
 function NavBar({ onIconClick, options, projectOptions }) {
   const navigate = useNavigate();
-  const [hoveredIcon, setHoveredIcon] = React.useState("");
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [hoveredIcon, setHoveredIcon] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
+  const [tooltip, setTooltip] = useState("");
 
-  // Flatten options including projectOptions
-  // const flattenedOptions = [...options, ...projectOptions].flatMap((option) => {
-  //   if (option.subOptions) {
-  //     return [
-  //       option,
-  //       ...option.subOptions.map((subOption) => ({
-  //         ...subOption,
-  //         isSubOption: true, // Flag to identify if it's a subOption
-  //         parentTitle: option.title, // Store parent title to use if needed
-  //       })),
-  //     ];
-  //   }
-
-  //   return option;
-  // });
   const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -83,31 +65,29 @@ function NavBar({ onIconClick, options, projectOptions }) {
     }
   }, [searchQuery, flattenedOptions]);
 
-  // Handle suggestion click
   const handleSuggestionClick = (suggestion) => {
     onIconClick(suggestion.title);
     setSearchQuery("");
     setFilteredOptions([]);
   };
 
-  // Style for hovered icon
   const iconStyle = (iconName) => ({
     color: hoveredIcon === iconName ? "#0098f1" : "#0098f1",
     fontSize: "1.5rem",
   });
 
-  // Toggle dropdown menu
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  // Handle mouse enter and leave for icons
-  const handleMouseEnter = (iconName) => {
+  const handleMouseEnter = (iconName, tooltipText) => {
     setHoveredIcon(iconName);
+    setTooltip(tooltipText);
   };
 
   const handleMouseLeave = () => {
     setHoveredIcon("");
+    setTooltip("");
   };
 
   return (
@@ -163,8 +143,6 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 <FaCalendarCheck
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
-                  onMouseEnter={() => handleMouseEnter("folder")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#0098f1]">Events</p>
               </div>
@@ -176,8 +154,6 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 <TiMessages
                   className="hover:cursor-pointer"
                   style={iconStyle("message")}
-                  onMouseEnter={() => handleMouseEnter("message")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#0098f1]">Messages</p>
               </div>
@@ -188,8 +164,6 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 <FaEnvelope
                   className="hover:cursor-pointer"
                   style={iconStyle("mail")}
-                  onMouseEnter={() => handleMouseEnter("mail")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#0098f1]">Mails</p>
               </div>
@@ -205,26 +179,23 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 />
                 <p className="pl-2 text-[#0098f1]">Holidays</p>
               </div>
-              <div className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2">
+              <div
+                onClick={() => onIconClick("Activities")}
+                className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2"
+              >
                 <FaTasks
                   className="hover:cursor-pointer"
                   style={iconStyle("bell")}
-                  onMouseEnter={() => handleMouseEnter("bell")}
-                  onMouseLeave={handleMouseLeave}
-                  onClick={() => onIconClick("Activities")}
                 />
                 <p className="pl-2 text-[#0098f1]">Activities</p>
               </div>
               <div
-                // onClick={() => onIconClick("Logout")}
                 onClick={handleLogout}
                 className="py-1 border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out px-2"
               >
                 <IoMdLogOut
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
-                  onMouseEnter={() => handleMouseEnter("filter")}
-                  onMouseLeave={handleMouseLeave}
                 />
                 <p className="pl-2 text-[#0098f1]">Logout</p>
               </div>
@@ -234,52 +205,97 @@ function NavBar({ onIconClick, options, projectOptions }) {
 
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-4"
+          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
         >
-          <FaCalendarCheck
-            className="hover:cursor-pointer"
-            style={iconStyle("folder")}
-            onMouseEnter={() => handleMouseEnter("folder")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Events")}
-          />
+          <div className="relative">
+            <FaCalendarCheck
+              className="hover:cursor-pointer"
+              style={iconStyle("Events")}
+              onMouseEnter={() => handleMouseEnter("Events", "Events")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Events")}
+            />
+            {hoveredIcon === "Events" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
 
-          <TiMessages
-            className="hover:cursor-pointer"
-            style={iconStyle("message")}
-            onMouseEnter={() => handleMouseEnter("message")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Chat")}
-          />
-          <FaEnvelope
-            className="hover:cursor-pointer"
-            style={iconStyle("mail")}
-            onMouseEnter={() => handleMouseEnter("mail")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Inbox")}
-          />
-          <FaCalendarAlt
-            className="hover:cursor-pointer"
-            style={iconStyle("calendar")}
-            onMouseEnter={() => handleMouseEnter("calendar")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Holiday")}
-          />
-          <FaTasks
-            className="hover:cursor-pointer"
-            style={iconStyle("bell")}
-            onMouseEnter={() => handleMouseEnter("bell")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onIconClick("Activities")}
-          />
-          <IoMdLogOut
-            className="hover:cursor-pointer"
-            style={iconStyle("filter")}
-            onMouseEnter={() => handleMouseEnter("filter")}
-            onMouseLeave={handleMouseLeave}
-            // onClick={() => onIconClick("Logout")}
-            onClick={handleLogout}
-          />
+          <div className="relative">
+            <TiMessages
+              className="hover:cursor-pointer"
+              style={iconStyle("Chat")}
+              onMouseEnter={() => handleMouseEnter("Chat", "Chat")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Chat")}
+            />
+            {hoveredIcon === "Chat" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <FaEnvelope
+              className="hover:cursor-pointer"
+              style={iconStyle("Inbox")}
+              onMouseEnter={() => handleMouseEnter("Inbox", "Inbox")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Inbox")}
+            />
+            {hoveredIcon === "Inbox" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <FaCalendarAlt
+              className="hover:cursor-pointer"
+              style={iconStyle("Holiday")}
+              onMouseEnter={() => handleMouseEnter("Holiday", "Holiday")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Holiday")}
+            />
+            {hoveredIcon === "Holiday" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <FaTasks
+              className="hover:cursor-pointer"
+              style={iconStyle("Activities")}
+              onMouseEnter={() => handleMouseEnter("Activities", "Activities")}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => onIconClick("Activities")}
+            />
+            {hoveredIcon === "Activities" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <IoMdLogOut
+              className="hover:cursor-pointer"
+              style={iconStyle("Logout")}
+              onMouseEnter={() => handleMouseEnter("Logout", "Logout")}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleLogout}
+            />
+            {hoveredIcon === "Logout" && (
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+                {tooltip}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
