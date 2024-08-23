@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from "react";
 import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
 import { differenceInDays, parseISO } from "date-fns";
 
 const initialLeaves = [
+
   {
     id: 1,
     LeaveType: "Earned Leave",
@@ -32,11 +34,14 @@ const initialLeaves = [
   },
 ];
 
+
+
 const initialLeaveCount = {
-  annualLeave: 10,
-  medicalLeave: 5,
-  otherLeave: 3,
-  remainingLeave: 8,
+  annualLeave: 10, 
+  medicalLeave: 5,  
+  otherLeave: 3,    
+  remainingLeave: 8 
+
 };
 
 function ApplyLeave() {
@@ -44,14 +49,16 @@ function ApplyLeave() {
   const [LeaveCount, setLeaveCount] = useState(initialLeaveCount);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [status, setStatus] = useState("");
+
+  const [status, setStatus] = useState('');
   const [newLeave, setNewLeave] = useState({
-    leaveType: "",
-    startdate: "",
-    enddate: "",
-    selecthalf: "",
-    reason: "",
-    status: "Pending",
+    leaveType: '',
+    startdate: '',
+    enddate: '',
+    selecthalf: '',
+    reason: '',
+    status: 'Pending',
+
   });
   const [editLeaveId, setEditLeaveId] = useState(null);
   const [deleteLeaveId, setDeleteLeaveId] = useState(null);
@@ -66,7 +73,7 @@ function ApplyLeave() {
       const numOfDays = differenceInDays(toDate, fromDate) + 1; // +1 to include the end date
       setNewLeave((prevLeave) => ({
         ...prevLeave,
-        noOfDays: `${numOfDays} Days`,
+        noOfDays: `${numOfDays} Days`, // Use backticks here for template literal
       }));
     }
   }, [newLeave.startdate, newLeave.enddate]);
@@ -101,6 +108,7 @@ function ApplyLeave() {
     setLeaveCount((prevCount) => {
       const updatedCount = { ...prevCount };
 
+
       if (operation === "add") {
         if (leaveType === "Earned Leave") updatedCount.annualLeave -= 1;
         else if (leaveType === "Sick Leave") updatedCount.medicalLeave -= 1;
@@ -111,6 +119,7 @@ function ApplyLeave() {
         if (leaveType === "Earned Leave") updatedCount.annualLeave += 1;
         else if (leaveType === "Sick Leave") updatedCount.medicalLeave += 1;
         else if (leaveType === "Casual Leave") updatedCount.otherLeave += 1;
+
       }
 
       return updatedCount;
@@ -126,11 +135,13 @@ function ApplyLeave() {
         )
       );
       // Update leave count for edit operation
-      updateLeaveCount(newLeave.leaveType, "edit");
+      updateLeaveCount(newLeave.leaveType, 'edit');
+
     } else {
       // Add new leave
       setLeaves((prevLeaves) => [
         ...prevLeaves,
+
         {
           id: Date.now(),
           LeaveType: newLeave.leaveType,
@@ -143,6 +154,7 @@ function ApplyLeave() {
       ]);
       // Update leave count for add operation
       updateLeaveCount(newLeave.leaveType, "add");
+
     }
 
     // Close the modal and reset form
@@ -182,7 +194,8 @@ function ApplyLeave() {
   const handleDeleteLeave = () => {
     const leaveToDelete = Leaves.find((leave) => leave.id === deleteLeaveId);
     setLeaves(Leaves.filter((leave) => leave.id !== deleteLeaveId));
-    updateLeaveCount(leaveToDelete.LeaveType, "delete");
+
+    updateLeaveCount(leaveToDelete.LeaveType, 'delete');
     setShowDeleteSuccessMessage(true);
     setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
     closeDeleteModal();
@@ -203,6 +216,7 @@ function ApplyLeave() {
                 : type === "Sick Leave"
                 ? "bg-[#04B440]"
                 : "bg-[#FF4040]"
+
             }`}
           >
             <div className="text-start text-[25px] font-bold">{type}</div>
@@ -231,6 +245,7 @@ function ApplyLeave() {
                 <span className="ml-4">{LeaveCount.remainingLeave}</span>
               </li>
               <li className="flex justify-between items-center text-white w-full mt-2">
+<
                 <span className="inline-flex items-center">
                   <span className="inline-block w-2 h-2 bg-white rounded-full mr-2"></span>
                   <span className="text-white">Remaining Leaves:</span>
@@ -239,10 +254,12 @@ function ApplyLeave() {
                   {LeaveCount.remainingLeave}
                 </span>
               </li>
+
             </ul>
           </div>
         ))}
       </div>
+
 
       <div className="relative mt-10">
         <div className="mb-4 flex justify-between items-center">
@@ -278,11 +295,35 @@ function ApplyLeave() {
                   Status
                 </th>
                 <th className="py-4 px-14 text-center">Action</th>
+
+      <div className="relative mt-10">
+        <div className="mb-4 flex justify-between items-center">
+          <h3 className="text-xl font-bold">My Leaves</h3>
+          <button
+            className="flex items-center px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+            onClick={() => setIsModalOpen(true)}
+          >
+            <FiPlusCircle className="mr-2" /> Apply New Leave
+          </button>
+        </div>
+
+        <div className="overflow-x-auto w-full">
+          <table className="w-full min-w-[1024px] text-left border-collapse bg-white">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-4 py-3 border">Leave Type</th>
+                <th className="px-4 py-3 border">From</th>
+                <th className="px-4 py-3 border">To</th>
+                <th className="px-4 py-3 border">Half Day</th>
+                <th className="px-4 py-3 border">Reason</th>
+                <th className="px-4 py-3 border">Status</th>
+                <th className="px-4 py-3 border">Actions</th>
               </tr>
             </thead>
             <tbody>
               {Leaves.map((leave) => (
                 <tr key={leave.id} className="hover:bg-gray-100">
+
                   <td className="px-4 py-3 border text-[#E65F2B]">
                     {leave.LeaveType}
                   </td>
@@ -299,6 +340,7 @@ function ApplyLeave() {
                     {leave.reason}
                   </td>
                   <td className="px-4 py-3 border text-[#E65F2B]">
+
                     {settingStatus(leave.Status)}
                   </td>
                   <td className="px-4 py-3 border">
@@ -324,7 +366,8 @@ function ApplyLeave() {
 
       {showSuccessMessage && (
         <div className="fixed top-0 left-1/2 transform -translate-x-1/2 bg-green-500 text-white p-4 rounded shadow">
-          Leave successfully {editLeaveId ? "updated" : "applied"}!
+          Leave successfully {editLeaveId ? 'updated' : 'applied'}!
+
         </div>
       )}
 
@@ -333,6 +376,7 @@ function ApplyLeave() {
           Leave successfully deleted!
         </div>
       )}
+
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
@@ -356,21 +400,39 @@ function ApplyLeave() {
             </div>
             <div className="mb-4">
               <label className="block text-[#E65F2B]">Start Date</label>
+
+      {/* Add/Edit Leave Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white rounded-lg p-6 w-full max-w-lg">
+            <h2 className="text-xl font-bold mb-4">
+              {editLeaveId ? 'Edit Leave' : 'Apply New Leave'}
+            </h2>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Leave Type</label>
+              <input
+                type="text"
+                name="leaveType"
+                value={newLeave.leaveType}
+                onChange={handleInputChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">From Date</label>
+
               <input
                 type="date"
                 name="startdate"
                 value={newLeave.startdate}
                 onChange={handleInputChange}
-                className="border-2 border-[#E65F2B] rounded px-2 py-1 w-full text-[#E65F2B]"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-[#E65F2B]">End Date</label>
+
               <input
                 type="date"
                 name="enddate"
                 value={newLeave.enddate}
                 onChange={handleInputChange}
+
                 className="border-2 border-[#E65F2B] rounded px-2 py-1 w-full text-[#E65F2B]"
               />
             </div>
@@ -389,39 +451,44 @@ function ApplyLeave() {
             </div>
             <div className="mb-4">
               <label className="block text-[#E65F2B]">Reason</label>
+
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Half Day</label>
+              <input
+                type="text"
+                name="selecthalf"
+                value={newLeave.selecthalf}
+                onChange={handleInputChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">Reason</label>
+
               <textarea
                 name="reason"
                 value={newLeave.reason}
                 onChange={handleInputChange}
-                className="border-2 border-[#E65F2B] rounded px-2 py-1 w-full"
-                rows="3"
-              />
+
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              ></textarea>
             </div>
-            <div className="mb-4">
-              <label className="block text-[#E65F2B]">Status</label>
-              <select
-                name="status"
-                value={newLeave.status}
-                onChange={handleInputChange}
-                className="border-2 border-[#E65F2B] rounded px-2 py-1 w-full text-[#E65F2B]"
-              >
-                <option value="Pending">Pending</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
-              </select>
-            </div>
-            <div className="text-end">
-              <button
-                onClick={handleAddLeave}
-                className="bg-[#E65F2B] text-white px-4 py-2 rounded"
-              >
-                {editLeaveId ? "Update Leave" : "Add Leave"}
-              </button>
+            <div className="flex justify-end">
               <button
                 onClick={closeModal}
-                className=" text-[#E65F2B]  border-[#E65F2B] border-2 px-4 py-2 rounded ml-2"
+                className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 mr-2"
               >
                 Cancel
+              </button>
+              <button
+                onClick={handleAddLeave}
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                {editLeaveId ? 'Update' : 'Apply'}
+
               </button>
             </div>
           </div>

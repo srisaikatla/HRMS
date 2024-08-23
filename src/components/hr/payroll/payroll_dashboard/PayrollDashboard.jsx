@@ -1,3 +1,4 @@
+
 // import React from 'react';
 // import { FaIndianRupeeSign, FaChartPie, FaChartLine } from "react-icons/fa6";
 // import { HiDotsVertical } from "react-icons/hi";
@@ -241,7 +242,9 @@
 // }
 
 // export default PayrollDashboard;
-import React from "react";
+
+import React from 'react';
+
 import { FaIndianRupeeSign, FaChartPie, FaChartLine } from "react-icons/fa6";
 import { HiDotsVertical } from "react-icons/hi";
 import { Pie, Bar } from "react-chartjs-2";
@@ -371,138 +374,97 @@ function PayrollDashboard() {
   };
 
   return (
-    <div className="p-4 sm:p-6 ">
-      <div>
-        <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
-          Payroll / Dashboard
-        </h1>
 
-        {/* First Row */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="bg-white shadow-lg rounded-lg w-full sm:w-1/2 lg:w-[450px] h-auto p-4">
-            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
-              <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#0098f1]" />
-              <h2 className="font-semibold text-[20px] text-[#0098f1] ml-2">
-                Pay Details
-              </h2>
-              <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
-            </div>
-            <div className="flex flex-col space-y-4 px-4 mb-4">
-              {["Gross", "Net Pay", "TDS", "PT"].map((label, index) => (
-                <div key={index} className="flex justify-between items-center">
-                  <p className="text-[16px] text-[#0098f1] font-normal">
-                    {label}
-                  </p>
-                  <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
-                    <FaIndianRupeeSign className="mr-1 font-normal" />
-                    {index === 0
-                      ? "23100.00"
-                      : index === 1
-                      ? "21,400"
-                      : index === 2
-                      ? "1500"
-                      : "200"}
-                  </p>
-                </div>
-              ))}
-            </div>
+    <div className="p-4 sm:p-6 lg:p-8 ">
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">Payroll / Dashboard</h1>
+      
+      {/* First Row */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <div className="bg-white shadow-lg rounded-lg w-full sm:w-[450px] h-[450px] p-4">
+          <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+            <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#0098f1]" />
+            <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Pay Details</h2>
+            <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
           </div>
-          <div className="bg-white shadow-lg rounded-lg w-full sm:w-1/2 lg:w-[450px] h-auto p-4">
-            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
-              <FaChartPie className="h-[20px] w-[40px] text-[#0098f1]" />
-              <h2 className="font-semibold text-[20px] text-[#0098f1] ml-2">
-                Pay Chart
-              </h2>
-              <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#0098f1]" />
-            </div>
-            <div className="flex justify-center items-center h-[350px] sm:h-auto">
-              <Pie data={payDetailsData} options={pieOptions} />
-            </div>
+          <div className="flex flex-col space-y-4 px-4 mb-4">
+            {['Gross', 'Net Pay', 'TDS', 'PT'].map((label, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <p className="text-[16px] text-[#0098f1] font-normal">{label}</p>
+                <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
+                  <FaIndianRupeeSign className="mr-1 font-normal" />
+                  {index === 0 ? '23100.00' : index === 1 ? '21,400' : index === 2 ? '1500' : '200'}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg w-full sm:w-[450px] h-[450px] p-4">
+          <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+            <FaChartPie className="h-[20px] w-[40px] text-[#0098f1]" />
+            <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Pay Chart</h2>
+            <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#0098f1]" />
+          </div>
+          <div className="flex justify-center items-center h-[350px]">
+            <Pie data={payDetailsData} options={pieOptions} />
+          </div>
+        </div>
+      </div>
+
+      {/* Second Row */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <div className="bg-white shadow-lg rounded-lg w-full sm:w-[460px] h-[450px] p-4">
+          <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+            <FaChartPie className="h-[20px] w-[40px] text-[#0098f1]" />
+            <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">PF/ESI Chart</h2>
+            <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
+          </div>
+          <div className="flex justify-center items-center h-[350px]">
+            <Pie data={pfEsiData} options={pieOptions} />
+          </div>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg w-full sm:w-[450px] h-[450px] p-4">
+          <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+            <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#0098f1]" />
+            <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Pay Details</h2>
+            <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#0098f1]" />
+          </div>
+          <div className="flex flex-col space-y-4 px-4">
+            {['Employee PF', 'Employer PF', 'Total PF', 'Employee ESI', 'Employer ESI', 'Total ESI'].map((label, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <p className="text-[16px] text-[#0098f1] font-normal">{label}</p>
+                <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
+                  <FaIndianRupeeSign className="mr-1 font-normal" />
+                  {index === 0 ? '1500.00' : index === 1 ? '100.00' : index === 2 ? '1600.00' : index === 3 ? '1200.00' : index === 4 ? '1100.00' : '2300.00'}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Third Row */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="bg-white shadow-lg rounded-lg w-full sm:w-[450px] h-[450px] p-4">
+          <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+            <FaChartLine className="h-[20px] w-[40px] text-[#0098f1]" />
+            <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Employee Deduction</h2>
+            <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
+          </div>
+          <div className="flex justify-center items-center h-[350px]">
+            <Bar data={employeeDeductionData} options={barOptions} />
+          </div>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg w-full sm:w-[450px] h-[450px] p-4">
+          <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
+            <FaChartLine className="h-[20px] w-[40px] text-[#0098f1]" />
+            <h2 className="text-semibold text-[20px] text-[#0098f1] ml-2">Employer Deduction</h2>
+            <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
+          </div>
+          <div className="flex justify-center items-center h-[350px]">
+            <Bar data={employerDeductionData} options={barOptions} />
           </div>
         </div>
 
-        {/* Second Row */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="bg-white shadow-lg rounded-lg w-full sm:w-1/2 lg:w-[450px] h-auto p-4">
-            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
-              <FaChartPie className="h-[20px] w-[40px] text-[#0098f1]" />
-              <h2 className="font-semibold text-[20px] text-[#0098f1] ml-2">
-                PF/ESI Chart
-              </h2>
-              <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
-            </div>
-            <div className="flex justify-center items-center h-[350px] sm:h-auto">
-              <Pie data={pfEsiData} options={pieOptions} />
-            </div>
-          </div>
-          <div className="bg-white shadow-lg rounded-lg w-full sm:w-1/2 lg:w-[450px] h-auto p-4">
-            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
-              <FaIndianRupeeSign className="h-[20px] w-[40px] text-[#0098f1]" />
-              <h2 className="font-semibold text-[20px] text-[#0098f1] ml-2">
-                Pay Details
-              </h2>
-              <HiDotsVertical className="ml-auto mt-0 text-[20px] text-[#0098f1]" />
-            </div>
-            <div className="flex flex-col space-y-4 px-4">
-              {[
-                "Employee PF",
-                "Employer PF",
-                "Total PF",
-                "Employee ESI",
-                "Employer ESI",
-                "Total ESI",
-              ].map((label, index) => (
-                <div key={index} className="flex justify-between items-center">
-                  <p className="text-[16px] text-[#0098f1] font-normal">
-                    {label}
-                  </p>
-                  <p className="flex items-center font-normal text-[16px] text-[#0098f1]">
-                    <FaIndianRupeeSign className="mr-1 font-normal" />
-                    {index === 0
-                      ? "1500.00"
-                      : index === 1
-                      ? "100.00"
-                      : index === 2
-                      ? "1600.00"
-                      : index === 3
-                      ? "1200.00"
-                      : index === 4
-                      ? "1100.00"
-                      : "2300.00"}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Third Row */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="bg-white shadow-lg rounded-lg w-full sm:w-1/2 lg:w-[450px] h-auto p-4">
-            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
-              <FaChartLine className="h-[20px] w-[40px] text-[#0098f1]" />
-              <h2 className="font-semibold text-[20px] text-[#0098f1] ml-2">
-                Employee Deduction
-              </h2>
-              <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
-            </div>
-            <div className="flex justify-center items-center h-[350px] sm:h-auto">
-              <Bar data={employeeDeductionData} options={barOptions} />
-            </div>
-          </div>
-          <div className="bg-white shadow-lg rounded-lg w-full sm:w-1/2 lg:w-[450px] h-auto p-4">
-            <div className="flex items-center border-b-2 border-[#0098f1] pb-2 mb-4">
-              <FaChartLine className="h-[20px] w-[40px] text-[#0098f1]" />
-              <h2 className="font-semibold text-[20px] text-[#0098f1] ml-2">
-                Employer Deduction
-              </h2>
-              <HiDotsVertical className="ml-auto text-[20px] text-[#0098f1]" />
-            </div>
-            <div className="flex justify-center items-center h-[350px] sm:h-auto">
-              <Bar data={employerDeductionData} options={barOptions} />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
