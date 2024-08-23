@@ -139,7 +139,8 @@ const batches = {
         surcharge: 0.0,
         cess: 125,
         netAmount: 69259,
-      },{
+      },
+      {
         id: "STD-160",
         name: "Denver",
         gross: 45000,
@@ -345,10 +346,12 @@ const RunPayroll = () => {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">Payroll - Batch & Period</h1>
-      <div className="text-center">
-        <div className="mb-4">
+    <div className="md:pl-5">
+      <h1 className="text-[#E65F2B] md:text-xl font-bold mb-4">
+        Payroll - Batch & Period
+      </h1>
+      <div className="md:text-center">
+        <div className="mb-4 max-md:mr-2">
           <label
             htmlFor="batch-select"
             className="text-gray-700 text-sm font-bold mb-2"
@@ -357,7 +360,7 @@ const RunPayroll = () => {
           </label>
           <select
             id="batch-select"
-            className="w-80 ml-3 border outline-none p-1 rounded-md"
+            className="w-full md:w-80 md:ml-3 border outline-none p-1 rounded-md"
             value={selectedBatch}
             onChange={handleBatchChange}
           >
@@ -370,7 +373,7 @@ const RunPayroll = () => {
           </select>
         </div>
 
-        <div className="mb-4 ml-2">
+        <div className="mb-4 md:ml-2 max-md:mr-2">
           <label
             htmlFor="pay-period"
             className="text-gray-700 text-sm font-bold mb-2"
@@ -379,7 +382,7 @@ const RunPayroll = () => {
           </label>
           <select
             id="pay-period"
-            className="w-80 ml-3 border rounded-md p-1"
+            className="w-full md:w-80 md:ml-3 border rounded-md p-1 max-md:text-xs"
             value={payPeriod}
             onChange={(e) => setPayPeriod(e.target.value)}
             disabled
@@ -390,10 +393,14 @@ const RunPayroll = () => {
       </div>
 
       {payrollDetails && (
-        <div className="mt-4 p-4 rounded-md">
-          <div className="flex justify-between  border-b pb-2 border-px border-gray-600">
-            <h1 className="text-lg font-bold mb-2">Payroll Information</h1>
-            <h1 className="text-lg font-bold mb-2 ml-24">Process Flow</h1>
+        <div className="md:mt-4 md:mr-2 rounded-md">
+          <div className="flex justify-between border-b pb-2 border-px border-gray-600">
+            <h1 className="lg:text-lg font-bold mb-2 max-md:hidden">
+              Payroll Information
+            </h1>
+            <h1 className="lg:text-lg font-bold mb-2  xl:ml-24 max-md:hidden">
+              Process Flow
+            </h1>
             <button
               className="border bg-gray-700 text-white px-5 py-1 rounded-lg "
               onClick={handleResumePayroll}
@@ -402,49 +409,58 @@ const RunPayroll = () => {
             </button>
           </div>
 
-          <div className="flex justify-between">
-            <div className=" leading-7 my-5 w-[50%]">
-              <p className="flex justify-between ">
+          <div className="flex flex-col md:flex-row md:justify-between md:gap-x-2  max-md:mr-1">
+            <div className=" leading-7 my-5 md:w-[50%] max-md:text-sm">
+              <h1 className="text-lg font-bold mb-2 md:hidden">
+                Payroll Information
+              </h1>
+              <p className="flex md:justify-between gap-x-3 ">
                 <strong>Payroll Type:</strong>{" "}
                 <span>{payrollDetails.type}</span>
               </p>
-              <p className="flex justify-between">
+              <p className="flex md:justify-between gap-x-3">
                 <strong>Employees in Batch:</strong>
                 <span>{payrollDetails.employeesInBatch}</span>
               </p>
-              <p className="flex justify-between">
+              <p className="flex md:justify-between gap-x-3">
                 <strong>Processed Employees:</strong>
                 <span>{payrollDetails.processedEmployees}</span>
               </p>
-              <p className="flex justify-between">
+              <p className="flex md:justify-between gap-x-3">
                 <strong>Remaining Employees:</strong>
                 <span>{payrollDetails.remainingEmployees}</span>
               </p>
-              <p className="flex justify-between">
+              <p className="flex md:justify-between gap-x-3">
                 <strong>Total Days:</strong>
                 <span>{payrollDetails.totalDays}</span>
               </p>
-              <p className="flex justify-between gap-24">
-                <strong>Payroll Started On:</strong>
+              <p className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-3">
+                <strong className="whitespace-nowrap">
+                  Payroll Started On:
+                </strong>
                 <span>{payrollDetails.startedOn}</span>
               </p>
-              <p className="flex justify-between">
-                <strong>Payroll Started By:</strong>
+              <p className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-3">
+                <strong className="whitespace-nowrap">Payroll Started By:</strong>
                 <span>{payrollDetails.startedBy}</span>
               </p>
             </div>
-            <div className="flex flex-col items-start my-5 space-y-4">
+
+            <div className="flex flex-col items-start my-2 md:my-5 space-y-4">
+              <h1 className="text-lg font-bold mb-2 md:hidden">Process Flow</h1>
               {steps.map((step) => (
-                <div key={step.number} className="flex items-center space-x-4">
-                  <div className="">
-                    <div className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#0098F1] text-[#0098F1]">
-                      {step.number}
-                    </div>
-                    {/* <div className="h-5 w-1 bg-gray-800"></div> */}
+                <div
+                  key={step.number}
+                  className="flex items-center space-x-2 lg:space-x-8 md:space-x-4"
+                >
+                  <div className="md:w-8 md:h-8 w-6 h-6 max-md:text-xs flex items-center justify-center rounded-full border-2 border-[#0098F1] text-[#0098F1]">
+                    {step.number}
                   </div>
-                  <div className="border border-r-4 p-2 bg-white shadow-md rounded-lg border-r-[#0098F1] w-[420px]">
-                    <h3 className="text-lg font-semibold">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
+                  <div className="border border-r-4 p-2 bg-white shadow-md rounded-lg border-r-[#0098F1] md:w-[230px] max-md:w-[180px] lg:w-[410px]">
+                    <h3 className="md:text-lg font-semibold">{step.title}</h3>
+                    <p className="max-md:text-xs text-gray-600">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
               ))}
