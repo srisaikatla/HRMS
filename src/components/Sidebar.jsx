@@ -309,7 +309,7 @@ const SideBar = () => {
 
       <div
         className={`flex-1 ml-4 transition-all ${
-          isSidebarCollapsed ? "ml-[100px]" : "ml-[240px]"
+          isSidebarCollapsed ? "ml-[70px]" : "ml-[240px]"
         }`}
       >
         {activeTab === "Holiday" && <HolidayTab />}
