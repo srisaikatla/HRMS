@@ -66,32 +66,32 @@ const AccountInvoice = () => {
     setInvoiceData(InvoiceList);
   }, []);
   return (
-    <div className="mr-2 pt-2 ml-2">
+    <div className="md:ml-5 mr-2 pt-2">
       <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
         <span>Accounts/Invoice</span>
       </h1>
-      <div className=" overflow-x-scroll">
-        <table className="text-left min-w-full w-screen overflow-x-scroll text-nowrap border-collapse">
+      <div className="mt-10 w-full overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1] ">
+        <table className="text-left min-w-full text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr>
-              <th className="py-2 px-8">Invoice_Number</th>
-              <th className="py-2 px-8">Client </th>
-              <th className="py-2 px-8">Date</th>
-              <th className="py-2 px-8">Type</th>
-              <th className="py-2 px-8">Status</th>
-              <th className="py-2 px-8">Amount</th>
+              <th className="py-2 px-7">Invoice_Number</th>
+              <th className="py-2 px-7">Client </th>
+              <th className="py-2 px-7">Date</th>
+              <th className="py-2 px-7">Type</th>
+              <th className="py-2 px-7">Status</th>
+              <th className="py-2 px-7">Amount</th>
             </tr>
           </thead>
           <tbody>
             {InvoiceData.map((data) => (
               <tr key={data.id} className="font-normal">
-                <td className=" py-2 px-8">{data.Invoice_Number}</td>
-                <td className="py-2 px-8">{data.Client}</td>
-                <td className="py-2 px-8">{data.Date}</td>
-                <td className="py-2 px-8">
+                <td className=" py-2 px-7">{data.Invoice_Number}</td>
+                <td className="py-2 px-7">{data.Client}</td>
+                <td className="py-2 px-7">{data.Date}</td>
+                <td className="py-2 px-7">
                   <img src={data.Type} alt="image" />
                 </td>
-                <td className="py-2 px-8">
+                <td className="py-2 px-7">
                   <p
                     type="button"
                     className={`${
@@ -103,7 +103,7 @@ const AccountInvoice = () => {
                     {data.Status}
                   </p>
                 </td>
-                <td className="py-2 px-8">{data.Amount}</td>
+                <td className="py-2 px-7">{data.Amount}</td>
               </tr>
             ))}
           </tbody>
