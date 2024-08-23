@@ -308,7 +308,7 @@ const SideBar = () => {
       </div>
 
       <div
-        className={`flex-1 ml-4 transition-all ${
+        className={`flex-1  ml-4 transition-all ${
           isSidebarCollapsed ? "ml-[70px]" : "ml-[240px]"
         }`}
       >
