@@ -152,9 +152,9 @@ function ITDeclarations() {
           </p>
         </div>
 
-        <div className="flex  lg:flex-row  flex-col lg:gap-y-0 gap-y-2 justify-between items-center pt-10 text-white mx-2">
+        <div className="flex  lg:flex-row  flex-col lg:gap-1 gap-y-2 justify-between items-center pt-10 text-white mx-2">
           <div
-            className="bg-[#0098f1] rounded-md text-[16px] w-[220px] h-[130px] flex justify-center items-center flex-col cursor-pointer"
+            className="bg-[#0098f1] text-wrap rounded-md text-[16px] w-[220px] h-[130px] flex justify-center items-center flex-col cursor-pointer"
             onClick={() => setFilter("employee")}
           >
             <span>{selectedEmployee ? 1 : 0}</span>
@@ -229,7 +229,7 @@ function ITDeclarations() {
               />
             </div>
             {selectedEmployee && (
-              <div className="mt-4 md:mt-0 flex flex-col md:flex-row md:space-x-4">
+              <div className="mt-4 pl-1 md:mt-0 flex flex-col md:flex-row md:space-x-4">
                 <button
                   className="px-4 py-2 bg-blue-500 text-white rounded"
                   onClick={() => setIsModalOpen(true)}
@@ -247,7 +247,7 @@ function ITDeclarations() {
           </div>
         </div>
 
-        <div className="flex lg:pt-0 pt-6 lg:flex-row flex-col">
+        <div className="flex lg:pt-0 pt-6  sm:flex-row flex-col">
           <div
             className={`lg:w-72 w-60 px-4 text-center cursor-pointer ${
               view === "detailed" ? "font-bold" : ""
