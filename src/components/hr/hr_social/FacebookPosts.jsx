@@ -29,7 +29,9 @@ const FacebookPosts = () => {
   };
   return (
     <div className="bg-white p-5 w-[465px]">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">Facebook Recent Post</h1>
+      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+        Facebook Recent Post
+      </h1>
 
       <textarea
         className="outline-none border-2 rounded-md border-[#0098F1] w-full p-2 text-sm"

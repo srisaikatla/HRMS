@@ -16,7 +16,8 @@ function AllEmployees() {
   const [isChecked, setIsChecked] = useState({});
   const [headerChecked, setHeaderChecked] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [newEmployee, setNewEmployee] = useState({
     firstName: "",
@@ -31,16 +32,15 @@ function AllEmployees() {
     dob: "",
     personalEmail: "",
     designation: "",
-    bloodGroup: ""
+    bloodGroup: "",
   });
   const [editEmployeeId, setEditEmployeeId] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const jwt = localStorage.getItem("jwt")
-  const navigate = useNavigate()
+  const jwt = localStorage.getItem("jwt");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!jwt) {
-      // Redirect to login if not authenticated
       navigate("/login");
       return;
     }
@@ -49,11 +49,14 @@ function AllEmployees() {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/employee/getAllEmployee`, {
-        headers: {
-          "Authorization": `Bearer ${jwt}`,
+      const response = await axios.get(
+        `${API_BASE_URL}/employee/getAllEmployee`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
         }
-      });
+      );
       setEmployees(response.data);
       setLoading(false);
     } catch (error) {
@@ -72,7 +75,8 @@ function AllEmployees() {
   };
 
   const generatePassword = (length = 12) => {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
     let password = "";
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
@@ -114,7 +118,7 @@ function AllEmployees() {
       dob: employee.dob,
       personalEmail: employee.personalEmail,
       designation: employee.designation,
-      bloodGroup: employee.bloodGroup
+      bloodGroup: employee.bloodGroup,
     });
     setEditEmployeeId(employee.employeeId);
     setShowModal(true);
@@ -122,9 +126,14 @@ function AllEmployees() {
 
   const handleUpdateEmployee = async () => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/employee/update/${editEmployeeId}`, newEmployee);
+      const response = await axios.put(
+        `${API_BASE_URL}/employee/update/${editEmployeeId}`,
+        newEmployee
+      );
       setEmployees((prev) =>
-        prev.map((emp) => (emp.employeeId === editEmployeeId ? response.data : emp))
+        prev.map((emp) =>
+          emp.employeeId === editEmployeeId ? response.data : emp
+        )
       );
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
@@ -139,7 +148,9 @@ function AllEmployees() {
   const handleDeleteEmployee = async (employeeId) => {
     try {
       await axios.delete(`${API_BASE_URL}/employee/delete/${employeeId}`);
-      setEmployees((prev) => prev.filter((employee) => employee.employeeId !== employeeId));
+      setEmployees((prev) =>
+        prev.filter((employee) => employee.employeeId !== employeeId)
+      );
       setShowDeleteSuccessMessage(true);
       setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
     } catch (error) {
@@ -194,7 +205,7 @@ function AllEmployees() {
     if (serial < 60) {
       jsDate.setDate(jsDate.getDate() - 1); // Adjust for leap year bug
     }
-    return jsDate.toISOString().split('T')[0]; // Return date in YYYY-MM-DD format
+    return jsDate.toISOString().split("T")[0]; // Return date in YYYY-MM-DD format
   };
 
   const handleFileUpload = async (e) => {
@@ -208,7 +219,9 @@ function AllEmployees() {
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(sheet);
-        const existingEmployeeIds = new Set(employees.map((emp) => emp.employeeId));
+        const existingEmployeeIds = new Set(
+          employees.map((emp) => emp.employeeId)
+        );
         const newEmployees = [];
 
         // Format the data as needed and generate passwords
@@ -248,14 +261,20 @@ function AllEmployees() {
         await Promise.all(
           formattedData.map(async ({ employee, password }) => {
             try {
-              const response = await axios.post(`${API_BASE_URL}/employee/register`, {
-                ...employee,
-                password // Send password along with employee data
-              });
+              const response = await axios.post(
+                `${API_BASE_URL}/employee/register`,
+                {
+                  ...employee,
+                  password, // Send password along with employee data
+                }
+              );
               console.log("Response for employee:", response.data);
               newEmployees.push(response.data);
             } catch (error) {
-              console.error("Error posting employee data:", error.response ? error.response.data : error.message);
+              console.error(
+                "Error posting employee data:",
+                error.response ? error.response.data : error.message
+              );
               throw error; // Ensure error handling is applied in case of failure
             }
           })
@@ -316,9 +335,7 @@ function AllEmployees() {
               className="flex justify-center items-center w-[186px] h-[48px] text-white"
               onClick={() => setIsPopupOpen(true)}
             >
-
               <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
-
               Import Employee
             </button>
           </div>
@@ -331,9 +348,7 @@ function AllEmployees() {
               className="flex justify-center items-center w-[186px] h-[48px] text-white"
               onClick={handleDownload}
             >
-
               <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
-
               Download Data
             </button>
           </div>
@@ -368,8 +383,12 @@ function AllEmployees() {
                   <th className="border p-2">Role</th>
                   <th className="border p-2">PAN Number</th>
                   <th className="border p-2">Aadhar Card Number</th>
-                  <th className="border 
-                  p-2">Action</th>
+                  <th
+                    className="border 
+                  p-2"
+                  >
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -377,9 +396,13 @@ function AllEmployees() {
                   <tr key={employee.employeeId}>
                     <td className="py-2 px-4 border-b text-center bg-transparent">
                       <img
-                        src={isChecked[employee.employeeId] ? checkbox : uncheckbox}
+                        src={
+                          isChecked[employee.employeeId] ? checkbox : uncheckbox
+                        }
                         alt="Checkbox"
-                        onClick={() => handleCheckboxChange(employee.employeeId)}
+                        onClick={() =>
+                          handleCheckboxChange(employee.employeeId)
+                        }
                         className="bg-transparent"
                       />
                     </td>
@@ -392,7 +415,9 @@ function AllEmployees() {
                       />
                     </td>
                     <td className="border p-2">{employee.employeeId}</td>
-                    <td className="border p-2">{employee.firstName} {employee.lastName}</td>
+                    <td className="border p-2">
+                      {employee.firstName} {employee.lastName}
+                    </td>
                     <td className="border p-2">{employee.joinDate}</td>
                     <td className="border p-2">{employee.phoneNumber}</td>
                     <td className="border p-2">{employee.bloodGroup}</td>
@@ -410,7 +435,9 @@ function AllEmployees() {
                       />
                       <FiTrash2
                         className="text-red-500 cursor-pointer"
-                        onClick={() => handleDeleteEmployee(employee.employeeId)}
+                        onClick={() =>
+                          handleDeleteEmployee(employee.employeeId)
+                        }
                       />
                     </td>
                   </tr>
@@ -549,7 +576,9 @@ function AllEmployees() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Aadhar Card Number</label>
+                <label className="block text-gray-700">
+                  Aadhar Card Number
+                </label>
                 <input
                   type="text"
                   name="aadharCardNumber"
@@ -562,7 +591,9 @@ function AllEmployees() {
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={editEmployeeId ? handleUpdateEmployee : handleAddEmployee}
+                  onClick={
+                    editEmployeeId ? handleUpdateEmployee : handleAddEmployee
+                  }
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   {editEmployeeId ? "Update" : "Add"}

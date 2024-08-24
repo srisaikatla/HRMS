@@ -118,7 +118,7 @@ const TeamList = () => {
   ];
 
   return (
-    <div className="bg-white w-auto   h-screen rounded-lg shadow-lg">
+    <div className=" w-auto    ">
       <h2 className="text-xl font-bold mb-6 text-start ml-10 text-[#E65F2B]">
         SpyD Team
       </h2>
@@ -126,7 +126,7 @@ const TeamList = () => {
         It is a long established fact that a reader will be distracted by the
         readable content of a page when looking at its layout.
       </p>
-      <div className="grid grid-cols-1 ml-[50px] pt-4 shadow-lg md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
+      <div className="grid grid-cols-1 ml-[50px] pt-4 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
         {teams.map((team, idx) => (
           <div key={idx} className="relative">
             <TeamCard {...team} />

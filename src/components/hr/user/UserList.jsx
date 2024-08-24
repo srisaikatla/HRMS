@@ -228,7 +228,7 @@ const UserList = () => {
 
   return (
     <div className="p-5 flex flex-col h-screen">
-      <h1 className="text-xl text-orange-500 font-bold mb-4">Users List</h1>
+      <h1 className="text-xl text-orange-500 font-bold mb-4">Clients</h1>
 
       <div className="flex justify-end mb-4">
         <button
@@ -242,8 +242,8 @@ const UserList = () => {
         </button>
       </div>
 
-      <div className="overflow-x-auto ">
-        <table className="min-w-full text-nowrap">
+      <div className="overflow-x-scroll ">
+        <table className=" min-w-full w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr className="text-left">
               <th className="text-lg py-2 px-4 "></th>

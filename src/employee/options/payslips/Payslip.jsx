@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 
 import logo from "../../../employeeAssets/spydlogo.png";
@@ -354,10 +353,10 @@ function Payslip() {
 
             <div className="text-[16px] text-black pt-4">
               <span className="font-bold">**NOTE :</span>
-              <span className="italic">
+              <span className="italic pl-1">
                 All Amounts displayed in this payslip are in
               </span>
-              <span className="font-bold italic">INR</span>
+              <span className="font-bold italic pl-1">INR</span>
             </div>
 
             <div className="text-[14px] text-black pt-10">

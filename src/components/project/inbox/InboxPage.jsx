@@ -13,8 +13,8 @@ const initialData = [
   {
     checkbox: false,
     star: true,
-    from : "John Smith",
-    mailId : "johnsmith2024@gmail.com",
+    from: "John Smith",
+    mailId: "johnsmith2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -24,8 +24,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -35,8 +35,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -46,8 +46,8 @@ const initialData = [
   {
     checkbox: false,
     star: true,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -57,8 +57,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -68,8 +68,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -79,8 +79,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -90,8 +90,8 @@ const initialData = [
   {
     checkbox: false,
     star: false,
-    from : "Michael Jordan",
-    mailId : "michealjordan2024@gmail.com",
+    from: "Michael Jordan",
+    mailId: "michealjordan2024@gmail.com",
     to: "Sathish, Shyam, Mounika",
     subject: "Venu Kumar",
     message:
@@ -147,21 +147,23 @@ const InboxPage = ({ onSelectMessage }) => {
     setInboxData(updatedData);
   };
 
-  const handleRefresh = () =>{
-    window.location.reload();  // refreshes the entire page
-  }
+  const handleRefresh = () => {
+    window.location.reload(); // refreshes the entire page
+  };
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#E6F5FE]">
-      <div className="flex justify-between py-5 mx-10">
-        <h1 className="text-xl font-semibold">Inbox</h1>
-        <div className="flex items-center gap-1 border px-5 rounded-lg border-[#0098F1] bg-white">
-          <CiSearch className="text-2xl text-[#0098F1]" />
-          <input
-            type="search"
-            placeholder="Search for anything..."
-            className="text-xs py-2 outline-none w-64 text-[#0098F1] placeholder:text-[#0098F1]"
-          />
+    <>
+      <div className="rounded-r-xl ">
+        <div className="flex justify-between py-5 mx-10">
+          <h1 className="text-xl font-semibold">Inbox</h1>
+          <div className="flex items-center gap-1 border px-5 rounded-lg border-[#0098F1] bg-white">
+            <CiSearch className="text-2xl text-[#0098F1]" />
+            <input
+              type="search"
+              placeholder="Search for anything..."
+              className="text-xs py-2 outline-none w-64 text-[#0098F1] placeholder:text-[#0098F1]"
+            />
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-between mx-10">
@@ -173,7 +175,10 @@ const InboxPage = ({ onSelectMessage }) => {
             <img src={mainCheckbox ? Checked : unChecked} alt="Main Checkbox" />
           </button>
           <div className="border border-[#E65F2B] rounded-lg">
-            <button onClick={handleRefresh} className="border-r border-[#E65F2B] px-3 py-1">
+            <button
+              onClick={handleRefresh}
+              className="border-r border-[#E65F2B] px-3 py-1"
+            >
               Refresh
             </button>
             <button className="border-r border-[#E65F2B] px-3 py-1">
@@ -233,7 +238,7 @@ const InboxPage = ({ onSelectMessage }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

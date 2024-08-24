@@ -27,7 +27,7 @@ const initialEarnings = [
   { label: "Variable Pay", amount: 0.0, unit: "Year" },
   { label: "Gratuity", amount: 0.0, unit: "Year" },
   { label: "CTC", amount: 768875.0, unit: "Year" },
-  { label: "Appraisal/Offer Date", amount: "June 24, 2024" },
+  { label: "Appraisal Date", amount: "June 24, 2024" },
   { label: "Effective Pay Period", amount: "June 2024" },
   { label: "Payment Method", amount: "Cash" },
 ];
@@ -109,10 +109,6 @@ const Compensation = () => {
     0
   );
 
-  //   const handleEditToggle = () => {
-  //     setEditMode(!editMode);
-  //   };
-
   const handleCancelEdit = () => {
     setEditMode(false);
     setAllowances(initialAllowances);
@@ -163,7 +159,6 @@ const Compensation = () => {
   };
   const handleEditToggle = () => {
     if (editMode) {
-      // Simulate saving changes and updating modification details
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleString("en-US", {
         year: "numeric",
@@ -235,46 +230,14 @@ const Compensation = () => {
 
   return (
     <>
-      <div id="main" className="h-auto pb-10">
+      <div id="main" className="h-auto pb-10 ">
         <div className="ml-5 mb-4 pt-2">
-          <p className="text-[#E65F2B] text-xl font-bold mb-4">
+          <p className="text-[#E65F2B] lg:text-xl text-sm font-bold mb-4">
             HR Management / Employees / Compensation
           </p>
         </div>
 
         {/* <div className="mx-3">
-          <div className="flex justify-center items-center h-44">
-            <label className="block text-lg font-medium mb-2">
-              Employee Name:
-            </label>
-            <div className="ml-2 w-96">
-              <Select
-                options={employeeOptions}
-                classNamePrefix="select"
-                placeholder="Select an employee"
-                onChange={handleEmployeeChange}
-                className="border-[1px] border-blue-[#0098f1] rounded"
-              />
-            </div>
-            {selectedEmployee && (
-              <button
-                className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
-                onClick={handleEditToggle}
-              >
-                {editMode ? "Save" : "Edit"}
-              </button>
-            )}
-            {editMode && (
-              <button
-                className="ml-2 px-4 py-2 bg-gray-500 text-white rounded"
-                onClick={handleCancelEdit}
-              >
-                Cancel
-              </button>
-            )}
-          </div>
-        </div> */}
-        <div className="mx-3">
           <div className="flex justify-center items-center h-44">
             <label className="block text-lg font-medium mb-2">
               Employee Name:
@@ -307,11 +270,50 @@ const Compensation = () => {
               </>
             )}
           </div>
+        </div> */}
+        <div className="mx-3">
+          <div className="flex flex-col md:flex-row justify-center items-center h-auto md:h-44 space-y-4 md:space-y-0">
+            <label className="block text-lg font-medium mb-2 md:mb-0">
+              Employee Name:
+            </label>
+            <div className="ml-0 md:ml-2 w-full md:w-96">
+              <Select
+                options={employeeOptions}
+                classNamePrefix="select"
+                placeholder="Select an employee"
+                onChange={handleEmployeeChange}
+                className="border-[1px] border-blue-[#0098f1] rounded w-full"
+              />
+            </div>
+            {selectedEmployee && (
+              <div className="flex space-x-2 mt-4 md:mt-0">
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  onClick={handleEditToggle}
+                >
+                  {editMode ? "Save" : "Edit"}
+                </button>
+                {editMode && (
+                  <button
+                    className="px-4 py-2 bg-gray-500 text-white rounded"
+                    onClick={handleCancelEdit}
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
+
+        {/*  */}
         {selectedEmployee && (
-          <div id="submain" className="grid grid-cols-2 gap-4">
-            <div id="compensation" className="mx-2 px-10">
-              <span className="px-2 text-lg font-medium">
+          <div
+            id="submain"
+            className="grid lg:grid-cols-2 grid-cols-1 gap-0 lg:gap-4"
+          >
+            <div id="compensation" className="lg:mx-2 mx-0 px-1 lg:px-10">
+              <span className="px-2 lg:text-lg text-sm font-medium">
                 Compensation Information
               </span>
               <hr className="border mt-3 border-[#0098f1]" />
@@ -320,7 +322,7 @@ const Compensation = () => {
                   {earnings.map((earning, index) => (
                     <div
                       key={index}
-                      className="text-[16px] pt-2 justify-between flex items-center pr-4"
+                      className="text-sm lg:text-[16px] pt-2 justify-between flex items-center pr-4"
                     >
                       <span>{earning.label}</span>
                       {editMode ? (
@@ -334,7 +336,7 @@ const Compensation = () => {
                               "amount"
                             )
                           }
-                          className="border rounded px-2 py-1"
+                          className="border  w-20 lg:w-auto rounded px-2 py-1"
                         />
                       ) : (
                         <span>
@@ -407,10 +409,15 @@ const Compensation = () => {
               </div>
             </div>
 
-            <div id="allowances" className="mx-2 px-10">
+            <div
+              id="allowances"
+              className="lg:mx-2 lg:pt-0 pt-4 mx-0 px-1 lg:px-10"
+            >
               <div className="flex justify-between items-center">
-                <span className="px-2 font-medium text-lg">Allowances</span>
-                <span className="px-2 font-medium text-lg">
+                <span className="px-2 font-medium  text-sm lg:text-lg">
+                  Allowances
+                </span>
+                <span className="px-2 font-medium text-sm lg:text-lg">
                   ₹ {totalAllowances.toLocaleString()}/Month
                 </span>
               </div>
@@ -419,7 +426,7 @@ const Compensation = () => {
                 {allowances.map((allowance, index) => (
                   <div
                     key={index}
-                    className="text-[16px] pt-2 justify-between flex items-center pr-4"
+                    className="text-sm lg:text-[16px] pt-2 justify-between flex items-center pr-4"
                   >
                     <span className="uppercase">{allowance.label}</span>
                     {editMode ? (
@@ -427,7 +434,7 @@ const Compensation = () => {
                         type="text"
                         value={allowance.amount}
                         onChange={(e) => handleInputChange(index, e, "amount")}
-                        className="border rounded px-2 py-1"
+                        className="border  w-20 lg:w-auto rounded px-2 py-1"
                       />
                     ) : (
                       <span>₹ {allowance.amount.toFixed(2)}</span>
@@ -465,10 +472,15 @@ const Compensation = () => {
               </div>
             </div>
 
-            <div id="deductions" className="mx-2 px-10">
+            <div
+              id="deductions"
+              className="lg:mx-2 lg:pt-0 pt-4 mx-0 px-1 lg:px-10"
+            >
               <div className="flex justify-between items-center">
-                <span className="px-2 font-medium text-lg">Deductions</span>
-                <span className="px-2 font-medium text-lg">
+                <span className="px-2 font-medium text-sm lg:text-lg">
+                  Deductions
+                </span>
+                <span className="px-2 font-medium text-sm lg:text-lg">
                   ₹ {totalDeductions.toLocaleString()}/Month
                 </span>
               </div>
@@ -477,7 +489,7 @@ const Compensation = () => {
                 {deductions.map((deduction, index) => (
                   <div
                     key={index}
-                    className="text-[16px] pt-2 justify-between flex items-center pr-4"
+                    className=" text:sm lg:text-[16px] pt-2 justify-between flex items-center pr-4"
                   >
                     <span className="uppercase">{deduction.label}</span>
                     {editMode ? (
@@ -491,7 +503,7 @@ const Compensation = () => {
                             "amount"
                           )
                         }
-                        className="border rounded px-2 py-1"
+                        className="border  w-20 lg:w-auto rounded px-2 py-1"
                       />
                     ) : (
                       <span>₹ {deduction.amount.toFixed(2)}</span>
@@ -529,12 +541,15 @@ const Compensation = () => {
               </div>
             </div>
 
-            <div id="yearlyAllowances" className="mx-2 px-10">
+            <div
+              id="yearlyAllowances"
+              className="lg:mx-2 lg:pt-0 pt-4 mx-0 px-1 lg:px-10"
+            >
               <div className="flex justify-between items-center">
-                <span className="px-2 font-medium text-lg">
+                <span className="px-2 font-medium text-sm lg:text-lg">
                   Yearly Allowances
                 </span>
-                <span className="px-2 font-medium text-lg">
+                <span className="px-2 font-medium text-sm lg:text-l">
                   ₹ {totalYearlyAllowances.toLocaleString()}/Year
                 </span>
               </div>
@@ -543,7 +558,7 @@ const Compensation = () => {
                 {yearlyAllowances.map((yearlyAllowance, index) => (
                   <div
                     key={index}
-                    className="text-[16px] pt-2 justify-between flex items-center pr-4"
+                    className="text-sm lg:text-[16px] pt-2 justify-between flex items-center pr-4"
                   >
                     <span className="uppercase">{yearlyAllowance.label}</span>
                     {editMode ? (
@@ -582,7 +597,7 @@ const Compensation = () => {
                         placeholder="Yearly Allowance Name"
                         value={newYearlyAllowance.label}
                         onChange={handleNewYearlyAllowanceChange}
-                        className="border rounded px-2 py-1 mr-2"
+                        className="border  rounded px-2 py-1 mr-2"
                       />
                       <input
                         type="text"
@@ -600,13 +615,13 @@ const Compensation = () => {
           </div>
         )}
         {modifiedDetails && (
-          <div className="mt-4 mx-10 pt-10 text-sm">
+          <div className="mt-4 lg:mx-10 pt-10 text-sm">
             Modified On: {modifiedDetails.date} by {modifiedDetails.user}
           </div>
         )}
         {showBankDetailsModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-            <div className="bg-white w-[500px] h-auto p-4 rounded shadow-lg">
+            <div className="bg-white w-[300px] lg:w-[500px] h-auto p-4 rounded shadow-lg">
               <h2 className="text-lg font-bold mb-2">Bank Details</h2>
               <div className="mb-2">
                 <label className="block text-sm font-medium mb-1">IFSC</label>

@@ -19,7 +19,7 @@ const ToDoList = () => {
   };
 
   return (
-    <div className="  bg-white h-[410px] shadow-lg p-8 mr-10 w-[270px]  rounded-lg max-w-sm ">
+    <div className="  bg-white h-[400px] shadow-lg p-6  w-[300px]  rounded-lg max-w-sm ">
       <h2 className="text-xl font-bold text-orange-600 mb-4">To Do List</h2>
       <ul className="space-y-2 py-4">
         {items.map((item, index) => (

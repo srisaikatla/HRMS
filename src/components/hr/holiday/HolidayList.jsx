@@ -16,8 +16,9 @@ function HolidayList() {
   });
   const [editHolidayId, setEditHolidayId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
-  const jwt = localStorage.getItem("jwt")
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
+  const jwt = localStorage.getItem("jwt");
 
   // Fetch holidays from the backend when the component loads
   useEffect(() => {
@@ -26,13 +27,11 @@ function HolidayList() {
 
   const fetchHolidays = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/holidays`,
-        {
-          headers: {
-            "Authorization": `Bearer ${jwt}`
-          }
-        }
-      );
+      const response = await axios.get(`${API_BASE_URL}/holidays`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
       setHolidays(response.data);
       setLoading(false);
     } catch (error) {
@@ -41,7 +40,6 @@ function HolidayList() {
       setLoading(false);
     }
   };
-
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -63,10 +61,8 @@ function HolidayList() {
 
   const handleAddHoliday = async () => {
     try {
-
       const response = await axios.post(`${API_BASE_URL}/holidays`, {
         ...newHoliday,
-
       });
       setHolidays((prev) => [...prev, response.data]);
       setShowSuccessMessage(true);
@@ -86,15 +82,20 @@ function HolidayList() {
       date: holiday.date,
       holidayName: holiday.holidayName,
     });
-    setEditHolidayId(holiday.holidayName)
+    setEditHolidayId(holiday.holidayName);
     setIsModalOpen(true);
   };
 
   const handleUpdateHoliday = async () => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/holidays/${editHolidayId}`, newHoliday);
+      const response = await axios.put(
+        `${API_BASE_URL}/holidays/${editHolidayId}`,
+        newHoliday
+      );
       setHolidays((prev) =>
-        prev.map((emp) => (emp.holidayName === editHolidayId ? response.data : emp))
+        prev.map((emp) =>
+          emp.holidayName === editHolidayId ? response.data : emp
+        )
       );
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
@@ -109,16 +110,17 @@ function HolidayList() {
   const handleDeleteHoliday = async (holidayId) => {
     try {
       await axios.delete(`${API_BASE_URL}/holidays/delete/${holidayId}`);
-      setHolidays((prev) => prev.filter((holiday) => holiday.holidayName !== holidayId));
+      setHolidays((prev) =>
+        prev.filter((holiday) => holiday.holidayName !== holidayId)
+      );
 
       setShowDeleteSuccessMessage(true);
       setTimeout(() => setShowDeleteSuccessMessage(false), 3000);
-      fetchHolidays()
+      fetchHolidays();
     } catch (error) {
       console.error("Error deleting holiday:", error);
     }
   };
-
 
   return (
     <>
@@ -126,7 +128,10 @@ function HolidayList() {
         <h2 className="text-[#E65F2B] text-xl font-bold">Hr/Holidays List</h2>
 
         <div className="flex justify-end mb-4">
-          <div id="addholiday" className="inline-block h-[48px] rounded-lg bg-[#0098f1]">
+          <div
+            id="addholiday"
+            className="inline-block h-[48px] rounded-lg bg-[#0098f1]"
+          >
             <button
               type="button"
               className="flex items-center w-[186px] h-[48px] px-2 text-white"
@@ -162,23 +167,27 @@ function HolidayList() {
             <tbody>
               {holidays.map((holiday, index) => (
                 <tr key={holiday.holidayName}>
-                  <td className="py-2 px-4 border-b text-center truncate">{index + 1}</td>
-                  <td className="py-2 px-4 border-b text-center truncate">{holiday.day}</td>
-                  <td className="py-2 px-4 border-b text-center truncate">{holiday.date}</td>
-                  <td className="py-2 px-4 border-b text-center truncate">{holiday.holidayName}</td>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {index + 1}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {holiday.day}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {holiday.date}
+                  </td>
+                  <td className="py-2 px-4 border-b text-center truncate">
+                    {holiday.holidayName}
+                  </td>
                   <td className="py-2 px-4 border-b  truncate">
                     <FiEdit
                       className="text-blue-500 cursor-pointer mr-2"
                       onClick={() => handleEditHoliday(holiday)}
-
                     />
                     <FiTrash2
                       className="text-red-500 cursor-pointer mt-2"
                       onClick={() => handleDeleteHoliday(holiday.holidayName)}
                     />
-
-
-
                   </td>
                 </tr>
               ))}
@@ -190,7 +199,9 @@ function HolidayList() {
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-lg">
-            <h2 className="text-2xl mb-4">{editHolidayId ? "Edit Holiday" : "Add Holiday"}</h2>
+            <h2 className="text-2xl mb-4">
+              {editHolidayId ? "Edit Holiday" : "Add Holiday"}
+            </h2>
             <form>
               <div className="mb-4">
                 <label className="block text-gray-700">Day</label>
@@ -226,7 +237,9 @@ function HolidayList() {
               <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={editHolidayId ? handleUpdateHoliday : handleAddHoliday}
+                  onClick={
+                    editHolidayId ? handleUpdateHoliday : handleAddHoliday
+                  }
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                 >
                   {editHolidayId ? "Update" : "Add"}
@@ -240,27 +253,21 @@ function HolidayList() {
                 </button>
               </div>
             </form>
-
           </div>
         </div>
-      )
-      }
+      )}
 
-      {
-        showSuccessMessage && (
-          <div className="fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded">
-            Holiday {editHolidayId ? "updated" : "added"} successfully!
-          </div>
-        )
-      }
+      {showSuccessMessage && (
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded">
+          Holiday {editHolidayId ? "updated" : "added"} successfully!
+        </div>
+      )}
 
-      {
-        showDeleteSuccessMessage && (
-          <div className="fixed bottom-4 right-4 bg-red-500 text-white py-2 px-4 rounded">
-            Holiday deleted successfully!
-          </div>
-        )
-      }
+      {showDeleteSuccessMessage && (
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white py-2 px-4 rounded">
+          Holiday deleted successfully!
+        </div>
+      )}
       {errorMessage && (
         <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
           {errorMessage}

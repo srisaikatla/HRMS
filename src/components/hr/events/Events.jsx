@@ -143,7 +143,8 @@ const Events = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [deleteEventId, setDeleteEventId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEvent((prevEvent) => ({
@@ -153,7 +154,9 @@ const Events = () => {
   };
 
   const handleDeleteEvent = () => {
-    const updatedHolidays = holidays.filter(holiday => holiday.id !== deleteHolidayId);
+    const updatedHolidays = holidays.filter(
+      (holiday) => holiday.id !== deleteHolidayId
+    );
     setHolidays(updatedHolidays);
     setShowDeleteSuccessMessage(true);
 
@@ -165,7 +168,7 @@ const Events = () => {
   const handleAddEvent = () => {
     const dateObj = new Date(newEvent.date);
     const dayName = dateObj.toLocaleString("default", { weekday: "long" });
-  
+
     if (editEventId !== null) {
       const updatedEvents = events.map((event) => {
         if (event.id === editEventId) {
@@ -196,10 +199,9 @@ const Events = () => {
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 3000);
-  
+
     closeModal();
   };
-  
 
   const openEditModal = (eventId) => {
     const eventToEdit = events.find((event) => event.id === eventId);
@@ -227,7 +229,7 @@ const Events = () => {
     });
   };
 
-    const openDeleteModal = (holidayId) => {
+  const openDeleteModal = (holidayId) => {
     setDeleteEventId(holidayId);
     setIsDeleteModalOpen(true);
   };
@@ -250,7 +252,7 @@ const Events = () => {
       selectedDate.getMonth() + 1
     ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
     const dayName = selectedDate.toLocaleString("default", { weekday: "long" });
-  
+
     setSelectedDate(day);
     setNewEvent((prev) => ({
       ...prev,
@@ -259,7 +261,6 @@ const Events = () => {
     }));
     setIsModalOpen(true);
   };
-  
 
   return (
     <div className="p-5">
@@ -359,9 +360,15 @@ const Events = () => {
         <table className="w-full bg-white rounded-lg">
           <thead className="bg-[#0098F1]">
             <tr>
-              <th className="p-2 border-r border-white text-center border-opacity-80">Day</th>
-              <th className="p-2 border-r border-white text-center border-opacity-80">Date</th>
-              <th className="p-2 border-r border-white text-center border-opacity-80">Event</th>
+              <th className="p-2 border-r border-white text-center border-opacity-80">
+                Day
+              </th>
+              <th className="p-2 border-r border-white text-center border-opacity-80">
+                Date
+              </th>
+              <th className="p-2 border-r border-white text-center border-opacity-80">
+                Event
+              </th>
               <th className="p-2 text-center">Actions</th>
             </tr>
           </thead>
@@ -389,8 +396,10 @@ const Events = () => {
                       className="flex items-center justify-center"
                       onClick={() => handleDeleteEvent(event.id)}
                     >
-                      <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" 
-                      onClick={() => openDeleteModal(event.id)}/>
+                      <FiTrash2
+                        className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md"
+                        onClick={() => openDeleteModal(event.id)}
+                      />
                     </button>
                   </div>
                 </td>
@@ -403,7 +412,7 @@ const Events = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6 w-[400px]">
             <h2 className="text-2xl mb-4 text-[#0098F1]">
-              {editEventId ? 'Edit Holiday' : 'Add Holiday'}
+              {editEventId ? "Edit Holiday" : "Add Holiday"}
             </h2>
             <div className="grid grid-cols-1 gap-4">
               <div>
@@ -438,7 +447,7 @@ const Events = () => {
                 className="bg-[#0098F1] text-white px-4 py-2 rounded"
                 onClick={handleAddEvent}
               >
-                {editEventId ? 'Update' : 'Add'}
+                {editEventId ? "Update" : "Add"}
               </button>
             </div>
           </div>
@@ -448,8 +457,10 @@ const Events = () => {
       {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-10 w-[400px] flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-semibold mb-4 text-[#0098F1]">Delete Holiday</h2>
-            <p className='text-[#0098F1]'>Are you sure you want to delete?</p>
+            <h2 className="text-2xl font-semibold mb-4 text-[#0098F1]">
+              Delete Holiday
+            </h2>
+            <p className="text-[#0098F1]">Are you sure you want to delete?</p>
             <div className="mt-4 flex gap-5">
               <button
                 className="bg-[#0098F1] text-white px-10 py-2 rounded"
@@ -470,7 +481,7 @@ const Events = () => {
 
       {showSuccessMessage && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
-          Holiday {editEventId ? 'updated' : 'added'} successfully!
+          Holiday {editEventId ? "updated" : "added"} successfully!
         </div>
       )}
 
