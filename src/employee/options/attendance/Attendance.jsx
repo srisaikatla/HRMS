@@ -52,7 +52,10 @@ const Attendance = () => {
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+
   });
+
 
   const calculateHours = (inTime, outTime) => {
     const inDate = new Date(inTime);
@@ -192,6 +195,22 @@ const Attendance = () => {
     return () => clearInterval(breakTimer);
   }, [isOnBreak, breakStartTime]);
 
+
+  useEffect(() => {
+    const checkPunchOutTime = () => {
+      const now = new Date();
+      const currentHour = now.getHours();
+
+      if (currentHour >= 22 && isPunchedIn) { // 22 = 10 PM
+        handlePunchOut(); // Call the punch-out function
+      }
+    };
+
+    const interval = setInterval(checkPunchOutTime, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, [isPunchedIn]);
+
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
     if (isPunchedIn) {
@@ -210,6 +229,90 @@ const Attendance = () => {
 
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
       const workingHours = calculateWorkingHours(production, totalBreakDuration);
+
+      const newEntry = {
+        employeeId,
+        employeeName,
+        punchIn: punchInTime, // Ensure to use Date objects
+        punchOut: newPunchOutTime,
+        productionHours: production.hours,
+        productionMinutes: production.minutes,
+        productionSeconds: production.seconds,
+        breakHours: totalBreakDuration.hours,
+        breakMinutes: totalBreakDuration.minutes,
+        breakSeconds: totalBreakDuration.seconds,
+        overtime,
+      };
+
+      // Update attendanceData state properly
+
+      try {
+        const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data.message);
+        setAttendanceData((prevData) => [...prevData, response.data]);
+      } catch (error) {
+        console.error("Error saving attendance:", error);
+      }
+
+      // Reset state and clear localStorage after punch-out
+      setPunchOutTime(newPunchOutTime);
+      setIsPunchedIn(false);
+      setPunchInTime(null);
+      setLastElapsedTime(elapsedTime);
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
+
+      localStorage.removeItem('punchInTime');
+      localStorage.removeItem('elapsedTime');
+      localStorage.removeItem('totalBreakTime');
+      localStorage.removeItem('isPunchedIn');
+      localStorage.removeItem('lastElapsedTime');
+      localStorage.removeItem('isOnBreak');
+      localStorage.removeItem('breakStartTime');
+    } else {
+      //Check if already punched out today
+      // const hasPunchedOutToday = attendanceData.some(entry => {
+      //   const entryDate = new Date(entry.punchOut).toLocaleDateString();
+      //   return entry.employeeId === employeeId && entryDate === today;
+      // });
+
+      // if (hasPunchedOutToday) {
+      //   alert("You have already punched out today. You cannot punch in again.");
+      //   return;
+      // }
+      const newPunchInTime = new Date();
+      setPunchInTime(newPunchInTime);
+      setIsPunchedIn(true);
+      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
+      localStorage.setItem('punchInTime', newPunchInTime);
+      localStorage.setItem('isPunchedIn', 'true');
+      localStorage.setItem('lastElapsedTime', JSON.stringify({ hours: 0, minutes: 0, seconds: 0 }));
+    }
+  };
+
+  const handlePunchOut = async () => {
+    if (isPunchedIn) {
+      const newPunchOutTime = new Date();
+      const production = calculateHours(punchInTime, newPunchOutTime);
+
+      let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
+
+      if (isOnBreak && breakStartTime) {
+        const now = new Date();
+        breakDuration = calculateBreakTime(breakStartTime, now);
+        updateBreakTime(breakDuration);
+      }
+
+      const totalBreakDuration = { ...totalBreakTime };
+
+      const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
+      const workedTime = calculateWorkingHours(production, totalBreakDuration);
 
       const newEntry = {
         employeeId,
@@ -256,28 +359,13 @@ const Attendance = () => {
       localStorage.removeItem('lastElapsedTime');
       localStorage.removeItem('isOnBreak');
       localStorage.removeItem('breakStartTime');
-    } else {
-      //Check if already punched out today
-      const hasPunchedOutToday = attendanceData.some(entry => {
-        const entryDate = new Date(entry.punchOut).toLocaleDateString();
-        return entry.employeeId === employeeId && entryDate === today;
-      });
 
-      if (hasPunchedOutToday) {
-        alert("You have already punched out today. You cannot punch in again.");
-        return;
-      }
-      const newPunchInTime = new Date();
-      setPunchInTime(newPunchInTime);
-      setIsPunchedIn(true);
-      setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      localStorage.setItem('punchInTime', newPunchInTime);
-      localStorage.setItem('isPunchedIn', 'true');
-      localStorage.setItem('lastElapsedTime', JSON.stringify({ hours: 0, minutes: 0, seconds: 0 }));
+      // Save punch out data (could be saved to a server or database here)
+      // Example: savePunchOutData(punchInTime, punchOutTime, workedTime);
+
+      alert(`You have been punched out automatically at 10 PM. Worked Time: ${workedTime.hours}h ${workedTime.minutes}m ${workedTime.seconds}s`);
     }
   };
-
 
 
 
