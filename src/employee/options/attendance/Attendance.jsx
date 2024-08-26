@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import styles
@@ -8,6 +9,7 @@ import { API_BASE_URL } from "../../../Config/api"
 
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
+  const [message, setMessage] = useState("")
   const [currentDateTime, setCurrentDateTime] = useState("");
   const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isOnBreak, setIsOnBreak] = useState(false);
@@ -27,6 +29,7 @@ const Attendance = () => {
   const jwt = localStorage.getItem("jwt");
   const officeHours = 9;
 
+
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
@@ -44,16 +47,13 @@ const Attendance = () => {
   }, [jwt]);
 
   const filteredData1 = attendanceData.filter((entry) => entry.employeeId === employeeId);
-
   // Filtered data for search query
-  const searchedData = filteredData1.filter((entry) => {
+  const filteredData = filteredData1.filter((entry) => {
     const entryDate = new Date(entry.punchIn).toLocaleDateString();
     return entryDate === searchDate.toLocaleDateString() && (
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
-
   });
 
 
@@ -199,10 +199,11 @@ const Attendance = () => {
   useEffect(() => {
     const checkPunchOutTime = () => {
       const now = new Date();
-      const currentHour = now.getHours();
+      const logoutLimit = new Date();
+      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
 
-      if (currentHour >= 22 && isPunchedIn) { // 22 = 10 PM
-        handlePunchOut(); // Call the punch-out function
+      if (isPunchedIn && now > logoutLimit) {
+        handlePunchButtonClick() // Call the punch-out function
       }
     };
 
@@ -211,8 +212,34 @@ const Attendance = () => {
     return () => clearInterval(interval);
   }, [isPunchedIn]);
 
+
+
+  const toIST = (date) => {
+    const options = { timeZone: 'Asia/Kolkata', hour12: false };
+    const istDate = new Date(date.toLocaleString('en-US', options));
+    return new Date(istDate.getTime() - (istDate.getTimezoneOffset() * 60000)); // Remove milliseconds
+  };
+
+  // Convert the punch-in and punch-out times to IST and remove milliseconds
+  const formatDateForBackend = (date) => {
+    return date ? toIST(date).toISOString().split('.')[0] : null;
+  };
+
+  const isPastPunchInTime = () => {
+    const now = new Date();
+    const punchInLimit = new Date();
+    punchInLimit.setHours(9, 30, 0, 0);
+    return now > punchInLimit;
+  };
+
+
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
+    if (isPastPunchInTime() && !isPunchedIn) {
+      setMessage("You need to login before 9:30 AM");
+      return;
+    }
+    setMessage("");
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
@@ -230,11 +257,14 @@ const Attendance = () => {
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
       const workingHours = calculateWorkingHours(production, totalBreakDuration);
 
+
       const newEntry = {
         employeeId,
         employeeName,
-        punchIn: punchInTime, // Ensure to use Date objects
-        punchOut: newPunchOutTime,
+        punchIn: formatDateForBackend(punchInTime),
+        punchOut: formatDateForBackend(newPunchOutTime),
+        production,
+        breakDuration,
         productionHours: production.hours,
         productionMinutes: production.minutes,
         productionSeconds: production.seconds,
@@ -244,7 +274,10 @@ const Attendance = () => {
         overtime,
       };
 
+
       // Update attendanceData state properly
+      const updatedAttendanceData = [...attendanceData, newEntry];
+      setAttendanceData(updatedAttendanceData);
 
       try {
         const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
@@ -253,8 +286,7 @@ const Attendance = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(response.data.message);
-        setAttendanceData((prevData) => [...prevData, response.data]);
+
       } catch (error) {
         console.error("Error saving attendance:", error);
       }
@@ -276,15 +308,15 @@ const Attendance = () => {
       localStorage.removeItem('breakStartTime');
     } else {
       //Check if already punched out today
-      // const hasPunchedOutToday = attendanceData.some(entry => {
-      //   const entryDate = new Date(entry.punchOut).toLocaleDateString();
-      //   return entry.employeeId === employeeId && entryDate === today;
-      // });
+      const hasPunchedOutToday = attendanceData.some(entry => {
+        const entryDate = new Date(entry.punchOut).toLocaleDateString();
+        return entry.employeeId === employeeId && entryDate === today;
+      });
 
-      // if (hasPunchedOutToday) {
-      //   alert("You have already punched out today. You cannot punch in again.");
-      //   return;
-      // }
+      if (hasPunchedOutToday) {
+        alert("You have already punched out today. You cannot punch in again.");
+        return;
+      }
       const newPunchInTime = new Date();
       setPunchInTime(newPunchInTime);
       setIsPunchedIn(true);
@@ -296,76 +328,6 @@ const Attendance = () => {
     }
   };
 
-  const handlePunchOut = async () => {
-    if (isPunchedIn) {
-      const newPunchOutTime = new Date();
-      const production = calculateHours(punchInTime, newPunchOutTime);
-
-      let breakDuration = { hours: 0, minutes: 0, seconds: 0 };
-
-      if (isOnBreak && breakStartTime) {
-        const now = new Date();
-        breakDuration = calculateBreakTime(breakStartTime, now);
-        updateBreakTime(breakDuration);
-      }
-
-      const totalBreakDuration = { ...totalBreakTime };
-
-      const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
-      const workedTime = calculateWorkingHours(production, totalBreakDuration);
-
-      const newEntry = {
-        employeeId,
-        employeeName,
-        punchIn: punchInTime, // Ensure to use Date objects
-        punchOut: newPunchOutTime,
-        productionHours: production.hours,
-        productionMinutes: production.minutes,
-        productionSeconds: production.seconds,
-        breakHours: totalBreakDuration.hours,
-        breakMinutes: totalBreakDuration.minutes,
-        breakSeconds: totalBreakDuration.seconds,
-        overtime,
-      };
-
-      // Update attendanceData state properly
-
-
-      try {
-        const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-            "Content-Type": "application/json",
-          },
-        });
-        console.log(response.data.message);
-        setAttendanceData((prevData) => [...prevData, response.data]);
-      } catch (error) {
-        console.error("Error saving attendance:", error);
-      }
-
-      // Reset state and clear localStorage after punch-out
-      setPunchOutTime(newPunchOutTime);
-      setIsPunchedIn(false);
-      setPunchInTime(null);
-      setLastElapsedTime(elapsedTime);
-      setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
-
-      localStorage.removeItem('punchInTime');
-      localStorage.removeItem('elapsedTime');
-      localStorage.removeItem('totalBreakTime');
-      localStorage.removeItem('isPunchedIn');
-      localStorage.removeItem('lastElapsedTime');
-      localStorage.removeItem('isOnBreak');
-      localStorage.removeItem('breakStartTime');
-
-      // Save punch out data (could be saved to a server or database here)
-      // Example: savePunchOutData(punchInTime, punchOutTime, workedTime);
-
-      alert(`You have been punched out automatically at 10 PM. Worked Time: ${workedTime.hours}h ${workedTime.minutes}m ${workedTime.seconds}s`);
-    }
-  };
 
 
 
@@ -385,10 +347,6 @@ const Attendance = () => {
       localStorage.setItem('breakStartTime', now);
       localStorage.setItem('isOnBreak', 'true');
     }
-  };
-
-  const handleDateChange = (date) => {
-    setSearchDate(date);
   };
 
 
@@ -437,6 +395,7 @@ const Attendance = () => {
           <div className="flex flex-col space-y-4">
             <button
               onClick={handlePunchButtonClick}
+              // disabled={isPastPunchInTime() && !isPunchedIn}
               className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isPunchedIn ? 'bg-[#0098F1]' : 'bg-[#0098F1]'}`}
             >
               {isPunchedIn ? "Punch Out" : "Punch In"}
@@ -485,14 +444,14 @@ const Attendance = () => {
               </tr>
             </thead>
             <tbody>
-              {searchedData.length === 0 ? (
+              {filteredData.length === 0 ? (
                 <tr>
                   <td colSpan="8" className="text-center py-4">
                     No attendance records found.
                   </td>
                 </tr>
               ) : (
-                searchedData.map((entry, index) => {
+                filteredData.map((entry, index) => {
                   const workingTime = calculateWorkingHours(
                     {
                       hours: entry.productionHours,
