@@ -275,7 +275,7 @@ const PaySlips = () => {
   };
 
   return (
-    <div className="md:p-4">
+    <div className="md:p-4 mr-2">
         <p className="text-[#E65F2B] md:text-xl font-bold mb-4">
         <span>PayRoll</span> / <span>Payslips</span>
       </p>
@@ -321,19 +321,19 @@ const PaySlips = () => {
         </div>
       </div>
 
-      <div className="mt-4 w-full overflow-x-auto">
-        <table className="min-w-full">
+      <div className="mt-4 w-full overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1] ">
+        <table className="min-w-full text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr>
-              <th className="py-2 border-r border-white whitespace-nowrap">PERIOD</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">GROSS (₹)</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">BASIC (₹)</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">ALLOWANCES (₹)</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">DEDUCTIONS (₹)</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">INCOME TAX (₹)</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">SURCHARGE (₹)</th>
-              <th className="py-2 border-r border-white whitespace-nowrap">CESS (₹)</th>
-              <th className="py-2 whitespace-nowrap">NET AMOUNT (₹)</th>
+              <th className="py-2 border-r border-white">PERIOD</th>
+              <th className="py-2 border-r border-white">GROSS (₹)</th>
+              <th className="py-2 border-r border-white">BASIC (₹)</th>
+              <th className="py-2 border-r border-white">ALLOWANCES (₹)</th>
+              <th className="py-2 border-r border-white">DEDUCTIONS (₹)</th>
+              <th className="py-2 border-r border-white">INCOME TAX (₹)</th>
+              <th className="py-2 border-r border-white">SURCHARGE (₹)</th>
+              <th className="py-2 border-r border-white">CESS (₹)</th>
+              <th className="py-2">NET AMOUNT (₹)</th>
             </tr>
           </thead>
           <tbody>
