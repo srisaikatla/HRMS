@@ -111,27 +111,30 @@ const Deduction = () => {
   const totalPages = Math.ceil(values.length / recordsPerPage);
 
   return (
-    <div className="my-5 py-4">
+    <div className="md:my-5 py-4">
       <div className="flex flex-row justify-between mb-7">
-        <div className="flex flex-row gap-x-2">
-          <h3 className="text-xl font-semibold mt-1">Deduction</h3>
-          <button type="button" className="flex items-center justify-center">
-            <IoMdInformationCircleOutline />
-            info
+      <div className="flex gap-x-2">
+          <h3 className="md:text-xl font-semibold ">Deduction</h3>
+          <button
+            type="button"
+            className="flex items-center md:gap-1 gap-x-[2px] max-md:mt-1"
+          >
+            <IoMdInformationCircleOutline className="max-md:text-xs" />
+            <span className="max-md:text-xs">info</span>
           </button>
         </div>
         <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-[#0098f1] font-normal p-2 pr-5 rounded-lg text-white "
+         className="flex items-center md:gap-2 gap-1 bg-[#0098f1] md:p-2 p-1 md:px-4  rounded-lg text-white "
         >
-          <AiFillPlusCircle className="text-xl" />
-          Add
+          <AiFillPlusCircle className="md:text-xl" />
+          <span className="max-md:text-xs font-bold">Add</span>
         </button>
       </div>
-      <div className="overflow-auto">
+      <div className="overflow-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]">
         <table className="w-[1100px]">
-          <thead className="bg-[#0098f1] text-lg font-semibold">
+          <thead className="bg-[#0098f1] md:text-lg font-semibold">
             <tr>
               <th className="py-4 px-2 text-center w-[100px] border-r border-white border-opacity-60">
                 Display Name
@@ -155,7 +158,7 @@ const Deduction = () => {
             {currentRecords.map((value) => (
               <tr
                 key={value.id}
-                className="bg-[#0098f1] bg-opacity-20 text-lg font-normal"
+                className="bg-[#0098f1] bg-opacity-20 md:text-lg font-normal"
               >
                 <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.DisplayName}
@@ -243,9 +246,9 @@ const Deduction = () => {
         </button>
       </div>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 text-lg font-normal">
-          <div className="bg-white rounded-lg p-6 px-10 w-[700px]">
-            <h2 className="text-2xl mb-4 text-[#0098f1]">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-blue-100 bg-opacity-50 text-lg font-normal">
+          <div className="bg-white rounded-lg p-6 md:px-10 md:w-[700px]">
+            <h2 className="text-2xl md:mb-4 mb-2 text-[#0098f1]">
               {editAllowanceId ? "Edit Allowance" : "Add Allowance"}
             </h2>
             <div className="grid grid-cols-1 space-y-4">
@@ -303,14 +306,14 @@ const Deduction = () => {
                 <button
                   type="button"
                   onClick={handleAddAllowance}
-                  className="px-4 py-2 bg-[#0098f1] text-white rounded-md"
+                  className="p-1 md:px-4 md:py-2 bg-[#0098f1] text-white rounded-md"
                 >
                   {editAllowanceId ? "Update" : "Add"}
                 </button>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 bg-gray-300 text-black rounded-md"
+                  className="p-1 md:px-4 md:py-2 bg-gray-300 text-black rounded-md"
                 >
                   Cancel
                 </button>

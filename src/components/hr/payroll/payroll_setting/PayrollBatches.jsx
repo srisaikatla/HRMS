@@ -136,7 +136,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
       </p>
 
       {showModal && (
-        <div className="fixed inset-0 bg-orange-100 bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-blue-100 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-3 rounded-lg shadow-lg w-56 md:w-[600px] flex flex-col">
             <h2 className="md:text-lg font-bold mb-2 md:mb-4 ">
               Add Batch <hr />
