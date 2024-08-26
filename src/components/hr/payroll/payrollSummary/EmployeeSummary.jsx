@@ -31,24 +31,24 @@ const EmployeeSummary = ({ employees }) => {
     <div className="my-8">
       <h1 className="text-xl font-bold">Employee Summary</h1>
       <div className="flex flex-col">
-        <div className="my-2 flex space-x-5">
-          <button className="flex gap-1 items-center py-1 px-4 rounded-lg bg-yellow-500 text-white">
+        <div className="my-2 grid gap-2 md:grid-cols-3 lg:grid-cols-4 max-lg:text-xs ">
+          <button className="flex gap-1 px-2 p-1 items-center rounded-lg bg-yellow-500 text-white">
             <HiRefresh />
             Refresh/Undo
           </button>
-          <button className="flex gap-1 items-center py-1 px-4 rounded-lg bg-gray-800 text-white">
+          <button className="flex gap-1 px-2 p-1 items-center  rounded-lg bg-gray-800 text-white">
             <PiArrowLineDownBold />
             Cash requirements
           </button>
-          <button className="flex gap-1 items-center py-1 px-4 rounded-lg bg-gray-800 text-white">
+          <button className="flex gap-1 px-2 p-1 items-center rounded-lg bg-gray-800 text-white">
             Payroll Detailed Report
           </button>
-          <button className="flex gap-1 items-center py-1 px-4 rounded-lg bg-gray-800 text-white">
+          <button className="flex max-lg:px-2 p-1 text-nowrap items-center justify-between rounded-lg bg-gray-800 text-white">
             Import Allowances/Deductions
-            <RiArrowDownSLine />
+            <RiArrowDownSLine className=""/>
           </button>
         </div>
-        <div className="flex mr-5 gap-2 pr-2 border self-end bg-gray-300 rounded-md">
+        <div className="flex  gap-2 pr-2 border self-end bg-gray-300 rounded-md">
           <input
             type="search"
             className="outline-none pl-3 p-1 text-sm"
@@ -140,7 +140,7 @@ const EmployeeSummary = ({ employees }) => {
             Total Records :
             <span className="text-[#0098F1]"> {filteredEmployees.length}</span>
           </p>
-          <div className="flex justify-end items-center gap-3 mr-5 ">
+          <div className="flex justify-end items-center gap-3 md:mr-5 ">
             <p>{currentPage} of {totalPages}</p>
             <button
               onClick={handlePreviousPage}
