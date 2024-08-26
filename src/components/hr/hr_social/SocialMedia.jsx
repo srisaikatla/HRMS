@@ -77,57 +77,60 @@ const SocialMedia = () => {
   return (
     <div className="bg-white rounded-lg my-5 py-5 p-3">
       <h1 className="text-[20px] text-[#E65F2B] font-bold ">Social Media</h1>
-      <div className="flex flex-col gap-5 my-5">
-        <table className="">
-          <thead className="bg-[#0098F1] text-white ">
-            <tr>
-              <th className="py-2">Media</th>
-              <th>Name</th>
-              <th>Like</th>
-              <th>Comment</th>
-              <th>Share</th>
-              <th>Members</th>
-            </tr>
-          </thead>
-          <tbody className="text-center space-y-5">
-            {currentItems.map((user) => (
-              <tr key={user.id} className="text-[#0098F1] font-semibold">
-                <td className="py-4">
-                  <img
-                    src={user.media}
-                    alt={user.name}
-                    className="h-10 mx-auto"
-                  />
-                </td>
-                <td className="py-4">{user.name}</td>
-                <td className="py-4">{user.like}</td>
-                <td className="py-4">{user.comment}</td>
-                <td className="py-4">{user.share}</td>
-                <td className="py-4">
-                  <button className="border-2 border-[#E65F2B] text-[#E65F2B] rounded-md px-8 py-1">
-                    {user.members}
-                  </button>
-                </td>
+      <div className="flex flex-col gap-5 my-5 ">
+        <div className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1]">
+          <table className="min-w-[950px]">
+            <thead className="bg-[#0098F1] text-white ">
+              <tr>
+                <th className="py-2">Media</th>
+                <th>Name</th>
+                <th>Like</th>
+                <th>Comment</th>
+                <th>Share</th>
+                <th>Members</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex items-center gap-3 self-end mr-5 ">
+            </thead>
+            <tbody className="text-center space-y-5">
+              {currentItems.map((user) => (
+                <tr key={user.id} className="text-[#0098F1] font-semibold">
+                  <td className="py-4">
+                    <img
+                      src={user.media}
+                      alt={user.name}
+                      className="h-10 mx-auto"
+                    />
+                  </td>
+                  <td className="py-4">{user.name}</td>
+                  <td className="py-4">{user.like}</td>
+                  <td className="py-4">{user.comment}</td>
+                  <td className="py-4">{user.share}</td>
+                  <td className="py-4">
+                    <button className="border-2 border-[#E65F2B] text-[#E65F2B] rounded-md px-8 py-1">
+                      {user.members}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="flex items-center gap-3 self-end md:mr-5 ">
           <p>
             {currentPage} of {totalPages}
           </p>
           <button
             onClick={handlePreviousPage}
-            className="bg-[#E65F2B] rounded-full h-12 w-12 flex items-center justify-center text-white"
+            className="bg-[#E65F2B] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
           >
-            <GoChevronLeft size={24} />
+            <GoChevronLeft className="md:text-2xl" />
           </button>
 
           <button
             onClick={handleNextPage}
-            className="bg-[#E65F2B] rounded-full h-12 w-12 flex items-center justify-center text-white"
+            className="bg-[#E65F2B] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
           >
-            <GoChevronRight size={24} />
+            <GoChevronRight className="md:text-2xl"/>
           </button>
         </div>
       </div>

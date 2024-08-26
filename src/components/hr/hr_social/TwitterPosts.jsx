@@ -23,8 +23,8 @@ const twitterPosts = [
 
 const TwitterPosts = () => {
   return (
-    <div className="bg-white p-5 w-[465px]">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">Twitter Feed</h1>
+    <div className="bg-white p-5">
+      <h1 className="text-[#E65F2B] lg:text-xl font-bold mb-4">Twitter Feed</h1>
 
       <textarea
         className="outline-none border-2 rounded-md border-[#0098F1] w-full p-2 text-sm"
@@ -32,24 +32,24 @@ const TwitterPosts = () => {
         rows={5}
       />
 
-      <div className="flex gap-3 justify-between items-center">
-        <button className="text-lg bg-[#E65F2B] text-white rounded-lg px-6">
+      <div className="flex justify-between items-center">
+        <button className="md:text-lg bg-[#E65F2B] text-white rounded-lg px-3 md:px-6">
           Post
         </button>
-        <p className="text-[#0098F1]">13k users active</p>
+        <p className="text-[#0098F1] text-xs text-nowrap">13k users active</p>
       </div>
       <div className="my-5">
         {twitterPosts.map((post) => (
-          <div className="flex justify-between my-5  text-[#0098F1]">
+          <div className="flex justify-between my-5  text-[#0098F1] max-md:text-xs">
             <div className="flex gap-x-2">
-              <img src={post.image} alt="post pic" />
+              <img src={post.image} alt="post pic" className="h-6 w-6" />
               <div>
                 <h1>{post.name}</h1>
                 <p>{post.description}</p>
               </div>
             </div>
 
-            <p>{post.time}</p>
+            <p className="text-nowrap">{post.time}</p>
           </div>
         ))}
       </div>
