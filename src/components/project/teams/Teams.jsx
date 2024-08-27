@@ -73,12 +73,10 @@ const Teams = () => {
     },
   ];
 
-  // Function to handle input change and filter teams
   const handleSearchChange = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
 
-    // Filter teams based on search query
     const filtered = Teamsdata.filter((team) =>
       team.teamName.toLowerCase().includes(query)
     );
@@ -88,13 +86,13 @@ const Teams = () => {
   const teamsToDisplay = searchQuery.length > 0 ? filteredTeams : Teamsdata;
 
   return (
-    <div className=" p-5 ">
+    <div className="p-5">
       <h1 className="text-[#e65f2b] font-bold text-xl mb-3">Teams</h1>
 
-      <div className="w-full ">
+      <div className="w-full mb-5">
         <input
           type="search"
-          className="w-full h-14 bg-transparent border-2 border-blue-500 rounded-lg outline-none px-3 py-2 placeholder-[#0098F1] "
+          className="w-full h-14 bg-transparent border-2 border-blue-500 rounded-lg outline-none px-3 py-2 placeholder-[#0098F1]"
           style={{
             borderColor: "#0098F1",
             color: "black",
@@ -105,61 +103,62 @@ const Teams = () => {
         />
       </div>
 
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {teamsToDisplay.map((team) => (
-          <div key={team.id} className="flex rounded-lg">
-            <div className="bg-pink-400 p-4 rounded-xl shadow-lg mx-w-lg">
-              <div className="text-center">
-                <h1 className="text-xl font-bold mb-3 font-roboto text-[#0098F1]">
-                  {team.teamName}
+          <div
+            key={team.id}
+            className="flex flex-col rounded-lg bg-blue p-4 shadow-lg transition-transform transform hover:scale-105"
+          >
+            <div className="text-center">
+              <h1 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-[#0098F1]">
+                {team.teamName}
+              </h1>
+              <img
+                src={team.image}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#E65F2B] shadow-md mx-auto p-1"
+                alt="Team avatar"
+              />
+
+              <p className="text-base sm:text-xl font-roboto text-[#E65F2B] mt-2">
+                {team.Name}
+              </p>
+              <p className="text-base sm:text-xl font-roboto text-[#E65F2B]">
+                {team.Position}
+              </p>
+
+              <div className="flex justify-center flex-wrap mt-2">
+                {team.Skills.split(",").map((skill, index) => (
+                  <h1
+                    key={index}
+                    className="bg-[#0098F1] h-8 w-[70px] sm:w-[80px] m-1 p-2 text-white rounded-lg flex items-center justify-center text-sm sm:text-base font-roboto"
+                  >
+                    {skill.trim()}
+                  </h1>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-center mt-2">
+                <h1 className="text-base sm:text-xl mt-2 mr-2 text-[#E65F2B]">
+                  Employees:
                 </h1>
-                <img
-                  src={team.image}
-                  className="w-20 h-20 rounded-full border-4 border-[#E65F2B] shadow-md mx-auto p-1"
-                  alt="Team avatar"
-                />
-
-                <p className="text-xl font-roboto text-[#E65F2B] mt-2">
-                  {team.Name}
-                </p>
-                <p className="text-xl font-roboto text-[#E65F2B]">
-                  {team.Position}
-                </p>
-
-                <div className="flex justify-center mt-1">
-                  {team.Skills.split(",").map((skill, index) => (
-                    <h1
+                <div className="flex items-center">
+                  {[...Array(team.Employees)].map((_, index) => (
+                    <img
                       key={index}
-                      className="bg-[#0098F1] h-8 w-[80px] m-2 p-5 text-white rounded-lg flex items-center justify-center text-base  font-roboto"
-                    >
-                      {skill.trim()}
-                    </h1>
+                      src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
+                      alt={`Employee ${index + 1}`}
+                      className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full -ml-2 mt-4 z-${
+                        5 - index
+                      }`}
+                      style={{ zIndex: 5 - index }}
+                    />
                   ))}
                 </div>
-
-                <div className="flex items-center justify-center">
-                  <h1 className="text-xl mt-2 mr-2 text-[#E65F2B]">
-                    Employees:
-                  </h1>
-                  <div className="flex items-center ml-4">
-                    {[...Array(team.Employees)].map((_, index) => (
-                      <img
-                        key={index}
-                        src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
-                        alt={`Employee ${index + 1}`}
-                        className={`w-6 h-6 rounded-full -ml-2 mt-4 z-${
-                          5 - index
-                        }`}
-                        style={{ zIndex: 5 - index }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <h1 className="mt-4 text-xl text-[#0098F1]">
-                  {team.Leads} Lead, {team.Employees} employees
-                </h1>
               </div>
+
+              <h1 className="mt-2 text-base sm:text-xl text-[#0098F1]">
+                {team.Leads} Lead, {team.Employees} employees
+              </h1>
             </div>
           </div>
         ))}
