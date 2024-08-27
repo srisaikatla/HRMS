@@ -5,15 +5,15 @@ const TdsConfig = () => {
   const [selectedOption, setSelectedOption] = useState("monthly");
   const [preference, setPreference] = useState("1")
   return (
-    <div className="my-8">
-      <div className="flex ml-[250px] gap-2">
-        <div className="text-[#0098f1] font-semibold flex gap-1">
+    <div className="my-8 max-lg:ml-5">
+      <div className="flex flex-col lg:flex-row lg:ml-[250px] gap-2">
+        <div className="text-[#0098f1] font-semibold flex gap-x-1">
           <h1 className="mt-2">TDS Calculation</h1>
-          <button className="-mt-16">
+          <button className="lg:-mt-16">
             <LiaQuestionCircle className="text-lg" />
           </button>
         </div>
-        <div className="mt-2">
+        <div className="lg:mt-2 max-lg:text-sm">
           <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"
@@ -53,14 +53,14 @@ const TdsConfig = () => {
         </div>
       </div>
 
-      <div className="flex ml-[180px] gap-2 my-5">
-        <div className="text-[#0098f1] font-semibold flex gap-1">
+      <div className="flex flex-col lg:flex-row lg:ml-[180px] gap-2 my-5">
+        <div className="text-[#0098f1] font-semibold flex gap-1 text-nowrap">
           <h1 className="">Tax Deduction Preference</h1>
-          <button className="-mt-24">
+          <button className="lg:-mt-40 xl:-mt-24">
             <LiaQuestionCircle className="text-lg" />
           </button>
         </div>
-        <div className="">
+        <div className="max-lg:text-sm">
           <label className="text-[#0098f1] block font-semibold">
             <input
               type="radio"

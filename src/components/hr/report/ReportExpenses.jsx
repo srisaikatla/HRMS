@@ -81,12 +81,15 @@ const ReportExpenses = () => {
   };
 
   return (
-    <div className=" flex flex-col h-screen ml-2 ">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+    <div className=" flex flex-col  ml-2 ">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
         Report/ Expenses
       </h1>
 
-      <div id="table" className=" overflow-x-scroll">
+      <div
+        id="table"
+        className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4"
+      >
         <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F14D] text-white">
             <tr className="text-left">

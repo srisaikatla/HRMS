@@ -4,7 +4,8 @@ import { MdCancelPresentation } from 'react-icons/md';
 import Education from './Education';
 import Documents from './Documents';
 import UpdatePassword from './UpdatePassword'; // Import the new component
-import OfficialInformation  from './OfficialInformation';
+import OfficialInformation from './OfficialInformation';
+import { useSelector } from 'react-redux';
 const Profile = () => {
     // State for active tab
     const [activeTab, setActiveTab] = useState('personal');
@@ -14,25 +15,28 @@ const Profile = () => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const [isAddressesModalOpen, setIsAddressesModalOpen] = useState(false);
     const [isDocumentsModalOpen, setIsDocumentsModalOpen] = useState(false);
+    const auth = useSelector((state) => state.auth)
 
     // State for form values
     const [personalInfo, setPersonalInfo] = useState({
-        firstName: '',
-        lastName: '',
-        bloodGroup: '',
-        dob: '',
-        officialEmail: '',
+        firstName: auth.employee.firstName,
+        lastName: auth.employee.lastName,
+        email: auth.employee.email,
+        phone: auth.employee.phoneNumber,
+        dob: auth.employee.dob,
+        bloodGroup: auth.employee.bloodGroup,
+
     });
 
     const [contactInfo, setContactInfo] = useState({
-        personalEmail: '',
-        phoneNumber: '',
-        alternatePhone: '',
+        personalEmail: auth.employee.personalEmail,
+        phoneNumber: auth.employee.phoneNumber,
+        alternatePhoneNumber: auth.employee.alternatePhoneNumber,
     });
 
     const [addressInfo, setAddressInfo] = useState({
-        currentAddress: '',
-        permanentAddress: '',
+        currentAddress: auth.employee.currentAddress,
+        permanentAddress: auth.employee.permanentAddress,
     });
 
     // Handlers for opening and closing modals
@@ -88,35 +92,35 @@ const Profile = () => {
             </div>
 
             <nav className="bg-[#E65F2B] mr-10 ml-10 flex m-5" style={{ height: navHeight }}>
-    <div
-        className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'personal' ? 'bg-white text-black' : 'text-white'}`}
-        style={{ height: navHeight }}
-        onClick={() => setActiveTab('personal')}
-    >
-        Personal Information
-    </div>
-    <div
-        className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'official' ? 'bg-white text-black' : 'text-white'}`}
-        style={{ height: navHeight }}
-        onClick={() => setActiveTab('official')}
-    >
-        Official Information
-    </div>
-    <div
-        className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'documents' ? 'bg-white text-black' : 'text-white'}`}
-        style={{ height: navHeight }}
-        onClick={() => setActiveTab('documents')}
-    >
-        Documents
-    </div>
-    <div
-        className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'password' ? 'bg-white text-black' : 'text-white'}`}
-        style={{ height: navHeight }}
-        onClick={() => setActiveTab('password')}
-    >
-        Update Password
-    </div>
-</nav>
+                <div
+                    className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'personal' ? 'bg-white text-black' : 'text-white'}`}
+                    style={{ height: navHeight }}
+                    onClick={() => setActiveTab('personal')}
+                >
+                    Personal Information
+                </div>
+                <div
+                    className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'official' ? 'bg-white text-black' : 'text-white'}`}
+                    style={{ height: navHeight }}
+                    onClick={() => setActiveTab('official')}
+                >
+                    Official Information
+                </div>
+                <div
+                    className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'documents' ? 'bg-white text-black' : 'text-white'}`}
+                    style={{ height: navHeight }}
+                    onClick={() => setActiveTab('documents')}
+                >
+                    Documents
+                </div>
+                <div
+                    className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === 'password' ? 'bg-white text-black' : 'text-white'}`}
+                    style={{ height: navHeight }}
+                    onClick={() => setActiveTab('password')}
+                >
+                    Update Password
+                </div>
+            </nav>
 
 
             {activeTab === 'personal' && (
@@ -178,17 +182,17 @@ const Profile = () => {
                             />
                         </div>
                         <div className="m-2">
-                                <label htmlFor="officialEmail" className="block text-lg font-medium text-[#E65F2B] mb-3">
-                                    Official Email ID
-                                </label>
-                                <input
-                                    id="officialEmail"
-                                    type="email"
-                                    value={contactInfo.officialEmail}
-                                    onChange={handleChangeContactInfo}
-                                    className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
-                                />
-                            </div>
+                            <label htmlFor="officialEmail" className="block text-lg font-medium text-[#E65F2B] mb-3">
+                                Official Email ID
+                            </label>
+                            <input
+                                id="officialEmail"
+                                type="email"
+                                value={personalInfo.email}
+                                onChange={handleChangeContactInfo}
+                                className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                            />
+                        </div>
                     </div>
 
                     <div className="bg-white mt-3">
@@ -200,7 +204,7 @@ const Profile = () => {
                         <hr className="border-t-2 border-[#E65F2B] mb-4" />
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                           
+
                             <div className="m-2">
                                 <label htmlFor="personalEmail" className="block text-lg font-medium text-[#E65F2B] mb-3">
                                     Personal Email ID
@@ -232,7 +236,7 @@ const Profile = () => {
                                 <input
                                     id="alternatePhone"
                                     type="tel"
-                                    value={contactInfo.alternatePhone}
+                                    value={contactInfo.alternatePhoneNumber}
                                     onChange={handleChangeContactInfo}
                                     className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                                 />
@@ -275,24 +279,24 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                     <div className="bg-white mt-3">
-            
+                    <div className="bg-white mt-3">
 
-                    
 
-                        <Education 
-                            degree="B.Tech" 
-                            institution="AITAM" 
-                            university="JNTUK" 
-                            startYear="02-03-2019" 
-                            endYear="04-08-2023" 
+
+
+                        <Education
+                            degree="B.Tech"
+                            institution="AITAM"
+                            university="JNTUK"
+                            startYear="02-03-2019"
+                            endYear="04-08-2023"
                         />
                     </div>
                 </div>
             )}
-             {activeTab === 'official' && <OfficialInformation />}
+            {activeTab === 'official' && <OfficialInformation />}
 
-{activeTab === 'documents' && (
+            {activeTab === 'documents' && (
                 <Documents
                     handleOpenDocumentsModal={handleOpenDocumentsModal}
                     handleCloseDocumentsModal={handleCloseDocumentsModal}
@@ -366,7 +370,7 @@ const Profile = () => {
                                 <input
                                     id="officialEmail"
                                     type="email"
-                                    value={contactInfo.officialEmail}
+                                    value={contactInfo.email}
                                     onChange={handleChangeContactInfo}
                                     className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                                 />
@@ -394,7 +398,7 @@ const Profile = () => {
                         </div>
                         <hr className="border-t-2 border-[#E65F2B] my-4" />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            
+
                             <div className="m-2">
                                 <label htmlFor="personalEmail" className="block text-lg font-medium text-[#E65F2B] mb-3">
                                     Personal Email ID
@@ -426,7 +430,7 @@ const Profile = () => {
                                 <input
                                     id="alternatePhone"
                                     type="tel"
-                                    value={contactInfo.alternatePhone}
+                                    value={contactInfo.alternatePhoneNumber}
                                     onChange={handleChangeContactInfo}
                                     className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
                                 />
@@ -490,9 +494,6 @@ const Profile = () => {
                     </div>
                 </div>
             )}
-
-            
-           
         </div>
     );
 };

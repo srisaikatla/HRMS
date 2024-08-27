@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FiEdit } from 'react-icons/fi';
 
 // Modal Component
 const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
     if (!isVisible) return null;
 
+    const { dateOfJoining, panNo, designation, department, reportingTo } = officialInfo;
+
+    // Determine visibility of fields based on values
+    const isDepartmentVisible = designation !== '';
+    const isReportingToVisible = department !== '';
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-4 w-full">
                 <h2 className="text-lg font-bold text-[#E65F2B] mb-4">Edit Official Information</h2>
                 <form>
                     <div className="mb-4">
@@ -17,9 +23,21 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                         <input
                             id="dateOfJoining"
                             type="date"
-                            value={officialInfo.dateOfJoining}
+                            value={dateOfJoining}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="panNo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                            PAN No.
+                        </label>
+                        <input
+                            id="panNo"
+                            type="text"
+                            value={panNo}
+                            onChange={handleChange}
+                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
                         />
                     </div>
                     <div className="mb-4">
@@ -29,35 +47,57 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                         <input
                             id="designation"
                             type="text"
-                            value={officialInfo.designation}
+                            value={designation}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                            onBlur={() => {
+                                if (designation) {
+                                    document.getElementById('department').focus();
+                                }
+                            }}
+                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
                         />
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="department" className="block text-lg font-medium text-[#E65F2B] mb-2">
-                            Department
-                        </label>
-                        <input
-                            id="department"
-                            type="text"
-                            value={officialInfo.department}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="reportingTo" className="block text-lg font-medium text-[#E65F2B] mb-2">
-                            Reporting To
-                        </label>
-                        <input
-                            id="reportingTo"
-                            type="text"
-                            value={officialInfo.reportingTo}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
-                        />
-                    </div>
+                    {isDepartmentVisible && (
+                        <div className="mb-4">
+                            <label htmlFor="department" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                                Department
+                            </label>
+                            <select
+                                id="department"
+                                value={department}
+                                onChange={handleChange}
+                                className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                            >
+                                <option value="">Select Department</option>
+                                <option value="IT">IT</option>
+                                <option value="Non-IT">Non-IT</option>
+                                <option value="HR">HR</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Sales">Sales</option>
+                                <option value="R&D">R&D</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Legal">Legal</option>
+                                <option value="Administration">Administration</option>
+                                <option value="Customer Support">Customer Support</option>
+                                {/* Add more options as needed */}
+                            </select>
+                        </div>
+                    )}
+                    {isDepartmentVisible && isReportingToVisible && (
+                        <div className="mb-4">
+                            <label htmlFor="reportingTo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                                Reporting To
+                            </label>
+                            <input
+                                id="reportingTo"
+                                type="text"
+                                value={reportingTo}
+                                onChange={handleChange}
+                                className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                            />
+                        </div>
+                    )}
                     <div className="flex justify-end">
                         <button
                             type="button"
@@ -84,6 +124,7 @@ const OfficialInformation = () => {
     // State for official information
     const [officialInfo, setOfficialInfo] = useState({
         dateOfJoining: '',
+        panNo: '',
         designation: '',
         department: '',
         reportingTo: ''
@@ -93,10 +134,10 @@ const OfficialInformation = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Handler for input changes
-    const handleChange = (e) => {
+    const handleChange = useCallback((e) => {
         const { id, value } = e.target;
         setOfficialInfo(prev => ({ ...prev, [id]: value }));
-    };
+    }, []);
 
     // Handler for opening the modal
     const openModal = () => setIsModalOpen(true);
@@ -121,57 +162,92 @@ const OfficialInformation = () => {
             </div>
             <hr className="border-t-2 border-[#E65F2B] mb-4" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="m-2">
-                    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#E65F2B] mb-3">
+            <div className="flex flex-col items-center space-y-4">
+                <div className="w-[50%]">
+                    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#E65F2B] mb-2">
                         Date of Joining
                     </label>
                     <input
                         id="dateOfJoining"
                         type="date"
                         value={officialInfo.dateOfJoining}
-                        readOnly
-                        className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                        onChange={handleChange}
+                        className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
                     />
                 </div>
-                <div className="m-2">
-                    <label htmlFor="designation" className="block text-lg font-medium text-[#E65F2B] mb-3">
+                <div className="w-[50%]">
+                    <label htmlFor="panNo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                        PAN No.
+                    </label>
+                    <input
+                        id="panNo"
+                        type="text"
+                        value={officialInfo.panNo}
+                        onChange={handleChange}
+                        className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                    />
+                </div>
+                <div className="w-[50%]">
+                    <label htmlFor="designation" className="block text-lg font-medium text-[#E65F2B] mb-2">
                         Designation
                     </label>
                     <input
                         id="designation"
                         type="text"
                         value={officialInfo.designation}
-                        readOnly
-                        className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                        onChange={handleChange}
+                        onBlur={() => {
+                            if (officialInfo.designation) {
+                                document.getElementById('department').focus();
+                            }
+                        }}
+                        className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
                     />
                 </div>
-                <div className="m-2">
-                    <label htmlFor="department" className="block text-lg font-medium text-[#E65F2B] mb-3">
-                        Department
-                    </label>
-                    <input
-                        id="department"
-                        type="text"
-                        value={officialInfo.department}
-                        readOnly
-                        className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
-                    />
-                </div>
-                <div className="m-2">
-                    <label htmlFor="reportingTo" className="block text-lg font-medium text-[#E65F2B] mb-3">
-                        Reporting To
-                    </label>
-                    <input
-                        id="reportingTo"
-                        type="text"
-                        value={officialInfo.reportingTo}
-                        readOnly
-                        className="mt-1 block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg"
-                    />
-                </div>
+                {officialInfo.designation && (
+                    <div className="w-[50%]">
+                        <label htmlFor="department" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                            Department
+                        </label>
+                        <select
+                            id="department"
+                            value={officialInfo.department}
+                            onChange={handleChange}
+                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                        >
+                            <option value="">Select Department</option>
+                            <option value="IT">IT</option>
+                            <option value="Non-IT">Non-IT</option>
+                            <option value="HR">HR</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Sales">Sales</option>
+                            <option value="R&D">R&D</option>
+                            <option value="Operations">Operations</option>
+                            <option value="Legal">Legal</option>
+                            <option value="Administration">Administration</option>
+                            <option value="Customer Support">Customer Support</option>
+                            {/* Add more options as needed */}
+                        </select>
+                    </div>
+                )}
+                {officialInfo.designation && officialInfo.department && (
+                    <div className="w-[50%]">
+                        <label htmlFor="reportingTo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                            Reporting To
+                        </label>
+                        <input
+                            id="reportingTo"
+                            type="text"
+                            value={officialInfo.reportingTo}
+                            onChange={handleChange}
+                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                        />
+                    </div>
+                )}
             </div>
 
+            {/* Modal for editing official information */}
             <Modal
                 isVisible={isModalOpen}
                 onClose={closeModal}

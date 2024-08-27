@@ -237,40 +237,6 @@ const Compensation = () => {
           </p>
         </div>
 
-        {/* <div className="mx-3">
-          <div className="flex justify-center items-center h-44">
-            <label className="block text-lg font-medium mb-2">
-              Employee Name:
-            </label>
-            <div className="ml-2 w-96">
-              <Select
-                options={employeeOptions}
-                classNamePrefix="select"
-                placeholder="Select an employee"
-                onChange={handleEmployeeChange}
-                className="border-[1px] border-blue-[#0098f1] rounded"
-              />
-            </div>
-            {selectedEmployee && (
-              <>
-                <button
-                  className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
-                  onClick={handleEditToggle}
-                >
-                  {editMode ? "Save" : "Edit"}
-                </button>
-                {editMode && (
-                  <button
-                    className="ml-2 px-4 py-2 bg-gray-500 text-white rounded"
-                    onClick={handleCancelEdit}
-                  >
-                    Cancel
-                  </button>
-                )}
-              </>
-            )}
-          </div>
-        </div> */}
         <div className="mx-3">
           <div className="flex flex-col md:flex-row justify-center items-center h-auto md:h-44 space-y-4 md:space-y-0">
             <label className="block text-lg font-medium mb-2 md:mb-0">

@@ -275,15 +275,15 @@ const PaySlips = () => {
   };
 
   return (
-    <div className="p-4">
-        <p className="text-[#E65F2B] text-xl font-bold mb-4">
+    <div className="md:p-4 mr-2">
+        <p className="text-[#E65F2B] md:text-xl font-bold mb-4">
         <span>PayRoll</span> / <span>Payslips</span>
       </p>
-      <div className="text-center my-8">
+      <div className="md:text-center md:my-8 max-md:mr-2">
         <div className="mb-4">
           <label className="text-gray-700">Select Financial Year : </label>
           <select
-            className="border border-gray-300 bg-white rounded-md shadow-sm outline-none w-80"
+            className="border border-gray-300 bg-white rounded-md shadow-sm outline-none md:w-80 w-full"
             onChange={handleYearChange}
           >
             <option value="">Select Year</option>
@@ -292,10 +292,10 @@ const PaySlips = () => {
           </select>
         </div>
 
-        <div className="mb-4 pl-6">
+        <div className="mb-4 md:pl-6">
           <label className=" text-gray-700">Employee Status : </label>
           <select
-            className="border border-gray-300 bg-white rounded-md shadow-sm outline-none w-80"
+            className="border border-gray-300 bg-white rounded-md shadow-sm outline-none md:w-80 w-full"
             onChange={handleStatusChange}
           >
             <option value="">Select Status</option>
@@ -305,10 +305,10 @@ const PaySlips = () => {
           </select>
         </div>
 
-        <div className="mb-4 pl-6">
+        <div className="mb-4 md:pl-6">
           <label className=" text-gray-700">Select Employee : </label>
           <select
-            className="border border-gray-300 bg-white rounded-md shadow-sm outline-none w-80"
+            className="border border-gray-300 bg-white rounded-md shadow-sm outline-none md:w-80 w-full"
             onChange={handleEmployeeChange}
           >
             <option value="">Select Employee</option>
@@ -321,8 +321,8 @@ const PaySlips = () => {
         </div>
       </div>
 
-      <div className="mt-4">
-        <table className="min-w-full">
+      <div className="mt-4 w-full overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1] ">
+        <table className="min-w-full text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr>
               <th className="py-2 border-r border-white">PERIOD</th>
