@@ -121,7 +121,7 @@ const EmployeeSideBar = () => {
   };
 
   const handleSubOptionMouseOver = (event, subOptionTitle) => {
-    event.stopPropagation(); // Prevent event from bubbling up to parent options
+    event.stopPropagation();
     handleMouseOver(event, subOptionTitle);
   };
 
@@ -268,7 +268,7 @@ const EmployeeSideBar = () => {
         {activeTab === "Holidays" && <EmployeHoliday />}
         {activeTab === "Events" && <EmployeHoliday />}
         {activeTab === "Activities" && <EmployeDashboard />}
-        {activeTab === "Payslips" && <Payslip />}
+        {activeTab === "Payslips" && <Main />}
         {activeTab === "Profile" && <Profile />}
         {activeTab === "Apply Leave" && <ApplyLeave />}
         {activeTab === "Salary Structure" && <SalaryStructure />}

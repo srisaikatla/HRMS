@@ -193,7 +193,7 @@ function ApplyLeave() {
       <h2 className="text-xl font-bold">Employee</h2>
       <h3 className="text-lg font-semibold mb-2">Dashboard/Leaves</h3>
 
-      <div className="flex   flex-wrap justify-around  text-white gap-4 pt-10">
+      <div className="flex   flex-wrap justify-around   text-white gap-4 pt-10">
         {["Earned Leave", "Sick Leave", "Casual Leave"].map((type, i) => (
           <div
             key={i}
@@ -205,7 +205,9 @@ function ApplyLeave() {
                 : "bg-[#FF4040]"
             }`}
           >
-            <div className="text-start text-[25px] font-bold">{type}</div>
+            <div className="text-start text-[18px] lg:text-[25px] font-bold">
+              {type}
+            </div>
             <ul className="text-[15px] list-none text-white mt-4">
               <li className="flex justify-between items-center">
                 <span className="inline-flex items-center">
@@ -246,7 +248,9 @@ function ApplyLeave() {
 
       <div className="relative mt-10">
         <div className="mb-4 flex justify-between items-center">
-          <h3 className="text-xl font-bold">My Leaves</h3>
+          <h3 className="lg:text-xl  text-sm  text-nowrap  mr-4 font-bold">
+            My Leaves
+          </h3>
           <button
             className="flex items-center px-4 py-2  bg-[#E65F2B] text-white text-sm rounded "
             onClick={() => setIsModalOpen(true)}
@@ -256,8 +260,8 @@ function ApplyLeave() {
         </div>
 
         <div className="overflow-x-auto w-full scrollbar-thin scrollbar-track-white scrollbar-thumb-orange-600 ">
-          <table className="w-full min-w-[1024px] text-left border-collapse bg-white">
-            <thead className="bg-[#E65F2B] text-lg text-white sticky top-0 z-10">
+          <table className="w-full min-w-[1024px] text-left  z--30 border-collapse bg-white">
+            <thead className="bg-[#E65F2B] text-lg text-white sticky top-0 z-[0]">
               <tr>
                 <th className="py-4 px-12 text-center border-r border-white text-nowrap border-opacity-60">
                   Leave Type
@@ -336,7 +340,7 @@ function ApplyLeave() {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-1/3">
+          <div className="bg-white w-[280px] p-4 my-10 h-96 overflow-y-scroll rounded-lg md:w-1/3">
             <h2 className="text-xl font-bold mb-4 text-[#E65F2B]">
               {editLeaveId ? "Edit Leave" : "Add Leave"}
             </h2>
@@ -429,9 +433,10 @@ function ApplyLeave() {
       )}
 
       {/* Delete Leave Modal */}
+
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center px-4">
+          <div className="bg-white rounded-lg p-6 md:w-[400px] w-[200px] ml-10">
             <h2 className="text-xl font-bold mb-4">Delete Leave</h2>
             <p className="mb-4">Are you sure you want to delete this leave?</p>
             <div className="flex justify-end">
