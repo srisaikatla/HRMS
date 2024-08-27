@@ -8,20 +8,20 @@ function Payslip() {
   const [payslipYear, setPayslipYear] = useState("2024");
   const [showForm, setShowForm] = useState(true);
 
-  const years = ["2024", "2025"];
+  const years = ["2024"];
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
+    // "January",
+    // "February",
+    // "March",
+    // "April",
+    // "May",
     "June",
     "July",
     "August",
     "September",
-    "October",
-    "November",
-    "December",
+    // "October",
+    // "November",
+    // "December",
   ];
 
   const employeeDetails = {

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Logs from "./Logs";
 import Rules from "./Rules";
 import Balance from "./Balance";
@@ -32,92 +31,46 @@ function SickLeaveNavigation() {
 
   return (
     <>
-      <div id="main" className="text-[24px]   w-auto h-auto">
-        <div className="   text-lg  h-16 flex justify-between  items-center">
-          <div
-            className={`w-48  justify-center items-center flex h-16 cursor-pointer ${
-              activeTab === "Logs" ? "text-[#0098f1]  " : "text-black"
-            }`}
-            onClick={() => setActiveTab("Logs")}
+      <div id="main" className="lg:text-[24px] text-sm w-auto h-auto">
+        {/* Dropdown for screens below 1024px */}
+        <div className="block sm:hidden mb-4">
+          <select
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value)}
+            className="w-full h-12 border border-gray-300 rounded-lg px-4"
           >
-            <span
-              className={` ${
-                activeTab === "Logs"
-                  ? "border-b-2 border-[#0098f1]  "
-                  : "border-none"
-              }`}
-            >
-              Logs
-            </span>
-          </div>
-          <div
-            className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
-              activeTab === "Rules" ? "text-[#0098f1]  " : "text-black"
-            }`}
-            onClick={() => setActiveTab("Rules")}
-          >
-            <span
-              className={` ${
-                activeTab === "Rules"
-                  ? "border-b-2 border-[#0098f1]  "
-                  : "border-none"
-              }`}
-            >
-              Rules
-            </span>
-          </div>
-
-          <div
-            className={`w-48  justify-center items-center flex h-16 cursor-pointer ${
-              activeTab === "Balance" ? "text-[#0098f1]  " : "text-black"
-            }`}
-            onClick={() => setActiveTab("Balance")}
-          >
-            <span
-              className={` ${
-                activeTab === "Balance"
-                  ? "border-b-2 border-[#0098f1]  "
-                  : "border-none"
-              }`}
-            >
-              Balance
-            </span>
-          </div>
-          <div
-            className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
-              activeTab === "Analytics" ? "text-[#0098f1]  " : "text-black"
-            }`}
-            onClick={() => setActiveTab("Analytics")}
-          >
-            <span
-              className={` ${
-                activeTab === "Analytics"
-                  ? "border-b-2 border-[#0098f1]  "
-                  : "border-none"
-              }`}
-            >
-              Analytics
-            </span>
-          </div>
-          <div
-            className={`w-48  justify-center items-center flex h-16 cursor-pointer ${
-              activeTab === "Settings" ? "text-[#0098f1]  " : "text-black"
-            }`}
-            onClick={() => setActiveTab("Settings")}
-          >
-            <span
-              className={` ${
-                activeTab === "Settings"
-                  ? "border-b-2 border-[#0098f1]  "
-                  : "border-none"
-              }`}
-            >
-              Settings
-            </span>
-          </div>
+            <option value="Logs">Logs</option>
+            <option value="Rules">Rules</option>
+            <option value="Balance">Balance</option>
+            <option value="Analytics">Analytics</option>
+            <option value="Settings">Settings</option>
+          </select>
         </div>
 
-        <div className="">{renderComponent()}</div>
+        {/* Tabs for screens 1024px and above */}
+        <div className="hidden sm:flex text-lg h-16 justify-between items-center">
+          {["Logs", "Rules", "Balance", "Analytics", "Settings"].map((tab) => (
+            <div
+              key={tab}
+              className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
+                activeTab === tab ? "text-[#0098f1]" : "text-black"
+              }`}
+              onClick={() => setActiveTab(tab)}
+            >
+              <span
+                className={`${
+                  activeTab === tab
+                    ? "border-b-2 border-[#0098f1]"
+                    : "border-none"
+                }`}
+              >
+                {tab}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div>{renderComponent()}</div>
       </div>
     </>
   );

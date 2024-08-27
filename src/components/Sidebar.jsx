@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
-
+import Leaves from "../components/hr/hr_management/Leaves/Leaves";
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
 import AccountInvoice from "../components/hr/account/AccountInvoice";
@@ -317,7 +317,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {activeTab === "Leaves" && <LeaveRequest />}
+        {/* {activeTab === "LeaveRequest" && <LeaveRequest />} */}
 
         {activeTab === "Report Invoice" && <ReportInvoice />}
         {activeTab === "Report Expenses" && <ReportExpenses />}
@@ -347,7 +347,8 @@ const SideBar = () => {
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
         {activeTab === "Emp Attendance" && <EmployeAttandance />}
-        {activeTab === "Leaves" && <Leaves />}
+        {/* {activeTab === "Leaves" && <Leaves />} */}
+        {activeTab === "Hr Dashboard" && <HrDashboard />}
       </div>
 
       {tooltip.show && (
