@@ -81,34 +81,34 @@ const ReportExpenses = () => {
   };
 
   return (
-    <div className=" flex flex-col h-screen ml-2 ">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+    <div className="flex flex-col min-h-screen ml-2">
+      <h1 className="text-[#E65F2B] text-lg md:text-xl font-bold mb-4  mt-4">
         Report/ Expenses
       </h1>
 
-      <div id="table" className=" overflow-x-scroll">
-        <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
-          <thead className="bg-[#0098F14D] text-white">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm md:text-base">
+          <thead className="bg-[#0098F1] text-white">
             <tr className="text-left">
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 Items
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 Order By
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 From
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 Date
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 Paid By
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 Status
               </th>
-              <th className="py-4 px-10 border-b bg-[#0098f1]  text-center">
+              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
                 Amount
               </th>
             </tr>
@@ -116,35 +116,35 @@ const ReportExpenses = () => {
           <tbody>
             {userdata.map((user) => (
               <tr key={user.id} className="text-black">
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
                   {user.Items}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
                   {user.OrderBy}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
                   {user.From}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
                   {user.Date}
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center">
                   <img
                     src={user.PaidBy}
                     alt={`Paid By: ${user.OrderBy}`}
-                    style={{ height: "50px", width: "85px" }}
+                    className="h-10 w-16 md:h-12 md:w-20" // Adjusted image size for responsiveness
                   />
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center">
                   <button
-                    className={`h-10 w-32 ${getButtonStyle(
+                    className={`h-6 w-24 md:h-8 md:w-32 ${getButtonStyle(
                       user.Status
-                    )} rounded-lg text-center`}
+                    )} rounded-lg text-center text-xs md:text-sm`}
                   >
                     {user.Status}
                   </button>
                 </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
                   {user.Amount}
                 </td>
               </tr>
