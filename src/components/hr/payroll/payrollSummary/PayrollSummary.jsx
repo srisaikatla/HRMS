@@ -13,11 +13,11 @@ const PayrollSummary = ({
   return (
     <div className="p-4">
       <div>
-        <div className="flex justify-between items-center mb-4 border-b pb-2 border-gray-700">
-          <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-4 border-b pb-2 border-gray-700">
+          <h1 className="text-[#E65F2B] md:text-xl font-bold mb-4">
             Pay Period: <span className="text-[#0098F1]">{payPeriod}</span>
           </h1>
-          <div className="flex items-center gap-x-5">
+          <div className="flex flex-col gap-y-2 md:flex-row md:items-center md:gap-x-5">
             <button className="border border-gray-700 text-gray-700 bg-white px-5 py-1 rounded-lg font-semibold">
               Void Payroll
             </button>
@@ -26,7 +26,7 @@ const PayrollSummary = ({
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4 ">
+        <div className="grid md:grid-cols-3 gap-4 ">
           <div className=" rounded-md leading-7">
             <h2 className="text-lg font-bold mb-2 text-black className='text-[#0098F1]'">
               Payroll Summary

@@ -40,15 +40,29 @@ const PayrollSettings = () => {
     setInBatchDetails(false); // Ensure we are back to the PayrollBatches view
   }
 
+  const handleSelectChange = (e) =>{
+    const selectedTab = parseInt(e.target.value, 10);
+    handleTabClick(selectedTab)
+  }
+
   return (
-    <div className="px-4 py-2">
+    <div className="md:px-4 py-2 mr-2">
    
-      <p className="text-[#E65F2B] text-xl font-bold mb-4">
+      <p className="text-[#E65F2B] md:text-xl font-bold mb-2 md:mb-4">
         <span>Payroll</span> / <span>Payroll Settings</span>
       </p>
 
-      <div className="px-2 my-5">
-        <ul className="flex gap-x-14">
+      <div className="">
+        <select className="lg:hidden w-full text-xs outline-none rounded-md p-1 font-semibold" onChange={handleSelectChange}>
+          <option value="1">Payroll Batches</option>
+          <option value="2">Allowances</option>
+          <option value="3">Deduction</option>
+          <option value="4">Pay Period</option>
+          <option value="5">TDS Config</option>
+          <option value="6">Payslip Setting</option>
+          <option value="7">Rounding Amount</option>
+        </select>
+        <ul className="max-lg:hidden flex justify-between text-nowrap">
           <li
             onClick={() => handleTabClick(1)}
             className={openTab === 1 ? "-mb-px mr-1" : "mr-1"}

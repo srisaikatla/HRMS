@@ -77,7 +77,7 @@ const Activity = () => {
           );
         })}
       </div>
-      <div className="flex justify-end items-center gap-3 mr-5">
+      <div className="flex justify-end items-center gap-3 md:mr-5">
       <p>{currentPage} of {totalPages}</p>
         <button
           type="button"
