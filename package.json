@@ -14,6 +14,7 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.12",
     "file-saver": "^2.0.5",
+    "hrms-project": "file:",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "number-to-words": "^1.2.4",
