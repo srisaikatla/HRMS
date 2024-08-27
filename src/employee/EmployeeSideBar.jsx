@@ -31,6 +31,7 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import SalaryStructure from "./options/payslips/SalaryStructure";
+import Event from "./options/events/Events"
 import Declaration from "./options/payslips/Declaration";
 import BankAccount from "./options/payslips/BankAccount";
 import Chat from "./options/chat/Chat";
@@ -46,6 +47,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { TiMessages } from "react-icons/ti";
 import Attendance from "./options/attendance/Attendance";
+import Activities from "./options/employeActivites/EmployeeActivities"
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -263,8 +265,8 @@ const EmployeeSideBar = () => {
         {activeTab === "Employees Dashboard" && <EmployeDashboard />}
         {activeTab === "All Employees" && <AllEmployees />}
         {activeTab === "Holidays" && <EmployeHoliday />}
-        {activeTab === "Events" && <EmployeHoliday />}
-        {activeTab === "Activities" && <EmployeDashboard />}
+        {activeTab === "Events" && <Event />}
+        {activeTab === "Activities" && <Activities />}
         {activeTab === "Payslips" && <Main />}
         {activeTab === "Profile" && <Profile />}
         {activeTab === "Apply Leave" && <ApplyLeave />}

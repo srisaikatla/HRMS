@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 const initialEvents = [
   { id: 1, day: "Thursday", date: "25 Apr 2024", name: "New Event" },
   // Add more Events if needed
 ];
 
 const ReactCalendar = ({ onEventClick }) => {
-  const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const days = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
+  const abbreviatedDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
   const currentDate = new Date();
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
@@ -32,18 +34,12 @@ const ReactCalendar = ({ onEventClick }) => {
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const startDay = new Date(currentYear, currentMonth, 1).getDay();
 
-  const getCurrentDateString = () => {
-    return `${months[currentMonth]} ${currentYear}`;
-  };
+  const getCurrentDateString = () => `${months[currentMonth]} ${currentYear}`;
 
   const getDayTextColor = (day) => {
-    if (day === 1 || day === 15 || day === 28) {
-      return "text-[#0098F1]";
-    } else if (day === 5 || day === 20) {
-      return "text-[#0098F1]";
-    } else {
-      return "text-[#0098F1]";
-    }
+    return day === 1 || day === 15 || day === 28 || day === 5 || day === 20
+      ? "text-[#0098F1]"
+      : "text-[#0098F1]";
   };
 
   const renderDays = () => {
@@ -59,7 +55,7 @@ const ReactCalendar = ({ onEventClick }) => {
         i === currentDate.getDate() &&
         currentMonth === currentDate.getMonth() &&
         currentYear === currentDate.getFullYear();
-      const dayClasses = `day text-center text-3xl m-5 ${dayTextColor} ${
+      const dayClasses = `day text-center text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl m-1 sm:m-2 ${dayTextColor} ${
         isToday ? "bg-[#FDE68A] rounded-full" : ""
       }`;
 
@@ -92,21 +88,21 @@ const ReactCalendar = ({ onEventClick }) => {
   };
 
   return (
-    <div className="calendar-container bg-[#0098F1] ">
+    <div className="calendar-container p-2 sm:p-4">
       <div className="max-w-full mx-auto bg-white rounded-lg overflow-hidden p-4">
-        <div className="flex justify-between items-center mb-5">
-          <h2 className="font-semibold text-2xl text-[#0098F1] mb-5">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+          <h2 className="font-semibold text-lg sm:text-xl md:text-2xl text-[#0098F1] mb-2 sm:mb-0">
             {getCurrentDateString()}
           </h2>
-          <div className="mb-5">
+          <div className="flex space-x-2 mb-2 sm:mb-0">
             <button
-              className="text-[#0098F1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098F1] bg-transparent p-2"
+              className="text-[#0098F1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098F1] bg-transparent p-2 sm:p-3 text-sm sm:text-base"
               onClick={goToPreviousMonth}
             >
               <GoChevronLeft />
             </button>
             <button
-              className="text-[#0098F1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098F1] bg-transparent p-2 ml-2"
+              className="text-[#0098F1] hover:text-gray-800 focus:outline-none rounded-full border border-[#0098F1] bg-transparent p-2 sm:p-3 text-sm sm:text-base"
               onClick={goToNextMonth}
             >
               <GoChevronRight />
@@ -114,12 +110,14 @@ const ReactCalendar = ({ onEventClick }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-2">
-          {days.map((day) => (
-            <div
-              key={day}
-              className="text-center text-[20px] text-black font-roboto font-semibold"
-            >
+        <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center font-semibold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
+          {abbreviatedDays.map((day, index) => (
+            <div key={index} className="hidden sm:flex justify-center">
+              {day}
+            </div>
+          ))}
+          {days.map((day, index) => (
+            <div key={index} className="flex sm:hidden justify-center">
               {day}
             </div>
           ))}
@@ -263,49 +261,51 @@ const Events = () => {
   };
 
   return (
-    <div className="p-5">
-      <h2 className="text-[#E65F2B] text-xl font-bold">Hr/Events</h2>
-
-      <div className="flex justify-end mb-4">
+    <div className="p-4 sm:p-5 md:p-6 lg:p-8 ">
+      <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold mb-4">
+        Hr/Events
+      </h2>
+      <div className="flex justify-end mb-4 mt-4">
         <button
-          className="bg-[#0098F1] text-white flex items-center rounded-lg px-6 py-3"
+          className="bg-[#0098F1] text-white flex items-center rounded-lg px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 lg:px-6 lg:py-4 text-xs sm:text-sm md:text-base lg:text-lg"
           onClick={() => setIsModalOpen(true)}
         >
-          <FaPlusCircle className="text-white text-1xl mr-2" />
-          <span className="text-white bg-[#0098F1] font-medium text-lg">
+          <FaPlusCircle className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mr-2" />
+          <span className="font-medium text-xs sm:text-sm md:text-base lg:text-lg">
             Add New Event
           </span>
         </button>
       </div>
-
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-6/12 bg-white font-base rounded-lg p-4 mr-4">
+      <div className="flex flex-col lg:flex-row gap-4">
+        {/* Calendar Container */}
+        <div className="w-full lg:w-[70vw] bg-white rounded-lg p-4 lg:order-1">
           <ReactCalendar onEventClick={handleEventClick} />
         </div>
 
-        <div className="w-full md:w-6/12 bg-[#0098F1] rounded-lg p-4 relative">
+        {/* Blue Container */}
+        <div className="w-full lg:w-1/2 bg-[#0098F1] rounded-lg p-4 lg:order-2 flex flex-col items-center">
           <div className="flex flex-col items-center justify-center">
-            <div className="rounded-full overflow-hidden w-24 h-24 md:w-40 md:h-40 flex items-center justify-center">
+            <div className="rounded-full overflow-hidden w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center">
               <img
-                className="rounded-full h-24 w-24 object-cover"
+                className="rounded-full w-full h-full object-cover"
                 src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
                 alt="User"
               />
             </div>
-            <h1 className="text-white text-2xl font-medium mb-1 text-center">
+            <h1 className="text-white text-md sm:text-lg md:text-xl font-medium mb-2 text-center">
               Mounika
             </h1>
 
-            <div className="flex flex-row space-x-4 text-white">
-              <div className="font-roboto text-center text-xl">
+            <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 text-white">
+              <div className="text-center text-xs sm:text-sm md:text-base">
                 <h1 className="font-medium">17</h1>
                 <h1>Completed</h1>
               </div>
-              <div className="font-roboto text-center text-xl">
+              <div className="text-center text-xs sm:text-sm md:text-base">
                 <h1 className="font-medium">17</h1>
                 <h1>To Do</h1>
               </div>
-              <div className="font-roboto text-center text-xl">
+              <div className="text-center text-xs sm:text-sm md:text-base">
                 <h1 className="font-medium">17</h1>
                 <h1>All Tasks</h1>
               </div>
@@ -316,101 +316,98 @@ const Events = () => {
               style={{ opacity: "0.5" }}
             />
 
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
-                Marketing
-              </button>
-              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
-                Design Task
-              </button>
-              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
-                Development
-              </button>
-              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
-                Finance
-              </button>
-              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
-                Meeting
-              </button>
-              <button className="bg-transparent border border-white text-white rounded-lg px-4 py-2 text-lg mb-2">
-                Conference
-              </button>
+            <div className="grid grid-cols-2 gap-1 mt-2 sm:gap-2">
+              {[
+                "Marketing",
+                "Design Task",
+                "Development",
+                "Finance",
+                "Meeting",
+                "Conference",
+              ].map((item) => (
+                <button
+                  key={item}
+                  className="bg-transparent border border-white text-white rounded-lg px-2 py-1 text-xs sm:text-sm md:text-base"
+                >
+                  {item}
+                </button>
+              ))}
             </div>
           </div>
 
           <hr className="w-full border-white my-4" style={{ opacity: "0.5" }} />
-          <div className="font-roboto text-2xl mt-4">
-            <h1 className="text-white">Team</h1>
-            <div className="flex items-center ml-4">
+          <div className="font-roboto text-lg sm:text-xl md:text-2xl mt-2 flex items-start">
+            <h1 className="text-white mr-4">Team</h1>
+            <div className="flex -space-x-2">
               {[...Array(5)].map((_, index) => (
                 <img
                   key={index}
                   src="https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721382978/989da2826fe6e25ad1f617fda7e70025_d6ucl3.png"
                   alt={`Image ${index + 1}`}
-                  className={`w-10 h-10 rounded-full -ml-3 mt-4 z-${5 - index}`}
-                  style={{ zIndex: 5 - index }}
+                  className={`w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full`}
                 />
               ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full md:w-11/12 mx-auto bg-white rounded-lg p-4 mt-4">
-        <h1 className="text-xl font-bold mb-4 text-[#0098F1]">Events List</h1>
-        <table className="w-full bg-white rounded-lg">
-          <thead className="bg-[#0098F1]">
-            <tr>
-              <th className="p-2 border-r border-white text-center border-opacity-80">
-                Day
-              </th>
-              <th className="p-2 border-r border-white text-center border-opacity-80">
-                Date
-              </th>
-              <th className="p-2 border-r border-white text-center border-opacity-80">
-                Event
-              </th>
-              <th className="p-2 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {events.map((event) => (
-              <tr key={event.id} className="bg-[#0098F1] bg-opacity-20">
-                <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
-                  {event.day}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
-                  {event.date}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
-                  {event.name}
-                </td>
-                <td className="py-2 px-4 border-b bg-transparent text-center border-r-0 border-[#0098F1] border-opacity-80">
-                  <div className="flex justify-center items-center space-x-2">
-                    <button
-                      className="text-blue-500 flex py-3 items-center"
-                      onClick={() => openEditModal(event.id)}
-                    >
-                      <FiEdit className="mr-1 bg-[#2A8F4C] text-white rounded-md size-6 p-1" />
-                    </button>
-                    <button
-                      className="flex items-center justify-center"
-                      onClick={() => handleDeleteEvent(event.id)}
-                    >
-                      <FiTrash2
-                        className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md"
-                        onClick={() => openDeleteModal(event.id)}
-                      />
-                    </button>
-                  </div>
-                </td>
+
+      <div className="w-full md:w-12/12 mx-auto bg-white  rounded-lg p-2 mt-4">
+        <h1 className="text-xl font-bold  text-[#0098F1]">Events List</h1>
+        <div className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2">
+          <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
+            <thead className="bg-[#0098F1]">
+              <tr>
+                <th className="p-2 border-r border-white text-center border-opacity-80">
+                  Day
+                </th>
+                <th className="p-2 border-r border-white text-center border-opacity-80">
+                  Date
+                </th>
+                <th className="p-2 border-r border-white text-center border-opacity-80">
+                  Event
+                </th>
+                <th className="p-2 text-center">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="text-center">
+              {events.map((event) => (
+                <tr key={event.id} className="bg-[#0098F1] bg-opacity-20">
+                  <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
+                    {event.day}
+                  </td>
+                  <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
+                    {event.date}
+                  </td>
+                  <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#0098F1] border-opacity-80">
+                    {event.name}
+                  </td>
+                  <td className="py-2 px-4 border-b bg-transparent text-center border-r-0 border-[#0098F1] border-opacity-80">
+                    <div className="flex justify-center items-center space-x-2">
+                      <button
+                        className="text-blue-500 flex py-3 items-center"
+                        onClick={() => openEditModal(event.id)}
+                      >
+                        <FiEdit className="mr-1 bg-[#2A8F4C] text-white rounded-md size-6 p-1" />
+                      </button>
+                      <button
+                        className="flex items-center justify-center"
+                        onClick={() => openDeleteModal(event.id)}
+                      >
+                        <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
+
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-6 w-[400px]">
+          <div className="bg-white rounded-lg p-6 w-[60vw]">
             <h2 className="text-2xl mb-4 text-[#0098F1]">
               {editEventId ? "Edit Holiday" : "Add Holiday"}
             </h2>
@@ -480,14 +477,28 @@ const Events = () => {
       )}
 
       {showSuccessMessage && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
-          Holiday {editEventId ? "updated" : "added"} successfully!
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <p>
+              {editEventId
+                ? "Event updated successfully!"
+                : "Event added successfully!"}
+            </p>
+          </div>
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded">
-          Holiday deleted successfully!
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-red-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <p>Event deleted successfully!</p>
+          </div>
         </div>
       )}
     </div>
