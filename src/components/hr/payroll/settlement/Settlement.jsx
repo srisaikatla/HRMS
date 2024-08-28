@@ -126,7 +126,7 @@ function Settlement() {
   };
 
   return (
-    <div className="p-4 mt-4 h-screen">
+    <div className="p-4 mt-4 min-h-screen">
       <div className="mb-4 lg:mb-0">
         <span className="text-[#E65F2B] text-sm lg:text-lg font-bold">
           Payroll / Settlements

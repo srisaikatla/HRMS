@@ -351,7 +351,7 @@ const AddProject = () => {
 
   return (
     <>
-      <div className="p-4 mt-4">
+      <div className="p-4 mt-4 min-h-screen">
         <div className="">
           <p className="text-[#e65f2b] font-bold text-sm lg:text-lg">
             Projects / Add Project

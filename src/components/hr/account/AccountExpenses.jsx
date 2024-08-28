@@ -52,7 +52,7 @@ const AccountExpenses = () => {
     setExpenseData(ExpensesList);
   }, []);
   return (
-    <div className=" mt-4 h-screen p-4 ">
+    <div className=" mt-4 min-h-screen p-4 ">
       <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
         <span>Accounts / Expenses</span>
       </h1>

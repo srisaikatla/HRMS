@@ -65,7 +65,7 @@ const ReportInvoice = () => {
     setReportInvoiceData(ReportInvoiceData);
   }, []);
   return (
-    <div className="mt-4 p-4 h-screen">
+    <div className="mt-4 p-4 min-h-screen">
       <h2 className="text-[#E65F2B] lg:text-lg  text-sm font-bold ">
         Report / Invoice
       </h2>

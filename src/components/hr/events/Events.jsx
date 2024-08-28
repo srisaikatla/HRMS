@@ -261,7 +261,7 @@ const Events = () => {
   };
 
   return (
-    <div className="p-4 mt-4 ">
+    <div className="p-4 mt-4  ">
       <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold mb-4">
         Hr / Events
       </h2>

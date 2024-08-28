@@ -147,7 +147,7 @@ const ProjectList = () => {
   };
 
   return (
-    <div id="main" className=" h-screen mt-4 p-4 w-auto overflow-x-hidden">
+    <div id="main" className=" min-h-screen mt-4 p-4 w-auto overflow-x-hidden">
       <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-2">
         Projects / Project List
       </h2>

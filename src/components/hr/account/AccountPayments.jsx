@@ -45,7 +45,7 @@ const initialData = [
 
 const AccountPayments = () => {
   return (
-    <div className="p-4 mt-4 h-screen ">
+    <div className="p-4 mt-4 min-h-screen ">
       <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
         <span>Accounts / Payments</span>
       </h1>

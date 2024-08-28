@@ -230,7 +230,7 @@ const Compensation = () => {
 
   return (
     <>
-      <div id="main" className="h-auto p-4 mt-4 ">
+      <div id="main" className="min-h-screen p-4 mt-4 ">
         <div className=" mb-4 ">
           <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
             Hr Management / Employee / Compensation
@@ -252,7 +252,7 @@ const Compensation = () => {
               />
             </div>
             {selectedEmployee && (
-              <div className="flex space-x-2 mt-4 md:mt-0">
+              <div className="flex ml-2  space-x-2 mt-4 md:mt-0">
                 <button
                   className="px-4 py-2 bg-blue-500 text-white rounded"
                   onClick={handleEditToggle}

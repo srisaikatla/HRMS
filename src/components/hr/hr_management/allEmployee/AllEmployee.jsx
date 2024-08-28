@@ -305,7 +305,7 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="mr-4 p-4 h-screen  mt-4 px-2 ">
+      <div id="main" className="mr-4 p-4 min-h-screen  mt-4 px-2 ">
         <div className="ml-2 mb-4">
           <p className="text-[#E65F2B] text-sm lg:text-lg font-bold mb-4">
             Hr Management / Employee / All Employees

@@ -144,7 +144,7 @@ function DepartmentList() {
   };
 
   return (
-    <div id="main" className="h-screen p-4 mt-4">
+    <div id="main" className="min-h-screen p-4 mt-4">
       <div className=" mb-4">
         <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
           Hr Management / Employee / Department List

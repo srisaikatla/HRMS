@@ -157,7 +157,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 />
                 <p className="pl-2 text-[#0098f1]">Messages</p>
               </div>
-              <div
+              {/* <div
                 onClick={() => onIconClick("Inbox")}
                 className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2"
               >
@@ -166,7 +166,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
                   style={iconStyle("mail")}
                 />
                 <p className="pl-2 text-[#0098f1]">Mails</p>
-              </div>
+              </div> */}
               <div
                 onClick={() => onIconClick("Holiday")}
                 className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
@@ -237,7 +237,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
             )}
           </div>
 
-          <div className="relative">
+          {/* <div className="relative">
             <FaEnvelope
               className="hover:cursor-pointer"
               style={iconStyle("Inbox")}
@@ -250,7 +250,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 {tooltip}
               </div>
             )}
-          </div>
+          </div> */}
 
           <div className="relative">
             <FaCalendarAlt

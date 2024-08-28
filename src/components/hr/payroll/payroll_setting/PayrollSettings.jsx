@@ -46,7 +46,7 @@ const PayrollSettings = () => {
   };
 
   return (
-    <div className="p-4 mt-4 h-screen">
+    <div className="p-4 mt-4 min-h-screen">
       <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-2 md:mb-4">
         <span>Payroll</span> / <span>Payroll Settings</span>
       </p>
