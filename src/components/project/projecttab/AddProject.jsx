@@ -351,10 +351,10 @@ const AddProject = () => {
 
   return (
     <>
-      <div className="p-4">
-        <div className="ml-5">
-          <p className="text-[#e65f2b] font-bold text-xl sm:text-lg">
-            Projects/Add Project
+      <div className="p-4 mt-4 min-h-screen">
+        <div className="">
+          <p className="text-[#e65f2b] font-bold text-sm lg:text-lg">
+            Projects / Add Project
           </p>
         </div>
 

@@ -1,5 +1,7 @@
+
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
+
 import { FaSearch, FaFilter } from "react-icons/fa";
 import axios from 'axios'
 import { API_BASE_URL } from "../../../../Config/api";
@@ -48,9 +50,11 @@ function Attendance() {
     );
   });
   return (
-    <div id="main" className="h-screen p-4">
-      <div className="ml-5">
-        <p className="text-[#E65F2B] text-xl font-bold mb-4">HR Management / Employees/Attendance</p>
+    <div id="main" className="min-h-screen p-4 mt-4">
+      <div className="">
+        <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+          Hr Management / Employee / Attendance
+        </p>
       </div>
       <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
         <div className="relative">
@@ -90,8 +94,16 @@ function Attendance() {
         <table className="min-w-full bg-white text-nowrap">
           <thead className="bg-[#0098F1]">
             <tr>
-              <th className="py-2 px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
-                Employee Id
+
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
+                Employee Name
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                Employee ID
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                Attended
+
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
                 Employee Name
@@ -117,6 +129,7 @@ function Attendance() {
             </tr>
           </thead>
           <tbody>
+
             {filteredData.length === 0 ? (
               <tr>
                 <td colSpan="8" className="text-center py-4">
@@ -145,6 +158,7 @@ function Attendance() {
                 );
               })
             )}
+
           </tbody>
         </table>
       </div>

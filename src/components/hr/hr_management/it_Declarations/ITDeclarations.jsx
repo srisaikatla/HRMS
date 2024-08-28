@@ -145,10 +145,10 @@ function ITDeclarations() {
 
   return (
     <>
-      <div id="main" className="h-auto pb-10">
-        <div className="ml-5 mb-4 pt-2">
-          <p className="text-[#E65F2B] text-sm lg:text-xl font-bold mb-4">
-            HR Management / Employees / IT Declarations
+      <div id="main" className="min-h-screen p-4 mt-4">
+        <div className=" mb-4 ">
+          <p className="text-[#E65F2B] text-sm lg:text-lg font-bold mb-4">
+            Hr Management / Employee / IT Declarations
           </p>
         </div>
 

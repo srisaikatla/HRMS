@@ -31,7 +31,7 @@ function HrLogin() {
   return (
     <div className="bg-[#0098F1] w-screen h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
       <div
-        className="relative w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-[300px] sm:h-[350px] md:h-[250px] lg:h-[300px] xl:h-[350px] rounded-[20px] md:rounded-[25px] flex flex-col items-center justify-center shadow-xl p-6 md:p-8"
+        className="relative  w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-[300px] sm:h-[350px] md:h-[300px] lg:h-[300px] xl:h-[350px] rounded-[20px] md:rounded-[25px] flex flex-col items-center justify-center shadow-xl p-6  md:p-8 "
         style={{
           background:
             "linear-gradient(to bottom, rgba(0, 88, 139, 0.2) 19.36%, rgba(0, 88, 139, 0.2) 19.36%)",
@@ -80,7 +80,10 @@ function HrLogin() {
               className="w-full h-[50px] pl-12 pr-4 border bg-[#FFFFFF] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00588B]"
             />
             <div className="text-sm text-white mt-2 text-right">
-              <Link className="hover:underline cursor-pointer">
+              <Link
+                to="/forget-password"
+                className="hover:underline cursor-pointer"
+              >
                 Forgot Password?
               </Link>
             </div>

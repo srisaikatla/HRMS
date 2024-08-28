@@ -20,23 +20,24 @@ const HRDashboard = () => {
   const { data1 } = DonutChartData;
   const { data2 } = LineChartData;
   const { data3 } = EmployeeStructureData;
+
   const performanceButtons = (performance) => {
     switch (performance) {
       case "Good":
         return (
-          <button className="bg-[#2A8F4C] hover:bg-green-600 text-white px-12 py-2 rounded-xl">
+          <button className="bg-[#2A8F4C] hover:bg-green-600 text-white px-4 md:px-12 py-2 rounded-xl">
             Good
           </button>
         );
       case "Average":
         return (
-          <button className="bg-[#F78822] hover:bg-orange-600 text-white px-10 py-2 rounded-xl">
+          <button className="bg-[#F78822] hover:bg-orange-600 text-white px-4 md:px-10 py-2 rounded-xl">
             Average
           </button>
         );
       case "Bad":
         return (
-          <button className="bg-[#F20B0B] hover:bg-red-700 text-white px-14 py-2 rounded-xl">
+          <button className="bg-[#F20B0B] hover:bg-red-700 text-white px-4 md:px-14 py-2 rounded-xl">
             Bad
           </button>
         );
@@ -44,153 +45,98 @@ const HRDashboard = () => {
         return null;
     }
   };
+
   return (
-    <div>
-      <div className="pb-6 ml-4 w-[1080px]">
-        <h2 className="text-[#E65F2B] text-xl font-bold mb-8">
-          Hr/Hrdashboard
+    <div className="w-full h-auto overflow-y-hidden p-4 mt-4">
+      <div className="pb-6">
+        <h2 className="text-[rgb(230,95,43)] lg:text-lg  text-sm font-bold mb-4">
+          Hr / Hr Dashboard
         </h2>
-        <div className="w-auto">
-          <div className="flex gap-3 mb-6">
-            <div className="w-auto h-[360px] rounded-lg ">
-              <div className="flex flex-col justify-center rounded-lg items-center w-[300px] h-full">
-                {EmpolyeeData.map((data, index) => (
-                  <div
-                    key={index}
-                    className="w-full  flex flex-col justify-center items-center h-full gap-y-[2px]"
-                  >
-                    <div className="flex w-full h-full justify-evenly items-center rounded-t-lg gap-2 bg-[#FF6C40]">
-                      <BsPersonFillCheck className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
-                      <div className="text-white">
-                        New Employee{" "}
-                        <div className="text-center">{data.new_Employee}</div>
-                      </div>
-                    </div>
-                    <div className="flex w-full h-full justify-evenly items-center gap-2 bg-[#FF6C40]">
-                      <MdGroups className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
-                      <div className="text-white">
-                        Total Employee{" "}
-                        <div className="text-center">{data.Total_Employee}</div>
-                      </div>
-                    </div>
-                    <div className="flex w-full h-full justify-evenly items-center gap-2 bg-[#FF6C40]">
-                      <RiMoneyRupeeCircleLine className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
-                      <div className="text-white mr-6">
-                        Total Salary{" "}
-                        <div className="text-center">{data.Total_Salary}</div>
-                      </div>
-                    </div>
-                    <div className="flex w-full h-full justify-evenly rounded-b-lg items-center gap-2 bg-[#FF6C40]">
-                      <TbReportMoney className="text-xl rounded-full bg-white w-14 h-14 p-3 text-[#E65F2B]" />
-                      <div className="text-white mr-8">
-                        Avg Salary{" "}
-                        <div className="text-center">{data.Avg_Salary}</div>
-                      </div>
+        <div className="space-y-6">
+          <div className="flex flex-col lg:flex-row w-full lg:w-full gap-4 mb-6">
+            <div className="flex flex-col justify-center items-center  w-full lg:w-1/4">
+              {EmpolyeeData.map((data, index) => (
+                <div key={index} className="w-full">
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
+                    <BsPersonFillCheck className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                    <div className="text-white text-center sm:text-left">
+                      New Employee
+                      <div className="text-center">{data.new_Employee}</div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="w-[300px] h-[360px] bg-[#0098F1] rounded-lg">
-              <div className="flex justify-center items-center flex-col p-6">
-                <div className="text-white text-2xl">Income Analysis</div>
-                <div className="text-white text-[12px]">
-                  8% High then last month
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
+                    <MdGroups className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                    <div className="text-white text-center sm:text-left">
+                      Total Employee
+                      <div className="text-center">{data.Total_Employee}</div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
+                    <RiMoneyRupeeCircleLine className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                    <div className="text-white text-center sm:text-left">
+                      Total Salary
+                      <div className="text-center">{data.Total_Salary}</div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg">
+                    <TbReportMoney className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                    <div className="text-white text-center sm:text-left">
+                      Avg Salary
+                      <div className="text-center">{data.Avg_Salary}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="w-full pt-3">
-                  <Doughnut
-                    data={data1}
-                    options={{
-                      plugins: {
-                        legend: {
-                          position: "bottom",
-                          labels: {
-                            font: {
-                              size: 13,
-                            },
-                            boxWidth: 20,
-                            boxHeight: 12,
-                            color: "#FFFFFF",
-                          },
-                        },
-                      },
-                      elements: {
-                        arc: {
-                          borderWidth: 0,
-                        },
-                      },
-                    }}
-                  />
+              ))}
+            </div>
+            <div className="flex flex-col justify-center bg-[#0098F1] p-6 md:p-4 mx-auto rounded-lg shadow w-full lg:w-1/4">
+              <div className="text-white text-center">
+                <div className="text-[20px]">Income Analysis</div>
+                <div className="text-[12px] mb-3 ">
+                  8% Higher than last month
                 </div>
               </div>
-            </div>
-            <div className="w-[445px] h-auto bg-[#0098F1] rounded-lg">
-              <div className="flex flex-col px-4 gap-y-[40px] mt-8 justify-center items-center h-full">
-                <div className="text-white text-2xl">Salary Statistics</div>
-                <div className="w-full h-full flex justify-center items-center">
-                  <Bar
-                    data={data}
-                    options={{
-                      plugins: {
-                        legend: {
-                          position: "bottom",
-                          labels: {
-                            font: {
-                              size: 13,
-                            },
-                            boxWidth: 20,
-                            boxHeight: 12,
-                            color: "#FFFFFF",
-                          },
-                        },
-                      },
-                      scales: {
-                        x: {
-                          grid: {
-                            display: false,
-                          },
-                          ticks: {
-                            font: {
-                              weight: "bold",
-                            },
-                            color: "000000",
-                          },
-                          border: {
-                            display: false,
-                          },
-                        },
-                        y: {
-                          grid: {
-                            display: false,
-                          },
-                          ticks: {
-                            font: {
-                              weight: "bold",
-                            },
-                            color: "000000",
-                          },
-                          border: {
-                            display: false,
-                          },
-                        },
-                      },
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-[#0098F1] w-[1070px] mb-6">
-            <div className="px-5 py-10 flex flex-col justify-center items-center">
-              <div className="text-white text-2xl mb-4">
-                Total Salary By Unit
-              </div>
-              <Line
-                data={data2}
+              <Doughnut
+                data={data1}
                 options={{
                   plugins: {
                     legend: {
-                      display: false,
+                      position: "bottom",
+                      labels: {
+                        font: {
+                          size: 15,
+                        },
+                        boxWidth: 20,
+                        boxHeight: 12,
+                        color: "#FFFFFF",
+                      },
+                    },
+                  },
+                  elements: {
+                    arc: {
+                      borderWidth: 0,
+                    },
+                  },
+                }}
+              />
+            </div>
+            <div className="flex flex-col bg-[#0098F1] rounded-lg p-6 shadow w-full lg:w-2/4">
+              <div className="text-white text-center mb-8">
+                <div className="md:text-2xl text-lg">Salary Statistics</div>
+              </div>
+              <Bar
+                data={data}
+                options={{
+                  plugins: {
+                    legend: {
+                      position: "bottom",
+                      labels: {
+                        font: {
+                          size: 13,
+                        },
+                        boxWidth: 20,
+                        boxHeight: 12,
+                        color: "#FFFFFF",
+                      },
                     },
                   },
                   scales: {
@@ -199,7 +145,10 @@ const HRDashboard = () => {
                         display: false,
                       },
                       ticks: {
-                        color: "#FFFFFF",
+                        font: {
+                          weight: "bold",
+                        },
+                        color: "#000000",
                       },
                       border: {
                         display: false,
@@ -210,7 +159,10 @@ const HRDashboard = () => {
                         display: false,
                       },
                       ticks: {
-                        color: "#FFFFFF",
+                        font: {
+                          weight: "bold",
+                        },
+                        color: "#000000",
                       },
                       border: {
                         display: false,
@@ -221,83 +173,108 @@ const HRDashboard = () => {
               />
             </div>
           </div>
-          <div className="flex flex-row gap-6 w-[1070px]">
-            <div className="bg-[#0098F1] w-2/3 py-8">
-              <div className="text-white text-2xl px-6">
+          <div className="bg-[#0098F1] w-full mb-6 p-6 rounded-lg shadow">
+            <div className="text-white text-center text-2xl mb-4">
+              Total Salary By Unit
+            </div>
+            <Line
+              data={data2}
+              options={{
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      color: "#FFFFFF",
+                    },
+                    border: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      color: "#FFFFFF",
+                    },
+                    border: {
+                      display: false,
+                    },
+                  },
+                },
+              }}
+            />
+          </div>
+          <div className="flex flex-col lg:flex-row gap-6 w-full lg:w-full overflow-hidden">
+            <div className="flex flex-col bg-[#0098F1] p-5 rounded-lg shadow w-full lg:w-2/3">
+              <div className="text-white text-2xl mb-6 md:px-4">
                 Employee Performance
               </div>
-              <table className="mt-9 w-full">
-                <thead className="text-black bg-white table-header-group">
-                  <tr>
-                    <th className="table-cell p-4">Avatar</th>
-                    <th>Name</th>
-                    <th>Destination</th>
-                    <th>Performance</th>
-                  </tr>
-                </thead>
-                <tbody className="font-semibold text-center table-row-group">
-                  {EmployeePerformanceData.map((data, index) => (
-                    <tr key={index}>
-                      <td className="p-2">
-                        <img className="inline-block" src={data.pic} />
-                      </td>
-                      <td>{data.Name}</td>
-                      <td>{data.Destination}</td>
-                      <td className="pt-2">
-                        {performanceButtons(data.Performance)}
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="w-full md:mt-4 md:mb-5">
+                  <thead className="bg-white text-black">
+                    <tr>
+                      <th className="p-4">Avatar</th>
+                      <th className="p-4">Name</th>
+                      <th className="p-4">Destination</th>
+                      <th className="p-4">Performance</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="bg-[#E65F2B] w-1/3 rounded-lg flex flex-col justify-start items-center p-7">
-              <div className="text-white text-2xl">Employee Structure</div>
-              <div className="w-full h-full p-10">
-                <Doughnut
-                  data={data3}
-                  options={{
-                    plugins: {
-                      legend: {
-                        position: "top",
-                        labels: {
-                          font: {
-                            size: 15,
-                          },
-                          boxWidth: 20,
-                          boxHeight: 20,
-                          color: "#FFFFFF",
-                        },
-                      },
-                      scales: {
-                        x: {
-                          display: false,
-                          grid: {
-                            display: false,
-                          },
-                          border: {
-                            display: false,
-                          },
-                        },
-                        y: {
-                          display: false,
-                          grid: {
-                            display: false,
-                          },
-                          border: {
-                            display: false,
-                          },
-                        },
-                      },
-                    },
-                    elements: {
-                      arc: {
-                        borderWidth: 0,
-                      },
-                    },
-                  }}
-                />
+                  </thead>
+                  <tbody className="font-semibold text-center">
+                    {EmployeePerformanceData.map((data, index) => (
+                      <tr key={index}>
+                        <td className="p-2">
+                          <img
+                            className="inline-block"
+                            src={data.pic}
+                            alt="avatar"
+                          />
+                        </td>
+                        <td>{data.Name}</td>
+                        <td>{data.Destination}</td>
+                        <td className="pt-2">
+                          {performanceButtons(data.Performance)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
+            </div>
+            <div className="flex flex-col bg-[#E65F2B] items-center justify-center rounded-lg shadow w-full lg:w-1/3 p-8">
+              <div className="text-white text-center text-2xl mb-6">
+                Employee Structure
+              </div>
+              <Doughnut
+                data={data3}
+                options={{
+                  plugins: {
+                    legend: {
+                      position: "bottom",
+                      labels: {
+                        font: {
+                          size: 13,
+                        },
+                        boxWidth: 20,
+                        boxHeight: 12,
+                        color: "#FFFFFF",
+                      },
+                    },
+                  },
+                  elements: {
+                    arc: {
+                      borderWidth: 0,
+                    },
+                  },
+                }}
+              />
             </div>
           </div>
         </div>

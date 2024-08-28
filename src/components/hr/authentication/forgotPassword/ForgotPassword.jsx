@@ -50,7 +50,7 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0098F1]">
       <div
-        className="bg-card p-8 rounded-xl w-full shadow-lg max-w-lg text-white"
+        className="bg-card p-4 m-4 rounded-xl w-full shadow-lg max-w-lg text-white"
         style={{
           background:
             "linear-gradient(180deg, rgba(0, 88, 139, 0.1936) 0%, rgba(0, 88, 139, 0.1936) 100%)",
@@ -136,7 +136,11 @@ const ForgotPassword = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                   onClick={togglePasswordVisibility}
                 >
-                  {passwordVisible ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500"/>}
+                  {passwordVisible ? (
+                    <FaEyeSlash className="text-gray-500" />
+                  ) : (
+                    <FaEye className="text-gray-500" />
+                  )}
                 </div>
               </div>
               <div className="mb-4 pb-2 relative">
@@ -152,7 +156,11 @@ const ForgotPassword = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                   onClick={toggleConfirmPasswordVisibility}
                 >
-                  {confirmPasswordVisible ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500"/>}
+                  {confirmPasswordVisible ? (
+                    <FaEyeSlash className="text-gray-500" />
+                  ) : (
+                    <FaEye className="text-gray-500" />
+                  )}
                 </div>
               </div>
               <div className="mb-4">
@@ -178,7 +186,6 @@ const ForgotPassword = () => {
                 Successfully Saved
               </h2>
             </div>
-          
           </div>
         )}
       </div>

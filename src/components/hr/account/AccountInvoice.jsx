@@ -66,44 +66,44 @@ const AccountInvoice = () => {
     setInvoiceData(InvoiceList);
   }, []);
   return (
-    <div className="mr-2 h-screen pt-2 ml-2">
+    <div className="mt-4 min-h-screen p-4">
       <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
-        <span>Accounts/Invoice</span>
+        <span>Accounts / Invoice</span>
       </h1>
-      <div className="mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">
+      <div className="overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">
         <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr>
-              <th className="py-2 px-8">Invoice_Number</th>
-              <th className="py-2 px-8">Client </th>
-              <th className="py-2 px-8">Date</th>
-              <th className="py-2 px-8">Type</th>
-              <th className="py-2 px-8">Status</th>
-              <th className="py-2 px-8">Amount</th>
+              <th className="py-3 px-4">Invoice_Number</th>
+              <th className="py-3 px-4">Client </th>
+              <th className="py-3 px-4">Date</th>
+              <th className="py-3 px-4">Type</th>
+              <th className="py-3 px-4">Status</th>
+              <th className="py-3 px-4">Amount</th>
             </tr>
           </thead>
           <tbody>
             {InvoiceData.map((data) => (
-              <tr key={data.id} className="font-normal">
-                <td className=" py-2 px-8">{data.Invoice_Number}</td>
-                <td className="py-2 px-8">{data.Client}</td>
-                <td className="py-2 px-8">{data.Date}</td>
-                <td className="py-2 px-8">
+              <tr key={data.id} className="font-normal text-center">
+                <td className=" py-2 px-4">{data.Invoice_Number}</td>
+                <td className="py-2 px-4">{data.Client}</td>
+                <td className="py-2 px-4">{data.Date}</td>
+                <td className="py-2 px-4">
                   <img src={data.Type} alt="image" />
                 </td>
-                <td className="py-2 px-8">
+                <td className="py-2 px-4 text-center">
                   <p
                     type="button"
                     className={`${
                       data.Status === "Approved"
                         ? "bg-[#2A8F4C]"
                         : "bg-[#F78822]"
-                    } w-40 py-1 rounded-lg text-white text-center`}
+                    }  py-1 rounded-lg text-white text-center`}
                   >
                     {data.Status}
                   </p>
                 </td>
-                <td className="py-2 px-8">{data.Amount}</td>
+                <td className="py-2 text-center px-4">{data.Amount}</td>
               </tr>
             ))}
           </tbody>

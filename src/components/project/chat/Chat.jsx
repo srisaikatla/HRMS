@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-// import chatPersons from '../jsonFiles/chatPersons.json'
 import { LuCamera } from "react-icons/lu";
 import { BiVideo } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { RiAddCircleLine } from "react-icons/ri";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { MdOutlineCancel } from "react-icons/md";
 
 const chatPersons = [
   {
@@ -36,10 +37,8 @@ const Chat = () => {
   const [selectedPerson, setSelectedPerson] = useState(chatPersons[0]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [showIcons, setShowIcons] = useState(false); // State to toggle icons visibility
   const fileInputRef = useRef(null);
-
-  console.log(newMessage);
-  console.log(messages);
 
   useEffect(() => {
     const results = chatPersons.filter((person) =>
@@ -53,6 +52,7 @@ const Chat = () => {
     setMessages([]);
     setNewMessage("");
   };
+
   const handleSendMessage = (e) => {
     if (e.key === "Enter" && newMessage.trim()) {
       const newMsg = { text: newMessage, sender: "me" };
@@ -66,6 +66,7 @@ const Chat = () => {
       fileInputRef.current.click();
     }
   };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -74,11 +75,12 @@ const Chat = () => {
       e.target.value = null;
     }
   };
+
   return (
-    <div className=" mx-8  pb-10 h-auto">
-      <h2 className="text-[#e65f2b] font-bold  text-xl mb-3 ml-4">Chat</h2>
-      <div className="flex w-full  gap-1">
-        <div className="flex border-r-2 flex-col bg-white overflow-x-auto h-auto w-[300px] p-3">
+    <div className="mt-4 w-auto p-4 h-auto">
+      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg">Chat</h2>
+      <div className="md:flex w-full mt-4 gap-1">
+        <div className="flex border-r-2 flex-col bg-white overflow-x-auto h-auto w-auto md:w-[300px] p-3 shadow-md">
           <div className="flex flex-row justify-center items-center">
             <IoSearchSharp className="bg-[#E65F2B] rounded-l text-white w-[47px] h-full p-3" />
             <input
@@ -91,11 +93,8 @@ const Chat = () => {
           </div>
           <div className="mt-4">
             {filteredChatPersons.map((person) => (
-              <button onClick={() => handlePersonClick(person)}>
-                <div
-                  key={person.id}
-                  className="cursor-pointer flex items-center py-2 border-b"
-                >
+              <button key={person.id} onClick={() => handlePersonClick(person)}>
+                <div className="cursor-pointer flex items-center py-2 border-b">
                   <img
                     src={person.photo}
                     alt={person.name}
@@ -117,7 +116,7 @@ const Chat = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col w-full gap-1">
+        <div className="flex flex-col w-auto md:w-full h-auto gap-1 md:mt-0 mt-4 shadow-md">
           <div className="bg-white flex justify-between items-center h-[60px] border-b-2">
             <div className="flex items-center p-2 py-1">
               <img
@@ -137,19 +136,45 @@ const Chat = () => {
                 </span>
               </div>
             </div>
-            <div className="flex flex-row gap-x-3 w-[175px] mr-6">
+            <div className="flex flex-row gap-x-1.5 md:gap-x-2 mr-1.5 md:w-[165px] md:mr-6 hidden md:flex">
               <button>
-                <LuCamera className="bg-orange-500 h-[32px] w-[35px] p-[4px] rounded text-white" />
+                <LuCamera className="bg-orange-500 md:w-[35px] md:h-[32px] h-[24px] w-[26px] p-[4px] rounded text-white" />
               </button>
               <button>
-                <BiVideo className="bg-orange-500 h-[32px] w-[35px] p-[4px] rounded text-white" />
+                <BiVideo className="bg-orange-500 md:w-[35px] md:h-[32px] h-[24px] w-[26px] p-[4px] rounded text-white" />
               </button>
               <button>
-                <FiSettings className="bg-orange-500 h-[32px] w-[35px] p-[6px] rounded text-white" />
+                <FiSettings className="bg-orange-500 md:w-[35px] md:h-[32px] h-[24px] w-[26px] p-[4px] rounded text-white" />
               </button>
               <button>
-                <IoMdHelpCircleOutline className="bg-orange-500 h-[32px] p-[4px] w-[35px] rounded text-white" />
+                <IoMdHelpCircleOutline className="bg-orange-500 md:w-[35px] md:h-[32px] h-[24px] w-[26px] p-[4px] rounded text-white" />
               </button>
+            </div>
+            <div className="md:hidden flex items-center">
+              <button onClick={() => setShowIcons(!showIcons)}>
+                <BsThreeDotsVertical className="mr-2 bg-orange-500 md:w-[35px] md:h-[32px] h-[24px] w-[26px] p-[4px] rounded text-white" />
+              </button>
+              {showIcons && (
+                <button onClick={() => setShowIcons(!showIcons)}>
+                  <MdOutlineCancel className="absolute z-50 -mt-[94px] ml-2 md:w-[35px] md:h-[32px] h-[24px] w-[26px] p-[1px] rounded text-orange-500" />
+                </button>
+              )}
+              {showIcons && (
+                <div className="absolute bg-white border rounded shadow-md mt-8 right-2">
+                  <button className="block w-full text-left p-2">
+                    <LuCamera className="bg-orange-500 h-[32px] w-[32px] p-[4px] rounded text-white" />
+                  </button>
+                  <button className="block w-full text-left p-2">
+                    <BiVideo className="bg-orange-500 h-[32px] w-[32px] p-[4px] rounded text-white" />
+                  </button>
+                  <button className="block w-full text-left p-2">
+                    <FiSettings className="bg-orange-500 h-[32px] w-[32px] p-[4px] rounded text-white" />
+                  </button>
+                  <button className="block w-full text-left p-2">
+                    <IoMdHelpCircleOutline className="bg-orange-500 h-[32px] w-[32px] p-[4px] rounded text-white" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -167,64 +192,40 @@ const Chat = () => {
                       className="w-[45px] h-[45px]"
                     />
                     {message.file ? (
-                      message.file.type.startsWith("image/") ? (
-                        <img
-                          src={URL.createObjectURL(message.file)}
-                          alt="Uploaded"
-                          className="max-w-xs rounded-lg border border-[#0098F1] shadow-md cursor-pointer"
-                          onClick={() =>
-                            window.open(URL.createObjectURL(message.file))
-                          }
-                        />
-                      ) : (
-                        <div className="flex items-center gap-2 p-2 border border-[#0098F1] rounded-lg shadow-md bg-gray-50 cursor-pointer">
-                          <a
-                            href={URL.createObjectURL(message.file)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-black hover:underline"
-                          >
-                            <div className="flex-grow">
-                              <span className="font-medium">
-                                {message.file.name}
-                              </span>
-                            </div>
-                          </a>
-                        </div>
-                      )
-                    ) : (
-                      <div
-                        className={`inline-block px-4 py-2 rounded-lg ${
-                          message.sender === "me"
-                            ? "border border-[#0098F1] text-black"
-                            : "border border-[#0098F1] text-black"
-                        }`}
+                      <a
+                        href={URL.createObjectURL(message.file)}
+                        download={message.file.name}
+                        className="flex-1 bg-gray-200 rounded px-4 py-2"
                       >
+                        {message.file.name}
+                      </a>
+                    ) : (
+                      <span className="flex-1 bg-gray-200 rounded px-4 py-2">
                         {message.text}
-                      </div>
+                      </span>
                     )}
                   </div>
                 ))}
               </div>
-              <div className="relative w-full ">
+              <div className="flex items-center justify-between w-auto">
                 <input
+                  className="flex-grow md:w-auto w-5/6 p-2 border focus:outline-[#e65f2b] rounded"
                   type="text"
-                  className="w-full border-2 border-[#0098F1] p-2 rounded"
                   placeholder="Type a message..."
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  onKeyUp={handleSendMessage}
                   value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={handleSendMessage}
                 />
                 <button
-                  className="absolute right-2 text-3xl top-1/2  transform -translate-y-1/2 p-2 text-[#0098F1]"
+                  className="p-2 ml-2 md:w-auto w-1/6"
                   onClick={handleAddFile}
                 >
-                  <RiAddCircleLine />
+                  <RiAddCircleLine className="text-[#e65f2b] h-[30px] w-[30px]" />
                 </button>
                 <input
                   type="file"
                   ref={fileInputRef}
-                  className="hidden"
+                  style={{ display: "none" }}
                   onChange={handleFileChange}
                 />
               </div>

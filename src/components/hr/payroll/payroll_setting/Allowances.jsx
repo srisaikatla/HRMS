@@ -135,10 +135,10 @@ const Allowances = () => {
   const totalPages = Math.ceil(values.length / recordsPerPage);
 
   return (
-    <div className="md:my-5 py-4">
+    <div className="md:my-5 py-3">
       <div className="flex justify-between items-center mb-7">
         <div className="flex gap-x-2">
-          <h3 className="md:text-xl font-semibold ">Allowances</h3>
+          <h3 className="lg:text-lg font-semibold ">Allowances</h3>
           <button
             type="button"
             className="flex items-center md:gap-1 gap-x-[2px] max-md:mt-1"
@@ -157,34 +157,34 @@ const Allowances = () => {
         </button>
       </div>
       <div className="overflow-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]">
-        <table className="w-[1100px]">
-          <thead className="bg-[#0098f1] md:text-lg font-semibold ">
+        <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
+          <thead className="bg-[#0098f1] text-white lg:text-lg font-medium ">
             <tr>
-              <th className="py-4 px-2 text-center w-[100px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[100px] border-r border-white border-opacity-60">
                 Display Name
               </th>
-              <th className="py-4 px-2 text-center w-[120px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[120px] border-r border-white border-opacity-60">
                 Allowance Code
               </th>
-              <th className="py-4 px-2 text-center w-[40px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[40px] border-r border-white border-opacity-60">
                 Taxable
               </th>
-              <th className="py-4 px-2 text-center w-[10px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[10px] border-r border-white border-opacity-60">
                 LOP
               </th>
-              <th className="py-4 px-2 text-center w-[10px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[10px] border-r border-white border-opacity-60">
                 PF
               </th>
-              <th className="py-4 px-2 text-center w-[10px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[10px] border-r border-white border-opacity-60">
                 ESI
               </th>
-              <th className="py-4 px-2 text-center w-[10px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[10px] border-r border-white border-opacity-60">
                 PT
               </th>
-              <th className="py-4 px-4 w-[110px] text-center border-r border-white border-opacity-60">
+              <th className="py-3 px-4 w-[110px] text-center border-r border-white border-opacity-60">
                 Amount
               </th>
-              <th className="py-4 px-4 text-center w-[10px]">Action</th>
+              <th className="py-3 px-4 text-center w-[10px]">Action</th>
             </tr>
           </thead>
           <tbody>

@@ -85,6 +85,7 @@ const data = {
 
 const options = {
   responsive: true,
+  maintainAspectRatio: false, // allows the chart to take up the entire container's space
   plugins: {
     legend: {
       position: "bottom",
@@ -130,11 +131,11 @@ const options = {
 
 const SocialStatistics = () => {
   return (
-    <div className="bg-white py-5 w-full p-2">
-      <h1 className="text-[#E65F2B] text-[20px] font-bold">
+    <div className="bg-white py-5 w-full p-2 md:p-4 lg:p-6">
+      <h1 className="text-[#E65F2B] text-[16px] md:text-[20px] lg:text-[24px] font-bold">
         Social Statistics
       </h1>
-      <div className="py-4 w-full">
+      <div className="py-4 w-full " style={{ height: "300px", width: "100%" }}>
         <Bar data={data} options={options} />
       </div>
     </div>

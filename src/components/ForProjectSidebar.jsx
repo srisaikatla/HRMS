@@ -10,6 +10,7 @@ import {
   FaUsers,
   FaClipboardList,
 } from "react-icons/fa";
+import { TiMessages } from "react-icons/ti";
 import { GoProjectSymlink, GoProjectRoadmap } from "react-icons/go";
 import { GrProjects } from "react-icons/gr";
 import { TbListDetails } from "react-icons/tb";
@@ -26,8 +27,8 @@ const ForProjectSidebar = ({
 
   const projectOptions = [
     { title: "Dashboard", icon: <GrDashboard /> },
-    { title: "Inbox", icon: <FaFileAlt /> },
-    { title: "Chat", icon: <FaUser /> },
+    // { title: "Inbox", icon: <FaFileAlt /> },
+    { title: "Chat", icon: <TiMessages /> },
     { title: "Project", icon: <FaTasks />, hasSubOptions: true },
     { title: "Clients", icon: <FaUserFriends /> },
     { title: "Teams", icon: <FaUsers /> },

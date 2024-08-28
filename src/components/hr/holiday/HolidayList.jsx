@@ -20,7 +20,6 @@ function HolidayList() {
     useState(false);
   const jwt = localStorage.getItem("hrJwt");
 
-  // Fetch holidays from the backend when the component loads
   useEffect(() => {
     fetchHolidays();
   }, []);
@@ -124,81 +123,85 @@ function HolidayList() {
 
   return (
     <>
-      <div className="p-4">
-        <h2 className="text-[#E65F2B] text-xl font-bold">Hr/Holidays List</h2>
+      <div className="p-4 mt-4 min-h-screen">
+        <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold ">
+          Hr / Holidays List
+        </h2>
 
-        <div className="flex justify-end mb-4">
+        <div className="flex mt-2 justify-end">
           <div
             id="addholiday"
-            className="inline-block h-[48px] rounded-lg bg-[#0098f1]"
+            className="inline-block h-[48px] mr-2 mt-2 rounded-lg bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex items-center w-[186px] h-[48px] px-2 text-white"
+              className="flex items-center w-[186px] h-[48px] px-2  text-white"
               onClick={() => setIsModalOpen(true)}
             >
-              <FiPlusCircle className="text-2xl font-bold mr-2" /> Add Holiday
+              <FiPlusCircle className="text-xl font-bold mr-2" /> Add Holiday
             </button>
           </div>
         </div>
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <table className="min-w-full border-collapse">
-            <thead className="bg-[#0098f1] text-white">
-              <tr>
-                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                  Sl.No
-                </th>
-                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                  Day
-                </th>
-                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                  Date
-                </th>
-                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                  Holiday Name
-                </th>
-                <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {holidays.map((holiday, index) => (
-                <tr key={holiday.holidayName}>
-                  <td className="py-2 px-4 border-b text-center truncate">
-                    {index + 1}
-                  </td>
-                  <td className="py-2 px-4 border-b text-center truncate">
-                    {holiday.day}
-                  </td>
-                  <td className="py-2 px-4 border-b text-center truncate">
-                    {holiday.date}
-                  </td>
-                  <td className="py-2 px-4 border-b text-center truncate">
-                    {holiday.holidayName}
-                  </td>
-                  <td className="py-2 px-4 border-b  truncate">
-                    <FiEdit
-                      className="text-blue-500 cursor-pointer mr-2"
-                      onClick={() => handleEditHoliday(holiday)}
-                    />
-                    <FiTrash2
-                      className="text-red-500 cursor-pointer mt-2"
-                      onClick={() => handleDeleteHoliday(holiday.holidayName)}
-                    />
-                  </td>
+          <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2">
+            <table className="min-w-full w-screen  overflow-x-scroll   text-nowrap">
+              <thead className="bg-[#0098f1] text-white">
+                <tr>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Sl.No
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Day
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Date
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Holiday Name
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Action
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {holidays.map((holiday, index) => (
+                  <tr key={holiday.holidayName}>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {index + 1}
+                    </td>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {holiday.day}
+                    </td>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {holiday.date}
+                    </td>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {holiday.holidayName}
+                    </td>
+                    <td className="py-3 flex justify-center items-center px-4 text-center  border-b  truncate">
+                      <FiEdit
+                        className="text-blue-500 cursor-pointer mr-2"
+                        onClick={() => handleEditHoliday(holiday)}
+                      />
+                      <FiTrash2
+                        className="text-red-500 cursor-pointer "
+                        onClick={() => handleDeleteHoliday(holiday.holidayName)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-lg">
+          <div className="bg-white lg:w-full w-64 rounded-lg p-6 max-w-lg">
             <h2 className="text-2xl mb-4">
               {editHolidayId ? "Edit Holiday" : "Add Holiday"}
             </h2>
@@ -240,14 +243,14 @@ function HolidayList() {
                   onClick={
                     editHolidayId ? handleUpdateHoliday : handleAddHoliday
                   }
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                  className="bg-blue-500 text-white px-4 py-3 rounded"
                 >
                   {editHolidayId ? "Update" : "Add"}
                 </button>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="ml-2 bg-gray-500 text-white px-4 py-2 rounded"
+                  className="ml-2 bg-gray-500 text-white px-4 py-3 rounded"
                 >
                   Cancel
                 </button>
@@ -258,13 +261,13 @@ function HolidayList() {
       )}
 
       {showSuccessMessage && (
-        <div className="fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded">
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white py-3 px-4 rounded">
           Holiday {editHolidayId ? "updated" : "added"} successfully!
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white py-2 px-4 rounded">
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white py-3 px-4 rounded">
           Holiday deleted successfully!
         </div>
       )}
