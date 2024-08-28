@@ -45,28 +45,6 @@ const userdata = [
     Status: "Pending",
     Amount: "$205",
   },
-  {
-    id: 7,
-    Items: "Items",
-    OrderBy: "Ava Alexander",
-    From: "Flipkart India",
-    Date: "16,mar,2002",
-    PaidBy:
-      "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721282826/77b37218de7ac1a5b5a53934a1513757_kyouct.png",
-    Status: "Pending",
-    Amount: "$205",
-  },
-  {
-    id: 8,
-    Items: "Items",
-    OrderBy: "Ava Alexander",
-    From: "Flipkart India",
-    Date: "16,mar,2002",
-    PaidBy:
-      "https://res.cloudinary.com/ds5ooz2ve/image/upload/v1721282826/77b37218de7ac1a5b5a53934a1513757_kyouct.png",
-    Status: "Approved",
-    Amount: "$205",
-  },
 ];
 
 const ReportExpenses = () => {
@@ -81,36 +59,34 @@ const ReportExpenses = () => {
   };
 
   return (
-
-    <div className="flex flex-col min-h-screen ml-2">
-      <h1 className="text-[#E65F2B] text-lg md:text-xl font-bold mb-4  mt-4">
-        Report/ Expenses
+    <div className="flex flex-col min-h-screen p-4 mt-4">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4  ">
+        Report / Expenses
       </h1>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full text-sm md:text-base">
+      <div className="mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-2">
+        <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F1] text-white">
-
             <tr className="text-left">
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 Items
               </th>
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 Order By
               </th>
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 From
               </th>
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 Date
               </th>
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 Paid By
               </th>
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 Status
               </th>
-              <th className="py-2 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-xs md:text-sm">
+              <th className="py-3 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-sm lg:text-lg">
                 Amount
               </th>
             </tr>
@@ -118,16 +94,16 @@ const ReportExpenses = () => {
           <tbody>
             {userdata.map((user) => (
               <tr key={user.id} className="text-black">
-                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-sm lg:text-[16px]">
                   {user.Items}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-sm lg:text-[16px]">
                   {user.OrderBy}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-sm lg:text-[16px]">
                   {user.From}
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-sm lg:text-[16px]">
                   {user.Date}
                 </td>
                 <td className="py-2 px-2 border-b bg-transparent text-center">
@@ -141,12 +117,12 @@ const ReportExpenses = () => {
                   <button
                     className={`h-6 w-24 md:h-8 md:w-32 ${getButtonStyle(
                       user.Status
-                    )} rounded-lg text-center text-xs md:text-sm`}
+                    )} rounded-lg text-center text-sm lg:text-[16px]`}
                   >
                     {user.Status}
                   </button>
                 </td>
-                <td className="py-2 px-2 border-b bg-transparent text-center text-xs md:text-sm">
+                <td className="py-2 px-2 border-b bg-transparent text-center text-sm lg:text-[16px]">
                   {user.Amount}
                 </td>
               </tr>

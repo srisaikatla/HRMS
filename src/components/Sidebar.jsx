@@ -32,7 +32,7 @@ import Teams from "./project/teams/Teams";
 import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
-import Attandance from "./hr/hr_management/employeAttandance/Attendance"
+import Attandance from "./hr/hr_management/employeAttandance/Attendance";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
 import Compensation from "./hr/hr_management/compensation/Compensation";
@@ -45,7 +45,7 @@ import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary";
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll";
-import Department from "./hr/hr_management/department/DepartmentList"
+import Department from "./hr/hr_management/department/DepartmentList";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -234,7 +234,7 @@ const SideBar = () => {
   };
 
   return (
-    <div className="relative h-auto bg-[#0098f1] bg-opacity-10">
+    <div className="relative h-auto bg-[#0088f1] bg-opacity-10">
       <NavBar
         onIconClick={handleIconClick}
         options={options}

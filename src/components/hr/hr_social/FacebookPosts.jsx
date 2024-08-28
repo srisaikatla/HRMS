@@ -28,8 +28,8 @@ const FacebookPosts = () => {
     imageRef.current.click();
   };
   return (
-    <div className="bg-white p-5 w-[465px]">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+    <div className="bg-white p-5">
+      <h1 className="text-[#E65F2B] lg:text-xl font-bold mb-4">
         Facebook Recent Post
       </h1>
 
@@ -65,15 +65,15 @@ const FacebookPosts = () => {
       </div>
       <div className="my-5">
         {facebookPosts.map((post) => (
-          <div className="flex justify-between my-5 text-[#0098F1]">
-            <div className="flex gap-x-2">
-              <img src={post.image} alt="post pic" />
+          <div className="flex justify-between my-5 text-[#0098F1] max-md:text-xs">
+            <div className="flex gap-x-4 ">
+              <img src={post.image} alt="post pic" className="w-6 h-6" />
               <div>
                 <h1>{post.name}</h1>
                 <p>{post.description}</p>
               </div>
             </div>
-            <p>{post.time}</p>
+            <p className=" text-nowrap">{post.time}</p>
           </div>
         ))}
       </div>

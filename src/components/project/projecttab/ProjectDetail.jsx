@@ -142,10 +142,12 @@ const ProjectDetail = () => {
   };
 
   return (
-    <div className=" p-2">
-      <h2 className="text-[#e65f2b] font-bold text-xl mb-4">Project Detail</h2>
-      <div className="w-full flex flex-row gap-2">
-        <div className="w-2/3 bg-[#E65F2B] text-white p-6 flex flex-col">
+    <div className="w-auto mt-4 p-4">
+      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-4">
+        Projects / Project Detail
+      </h2>
+      <div className="w-full flex flex-col md:flex-row gap-2">
+        <div className="w-full md:w-2/3 bg-[#E65F2B] text-white p-6 flex flex-col">
           <h3 className="text-xl font-semibold mb-7">
             iNext - One Page Responsive Template
           </h3>
@@ -164,7 +166,7 @@ const ProjectDetail = () => {
             />
           </div>
         </div>
-        <div className="w-2/3 px-7 py-5 bg-white shadow-xl rounded-md">
+        <div className="w-full md:w-2/3 px-7 py-5 bg-white shadow-xl rounded-md">
           <h3 className="w-full text-2xl font-semibold text-[#0098F1] mb-4">
             Project Activity
           </h3>
@@ -236,13 +238,13 @@ const ProjectDetail = () => {
           </div>
         </div>
       </div>
-      <div className=" w-full flex flex-row gap-x-3">
-        <div className="w-1/3">
+      <div className=" w-full flex md:flex-row flex-col-reverse gap-x-3 lg:text-[17px] text-[14px]">
+        <div className="w-full md:w-1/3">
           <div className="w-full h-auto mt-2 bg-white rounded-md">
             {ProjectDetailData.map((item, index) => {
               return (
                 <div
-                  className="w-full flex flex-col text-[#0098F1] font-medium p-9 shadow-xl rounded-md"
+                  className="w-full flex flex-col text-[#0098F1] font-medium lg:p-9 md:p-5 p-4 shadow-xl rounded-md"
                   key={index}
                 >
                   <div className="mb-4 flex justify-between">
@@ -287,7 +289,7 @@ const ProjectDetail = () => {
               );
             })}
           </div>
-          <div className="w-full h-auto mt-4 bg-white rounded-md p-6 shadow-xl">
+          <div className="w-full h-auto mt-4 bg-white rounded-md lg:p-6 md:p-3 shadow-xl">
             <h3 className="text-[#E65F2B] text-lg font-semibold">
               Assigned Team
             </h3>
@@ -347,7 +349,7 @@ const ProjectDetail = () => {
             </div>
           </div>
         </div>
-        <div className="w-3/4 bg-white h-[976px] mt-2 pt-4 pl-2 shadow-xl rounded-md overflow-y-auto">
+        <div className="w-full md:w-3/4 bg-white h-auto md:h-auto mt-2 pt-4 pl-2 shadow-xl rounded-md overflow-y-auto">
           <div className="relative ">
             <div className="absolute left-5 top-1 h-full border-l-2 border-[#E65F2B]"></div>
             {messages

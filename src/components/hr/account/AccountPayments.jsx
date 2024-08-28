@@ -45,33 +45,33 @@ const initialData = [
 
 const AccountPayments = () => {
   return (
-    <div className="ml-2 pt-2 h-screen mr-2">
+    <div className="p-4 mt-4 min-h-screen ">
       <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
-        <span>Accounts/Payments</span>
+        <span>Accounts / Payments</span>
       </h1>
-      <div className="mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">
+      <div className=" overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">
         <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F1] text-white">
-            <tr>
-              <th className="py-2 px-10">ID</th>
-              <th className="py-2 px-10">Client Name</th>
-              <th className="py-2 px-10">Project Name</th>
-              <th className="py-2 px-10">Date</th>
-              <th className="py-2 px-10">Type</th>
-              <th className="py-2 px-10">Amount</th>
+            <tr className="text-center">
+              <th className="py-3 px-4">ID</th>
+              <th className="py-3 px-4">Client Name</th>
+              <th className="py-3 px-4">Project Name</th>
+              <th className="py-3 px-4">Date</th>
+              <th className="py-3 px-4">Type</th>
+              <th className="py-3 px-4">Amount</th>
             </tr>
           </thead>
           <tbody>
             {initialData.map((data) => (
-              <tr key={data.id} className="font-normal">
-                <td className="py-2 px-10">{data.id}</td>
-                <td className="py-2 px-10">{data.clientName}</td>
-                <td className="py-2 px-10">{data.projectName}</td>
-                <td className="py-2 px-10">{data.date}</td>
-                <td className="py-2 px-10">
+              <tr key={data.id} className="font-normal text-center">
+                <td className="py-2 px-4">{data.id}</td>
+                <td className="py-2 px-4">{data.clientName}</td>
+                <td className="py-2 px-4">{data.projectName}</td>
+                <td className="py-2 px-4">{data.date}</td>
+                <td className="py-2 px-4 text-center">
                   <img src={data.type} alt="image" />
                 </td>
-                <td className="py-2 px-10">{data.amount}</td>
+                <td className="py-2 text-center px-4">{data.amount}</td>
               </tr>
             ))}
           </tbody>
