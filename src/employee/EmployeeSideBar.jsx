@@ -265,7 +265,7 @@ const EmployeeSideBar = () => {
         {activeTab === "Holidays" && <EmployeHoliday />}
         {activeTab === "Events" && <Event />}
         {activeTab === "Activities" && <Activities />}
-        {activeTab === "Payslips" && <Main />}
+        {/* {activeTab === "Payslips" && <Main />} */}
         {activeTab === "Profile" && <Profile />}
         {activeTab === "Apply Leave" && <ApplyLeave />}
         {activeTab === "Salary Structure" && <SalaryStructure />}

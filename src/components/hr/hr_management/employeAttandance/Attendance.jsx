@@ -87,7 +87,7 @@ function Attendance() {
         id="table"
         className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]"
       >
-        <table className="min-w-full bg-white text-white  text-nowrap">
+        <table className="min-w-full bg-white text-nowrap">
           <thead className="bg-[#0098F1]">
             <tr>
               <th className="py-2 px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
@@ -107,6 +107,9 @@ function Attendance() {
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
                 Break time
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                working time
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
                 Overtime

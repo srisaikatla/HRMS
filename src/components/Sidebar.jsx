@@ -347,7 +347,7 @@ const SideBar = () => {
         {activeTab === "Emp Attendance" && <Attandance />}
         {/* {activeTab === "Leaves" && <Leaves />} */}
         {activeTab === "Hr Dashboard" && <HrDashboard />}
-        {activeTab === "Emp Attendance" && <Attendance />}
+
 
       </div>
 
