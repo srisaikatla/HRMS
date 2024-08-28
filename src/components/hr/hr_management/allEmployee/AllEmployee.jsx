@@ -522,7 +522,7 @@ function AllEmployees() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Offcial Email</label>
+                <label className="block text-gray-700">Official Email</label>
                 <input
                   type="email"
                   name="email"
