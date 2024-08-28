@@ -43,19 +43,42 @@ function WorkAnniversaries() {
   };
 
   return (
-    <div className="ml-20 mt-4 p-5">
-      <div className="flex items-center mb-2 justify-between">
-        <label className="w-48 font-semibold text-[#e65f2b]">
+    // <div className="ml-20 mt-4 p-5">
+    //   <div className="flex items-center mb-2 justify-between">
+    //     <label className="w-48 font-semibold text-[#e65f2b]">
+    //       Recipient (Email)
+    //     </label>
+    //     <div className="flex w-96 items-center border border-[#e65f2b] rounded-md p-2">
+    //       <input
+    //         type="text"
+    //         value={email}
+    //         onChange={handleEmailChange}
+    //         onBlur={handleBlur}
+    //         readOnly={!editing}
+    //         className={`flex-1 w-96 text-[#e65f2b] bg-transparent focus:outline-none ${
+    //           editing ? "border-b-2 border-[#e65f2b]" : "cursor-pointer"
+    //         }`}
+    //       />
+    //       <FaPencilAlt
+    //         className="ml-2 text-[#e65f2b] cursor-pointer"
+    //         onClick={handleEdit}
+    //       />
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="ml-5 lg:ml-20 mt-4 p-5">
+      <div className="flex flex-col sm:flex-row sm:items-center mb-2 justify-between">
+        <label className="w-full sm:w-48 font-semibold text-[#e65f2b] mb-2 sm:mb-0">
           Recipient (Email)
         </label>
-        <div className="flex w-96 items-center border border-[#e65f2b] rounded-md p-2">
+        <div className="flex w-full sm:w-96 items-center border border-[#e65f2b] rounded-md p-2">
           <input
             type="text"
             value={email}
             onChange={handleEmailChange}
             onBlur={handleBlur}
             readOnly={!editing}
-            className={`flex-1 w-96 text-[#e65f2b] bg-transparent focus:outline-none ${
+            className={`flex-1 w-full sm:w-96 text-[#e65f2b] bg-transparent focus:outline-none ${
               editing ? "border-b-2 border-[#e65f2b]" : "cursor-pointer"
             }`}
           />

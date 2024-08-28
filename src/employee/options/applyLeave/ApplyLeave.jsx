@@ -201,12 +201,13 @@ function ApplyLeave() {
         {["Earned Leave", "Sick Leave", "Casual Leave"].map((type, i) => (
           <div
             key={i}
-            className={`py-6 text-lg px-4 rounded-lg lg:w-[300px] w-full font-semibold min-h-[200px] flex pl-4 flex-col ${type === "Earned Leave"
-              ? "bg-[#FA1A8E]"
-              : type === "Sick Leave"
+            className={`py-6 text-lg px-4 rounded-lg lg:w-[300px] w-full font-semibold min-h-[200px] flex pl-4 flex-col ${
+              type === "Earned Leave"
+                ? "bg-[#FA1A8E]"
+                : type === "Sick Leave"
                 ? "bg-[#04B440]"
                 : "bg-[#FF4040]"
-              }`}
+            }`}
           >
             <div className="text-start text-[18px] lg:text-[25px] font-bold">
               {type}

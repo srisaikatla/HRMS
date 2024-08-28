@@ -182,38 +182,7 @@ function ITDeclarations() {
             <span>Pending Approval</span>
           </div>
         </div>
-        {/* <div className="mx-3">
-          <div className="flex justify-center items-center h-44">
-            <label className="block text-lg font-medium mb-2">
-              Employee Name:
-            </label>
-            <div className="ml-2 w-96">
-              <Select
-                options={employeeOptions}
-                classNamePrefix="select"
-                placeholder="Select an employee"
-                onChange={handleEmployeeChange}
-                className="border-[1px] border-blue-[#0098f1] rounded"
-              />
-            </div>
-            {selectedEmployee && (
-              <div className="flex space-x-4">
-                <button
-                  className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Add IT Returns
-                </button>
-                <button
-                  className="ml-2 px-4 py-2 bg-gray-500 text-white rounded"
-                  onClick={() => setIsRequestModalOpen(true)}
-                >
-                  Request IT Returns
-                </button>
-              </div>
-            )}
-          </div>
-        </div> */}
+
         <div className="mx-3">
           <div className="flex flex-col md:flex-row justify-center items-center h-auto md:h-44">
             <label className="block text-lg font-medium mb-2 md:mb-0">

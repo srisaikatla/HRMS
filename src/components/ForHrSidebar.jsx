@@ -79,6 +79,7 @@ const ForHrSidebar = ({
     { title: "Compensation", icon: <SiReadthedocs /> },
     { title: "IT Declarations", icon: <IoDocumentAttach /> },
     { title: "Leaves", icon: <BsCalendar2CheckFill /> },
+    // { title: "LeaveRequest", icon: <BsCalendar2CheckFill /> },
     { title: "Emp Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
     { title: "Onboarding", icon: <MdDepartureBoard /> },
@@ -342,7 +343,6 @@ const ForHrSidebar = ({
               </ul>
             )}
 
-            {/* Authentication Dropdown */}
             {option.title === "Authentication" && showAuthOptions && (
               <ul>
                 {authOptions.map((authOption) => (

@@ -52,12 +52,12 @@ const AccountExpenses = () => {
     setExpenseData(ExpensesList);
   }, []);
   return (
-    <div className=" ml-2 mr-2 pt-2 ">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
+    <div className=" ml-2 h-screen mr-2 pt-2 ">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
         <span>Accounts/Expenses</span>
       </h1>
-      <div className="overflow-x-scroll">
-        <table className="text-left min-w-full w-screen overflow-x-scroll text-nowrap border-collapse">
+      <div className="mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">
+        <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098f1]  text-white ">
             <tr>
               <th className="py-2 px-7">Items</th>

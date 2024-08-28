@@ -1,3 +1,4 @@
+import { tr } from "date-fns/locale";
 import React, { useEffect, useState } from "react";
 
 const BatchDetails = ({ batch, onBack, batches }) => {
@@ -85,8 +86,11 @@ const BatchDetails = ({ batch, onBack, batches }) => {
   return (
     <div className="my-4">
       <div className="flex items-center justify-between border-b py-3 border-gray-400">
-        <h1 className="text-2xl font-bold">{currentBatch.name} Batch</h1>
-        <button onClick={onBack} className=" bg-gray-300 px-4 py-1 rounded">
+        <h1 className="lg:text-2xl font-bold">{currentBatch.name} Batch</h1>
+        <button
+          onClick={onBack}
+          className=" bg-gray-300 lg:px-4 px-2 py-1 rounded max-md:text-xs"
+        >
           Back
         </button>
       </div>
@@ -102,7 +106,7 @@ const BatchDetails = ({ batch, onBack, batches }) => {
         </p>
       </div>
       <div className="flex items-center justify-between border-b py-3 border-gray-400 my-3">
-        <h1 className="font-bold text-xl">Employees</h1>
+        <h1 className="font-bold lg:text-xl">Employees</h1>
         <select
           value={selectedBatchId}
           onChange={handleBatchChange}
@@ -110,7 +114,7 @@ const BatchDetails = ({ batch, onBack, batches }) => {
         >
           {/* <option value="">Select Batch</option> */}
           {batches.map((b) => (
-            <option key={b.id} value={b.id}>
+            <option key={b.id} value={b.id} className="text-xs">
               {b.name}
             </option>
           ))}
@@ -118,7 +122,7 @@ const BatchDetails = ({ batch, onBack, batches }) => {
       </div>
       <div className="text-end my-5">
         <button
-          className=" px-2 py-1 rounded-lg bg-[#0098f1] text-white"
+          className=" px-2 py-1 rounded-lg bg-[#0098f1] text-white max-md:text-xs"
           onClick={() => setShowModal(true)}
         >
           Add Employees
@@ -127,82 +131,82 @@ const BatchDetails = ({ batch, onBack, batches }) => {
 
       {showModal && (
         <div className="fixed inset-0 bg-orange-100 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-3 rounded-lg shadow-lg w-[600px] flex flex-col">
-            <h1 className="text-2xl font-bold mb-3 border-b pb-3">
+          <div className="bg-white p-3 rounded-lg shadow-lg w-52 md:w-[600px] flex flex-col">
+            <h1 className="md:text-2xl font-bold mb-3 border-b pb-3">
               Add Employee
             </h1>
-            <div className="flex flex-col gap-2 ml-5">
-              <div className="flex gap-3">
+            <form className="flex flex-col gap-2 md:ml-5 max-md:text-nowrap">
+              <div className="flex flex-col md:flex-row md:gap-3 gap-1">
                 <label htmlFor="name">Employee Name :</label>
                 <input
                   id="name"
                   type="text"
-                  className=" border border-gray-500 rounded-md outline-none px-1 text-sm"
+                  className=" border border-gray-500 rounded-md outline-none p-1  text-sm"
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-col md:flex-row md:gap-3 gap-1">
                 <label htmlFor="title">Title :</label>
                 <input
                   id="title"
                   type="text"
-                  className=" border border-gray-500 rounded-md outline-none px-1 text-sm"
+                  className=" border border-gray-500 rounded-md outline-none p-1 text-sm"
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
                 />
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-col md:flex-row md:gap-3 gap-1">
                 <label htmlFor="work" className="">
                   Work Location :
                 </label>
                 <input
                   id="work"
                   type="text"
-                  className=" border border-gray-500 rounded-md outline-none px-1 text-sm"
+                  className=" border border-gray-500 rounded-md outline-none p-1  text-sm"
                   onChange={(e) => setWorkLocation(e.target.value)}
                   value={workLocation}
                 />
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-col md:flex-row md:gap-3 gap-1">
                 <label htmlFor="emp" className="">
                   Emp Status :
                 </label>
                 <input
                   id="emp"
                   type="text"
-                  className=" border border-gray-500 rounded-md outline-none px-1 text-sm"
+                  className=" border border-gray-500 rounded-md outline-none p-1 text-sm"
                   onChange={(e) => setEmpStatus(e.target.value)}
                   value={empStatus}
                 />
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-col md:flex-row md:gap-3 gap-1">
                 <label htmlFor="batch" className="">
                   Batch :
                 </label>
                 <input
                   id="batch"
                   type="text"
-                  className=" border border-gray-500 rounded-md outline-none px-1 text-sm"
+                  className=" border border-gray-500 rounded-md outline-none p-1 text-sm"
                   onChange={(e) => setBatchName(e.target.value)}
                   value={batchName}
                 />
               </div>
               {errorMessage && (
                 <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
-              )}    
-            </div>
-            <div className="flex justify-end gap-2 my-3">
+              )}
+            </form>
+            <div className="flex justify-end gap-2 my-3 max-md:text-sm">
               <button
                 type="button"
-                className="bg-red-500 text-white p-2 rounded-lg"
+                className="bg-red-500 text-white p-1 md:p-2 rounded-lg"
                 onClick={handleCancel}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="bg-green-500 text-white p-2 rounded-lg"
+                className="bg-green-500 text-white p-1 md:p-2 rounded-lg"
                 onClick={handleAddEmployee}
               >
                 Save
@@ -212,8 +216,8 @@ const BatchDetails = ({ batch, onBack, batches }) => {
         </div>
       )}
 
-      <div className="mt-5">
-        <table className="min-w-full">
+      <div className=" mt-5 w-full overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1] ">
+        <table className="min-w-full text-nowrap max-md:text-sm">
           <thead className="bg-[#0098f1] text-white">
             <tr>
               <th className="py-2 px-4 border-b border-r border-white">
@@ -232,23 +236,29 @@ const BatchDetails = ({ batch, onBack, batches }) => {
             </tr>
           </thead>
           <tbody>
-            {currentEmployees.map((employee) => (
-              <tr key={employee.id} className=" cursor-pointer">
-                <td className="py-2 text-center border-r border-white">
-                  {employee.name}
+            {currentEmployees.length === 0
+              ? <tr>
+                <td className="py-2 px-4 md:text-center" colSpan="9">
+                  No Employees Found.
                 </td>
-                <td className="py-2 text-center border-r border-white">
-                  {employee.title}
-                </td>
-                <td className="py-2 text-center border-r border-white">
-                  {employee.workLocation}
-                </td>
-                <td className="py-2 text-center border-r border-white">
-                  {employee.status}
-                </td>
-                <td className="py-2 text-center">{employee.batch}</td>
               </tr>
-            ))}
+              : currentEmployees.map((employee) => (
+                  <tr key={employee.id} className=" cursor-pointer">
+                    <td className="py-2 text-center border-r border-white">
+                      {employee.name}
+                    </td>
+                    <td className="py-2 text-center border-r border-white">
+                      {employee.title}
+                    </td>
+                    <td className="py-2 text-center border-r border-white">
+                      {employee.workLocation}
+                    </td>
+                    <td className="py-2 text-center border-r border-white">
+                      {employee.status}
+                    </td>
+                    <td className="py-2 text-center">{employee.batch}</td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>

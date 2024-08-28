@@ -39,14 +39,14 @@ const PaySlipSetting = () => {
   };
 
   return (
-    <div className="p-4">
-      <ul className="grid grid-cols-2 gap-4 mt-5">
+    <div className="md:my-5 py-4">
+      <ul className="grid grid-col-1 md:grid-cols-2 md:gap-4 md:mt-5">
         {items.map((item, index) => (
           <li
             key={index}
-            className="text-[#0098f1] mt-1 flex items-center justify-center gap-4"
+            className="text-[#0098f1] mt-1 flex items-center justify-center md:gap-4"
           >
-            <div className="text-right w-[200px]">
+            <div className="md:text-right w-full md:w-[200px]">
               <span>{item}</span>
             </div>
             <Switch
@@ -68,7 +68,7 @@ const PaySlipSetting = () => {
         ))}
       </ul>
       <div className="flex flex-col">
-        <div className="mt-10 space-y-2 flex  items-center text-[#0098f1] justify-center gap-10">
+        <div className="mt-10 space-y-2 flex flex-col md:flex-row md:items-center text-[#0098f1] md:justify-center md:gap-10">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <input
@@ -154,21 +154,20 @@ const PaySlipSetting = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
-          <div className="ml-[400px] mt-[30px]">
-            <div
-              className="text-white bg-[#0098f1] flex justify-center items-center gap-1 w-[80px] h-[40px] rounded-lg font-normal cursor-pointer"
-              onClick={handleEditClick}
-            >
-              {editMode ? (
-                "Save"
-              ) : (
-                <>
-                  <BiSolidEdit className="text-xl" />
-                  Edit
-                </>
-              )}
-            </div>
+
+        <div className="mt-[30px] md:self-center self-end">
+          <div
+            className="text-white bg-[#0098f1] flex justify-center items-center gap-1 w-[80px] h-[40px] rounded-lg font-normal cursor-pointer"
+            onClick={handleEditClick}
+          >
+            {editMode ? (
+              "Save"
+            ) : (
+              <>
+                <BiSolidEdit className="text-xl" />
+                Edit
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -5,9 +5,9 @@ const RoundingAmount = () => {
   const [selectedOption, setSelectedOption] = useState("no-round");
 
   return (
-    <div className="my-10 ">
-      <div className="flex justify-center gap-x-2">
-        <h2 className="text-lg font-bold text-[#0098f1]">
+    <div className="md:my-10 my-3 ">
+      <div className="flex flex-col max-md:items-center md:flex-row md:justify-center md:gap-x-2">
+        <h2 className="md:text-lg font-bold text-[#0098f1]">
           Rounding Amount Type
         </h2>
         <div className="mt-1">
@@ -57,8 +57,8 @@ const RoundingAmount = () => {
           </label>
         </div>
       </div>
-      <button className="mt-[120px] flex items-center text-[#0098f1] ml-16">
-        <RiChat3Line className="text-3xl " />
+      <button className="mt-20 md:mt-[120px] flex items-center text-[#0098f1] md:ml-16">
+        <RiChat3Line className="text-xl md:text-3xl " />
         <h1 className="font-semibold">Activity</h1>
       </button>
     </div>

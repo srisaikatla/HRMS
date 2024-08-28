@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
+import Leaves from "../components/hr/hr_management/Leaves/Leaves";
 import Attendance from "./hr/hr_management/employeAttandance/Attendance";
 
 import AccountPayments from "../components/hr/account/AccountPayments";
@@ -31,6 +32,7 @@ import Teams from "./project/teams/Teams";
 import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
+import Attandance from "./hr/hr_management/employeAttandance/Attendance"
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
 import Compensation from "./hr/hr_management/compensation/Compensation";
@@ -43,6 +45,7 @@ import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary";
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll";
+import Department from "./hr/hr_management/department/DepartmentList"
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -310,10 +313,11 @@ const SideBar = () => {
       >
         {activeTab === "Holiday" && <HolidayTab />}
         {activeTab === "Events" && <Events />}
+        {activeTab === "Department" && <Department />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {activeTab === "Leaves" && <LeaveRequest />}
+        {/* {activeTab === "LeaveRequest" && <LeaveRequest />} */}
 
         {activeTab === "Report Invoice" && <ReportInvoice />}
         {activeTab === "Report Expenses" && <ReportExpenses />}
@@ -340,6 +344,9 @@ const SideBar = () => {
         {activeTab === "IT Declarations" && <ITDeclarations />}
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
+        {activeTab === "Emp Attendance" && <Attandance />}
+        {/* {activeTab === "Leaves" && <Leaves />} */}
+        {activeTab === "Hr Dashboard" && <HrDashboard />}
         {activeTab === "Emp Attendance" && <Attendance />}
 
       </div>
