@@ -225,21 +225,21 @@ const Attendance = () => {
     return date ? toIST(date).toISOString().split('.')[0] : null;
   };
 
-  // const isPastPunchInTime = () => {
-  //   const now = new Date();
-  //   const punchInLimit = new Date();
-  //   punchInLimit.setHours(9, 30, 0, 0);
-  //   return now > punchInLimit;
-  // };
+  const isPastPunchInTime = () => {
+    const now = new Date();
+    const punchInLimit = new Date();
+    punchInLimit.setHours(9, 30, 0, 0);
+    return now > punchInLimit;
+  };
 
 
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
-    // if (isPastPunchInTime() && !isPunchedIn) {
-    //   setMessage("You need to login before 9:30 AM");
-    //   return;
-    // }
-    // setMessage("");
+    if (isPastPunchInTime() && !isPunchedIn) {
+      setMessage("You need to login before 9:30 AM");
+      return;
+    }
+    setMessage("");
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
@@ -311,15 +311,15 @@ const Attendance = () => {
       localStorage.removeItem('breakStartTime');
     } else {
       //Check if already punched out today
-      // const hasPunchedOutToday = attendanceData.some(entry => {
-      //   const entryDate = new Date(entry.punchOut).toLocaleDateString();
-      //   return entry.employeeId === employeeId && entryDate === today;
-      // });
+      const hasPunchedOutToday = attendanceData.some(entry => {
+        const entryDate = new Date(entry.punchOut).toLocaleDateString();
+        return entry.employeeId === employeeId && entryDate === today;
+      });
 
-      // if (hasPunchedOutToday) {
-      //   alert("You have already punched out today. You cannot punch in again.");
-      //   return;
-      // }
+      if (hasPunchedOutToday) {
+        alert("You have already punched out today. You cannot punch in again.");
+        return;
+      }
       const newPunchInTime = new Date();
       setPunchInTime(newPunchInTime);
       setIsPunchedIn(true);
