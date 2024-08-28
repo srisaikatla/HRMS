@@ -32,6 +32,7 @@ pipeline {
                 withSonarQubeEnv('sonar') {
                     sh """
                     sonar-scanner \
+                    -X \
                     -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=${env.SONAR_SERVER_URL} \
