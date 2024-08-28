@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useMemo } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -20,12 +22,14 @@ function NavBar({ onIconClick, options, projectOptions }) {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
 
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("hrjwt");
   const dispatch = useDispatch();
+
   const handleLogout = () => {
     dispatch(logout(jwt));
-    localStorage.removeItem("jwt");
-    navigate("/");
+    localStorage.removeItem("hrJwt");
+    localStorage.removeItem("profile")
+    navigate("/option");
   };
   const flattenedOptions = useMemo(() => {
     return [...options, ...projectOptions].flatMap((option) => {
@@ -114,9 +118,8 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#0098f1] ${
-                      option.isSubOption ? "" : ""
-                    }`}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#0098f1] ${option.isSubOption ? "" : ""
+                      }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.title : option.title}

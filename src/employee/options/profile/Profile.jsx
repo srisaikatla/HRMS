@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { MdCancelPresentation } from 'react-icons/md';
 import Education from './Education';

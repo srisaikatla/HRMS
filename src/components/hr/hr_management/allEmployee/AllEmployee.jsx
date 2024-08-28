@@ -9,6 +9,7 @@ import { API_BASE_URL } from "../../../../Config/api";
 import * as XLSX from "xlsx";
 import { useNavigate } from "react-router-dom";
 
+
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +37,10 @@ function AllEmployees() {
   });
   const [editEmployeeId, setEditEmployeeId] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("hrJwt");
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     if (!jwt) {
