@@ -26,7 +26,7 @@ const Attendance = () => {
   const [searchDate, setSearchDate] = useState(new Date());
   const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("employeeJwt");
   const officeHours = 9;
 
 
@@ -200,7 +200,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(22, 0, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
         handlePunchButtonClick() // Call the punch-out function
@@ -225,21 +225,21 @@ const Attendance = () => {
     return date ? toIST(date).toISOString().split('.')[0] : null;
   };
 
-  const isPastPunchInTime = () => {
-    const now = new Date();
-    const punchInLimit = new Date();
-    punchInLimit.setHours(9, 30, 0, 0);
-    return now > punchInLimit;
-  };
+  // const isPastPunchInTime = () => {
+  //   const now = new Date();
+  //   const punchInLimit = new Date();
+  //   punchInLimit.setHours(9, 30, 0, 0);
+  //   return now > punchInLimit;
+  // };
 
 
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
-    if (isPastPunchInTime() && !isPunchedIn) {
-      setMessage("You need to login before 9:30 AM");
-      return;
-    }
-    setMessage("");
+    // if (isPastPunchInTime() && !isPunchedIn) {
+    //   setMessage("You need to login before 9:30 AM");
+    //   return;
+    // }
+    // setMessage("");
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
@@ -255,7 +255,7 @@ const Attendance = () => {
       const totalBreakDuration = { ...totalBreakTime };
 
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
-      const workingHours = calculateWorkingHours(production, totalBreakDuration);
+      const workingDuration = calculateWorkingHours(production, totalBreakDuration);
 
 
       const newEntry = {
@@ -271,6 +271,9 @@ const Attendance = () => {
         breakHours: totalBreakDuration.hours,
         breakMinutes: totalBreakDuration.minutes,
         breakSeconds: totalBreakDuration.seconds,
+        workingHours: workingDuration.hours,
+        workingMinutes: workingDuration.minutes,
+        workingSeconds: workingDuration.seconds,
         overtime,
       };
 
@@ -308,15 +311,15 @@ const Attendance = () => {
       localStorage.removeItem('breakStartTime');
     } else {
       //Check if already punched out today
-      const hasPunchedOutToday = attendanceData.some(entry => {
-        const entryDate = new Date(entry.punchOut).toLocaleDateString();
-        return entry.employeeId === employeeId && entryDate === today;
-      });
+      // const hasPunchedOutToday = attendanceData.some(entry => {
+      //   const entryDate = new Date(entry.punchOut).toLocaleDateString();
+      //   return entry.employeeId === employeeId && entryDate === today;
+      // });
 
-      if (hasPunchedOutToday) {
-        alert("You have already punched out today. You cannot punch in again.");
-        return;
-      }
+      // if (hasPunchedOutToday) {
+      //   alert("You have already punched out today. You cannot punch in again.");
+      //   return;
+      // }
       const newPunchInTime = new Date();
       setPunchInTime(newPunchInTime);
       setIsPunchedIn(true);
@@ -452,18 +455,6 @@ const Attendance = () => {
                 </tr>
               ) : (
                 filteredData.map((entry, index) => {
-                  const workingTime = calculateWorkingHours(
-                    {
-                      hours: entry.productionHours,
-                      minutes: entry.productionMinutes,
-                      seconds: entry.productionSeconds,
-                    },
-                    {
-                      hours: entry.breakHours,
-                      minutes: entry.breakMinutes,
-                      seconds: entry.breakSeconds,
-                    }
-                  );
 
                   return (
                     <tr key={index}>
@@ -478,7 +469,7 @@ const Attendance = () => {
                         {entry.breakHours} hours, {entry.breakMinutes} mins, {entry.breakSeconds} secs
                       </td>
                       <td className="px-4 py-2 border">
-                        {workingTime.hours} hours, {workingTime.minutes} mins, {workingTime.seconds} secs
+                        {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
                       </td>
                       <td className="px-4 py-2 border">{entry.overtime} hours</td>
                     </tr>

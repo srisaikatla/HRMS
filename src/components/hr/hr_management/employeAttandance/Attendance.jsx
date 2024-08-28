@@ -1,190 +1,35 @@
-import React, { useState } from "react";
+
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
+
 import { FaSearch, FaFilter } from "react-icons/fa";
+import axios from 'axios'
+import { API_BASE_URL } from "../../../../Config/api";
 
-// Sample data
-const sampleData = [
-  {
-    id: "SDT 60",
-    name: "Ashwini",
-    attendance: [
-      { day: 1, status: "present" },
-      { day: 2, status: "present" },
-      { day: 3, status: "present" },
-      { day: 4, status: "present" },
-      { day: 5, status: "present" },
-      { day: 6, status: "weekend" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "holiday" },
-      { day: 11, status: "absent" },
-      { day: 12, status: "present" },
-      { day: 13, status: "weekend" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "holiday" },
-      { day: 16, status: "present" },
-      { day: 17, status: "absent" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "absent" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-  {
-    id: "SDT 61",
-    name: "Ratnapriya",
-    attendance: [
-      { day: 1, status: "absent" },
-      { day: 2, status: "absent" },
-      { day: 3, status: "present" },
-      { day: 4, status: "present" },
-      { day: 5, status: "present" },
-      { day: 6, status: "weekend" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "present" },
-      { day: 11, status: "present" },
-      { day: 12, status: "present" },
-      { day: 13, status: "weekend" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "holiday" },
-      { day: 16, status: "present" },
-      { day: 17, status: "absent" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "absent" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-  {
-    id: "SDT 62",
-    name: "Raghavendra",
-    attendance: [
-      { day: 1, status: "absent" },
-      { day: 2, status: "absent" },
-      { day: 3, status: "present" },
-      { day: 4, status: "present" },
-      { day: 5, status: "present" },
-      { day: 6, status: "weekend" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "present" },
-      { day: 11, status: "present" },
-      { day: 12, status: "present" },
-      { day: 13, status: "weekend" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "holiday" },
-      { day: 16, status: "present" },
-      { day: 17, status: "present" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "present" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-  {
-    id: "SDT 63",
-    name: "Premchand",
-    attendance: [
-      { day: 1, status: "absent" },
-      { day: 2, status: "absent" },
-      { day: 3, status: "present" },
-      { day: 4, status: "absent" },
-      { day: 5, status: "absent" },
-      { day: 6, status: "present" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "present" },
-      { day: 11, status: "present" },
-      { day: 12, status: "absent" },
-      { day: 13, status: "absent" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "absent" },
-      { day: 16, status: "present" },
-      { day: 17, status: "present" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "present" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-];
 
-// Function to calculate totals
-const calculateTotals = (attendance) => {
-  const totals = {
-    present: 0,
-    absent: 0,
-    weekend: 0,
-    holiday: 0,
-    timeoff: 0,
-    overtime: 0,
-    lop: 0,
-    late: 0,
-    early: 0,
-  };
-  attendance.forEach((item) => {
-    if (totals.hasOwnProperty(item.status)) {
-      totals[item.status]++;
-    }
-  });
-  // Dummy data for additional columns
-  totals.timeoff = Math.floor(Math.random() * 10);
-  totals.overtime = Math.floor(Math.random() * 10);
-  totals.lop = Math.floor(Math.random() * 10);
-  totals.late = Math.floor(Math.random() * 10);
-  totals.early = Math.floor(Math.random() * 10);
-  totals.source = "Manual"; // Just an example source
-
-  return totals;
-};
 
 function Attendance() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("All");
+  const [attendanceData, setAttendanceData] = useState([])
+  const jwt = localStorage.getItem("hrJwt")
+  const [searchDate, setSearchDate] = useState(new Date());
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/attendance`, {
+          headers: {
+            "Authorization": `Bearer ${jwt}`,
+          }
+        });
+        setAttendanceData(response.data);
+      } catch (error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    };
+    fetchAttendanceData();
+  }, [jwt]);
 
   // Function to handle search input change
   const handleSearchChange = (e) => {
@@ -197,14 +42,12 @@ function Attendance() {
   };
 
   // Filter data based on search query and filter
-  const filteredData = sampleData.filter((employee) => {
-    const matchesSearch = employee.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesFilter =
-      filter === "All" ||
-      employee.attendance.some((day) => day.status === filter.toLowerCase());
-    return matchesSearch && matchesFilter;
+  const filteredData = attendanceData.filter((entry) => {
+    const entryDate = new Date(entry.punchIn).toLocaleDateString();
+    return entryDate === searchDate.toLocaleDateString() && (
+      entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   });
   return (
     <div id="main" className="min-h-screen p-4 mt-4">
@@ -248,9 +91,10 @@ function Attendance() {
         id="table"
         className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]"
       >
-        <table className="min-w-full bg-white text-white  text-nowrap">
+        <table className="min-w-full bg-white text-nowrap">
           <thead className="bg-[#0098F1]">
             <tr>
+
               <th className="py-2 bg-[#0098F1] px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
                 Employee Name
               </th>
@@ -259,77 +103,62 @@ function Attendance() {
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
                 Attended
+
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Weekly Halves
+                Employee Name
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Holidays
+                PunchIn
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Timeoff
+                PunchOut
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                Production Time
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                Break time
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                working time
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
                 Overtime
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Lop (Missing)
-              </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Late Count
-              </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Early Count
-              </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Source
-              </th>
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((employee) => {
-              const totals = calculateTotals(employee.attendance);
-              return (
-                <tr
-                  key={employee.id}
-                  className="border-b border text-[#0098F1] border-white border-r border-l"
-                >
-                  <td className="py-2 bg-[#0098F1] text-white px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
-                    {employee.name}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {employee.id}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.present}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.weekend}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.holiday}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.timeoff}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.overtime}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.lop}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.late}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.early}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.source}
-                  </td>
-                </tr>
-              );
-            })}
+
+            {filteredData.length === 0 ? (
+              <tr>
+                <td colSpan="8" className="text-center py-4">
+                  No attendance records found.
+                </td>
+              </tr>
+            ) : (
+              filteredData.map((entry, index) => {
+                return (
+                  <tr key={index}>
+                    <td className="px-4 py-2 border">{entry.employeeId}</td>
+                    <td className="px-4 py-2 border">{entry.employeeName}</td>
+                    <td className="px-4 py-2 border">{new Date(entry.punchIn).toLocaleString()}</td>
+                    <td className="px-4 py-2 border">{new Date(entry.punchOut).toLocaleString()}</td>
+                    <td className="px-4 py-2 border">
+                      {entry.productionHours} hours, {entry.productionMinutes} mins, {entry.productionSeconds} secs
+                    </td>
+                    <td className="px-4 py-2 border">
+                      {entry.breakHours} hours, {entry.breakMinutes} mins, {entry.breakSeconds} secs
+                    </td>
+                    <td className="px-4 py-2 border">
+                      {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
+                    </td>
+                    <td className="px-4 py-2 border">{entry.overtime} hours</td>
+                  </tr>
+                );
+              })
+            )}
+
           </tbody>
         </table>
       </div>

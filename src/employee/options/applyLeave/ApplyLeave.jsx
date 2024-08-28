@@ -2,35 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { FiPlusCircle, FiEdit, FiTrash2 } from "react-icons/fi";
 import { differenceInDays, parseISO } from "date-fns";
+import axios from "axios";
+import { API_BASE_URL } from "../../../Config/api";
+import { useSelector } from "react-redux";
 
 const initialLeaves = [
-  {
-    id: 1,
-    leaveType: "Earned Leave",
-    startdate: "2024-07-10",
-    enddate: "2024-07-15",
-    selecthalf: "AM",
-    reason: "Vacation",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    leaveType: "Sick Leave",
-    startdate: "2024-07-20",
-    enddate: "2024-07-22",
-    selecthalf: "PM",
-    reason: "Flu",
-    status: "Approved",
-  },
-  {
-    id: 3,
-    leaveType: "Casual Leave",
-    startdate: "2024-08-01",
-    enddate: "2024-08-02",
-    selecthalf: "AM",
-    reason: "Personal work",
-    status: "Rejected",
-  },
+  // Initial leaves data
 ];
 
 const initialLeaveCount = {
@@ -48,11 +25,13 @@ function ApplyLeave() {
 
   const [newLeave, setNewLeave] = useState({
     leaveType: "",
-    startdate: "",
-    enddate: "",
-    selecthalf: "",
+    startDate: "",
+    endDate: "",
+    selectHalf: "",
+    noOfDays: "",
     reason: "",
     status: "Pending",
+    employeeId: "",
   });
 
   const [editLeaveId, setEditLeaveId] = useState(null);
@@ -60,29 +39,32 @@ function ApplyLeave() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
     useState(false);
+  const auth = useSelector((state) => state.auth)
 
   useEffect(() => {
-    if (newLeave.startdate && newLeave.enddate) {
-      const fromDate = parseISO(newLeave.startdate);
-      const toDate = parseISO(newLeave.enddate);
+    if (newLeave.startDate && newLeave.endDate) {
+      const fromDate = parseISO(newLeave.startDate);
+      const toDate = parseISO(newLeave.endDate);
       const numOfDays = differenceInDays(toDate, fromDate) + 1; // +1 to include the end date
       setNewLeave((prevLeave) => ({
         ...prevLeave,
         noOfDays: `${numOfDays} Days`,
       }));
     }
-  }, [newLeave.startdate, newLeave.enddate]);
+  }, [newLeave.startDate, newLeave.endDate]);
 
   const closeModal = () => {
     setIsModalOpen(false);
     setEditLeaveId(null);
     setNewLeave({
       leaveType: "",
-      startdate: "",
-      enddate: "",
-      selecthalf: "",
+      startDate: "",
+      endDate: "",
+      selectHalf: "",
+      noOfDays: "",
       reason: "",
       status: "Pending",
+      employeeId: ""
     });
   };
 
@@ -119,39 +101,46 @@ function ApplyLeave() {
     });
   };
 
-  const handleAddLeave = () => {
-    if (editLeaveId) {
-      // Update existing leave
-      setLeaves((prevLeaves) =>
-        prevLeaves.map((leave) =>
-          leave.id === editLeaveId ? { ...leave, ...newLeave } : leave
-        )
-      );
-      // Update leave count for edit operation
-      updateLeaveCount(newLeave.leaveType, "edit");
-    } else {
-      // Add new leave
-      setLeaves((prevLeaves) => [
-        ...prevLeaves,
-        {
-          id: Date.now(),
-          leaveType: newLeave.leaveType,
-          startdate: newLeave.startdate,
-          enddate: newLeave.enddate,
-          selecthalf: newLeave.selecthalf,
-          reason: newLeave.reason,
-          status: newLeave.status,
-        },
-      ]);
-      // Update leave count for add operation
-      updateLeaveCount(newLeave.leaveType, "add");
-    }
+  const handleAddLeave = async () => {
+    const fromDate = parseISO(newLeave.startDate);
+    const toDate = parseISO(newLeave.endDate);
+    const numOfDays = differenceInDays(toDate, fromDate) + 1;
+    const employeeId = auth.employee.employeeId
+    console.log(employeeId)
 
-    // Close the modal and reset form
-    closeModal();
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
+    const updatedLeave = {
+      ...newLeave,
+      noOfDays: `${numOfDays} Days`,
+      selectHalf: newLeave.selectHalf,
+      employeeId: employeeId,
+    };
+
+    try {
+      const response = await axios.post(`${API_BASE_URL}/leave/create`, updatedLeave);
+      const createdLeave = response.data;
+
+      if (editLeaveId) {
+        setLeaves((prevLeaves) =>
+          prevLeaves.map((leave) =>
+            leave.id === editLeaveId ? createdLeave : leave
+          )
+        );
+        updateLeaveCount(newLeave.leaveType, "edit");
+      } else {
+        setLeaves((prevLeaves) => [...prevLeaves, createdLeave]);
+        updateLeaveCount(newLeave.leaveType, "add");
+      }
+
+      closeModal();
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
+    } catch (error) {
+      console.error("Error creating leave:", error);
+      // Handle error (e.g., show error message to the user)
+    }
   };
+
+
 
   const settingStatus = (status) => {
     const statusClasses = {
@@ -168,8 +157,9 @@ function ApplyLeave() {
     setNewLeave({
       leaveType: leaveToEdit.leaveType,
       startdate: leaveToEdit.startdate,
-      enddate: leaveToEdit.enddate,
-      selecthalf: leaveToEdit.selecthalf,
+      enddate: leaveToEdit.endDate,
+      selecthalf: leaveToEdit.selectHalf,
+      noOfDays: leaveToEdit.noOfDays,
       reason: leaveToEdit.reason,
       status: leaveToEdit.status,
     });
@@ -195,7 +185,19 @@ function ApplyLeave() {
       <h2 className="text-xl font-bold">Employee</h2>
       <h3 className="text-lg font-semibold mb-2">Dashboard/Leaves</h3>
 
+      {/* Apply Leave Button */}
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center"
+        >
+          <FiPlusCircle className="mr-2" />
+          Apply Leave
+        </button>
+      </div>
+
       <div className="flex flex-wrap justify-around text-white gap-4 pt-10">
+        {/* Leave counts */}
         {["Earned Leave", "Sick Leave", "Casual Leave"].map((type, i) => (
           <div
             key={i}
@@ -249,6 +251,7 @@ function ApplyLeave() {
                 <th className="p-2">Leave Type</th>
                 <th className="p-2">Start Date</th>
                 <th className="p-2">End Date</th>
+                <th className="p-2">No.of Days</th>
                 <th className="p-2">Half-Day</th>
                 <th className="p-2">Reason</th>
                 <th className="p-2">Status</th>
@@ -256,64 +259,54 @@ function ApplyLeave() {
               </tr>
             </thead>
             <tbody>
-              {leaves.map((leave) => (
-                <tr key={leave.id} className="text-center">
-                  <td className="p-2">{leave.leaveType}</td>
-                  <td className="p-2">{leave.startdate}</td>
-                  <td className="p-2">{leave.enddate}</td>
-                  <td className="p-2">{leave.selecthalf}</td>
-                  <td className="p-2">{leave.reason}</td>
-                  <td className="p-2">{settingStatus(leave.status)}</td>
-                  <td className="p-2 flex justify-center space-x-2">
-                    <button
-                      className="text-blue-500"
-                      onClick={() => openEditModal(leave.id)}
-                    >
-                      <FiEdit />
-                    </button>
-                    <button
-                      className="text-red-500"
-                      onClick={() => openDeleteModal(leave.id)}
-                    >
-                      <FiTrash2 />
-                    </button>
+              {leaves.map((leave, index) => (
+                <tr key={index}>
+                  <td className="border p-2">{leave.leaveType}</td>
+                  <td className="border p-2">{leave.startDate}</td>
+                  <td className="border p-2">{leave.endDate}</td>
+                  <td className="border p-2">{leave.noOfDays}</td>
+                  <td className="border p-2">{leave.selectHalf}</td>
+                  <td className="border p-2">{leave.reason}</td>
+                  <td className="border p-2">{settingStatus(leave.status)}</td>
+                  <td className="border p-2">
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => openEditModal(leave.id)}
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        <FiEdit />
+                      </button>
+                      <button
+                        onClick={() => openDeleteModal(leave.id)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        {/* Success Message for Add/Edit */}
-        {showSuccessMessage && (
-          <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">
-            Leave has been successfully {editLeaveId ? "updated" : "added"}!
-          </div>
-        )}
-
-        {/* Success Message for Delete */}
-        {showDeleteSuccessMessage && (
-          <div className="mt-4 p-4 bg-red-100 text-red-700 rounded">
-            Leave has been successfully deleted!
-          </div>
-        )}
       </div>
 
-      {/* Modal for Adding/Editing Leave */}
+      {/* Add/Edit Leave Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded shadow-lg max-w-md w-full">
-            <h3 className="text-lg font-semibold mb-4">
-              {editLeaveId ? "Edit Leave" : "Apply for Leave"}
-            </h3>
-            <form>
-              <div className="mb-4">
-                <label className="block mb-2 font-semibold">Leave Type</label>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg">
+            <h2 className="text-lg font-semibold mb-4">
+              {editLeaveId ? "Edit Leave" : "Add New Leave"}
+            </h2>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block font-medium mb-2">Leave Type</label>
                 <select
                   name="leaveType"
                   value={newLeave.leaveType}
                   onChange={handleInputChange}
-                  className="w-full border px-4 py-2 rounded"
+                  className="border border-gray-300 p-2 rounded w-full"
                 >
                   <option value="">Select Leave Type</option>
                   <option value="Earned Leave">Earned Leave</option>
@@ -321,93 +314,107 @@ function ApplyLeave() {
                   <option value="Casual Leave">Casual Leave</option>
                 </select>
               </div>
-              <div className="mb-4">
-                <label className="block mb-2 font-semibold">Start Date</label>
+
+              <div>
+                <label className="block font-medium mb-2">Start Date</label>
                 <input
                   type="date"
-                  name="startdate"
-                  value={newLeave.startdate}
+                  name="startDate"
+                  value={newLeave.startDate}
                   onChange={handleInputChange}
-                  className="w-full border px-4 py-2 rounded"
+                  className="border border-gray-300 p-2 rounded w-full"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block mb-2 font-semibold">End Date</label>
+
+              <div>
+                <label className="block font-medium mb-2">End Date</label>
                 <input
                   type="date"
-                  name="enddate"
-                  value={newLeave.enddate}
+                  name="endDate"
+                  value={newLeave.endDate}
                   onChange={handleInputChange}
-                  className="w-full border px-4 py-2 rounded"
+                  className="border border-gray-300 p-2 rounded w-full"
                 />
               </div>
-              <div className="mb-4">
-                <label className="block mb-2 font-semibold">Half-Day</label>
+
+              <div>
+                <label className="block font-medium mb-2">Select Half</label>
                 <select
-                  name="selecthalf"
-                  value={newLeave.selecthalf}
+                  name="selectHalf"
+                  value={newLeave.selectHalf}
                   onChange={handleInputChange}
-                  className="w-full border px-4 py-2 rounded"
+                  className="border border-gray-300 p-2 rounded w-full"
                 >
-                  <option value="">Select Half-Day</option>
-                  <option value="AM">AM</option>
-                  <option value="PM">PM</option>
+                  <option value="">Select Half</option>
+                  <option value="First Half">First Half</option>
+                  <option value="Second Half">Second Half</option>
                 </select>
               </div>
-              <div className="mb-4">
-                <label className="block mb-2 font-semibold">Reason</label>
+
+              <div>
+                <label className="block font-medium mb-2">Reason</label>
                 <textarea
                   name="reason"
                   value={newLeave.reason}
                   onChange={handleInputChange}
-                  className="w-full border px-4 py-2 rounded"
-                  rows="3"
-                ></textarea>
+                  className="border border-gray-300 p-2 rounded w-full"
+                />
               </div>
-              <div className="flex justify-end space-x-4">
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="px-4 py-2 bg-gray-200 rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={handleAddLeave}
-                  className="px-4 py-2 bg-blue-500 text-white rounded"
-                >
-                  {editLeaveId ? "Update Leave" : "Apply Leave"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+            </div>
 
-      {/* Modal for Deleting Leave */}
-      {isDeleteModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded shadow-lg max-w-md w-full">
-            <h3 className="text-lg font-semibold mb-4">Delete Leave</h3>
-            <p>Are you sure you want to delete this leave?</p>
-            <div className="flex justify-end space-x-4 mt-4">
+            <div className="flex justify-end mt-6">
               <button
-                type="button"
-                onClick={closeDeleteModal}
-                className="px-4 py-2 bg-gray-200 rounded"
+                onClick={closeModal}
+                className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2"
               >
                 Cancel
               </button>
               <button
-                type="button"
-                onClick={handleDeleteLeave}
-                className="px-4 py-2 bg-red-500 text-white rounded"
+                onClick={handleAddLeave}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
               >
-                Delete Leave
+                {editLeaveId ? "Update" : "Apply"}
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg">
+            <h2 className="text-lg font-semibold mb-4">Delete Leave</h2>
+            <p>Are you sure you want to delete this leave?</p>
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={closeDeleteModal}
+                className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteLeave}
+                className="bg-red-500 text-white px-4 py-2 rounded-md"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success message */}
+      {showSuccessMessage && (
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded">
+          {editLeaveId ? "Leave updated successfully!" : "Leave added successfully!"}
+        </div>
+      )}
+
+      {/* Delete Success message */}
+      {showDeleteSuccessMessage && (
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded">
+          Leave deleted successfully!
         </div>
       )}
     </div>
