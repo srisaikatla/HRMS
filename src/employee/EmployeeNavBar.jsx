@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect, useMemo } from "react";
 import { ImProfile } from "react-icons/im";
 import { FaEnvelope, FaBars, FaSignOutAlt } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 import { FaCalendarAlt, FaCalendarCheck } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { logout } from "../State/Auth/Action";
+import { useNavigate } from "react-router-dom";
 
 function EmployeeNavBar({ onIconClick, options }) {
   const [hoveredIcon, setHoveredIcon] = useState("");
@@ -10,7 +14,9 @@ function EmployeeNavBar({ onIconClick, options }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
-
+  const jwt = localStorage.getItem("employeeJwt")
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const flattenedOptions = useMemo(() => {
     return options.flatMap((option) => {
       if (option.subOptions) {
@@ -69,6 +75,12 @@ function EmployeeNavBar({ onIconClick, options }) {
     setSearchQuery("");
     setFilteredOptions([]);
   };
+  const handleLogout = () => {
+    dispatch(logout(jwt));
+    localStorage.removeItem("employeeJwt");
+    localStorage.removeItem("employee")
+    navigate("/option");
+  };
 
   return (
     <>
@@ -94,9 +106,8 @@ function EmployeeNavBar({ onIconClick, options }) {
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b] ${
-                      option.isSubOption ? "" : "" // Indent subOptions
-                    }`}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b] ${option.isSubOption ? "" : "" // Indent subOptions
+                      }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.name : option.title}
@@ -185,7 +196,7 @@ function EmployeeNavBar({ onIconClick, options }) {
 
               <div
                 onClick={() => {
-                  onIconClick("Logout");
+                  handleLogout();
                   setDropdownOpen(false);
                 }}
                 className="py-1 border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out px-2"
@@ -193,6 +204,7 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <FaSignOutAlt
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
+
                 />
                 <p className="pl-2 text-[#e65f2b]">Logout</p>
               </div>
@@ -282,7 +294,7 @@ function EmployeeNavBar({ onIconClick, options }) {
               style={iconStyle("logout")}
               onMouseEnter={() => handleMouseEnter("logout", "Logout")}
               onMouseLeave={handleMouseLeave}
-              onClick={() => onIconClick("Logout")}
+              onClick={handleLogout}
             />
             {hoveredIcon === "logout" && (
               <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
