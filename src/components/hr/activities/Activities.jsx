@@ -37,9 +37,9 @@ const Activities = () => {
   ];
 
   return (
-    <div className="p-6 w-full sm:w-fit">
+    <div className="p-4 mt-4 w-full sm:w-fit">
       <h2 className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
-        Hr/Activities
+        Hr / Activities
       </h2>
       <div className="relative">
         <div className="absolute left-5 top-1 h-full border-l-2 border-zinc-300"></div>

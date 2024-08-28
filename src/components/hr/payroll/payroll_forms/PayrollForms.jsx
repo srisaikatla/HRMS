@@ -186,13 +186,13 @@ function PayrollForms() {
 
   return (
     <>
-      <div className="main pt-2 h-auto pb-4">
+      <div className="main p-4 mt-4 h-screen">
         <div
           id="submain1"
-          className="flex mx-4 flex-row justify-between items-center"
+          className="flex  flex-row justify-between items-center"
         >
           <div>
-            <span className="text-[#E65F2B] text-xl font-bold mb-4">
+            <span className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
               Payroll / Payroll Forms
             </span>
           </div>
@@ -202,21 +202,6 @@ function PayrollForms() {
           <span className="pl-10 text-lg">Forms</span>
           <hr className="bg-[#0098f1] h-[2px] border-none my-3" />
 
-          {/* <div className="flex justify-center items-center h-auto pt-10">
-            <label className="block text-lg font-medium mb-2">Tax Form:</label>
-            <select
-              className="lg:px-20 py-4 ml-2 bg-transparent border-2 border-[#0098f1] outline-none"
-              value={selectedForm}
-              onChange={handleFormChange}
-            >
-              <option value="">Select a form</option>
-              <option value="Form 16">Form 16</option>
-              <option value="Form 16A">Form 16A</option>
-              <option value="Form 10E">Form 10E</option>
-              <option value="Form 12B">Form 12B</option>
-              <option value="Form 26AS">Form 26AS</option>
-            </select>
-          </div> */}
           <div className="flex text-sm lg:text-lg flex-col lg:flex-row justify-center items-center h-auto pt-10">
             <label className="block text-lg font-medium mb-2 lg:mb-0 lg:mr-4">
               Tax Form:
@@ -278,7 +263,7 @@ function PayrollForms() {
 
             <div
               id="table"
-              className="overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-blue-600 pt-4 mx-4"
+              className="overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4"
             >
               <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
                 <thead>

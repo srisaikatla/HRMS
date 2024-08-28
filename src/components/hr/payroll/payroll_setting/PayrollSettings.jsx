@@ -35,25 +35,27 @@ const PayrollSettings = () => {
     }
   };
 
-  const handleBack = () =>{
-    setSelectedBatch(null)
+  const handleBack = () => {
+    setSelectedBatch(null);
     setInBatchDetails(false); // Ensure we are back to the PayrollBatches view
-  }
+  };
 
-  const handleSelectChange = (e) =>{
+  const handleSelectChange = (e) => {
     const selectedTab = parseInt(e.target.value, 10);
-    handleTabClick(selectedTab)
-  }
+    handleTabClick(selectedTab);
+  };
 
   return (
-    <div className="md:px-4 py-2 mr-2">
-   
-      <p className="text-[#E65F2B] md:text-xl font-bold mb-2 md:mb-4">
+    <div className="p-4 mt-4 h-screen">
+      <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-2 md:mb-4">
         <span>Payroll</span> / <span>Payroll Settings</span>
       </p>
 
       <div className="">
-        <select className="lg:hidden w-full text-xs outline-none rounded-md p-1 font-semibold" onChange={handleSelectChange}>
+        <select
+          className="lg:hidden w-full text-xs outline-none rounded-md p-1 font-semibold"
+          onChange={handleSelectChange}
+        >
           <option value="1">Payroll Batches</option>
           <option value="2">Allowances</option>
           <option value="3">Deduction</option>

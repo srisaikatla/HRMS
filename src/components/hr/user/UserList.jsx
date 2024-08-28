@@ -242,8 +242,8 @@ const UserList = () => {
         </button>
       </div>
 
-      <div className="overflow-x-scroll ">
-        <table className=" min-w-full w-screen overflow-x-scroll text-nowrap">
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr className="text-left">
               <th className="text-lg py-2 px-4 "></th>
@@ -298,8 +298,8 @@ const UserList = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-8 w-full max-w-xl max-h-[600px] overflow-y-auto">
+        <div className="fixed inset-0  z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-8  w-full max-w-xl  h-[500px] overflow-y-auto">
             <h2 className="text-2xl mb-4 text-[#E65F2B] font-roboto">
               {editUserId ? "Edit User" : "Add List"}
             </h2>

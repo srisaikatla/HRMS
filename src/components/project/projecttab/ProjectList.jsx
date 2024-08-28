@@ -147,20 +147,22 @@ const ProjectList = () => {
   };
 
   return (
-    <div id="main" className=" h-screen mx-12 pt-10  overflow-x-hidden">
-      <h2 className="text-[#e65f2b] font-bold text-xl mb-2">Project List</h2>
-      <div id="table" className="max-h-[70vh] overflow-y-auto">
-        <table className="min-w-[1100px]">
+    <div id="main" className=" h-screen mt-4 p-4 w-auto overflow-x-hidden">
+      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-2">
+        Projects / Project List
+      </h2>
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="bg-[#0098F1]">
             <tr className="text-[#FFFFFF]">
-              <th className="p-2 text-center">Project</th>
-              <th className="p-2 text-center">Created</th>
-              <th className="p-2 text-center">Deadline</th>
-              <th className="p-2 text-center">Progress</th>
-              <th className="p-2 text-center">Lead</th>
-              <th className="p-2 text-center">Team</th>
-              <th className="p-2 text-center">Status</th>
-              <th className="p-2 text-center">Action</th>
+              <th className="p-2 ">Project</th>
+              <th className="p-2 ">Created</th>
+              <th className="p-2 ">Deadline</th>
+              <th className="p-2 ">Progress</th>
+              <th className="p-2 ">Lead</th>
+              <th className="p-2 px-20">Team</th>
+              <th className="p-2 ">Status</th>
+              <th className="p-2 ">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -172,7 +174,7 @@ const ProjectList = () => {
               return (
                 <tr
                   key={index}
-                  className="text-center text-[#0098F1] font-medium text-[15px] w-full border-[1px] border-[#0098F1] border-opacity-25"
+                  className=" text-[#0098F1] font-medium text-[15px] w-full border-[1px] border-[#0098F1] border-opacity-25"
                 >
                   <td className="px-2">{item.project}</td>
                   <td className="px-2 border-x-[1px] border-[#0098F1]">
@@ -197,9 +199,13 @@ const ProjectList = () => {
                     </div>
                   </td>
                   <td className="px-2 border-x-[1px] border-[#0098F1] flex-row justify-center items-center">
-                    <img src={item.Lead} alt="Type" className="mx-auto" />
+                    <img
+                      src={item.Lead}
+                      alt="Type"
+                      className="w-10 h-10 mx-auto"
+                    />
                   </td>
-                  <td className="px-2 flex justify-start items-start space-x-1 w-full flex-wrap">
+                  <td className="px-4 flex justify-center items-center space-x-1 w-full ">
                     {Array.from({ length: item.TeamMembers }).map(
                       (_, memberIndex) => (
                         <img

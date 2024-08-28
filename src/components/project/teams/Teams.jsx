@@ -86,13 +86,15 @@ const Teams = () => {
   const teamsToDisplay = searchQuery.length > 0 ? filteredTeams : Teamsdata;
 
   return (
-    <div className="p-5">
-      <h1 className="text-[#e65f2b] font-bold text-xl mb-3">Teams</h1>
+    <div className="p-4 mt-4">
+      <h1 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-3">
+        Teams
+      </h1>
 
       <div className="w-full mb-5">
         <input
           type="search"
-          className="w-full h-14 bg-transparent border-2 border-blue-500 rounded-lg outline-none px-3 py-2 placeholder-[#0098F1]"
+          className="w-full  bg-transparent border-2 border-blue-500 rounded-lg outline-none px-3 py-2 placeholder-[#0098F1]"
           style={{
             borderColor: "#0098F1",
             color: "black",

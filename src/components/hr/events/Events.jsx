@@ -261,9 +261,9 @@ const Events = () => {
   };
 
   return (
-    <div className="p-4 sm:p-5 md:p-6 lg:p-8 ">
+    <div className="p-4 mt-4 ">
       <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold mb-4">
-        Hr/Events
+        Hr / Events
       </h2>
       <div className="flex justify-end mb-4 mt-4">
         <button

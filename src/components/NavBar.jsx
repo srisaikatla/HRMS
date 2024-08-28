@@ -110,11 +110,11 @@ function NavBar({ onIconClick, options, projectOptions }) {
             />
 
             {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg z-10">
+              <div className="absolute top-[42px] rounded-lg overflow-y-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] h-32 left-0 bg-white w-full shadow-lg z-10">
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#0098f1] ${
+                    className={`py-2 px-4 hover:bg-[#0098f1] hover:bg-opacity-10 cursor-pointer text-[#0098f1] ${
                       option.isSubOption ? "" : ""
                     }`}
                     onClick={() => handleSuggestionClick(option)}

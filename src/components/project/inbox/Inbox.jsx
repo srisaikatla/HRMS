@@ -21,9 +21,12 @@ const Inbox = () => {
   };
 
   return (
-    <div className="w-auto h-auto ">
-      <h1 className="text-[#E65F2B] text-xl font-bold px-2">Inbox</h1>
-      <div className="gap-2 px-2  justify-center items-center flex">
+    <div className="w-auto p-4 mt-4  h-auto ">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold px-2">
+        Inbox
+      </h1>
+
+      <div className="gap-2 px-2  flex-row">
         <InboxSidebar onItemClick={handleItemClick} />
         {activePage === "Compose" && <Compose />}
         {activePage === "Inbox" && <InboxPage />}

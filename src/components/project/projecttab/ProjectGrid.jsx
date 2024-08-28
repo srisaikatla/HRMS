@@ -50,9 +50,11 @@ const projects = [
 
 const ProjectGrid = () => {
   return (
-    <div className="p-4">
-      <h2 className="text-[#e65f2b] font-bold text-xl mb-2">Project Grid</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="p-4 mt-4 h-screen">
+      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-2">
+        Projects / Project Grid
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {projects.map((project, index) => (
           <div key={index} className="bg-white p-4 rounded-lg shadow-md">
             <div className="flex justify-center">

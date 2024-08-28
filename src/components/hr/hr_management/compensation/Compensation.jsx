@@ -230,10 +230,10 @@ const Compensation = () => {
 
   return (
     <>
-      <div id="main" className="h-auto pb-10 ">
-        <div className="ml-5 mb-4 pt-2">
-          <p className="text-[#E65F2B] lg:text-xl text-sm font-bold mb-4">
-            HR Management / Employees / Compensation
+      <div id="main" className="h-auto p-4 mt-4 ">
+        <div className=" mb-4 ">
+          <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+            Hr Management / Employee / Compensation
           </p>
         </div>
 
