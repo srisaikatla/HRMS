@@ -109,7 +109,7 @@ const Teams = () => {
         {teamsToDisplay.map((team) => (
           <div
             key={team.id}
-            className="flex flex-col rounded-lg bg-blue p-4 shadow-lg transition-transform transform hover:scale-105"
+            className="flex flex-col bg-white rounded-lg bg-blue p-4 shadow-lg transition-transform transform hover:scale-105"
           >
             <div className="text-center">
               <h1 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-[#0098F1]">
