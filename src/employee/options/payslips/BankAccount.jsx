@@ -195,39 +195,39 @@ const BankAccount = () => {
   };
 
   return (
-    <div className="md:px-4 py-2">
-      <h1 className="font-bold text-xl">Employee</h1>
-      <p className="font-semibold my-1">
+    <div className="md:px-4 py-2 min-h-screen">
+      <h1 className="font-bold text-xl text-[#2A546D]">Employee</h1>
+      <p className="font-semibold my-1 text-[#2A546D]">
         <span>Dashboard</span> / <span>Bank account details</span>
       </p>
 
       <div className="bg-white my-5">
         <div className="p-2 md:p-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-[#E65F2B] font-semibold text-sm md:text-xl">
+            <h1 className="text-[#2A546D] font-semibold text-sm md:text-xl">
               SALARY ACCOUNT DETAILS
             </h1>
             <button className="md:text-2xl" onClick={() => setShowEdit(!showEdit)}>
-              {!showEdit && <FiEdit className=" md:mr-5 text-[#E65F2B]" />}
+              {!showEdit && <FiEdit className=" md:mr-5 text-[#2A546D]" />}
             </button>
           </div>
           <div className="md:pl-2 my-4">
             <div className="flex flex-col gap-y-1 md:flex-row md:gap-6 my-3">
-              <p className="text-[#E65F2B]">Account Holder's Name : </p>
-              <strong>K. Navaneetha</strong>
+              <p className="text-[#2A546D]">Account Holder's Name : </p>
+              <strong className="text-[#2A546D]">K. Navaneetha</strong>
             </div>
 
             <form onSubmit={handleSave}>
               <div className="grid md:grid-cols-2 md:gap-x-8 gap-y-4 md:mr-5">
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="flex justify-between">
-                    <label className="text-[#E65F2B]">Bank Name</label>
+                    <label className="text-[#2A546D]">Bank Name</label>
                     <button
                       type="button"
                       onClick={() => handleEditClick(bankNameRef)}
                     >
                       {showEdit && (
-                        <FiEdit className="md:text-lg  text-[#E65F2B]" />
+                        <FiEdit className="md:text-lg  text-[#2A546D]" />
                       )}
                     </button>
                   </div>
@@ -238,18 +238,18 @@ const BankAccount = () => {
                     value={formData.bankName}
                     disabled={!showEdit}
                     ref={bankNameRef}
-                    className="border border-[#E65F2B] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="flex justify-between">
-                    <label className="text-[#E65F2B]">Account Number</label>
+                    <label className="text-[#2A546D]">Account Number</label>
                     <button
                       type="button"
                       onClick={() => handleEditClick(accountNumberRef)}
                     >
                       {showEdit && (
-                        <FiEdit className="md:text-lg  text-[#E65F2B]" />
+                        <FiEdit className="md:text-lg  text-[#2A546D]" />
                       )}
                     </button>
                   </div>
@@ -260,18 +260,18 @@ const BankAccount = () => {
                     value={formData.accountNumber}
                     disabled={!showEdit}
                     ref={accountNumberRef}
-                    className="border border-[#E65F2B] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="flex justify-between">
-                    <label className="text-[#E65F2B]">Branch Name</label>
+                    <label className="text-[#2A546D]">Branch Name</label>
                     <button
                       type="button"
                       onClick={() => handleEditClick(branchNameRef)}
                     >
                       {showEdit && (
-                        <FiEdit className="md:text-lg  text-[#E65F2B]" />
+                        <FiEdit className="md:text-lg  text-[#2A546D]" />
                       )}
                     </button>
                   </div>
@@ -282,18 +282,18 @@ const BankAccount = () => {
                     value={formData.branchName}
                     disabled={!showEdit}
                     ref={branchNameRef}
-                    className="border border-[#E65F2B] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="flex justify-between">
-                    <label className="text-[#E65F2B]">City</label>
+                    <label className="text-[#2A546D]">City</label>
                     <button
                       type="button"
                       onClick={() => handleEditClick(cityRef)}
                     >
                       {showEdit && (
-                        <FiEdit className="md:text-lg  text-[#E65F2B]" />
+                        <FiEdit className="md:text-lg  text-[#2A546D]" />
                       )}
                     </button>
                   </div>
@@ -304,18 +304,18 @@ const BankAccount = () => {
                     value={formData.city}
                     ref={cityRef}
                     disabled={!showEdit}
-                    className="border border-[#E65F2B] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
                   <div className="flex justify-between">
-                    <label className="text-[#E65F2B]">IFSC Code</label>
+                    <label className="text-[#2A546D]">IFSC Code</label>
                     <button
                       type="button"
                       onClick={() => handleEditClick(ifscCodeRef)}
                     >
                       {showEdit && (
-                        <FiEdit className="md:text-lg  text-[#E65F2B]" />
+                        <FiEdit className="md:text-lg  text-[#2A546D]" />
                       )}
                     </button>
                   </div>
@@ -326,7 +326,7 @@ const BankAccount = () => {
                     value={formData.ifscCode}
                     ref={ifscCodeRef}
                     disabled={!showEdit}
-                    className="border border-[#E65F2B] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
               </div>
@@ -334,14 +334,14 @@ const BankAccount = () => {
                 <div className=" mt-8 flex gap-5 justify-center">
                   <button
                     type="submit"
-                    className="bg-[#E65F2B] w-20 h-8 md:w-32 rounded-lg text-white font-semibold"
+                    className="bg-[#2A546D] w-20 h-8 md:w-32 rounded-lg text-white font-semibold"
                   >
                     Save
                   </button>
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="bg-white border w-20 h-8 md:w-32 border-[#E65F2B] rounded-lg text-[#E65F2B] font-semibold"
+                    className="bg-white border w-20 h-8 md:w-32 border-[#2A546D] rounded-lg text-[#2A546D] font-semibold"
                   >
                     Cancel
                   </button>

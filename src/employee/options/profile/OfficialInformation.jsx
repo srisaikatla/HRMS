@@ -14,22 +14,25 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-4 w-full">
-                <h2 className="text-lg font-bold text-[#E65F2B] mb-4">Edit Official Information</h2>
+                <h2 className="text-lg font-bold text-[#2A546D] mb-4">Edit Official Information</h2>
                 <form>
                     <div className="mb-4">
-                        <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#E65F2B] mb-2">
-                            Date of Joining
-                        </label>
-                        <input
-                            id="dateOfJoining"
-                            type="date"
-                            value={dateOfJoining}
-                            onChange={handleChange}
-                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
-                        />
+                    <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
+    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#2A546D] mb-2">
+        Date of Joining
+    </label>
+    <input
+        id="dateOfJoining"
+        type="date"
+        value={dateOfJoining}
+        onChange={handleChange}
+        className="block w-full border border-[#2A546D] rounded-lg h-10 text-lg px-3 sm:h-9 sm:text-base sm:px-2"
+    />
+</div>
+
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="panNo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                        <label htmlFor="panNo" className="block text-lg font-medium text-[#2A546D] mb-2">
                             PAN No.
                         </label>
                         <input
@@ -37,11 +40,11 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                             type="text"
                             value={panNo}
                             onChange={handleChange}
-                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                            className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="designation" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                        <label htmlFor="designation" className="block text-lg font-medium text-[#2A546D] mb-2">
                             Designation
                         </label>
                         <input
@@ -54,19 +57,19 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                                     document.getElementById('department').focus();
                                 }
                             }}
-                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                            className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                         />
                     </div>
                     {isDepartmentVisible && (
                         <div className="mb-4">
-                            <label htmlFor="department" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                            <label htmlFor="department" className="block text-lg font-medium text-[#2A546D] mb-2">
                                 Department
                             </label>
                             <select
                                 id="department"
                                 value={department}
                                 onChange={handleChange}
-                                className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                                className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                             >
                                 <option value="">Select Department</option>
                                 <option value="IT">IT</option>
@@ -86,7 +89,7 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                     )}
                     {isDepartmentVisible && isReportingToVisible && (
                         <div className="mb-4">
-                            <label htmlFor="reportingTo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                            <label htmlFor="reportingTo" className="block text-lg font-medium text-[#2A546D] mb-2">
                                 Reporting To
                             </label>
                             <input
@@ -94,7 +97,7 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                                 type="text"
                                 value={reportingTo}
                                 onChange={handleChange}
-                                className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                                className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                             />
                         </div>
                     )}
@@ -102,7 +105,7 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                         <button
                             type="button"
                             onClick={onSave}
-                            className="bg-[#E65F2B] text-white px-4 py-2 rounded-lg mr-2"
+                            className="bg-[#2A546D] text-white px-4 py-2 rounded-lg mr-2"
                         >
                             Save
                         </button>
@@ -152,31 +155,32 @@ const OfficialInformation = () => {
     };
 
     return (
-        <div className="bg-white ml-10 mr-10 p-6">
+        <div className="bg-white p-6 ml-0 mr-0 md:ml-10 md:mr-10">
             <div className="flex justify-between items-center py-2 m-2">
-                <h1 className="text-lg text-[#E65F2B]">OFFICIAL INFO</h1>
+                <h1 className="text-lg text-[#2A546D]">OFFICIAL INFO</h1>
                 <FiEdit
-                    className="text-xl text-[#E65F2B] cursor-pointer"
+                    className="text-xl text-[#2A546D] cursor-pointer"
                     onClick={openModal}
                 />
             </div>
-            <hr className="border-t-2 border-[#E65F2B] mb-4" />
+            <hr className="border-t-2 border-[#2A546D] mb-4" />
 
             <div className="flex flex-col items-center space-y-4">
-                <div className="w-[50%]">
-                    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#E65F2B] mb-2">
-                        Date of Joining
-                    </label>
-                    <input
-                        id="dateOfJoining"
-                        type="date"
-                        value={officialInfo.dateOfJoining}
-                        onChange={handleChange}
-                        className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
-                    />
-                </div>
-                <div className="w-[50%]">
-                    <label htmlFor="panNo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+            <div className="w-full lg:w-1/2">
+    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#2A546D] mb-2">
+        Date of Joining
+    </label>
+    <input
+        id="dateOfJoining"
+        type="date"
+        value={officialInfo.dateOfJoining}
+        onChange={handleChange}
+        className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+    />
+</div>
+
+<div className="w-full lg:w-1/2">
+                    <label htmlFor="panNo" className="block text-lg font-medium text-[#2A546D] mb-2">
                         PAN No.
                     </label>
                     <input
@@ -184,11 +188,11 @@ const OfficialInformation = () => {
                         type="text"
                         value={officialInfo.panNo}
                         onChange={handleChange}
-                        className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                        className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                     />
                 </div>
-                <div className="w-[50%]">
-                    <label htmlFor="designation" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                <div className="w-full lg:w-1/2">
+                    <label htmlFor="designation" className="block text-lg font-medium text-[#2A546D] mb-2">
                         Designation
                     </label>
                     <input
@@ -201,19 +205,19 @@ const OfficialInformation = () => {
                                 document.getElementById('department').focus();
                             }
                         }}
-                        className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                        className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                     />
                 </div>
                 {officialInfo.designation && (
-                    <div className="w-[50%]">
-                        <label htmlFor="department" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                      <div className="w-full lg:w-1/2">
+                        <label htmlFor="department" className="block text-lg font-medium text-[#2A546D] mb-2">
                             Department
                         </label>
                         <select
                             id="department"
                             value={officialInfo.department}
                             onChange={handleChange}
-                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                            className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                         >
                             <option value="">Select Department</option>
                             <option value="IT">IT</option>
@@ -232,8 +236,8 @@ const OfficialInformation = () => {
                     </div>
                 )}
                 {officialInfo.designation && officialInfo.department && (
-                    <div className="w-[50%]">
-                        <label htmlFor="reportingTo" className="block text-lg font-medium text-[#E65F2B] mb-2">
+                      <div className="w-full lg:w-1/2">
+                        <label htmlFor="reportingTo" className="block text-lg font-medium text-[#2A546D] mb-2">
                             Reporting To
                         </label>
                         <input
@@ -241,7 +245,7 @@ const OfficialInformation = () => {
                             type="text"
                             value={officialInfo.reportingTo}
                             onChange={handleChange}
-                            className="block w-full border border-[#E65F2B] rounded-lg h-[40px] text-lg px-3"
+                            className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                         />
                     </div>
                 )}

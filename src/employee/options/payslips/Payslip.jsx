@@ -83,17 +83,17 @@ function Payslip() {
               >
                 <div className="flex justify-center items-center gap-x-5">
                   <div className="h-60">
-                    <label className="inline-block text-[16px] text-[#ef5f2b] font-medium mb-2">
+                    <label className="inline-block text-[16px] text-[#2A546D] font-medium mb-2">
                       YEAR
                     </label>
                     <select
-                      className="px-20 text-[#ef5f2b] text-lg py-4 ml-2 bg-transparent border-2 border-[#ef5f2b] outline-none"
+                      className="px-20 text-[#2A546D] text-lg py-4 ml-2 bg-transparent border-2 border-[#2A546D] outline-none"
                       onChange={(e) => setPayslipYear(e.target.value)}
                     >
                       {years.map((year) => (
                         <option
                           key={year}
-                          className="hover:bg-[#ef5f2b] text-[14px]"
+                          className="hover:bg-[#2A546D] text-[14px]"
                           value={year}
                         >
                           {year}
@@ -102,17 +102,17 @@ function Payslip() {
                     </select>
                   </div>
                   <div className="h-60">
-                    <label className="inline-block text-[#ef5f2b] text-[16px] font-medium mb-2">
+                    <label className="inline-block text-[#2A546D] text-[16px] font-medium mb-2">
                       MONTH
                     </label>
                     <select
-                      className="px-20 text-lg py-4 text-[#ef5f2b] ml-2 bg-transparent border-2 border-[#ef5f2b] outline-none"
+                      className="px-20 text-lg py-4 text-[#2A546D] ml-2 bg-transparent border-2 border-[#2A546D] outline-none"
                       onChange={(e) => setPayslipMonth(e.target.value)}
                     >
                       {months.map((month) => (
                         <option
                           key={month}
-                          className="hover:bg-[#ef5f2b] text-[14px]"
+                          className="hover:bg-[#2A546D] text-[14px]"
                           value={month}
                         >
                           {month}
@@ -124,7 +124,7 @@ function Payslip() {
                 <div className="flex justify-center items-center pt-10 text-lg absolute">
                   <button
                     type="button"
-                    className="px-10 py-4 bg-[#ef5f2b] text-white font-medium rounded"
+                    className="px-10 py-4 bg-[#2A546D] text-white font-medium rounded"
                     onClick={handleDownload}
                   >
                     Generate

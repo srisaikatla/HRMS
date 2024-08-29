@@ -114,19 +114,22 @@ const Education = () => {
     return (
         <div className='bg-white p-6 h-[500px] flex flex-col'>
             <div className="flex justify-between items-center py-2">
-                <h1 className="text-xl text-[#E65F2B]">EDUCATION INFO</h1>
-                <button
-                    className="flex items-center text-2xl bg-[#E65F2B] text-white h-[50px] w-[120px] justify-center rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
-                    onClick={() => setIsAddModalOpen(true)}
-                >
-                    <FaPlusCircle className="text-3xl mr-2" aria-hidden="true" />
-                    Add
-                </button>
+            <h1 className="text-sm sm:text-lg md:text-xl lg:text-xl xl:text-xl text-[#2A546D]">EDUCATION INFO</h1>
+
+            <button
+    className="flex items-center text-lg sm:text-xl md:text-2xl bg-[#2A546D] text-white h-[40px] sm:h-[50px] w-[100px] sm:w-[120px] justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+    onClick={() => setIsAddModalOpen(true)}
+>
+    <FaPlusCircle className="text-2xl sm:text-3xl mr-2" aria-hidden="true" />
+    <span className="hidden sm:inline">Add</span>
+    <span className="inline sm:hidden">Add</span>
+</button>
+
             </div>
-            <hr className="border-t-2 border-[#E65F2B] mb-4" />
+            <hr className="border-t-2 border-[#2A546D] mb-4" />
             <div className="flex-grow overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-[#E65F2B]">
+                    <thead className="bg-[#2A546D]">
                         <tr>
                             <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Degree</th>
                             <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Institution</th>
@@ -147,13 +150,13 @@ const Education = () => {
                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
                                     <button
                                         onClick={() => handleEdit(item.id)}
-                                        className="text-red-500 hover:text-blue-700 mr-4"
+                                        className="text-[#2A546D] hover:text-blue-700 mr-4"
                                     >
                                         <FiEdit className="inline text-xl" aria-label="Edit" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(item.id)}
-                                        className="text-red-500 hover:text-red-700"
+                                        className="text-[#2A546D] hover:text-red-700"
                                     >
                                         <MdDelete className="inline text-xl" aria-label="Delete" />
                                     </button>
@@ -168,14 +171,14 @@ const Education = () => {
             {isAddModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-5 rounded-lg relative">
-                        <h2 className="text-2xl font-semibold mb-4 text-[#E65F2B]">Add Education Info</h2>
+                        <h2 className="text-2xl font-semibold mb-4 text-[#2A546D]">Add Education Info</h2>
                         <div className="grid grid-cols-1 gap-4">
                             <div>
                                 <select
                                     id="degreeType"
                                     value={formState.degree}
                                     onChange={(e) => setFormState({ ...formState, degree: e.target.value })}
-                                    className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                 >
                                     <option value="">Select Degree</option>
                                     <option value="B.Tech">B.Tech</option>
@@ -194,7 +197,7 @@ const Education = () => {
                                         id="institutionName"
                                         value={formState.institution}
                                         onChange={(e) => setFormState({ ...formState, institution: e.target.value })}
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                                 <div>
@@ -204,7 +207,7 @@ const Education = () => {
                                         id="universityName"
                                         value={formState.university}
                                         onChange={(e) => setFormState({ ...formState, university: e.target.value })}
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                             </div>
@@ -215,7 +218,7 @@ const Education = () => {
                                         selected={formState.startDate}
                                         onChange={(date) => setFormState({ ...formState, startDate: date })}
                                         dateFormat="dd-MM-yyyy"
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                                 <div>
@@ -224,14 +227,14 @@ const Education = () => {
                                         selected={formState.endDate}
                                         onChange={(date) => setFormState({ ...formState, endDate: date })}
                                         dateFormat="dd-MM-yyyy"
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                             </div>
                             <div className="flex justify-end mt-4">
                                 <button
                                     onClick={handleSave}
-                                    className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
+                                    className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                                 >
                                     Save
                                 </button>
@@ -251,14 +254,14 @@ const Education = () => {
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-5 rounded-lg relative">
-                        <h2 className="text-2xl font-semibold mb-4 text-[#E65F2B]">Edit Education Info</h2>
+                        <h2 className="text-2xl font-semibold mb-4 text-[#2A546D]">Edit Education Info</h2>
                         <div className="grid grid-cols-1 gap-4">
                             <div>
                                 <select
                                     id="degreeType"
                                     value={formState.degree}
                                     onChange={(e) => setFormState({ ...formState, degree: e.target.value })}
-                                    className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                 >
                                     <option value="">Select Degree</option>
                                     <option value="B.Tech">B.Tech</option>
@@ -277,7 +280,7 @@ const Education = () => {
                                         id="institutionName"
                                         value={formState.institution}
                                         onChange={(e) => setFormState({ ...formState, institution: e.target.value })}
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                                 <div>
@@ -287,7 +290,7 @@ const Education = () => {
                                         id="universityName"
                                         value={formState.university}
                                         onChange={(e) => setFormState({ ...formState, university: e.target.value })}
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                             </div>
@@ -298,7 +301,7 @@ const Education = () => {
                                         selected={formState.startDate}
                                         onChange={(date) => setFormState({ ...formState, startDate: date })}
                                         dateFormat="dd-MM-yyyy"
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                                 <div>
@@ -307,14 +310,14 @@ const Education = () => {
                                         selected={formState.endDate}
                                         onChange={(date) => setFormState({ ...formState, endDate: date })}
                                         dateFormat="dd-MM-yyyy"
-                                        className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                        className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     />
                                 </div>
                             </div>
                             <div className="flex justify-end mt-4">
                                 <button
                                     onClick={handleSave}
-                                    className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
+                                    className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                                 >
                                     Save
                                 </button>
@@ -333,7 +336,7 @@ const Education = () => {
             {/* Success Message */}
             {successMessage && (
                   <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-                  <div className="bg-[#E65F2B] p-8 rounded-lg text-center text-white">
+                  <div className="bg-[#2A546D] p-8 rounded-lg text-center text-white">
                       <h2 className="text-3xl mb-4">
                           <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
                       </h2>
