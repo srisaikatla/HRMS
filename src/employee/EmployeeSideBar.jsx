@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
+import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip";
@@ -14,16 +14,18 @@ import {
   FaCalendarCheck,
   FaTasks,
   FaMoneyCheckAlt,
-
+  FaUser,
   FaSignOutAlt,
   FaProjectDiagram,
-
+  FaInbox,
+  FaComments,
   FaClipboardList,
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { BsCalendarEvent } from "react-icons/bs";
+import { MdEvent } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
@@ -56,7 +58,7 @@ const EmployeeSideBar = () => {
     position: { x: 0, y: 0 },
   });
 
-  const jwt = localStorage.getItem("employeeJwt");
+  const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -164,11 +166,11 @@ const EmployeeSideBar = () => {
   };
 
   return (
-    <div className="relative bg-[#e65f2b] bg-opacity-10">
+    <div className="relative bg-[#2A546D] bg-opacity-10">
       <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
-        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
-          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
+          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
@@ -202,9 +204,9 @@ const EmployeeSideBar = () => {
               <div
                 key={index}
                 className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${activeTab === option.title ||
-                  (option.subOptions && openDropdown === option.title)
-                  ? "bg-white text-[#e65f2b] rounded-r-3xl"
-                  : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
+                    (option.subOptions && openDropdown === option.title)
+                    ? "bg-white text-[#2A546D] rounded-r-3xl"
+                    : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
                   }`}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
@@ -226,14 +228,14 @@ const EmployeeSideBar = () => {
 
                 {option.subOptions && openDropdown === option.title && (
                   <div
-                    className={`bg-[#e65f2b] text-white transition-all duration-300`}
+                    className={`bg-[#2A546D] text-white transition-all duration-300`}
                   >
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
                         className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${activeTab === subOption.name
-                          ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
-                          : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
+                            ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
+                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
                           }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
@@ -265,7 +267,7 @@ const EmployeeSideBar = () => {
         {activeTab === "Holidays" && <EmployeHoliday />}
         {activeTab === "Events" && <Event />}
         {activeTab === "Activities" && <Activities />}
-        {/* {activeTab === "Payslips" && <Main />} */}
+        {activeTab === "Payslips" && <Main />}
         {activeTab === "Profile" && <Profile />}
         {activeTab === "Apply Leave" && <ApplyLeave />}
         {activeTab === "Salary Structure" && <SalaryStructure />}
@@ -280,7 +282,7 @@ const EmployeeSideBar = () => {
       </div>
       {tooltip.show && (
         <div
-          className="fixed p-2 bg-[#e65f2b] text-white rounded-lg shadow-md z-50"
+          className="fixed p-2 bg-[#2A546D] text-white rounded-lg shadow-md z-50"
           style={{
             left: `${tooltip.position.x}px`,
             top: `${tooltip.position.y}px`,
