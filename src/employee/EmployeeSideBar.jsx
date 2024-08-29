@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
-import Main from "./options/payslips/Main";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Payslip from "./options/payslips/Payslip";
@@ -14,18 +14,16 @@ import {
   FaCalendarCheck,
   FaTasks,
   FaMoneyCheckAlt,
-  FaUser,
+
   FaSignOutAlt,
   FaProjectDiagram,
-  FaInbox,
-  FaComments,
+
   FaClipboardList,
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { BsCalendarEvent } from "react-icons/bs";
-import { MdEvent } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
@@ -58,7 +56,7 @@ const EmployeeSideBar = () => {
     position: { x: 0, y: 0 },
   });
 
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("employeeJwt");
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -204,9 +202,9 @@ const EmployeeSideBar = () => {
               <div
                 key={index}
                 className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${activeTab === option.title ||
-                    (option.subOptions && openDropdown === option.title)
-                    ? "bg-white text-[#e65f2b] rounded-r-3xl"
-                    : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
+                  (option.subOptions && openDropdown === option.title)
+                  ? "bg-white text-[#e65f2b] rounded-r-3xl"
+                  : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
                   }`}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
@@ -234,8 +232,8 @@ const EmployeeSideBar = () => {
                       <div
                         key={subIndex}
                         className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${activeTab === subOption.name
-                            ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
-                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
+                          ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
+                          : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
                           }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
@@ -267,7 +265,7 @@ const EmployeeSideBar = () => {
         {activeTab === "Holidays" && <EmployeHoliday />}
         {activeTab === "Events" && <Event />}
         {activeTab === "Activities" && <Activities />}
-        {activeTab === "Payslips" && <Main />}
+        {/* {activeTab === "Payslips" && <Main />} */}
         {activeTab === "Profile" && <Profile />}
         {activeTab === "Apply Leave" && <ApplyLeave />}
         {activeTab === "Salary Structure" && <SalaryStructure />}

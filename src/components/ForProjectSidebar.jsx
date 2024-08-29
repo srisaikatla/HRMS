@@ -1,10 +1,8 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import {
-  FaTachometerAlt,
   FaTasks,
   FaUserFriends,
-  FaFileAlt,
-  FaUser,
   FaChevronDown,
   FaChevronUp,
   FaUsers,
@@ -55,11 +53,10 @@ const ForProjectSidebar = ({
       {projectOptions.map((option) => (
         <React.Fragment key={option.title}>
           <li
-            className={`flex justify-between text-[16px] pl-5 py-3 mb-1 items-center cursor-pointer ${
-              activeTab === option.title
-                ? "bg-white rounded-r-full text-[#ef5f2b]"
-                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
-            }`}
+            className={`flex justify-between text-[16px] pl-5 py-3 mb-1 items-center cursor-pointer ${activeTab === option.title
+              ? "bg-white rounded-r-full text-[#ef5f2b]"
+              : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+              }`}
             onClick={() => handleOptionClick(option)}
             onMouseOver={(event) => handleMouseOver(event, option.title)}
             onMouseOut={handleMouseOut}
@@ -83,11 +80,10 @@ const ForProjectSidebar = ({
               {projectDropdownOptions.map((dropdownOption) => (
                 <li
                   key={dropdownOption.title}
-                  className={`flex text-[16px] pl-6 py-2 mb-1 items-center cursor-pointer ${
-                    activeTab === dropdownOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                  }`}
+                  className={`flex text-[16px] pl-6 py-2 mb-1 items-center cursor-pointer ${activeTab === dropdownOption.title
+                    ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                    : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                    }`}
                   onClick={() => setActiveTab(dropdownOption.title)}
                   onMouseOver={(event) =>
                     handleMouseOver(event, dropdownOption.title)
@@ -96,9 +92,8 @@ const ForProjectSidebar = ({
                 >
                   {dropdownOption.icon}
                   <span
-                    className={`pl-2 ${
-                      isSidebarCollapsed ? "hidden" : "inline"
-                    }`}
+                    className={`pl-2 ${isSidebarCollapsed ? "hidden" : "inline"
+                      }`}
                   >
                     {dropdownOption.title}
                   </span>

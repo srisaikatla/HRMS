@@ -18,7 +18,7 @@ function HolidayList() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
     useState(false);
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("hrJwt");
 
   useEffect(() => {
     fetchHolidays();

@@ -1,211 +1,93 @@
-import React, { useState } from "react";
-import { FaSearch, FaFilter } from "react-icons/fa";
-
-// Sample data
-const sampleData = [
-  {
-    id: "SDT 60",
-    name: "Ashwini",
-    attendance: [
-      { day: 1, status: "present" },
-      { day: 2, status: "present" },
-      { day: 3, status: "present" },
-      { day: 4, status: "present" },
-      { day: 5, status: "present" },
-      { day: 6, status: "weekend" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "holiday" },
-      { day: 11, status: "absent" },
-      { day: 12, status: "present" },
-      { day: 13, status: "weekend" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "holiday" },
-      { day: 16, status: "present" },
-      { day: 17, status: "absent" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "absent" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-  {
-    id: "SDT 61",
-    name: "Ratnapriya",
-    attendance: [
-      { day: 1, status: "absent" },
-      { day: 2, status: "absent" },
-      { day: 3, status: "present" },
-      { day: 4, status: "present" },
-      { day: 5, status: "present" },
-      { day: 6, status: "weekend" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "present" },
-      { day: 11, status: "present" },
-      { day: 12, status: "present" },
-      { day: 13, status: "weekend" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "holiday" },
-      { day: 16, status: "present" },
-      { day: 17, status: "absent" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "absent" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-  {
-    id: "SDT 62",
-    name: "Raghavendra",
-    attendance: [
-      { day: 1, status: "absent" },
-      { day: 2, status: "absent" },
-      { day: 3, status: "present" },
-      { day: 4, status: "present" },
-      { day: 5, status: "present" },
-      { day: 6, status: "weekend" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "present" },
-      { day: 11, status: "present" },
-      { day: 12, status: "present" },
-      { day: 13, status: "weekend" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "holiday" },
-      { day: 16, status: "present" },
-      { day: 17, status: "present" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "present" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-  {
-    id: "SDT 63",
-    name: "Premchand",
-    attendance: [
-      { day: 1, status: "absent" },
-      { day: 2, status: "absent" },
-      { day: 3, status: "present" },
-      { day: 4, status: "absent" },
-      { day: 5, status: "absent" },
-      { day: 6, status: "present" },
-      { day: 7, status: "weekend" },
-      { day: 8, status: "present" },
-      { day: 9, status: "present" },
-      { day: 10, status: "present" },
-      { day: 11, status: "present" },
-      { day: 12, status: "absent" },
-      { day: 13, status: "absent" },
-      { day: 14, status: "weekend" },
-      { day: 15, status: "absent" },
-      { day: 16, status: "present" },
-      { day: 17, status: "present" },
-      { day: 18, status: "present" },
-      { day: 19, status: "present" },
-      { day: 20, status: "weekend" },
-      { day: 21, status: "weekend" },
-      { day: 22, status: "present" },
-      { day: 23, status: "present" },
-      { day: 24, status: "present" },
-      { day: 25, status: "present" },
-      { day: 26, status: "present" },
-      { day: 27, status: "weekend" },
-      { day: 28, status: "weekend" },
-      { day: 29, status: "present" },
-      { day: 30, status: "holiday" },
-      { day: 31, status: "present" },
-    ],
-  },
-];
-
-// Function to calculate totals
-const calculateTotals = (attendance) => {
-  const totals = {
-    present: 0,
-    absent: 0,
-    weekend: 0,
-    holiday: 0,
-    timeoff: 0,
-    overtime: 0,
-    lop: 0,
-    late: 0,
-    early: 0,
-  };
-  attendance.forEach((item) => {
-    if (totals.hasOwnProperty(item.status)) {
-      totals[item.status]++;
-    }
-  });
-  // Dummy data for additional columns
-  totals.timeoff = Math.floor(Math.random() * 10);
-  totals.overtime = Math.floor(Math.random() * 10);
-  totals.lop = Math.floor(Math.random() * 10);
-  totals.late = Math.floor(Math.random() * 10);
-  totals.early = Math.floor(Math.random() * 10);
-  totals.source = "Manual"; // Just an example source
-
-  return totals;
-};
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
+import { FaSearch, FaFilter, FaFileExport } from "react-icons/fa";
+import axios from 'axios';
+import { API_BASE_URL } from "../../../../Config/api";
+import * as XLSX from 'xlsx';
 
 function Attendance() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("All");
+  const [attendanceData, setAttendanceData] = useState([]);
+  const jwt = localStorage.getItem("hrJwt");
+  const today = new Date();
+  const currentYear = today.getFullYear() + 1;
+  const currentMonth = today.getMonth() + 1;
+  const [searchYear, setSearchYear] = useState(currentYear);
+  const [searchMonth, setSearchMonth] = useState(currentMonth);
+  const [searchDay, setSearchDay] = useState("");
 
-  // Function to handle search input change
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/attendance`, {
+          headers: {
+            "Authorization": `Bearer ${jwt}`,
+          }
+        });
+        setAttendanceData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching attendance data:', error);
+      }
+    };
+    fetchAttendanceData();
+  }, [jwt]);
+
+  const formatTime = (totalHours, totalMinutes, totalSeconds) => {
+    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+
+    return `${hours} hours, ${minutes} mins, ${seconds} secs`;
+  };
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Function to handle filter change
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
 
-  // Filter data based on search query and filter
-  const filteredData = sampleData.filter((employee) => {
-    const matchesSearch = employee.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesFilter =
-      filter === "All" ||
-      employee.attendance.some((day) => day.status === filter.toLowerCase());
-    return matchesSearch && matchesFilter;
-  });
+  const normalizeString = (str) => {
+    return str.toLowerCase().replace(/[^a-z0-9]/g, ''); // Convert to lowercase and remove non-alphanumeric characters
+  };
+
+  const filteredData = attendanceData.filter((entry) => {
+    const entryDate = new Date(entry.punchIn);
+    const matchesYear = searchYear ? entryDate.getFullYear() === parseInt(searchYear) : true;
+    const matchesMonth = searchMonth ? entryDate.getMonth() + 1 === parseInt(searchMonth) : true;
+    const matchesDay = searchDay ? entryDate.getDate() === parseInt(searchDay) : true;
+    // Normalize the search query and data entries
+    const normalizedSearchQuery = normalizeString(searchQuery);
+    const normalizedEmployeeName = normalizeString(entry.employeeName);
+    const normalizedEmployeeId = normalizeString(entry.employeeId);
+
+    const matchesEmployee = normalizedEmployeeName.includes(normalizedSearchQuery) ||
+      normalizedEmployeeId.includes(normalizedSearchQuery);
+
+    return matchesYear && matchesMonth && matchesDay && matchesEmployee;
+  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
+
+  const exportToExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(filteredData.map(entry => ({
+      "Employee Name": entry.employeeName,
+      "Employee ID": entry.employeeId,
+      "PunchIn": new Date(entry.punchIn).toLocaleString(),
+      "PunchOut": new Date(entry.punchOut).toLocaleString(),
+      "Production Time": `${entry.productionHours} hours, ${entry.productionMinutes} mins, ${entry.productionSeconds} secs`,
+      "Break Time": `${entry.breakHours} hours, ${entry.breakMinutes} mins, ${entry.breakSeconds} secs`,
+      "Working Time": `${entry.workingHours} hours, ${entry.workingMinutes} mins, ${entry.workingSeconds} secs`,
+      "Overtime": `${entry.overtime} hours`
+    })), { header: ["Employee Name", "Employee ID", "PunchIn", "PunchOut", "Production Time", "Break Time", "Working Time", "Overtime"] });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Attendance Data");
+
+    XLSX.writeFile(wb, "AttendanceData.xlsx");
+  };
+
   return (
     <div id="main" className="min-h-screen p-4 mt-4">
       <div className="">
@@ -217,12 +99,55 @@ function Attendance() {
         <div className="relative">
           <input
             type="search"
-            placeholder="Search..."
+            placeholder="Search by employee name..."
             onChange={handleSearchChange}
             className="pl-10 pr-4 py-2 w-full sm:w-80 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <FaSearch className="absolute top-3 left-3 text-gray-500" />
         </div>
+
+        {/* Year Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchYear(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Year</option>
+            {Array.from(new Set(attendanceData.map(entry => new Date(entry.punchIn).getFullYear()))).map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Month Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchMonth(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Month</option>
+            {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
+              <option key={month} value={month}>
+                {new Date(0, month - 1).toLocaleString('default', { month: 'long' })}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Day Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchDay(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Day</option>
+            {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+              <option key={day} value={day}>{day}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Filter Selection */}
         <div className="relative mt-4 sm:mt-0">
           <div className="flex items-center">
             <FaFilter className="text-blue-500 h-6 w-6" />
@@ -243,14 +168,25 @@ function Attendance() {
             </select>
           </div>
         </div>
+        <div className="relative mt-4 sm:mt-0">
+          <button
+            onClick={exportToExcel}
+            className="flex items-center p-2 border border-gray-300 rounded-lg bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <FaFileExport className="mr-2" />
+            Export to Excel
+          </button>
+        </div>
       </div>
+
       <div
         id="table"
         className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]"
       >
-        <table className="min-w-full bg-white text-white  text-nowrap">
+        <table className="min-w-full bg-white text-nowrap">
           <thead className="bg-[#0098F1]">
             <tr>
+              {/* Table Headers */}
               <th className="py-2 bg-[#0098F1] px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
                 Employee Name
               </th>
@@ -258,78 +194,52 @@ function Attendance() {
                 Employee ID
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Attended
+                PunchIn
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Weekly Halves
+                PunchOut
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Holidays
+                Production Time
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Timeoff
+                Break time
+              </th>
+              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+                Working time
               </th>
               <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
                 Overtime
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Lop (Missing)
-              </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Late Count
-              </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Early Count
-              </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Source
-              </th>
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((employee) => {
-              const totals = calculateTotals(employee.attendance);
-              return (
-                <tr
-                  key={employee.id}
-                  className="border-b border text-[#0098F1] border-white border-r border-l"
-                >
-                  <td className="py-2 bg-[#0098F1] text-white px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
-                    {employee.name}
+            {filteredData.length === 0 ? (
+              <tr>
+                <td colSpan="8" className="text-center py-4">
+                  No attendance records found.
+                </td>
+              </tr>
+            ) : (
+              filteredData.map((entry, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-2 border">{entry.employeeName}</td>
+                  <td className="px-4 py-2 border">{entry.employeeId}</td>
+                  <td className="px-4 py-2 border">{new Date(entry.punchIn).toLocaleString()}</td>
+                  <td className="px-4 py-2 border">{new Date(entry.punchOut).toLocaleString()}</td>
+                  <td className="px-4 py-2 border">
+                    {formatTime(entry.productionHours, entry.productionMinutes, entry.productionSeconds)}
                   </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {employee.id}
+                  <td className="px-4 py-2 border">
+                    {formatTime(entry.breakHours, entry.breakMinutes, entry.breakSeconds)}
                   </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.present}
+                  <td className="px-4 py-2 border">
+                    {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
                   </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.weekend}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.holiday}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.timeoff}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.overtime}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.lop}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.late}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.early}
-                  </td>
-                  <td className="py-2 px-4 text-center border-b">
-                    {totals.source}
-                  </td>
+                  <td className="px-4 py-2 border">{entry.overtime} hours</td>
                 </tr>
-              );
-            })}
+              ))
+            )}
           </tbody>
         </table>
       </div>
