@@ -48,7 +48,7 @@ function Attendance() {
     const matchesEmployeeId = entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase())
 
     return matchesYear && matchesMonth && matchesDay && matchesEmployee && matchesEmployeeId;
-  });
+  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
 
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(filteredData.map(entry => ({

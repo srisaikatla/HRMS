@@ -65,7 +65,7 @@ const Attendance = () => {
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  });
+  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
 
 
   const calculateHours = (inTime, outTime) => {
