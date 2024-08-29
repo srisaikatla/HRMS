@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import {
   FaTasks,
   FaUserFriends,
-  FaFileAlt,
-  FaUser,
   FaChevronDown,
   FaChevronUp,
   FaUsers,
@@ -56,8 +54,8 @@ const ForProjectSidebar = ({
         <React.Fragment key={option.title}>
           <li
             className={`flex justify-between text-[16px] pl-5 py-3 mb-1 items-center cursor-pointer ${activeTab === option.title
-                ? "bg-white rounded-r-full text-[#ef5f2b]"
-                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+              ? "bg-white rounded-r-full text-[#ef5f2b]"
+              : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
               }`}
             onClick={() => handleOptionClick(option)}
             onMouseOver={(event) => handleMouseOver(event, option.title)}
@@ -83,8 +81,8 @@ const ForProjectSidebar = ({
                 <li
                   key={dropdownOption.title}
                   className={`flex text-[16px] pl-6 py-2 mb-1 items-center cursor-pointer ${activeTab === dropdownOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                    ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                    : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
                     }`}
                   onClick={() => setActiveTab(dropdownOption.title)}
                   onMouseOver={(event) =>
