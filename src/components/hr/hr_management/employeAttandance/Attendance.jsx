@@ -10,8 +10,11 @@ function Attendance() {
   const [filter, setFilter] = useState("All");
   const [attendanceData, setAttendanceData] = useState([]);
   const jwt = localStorage.getItem("hrJwt");
-  const [searchYear, setSearchYear] = useState("");
-  const [searchMonth, setSearchMonth] = useState("");
+  const today = new Date();
+  const currentYear = today.getFullYear() + 1;
+  const currentMonth = today.getMonth() + 1;
+  const [searchYear, setSearchYear] = useState(currentYear);
+  const [searchMonth, setSearchMonth] = useState(currentMonth);
   const [searchDay, setSearchDay] = useState("");
 
   useEffect(() => {
@@ -31,6 +34,14 @@ function Attendance() {
     fetchAttendanceData();
   }, [jwt]);
 
+  const formatTime = (totalHours, totalMinutes, totalSeconds) => {
+    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+
+    return `${hours} hours, ${minutes} mins, ${seconds} secs`;
+  };
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -39,15 +50,24 @@ function Attendance() {
     setFilter(e.target.value);
   };
 
+  const normalizeString = (str) => {
+    return str.toLowerCase().replace(/[^a-z0-9]/g, ''); // Convert to lowercase and remove non-alphanumeric characters
+  };
+
   const filteredData = attendanceData.filter((entry) => {
     const entryDate = new Date(entry.punchIn);
     const matchesYear = searchYear ? entryDate.getFullYear() === parseInt(searchYear) : true;
     const matchesMonth = searchMonth ? entryDate.getMonth() + 1 === parseInt(searchMonth) : true;
     const matchesDay = searchDay ? entryDate.getDate() === parseInt(searchDay) : true;
-    const matchesEmployee = entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesEmployeeId = entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase())
+    // Normalize the search query and data entries
+    const normalizedSearchQuery = normalizeString(searchQuery);
+    const normalizedEmployeeName = normalizeString(entry.employeeName);
+    const normalizedEmployeeId = normalizeString(entry.employeeId);
 
-    return matchesYear && matchesMonth && matchesDay && matchesEmployee && matchesEmployeeId;
+    const matchesEmployee = normalizedEmployeeName.includes(normalizedSearchQuery) ||
+      normalizedEmployeeId.includes(normalizedSearchQuery);
+
+    return matchesYear && matchesMonth && matchesDay && matchesEmployee;
   }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
 
   const exportToExcel = () => {
@@ -208,10 +228,10 @@ function Attendance() {
                   <td className="px-4 py-2 border">{new Date(entry.punchIn).toLocaleString()}</td>
                   <td className="px-4 py-2 border">{new Date(entry.punchOut).toLocaleString()}</td>
                   <td className="px-4 py-2 border">
-                    {entry.productionHours} hours, {entry.productionMinutes} mins, {entry.productionSeconds} secs
+                    {formatTime(entry.productionHours, entry.productionMinutes, entry.productionSeconds)}
                   </td>
                   <td className="px-4 py-2 border">
-                    {entry.breakHours} hours, {entry.breakMinutes} mins, {entry.breakSeconds} secs
+                    {formatTime(entry.breakHours, entry.breakMinutes, entry.breakSeconds)}
                   </td>
                   <td className="px-4 py-2 border">
                     {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs

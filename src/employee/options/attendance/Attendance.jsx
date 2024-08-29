@@ -23,11 +23,14 @@ const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
-  const [searchDate, setSearchDate] = useState(new Date());
   const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
-  const [searchYear, setSearchYear] = useState("");
-  const [searchMonth, setSearchMonth] = useState("");
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth() + 1;
+
+  const [searchYear, setSearchYear] = useState(currentYear);
+  const [searchMonth, setSearchMonth] = useState(currentMonth);
   const [searchDay, setSearchDay] = useState("");
   const jwt = localStorage.getItem("employeeJwt");
   const officeHours = 9;
