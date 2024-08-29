@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect, useMemo } from "react";
 import { ImProfile } from "react-icons/im";
 import { FaEnvelope, FaBars, FaSignOutAlt } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
@@ -94,9 +95,8 @@ function EmployeeNavBar({ onIconClick, options }) {
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#2A546D] ${
-                      option.isSubOption ? "" : "" // Indent subOptions
-                    }`}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#2A546D] ${option.isSubOption ? "" : "" // Indent subOptions
+                      }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.name : option.title}
