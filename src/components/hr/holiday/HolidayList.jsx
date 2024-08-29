@@ -131,21 +131,21 @@ function HolidayList() {
         <div className="flex mt-2 justify-end">
           <div
             id="addholiday"
-            className="inline-block h-[48px] mr-2 mt-2 rounded-lg bg-[#0098f1]"
+            className=" flex justify-center  items-center py-3  p-4 mt-2 rounded-lg bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex items-center w-[186px] h-[48px] px-2  text-white"
+              className="flex items-center text-sm lg:text-lg  px-2  text-white"
               onClick={() => setIsModalOpen(true)}
             >
-              <FiPlusCircle className="text-xl font-bold mr-2" /> Add Holiday
+              <FiPlusCircle className="text-xl mr-2 font-bold " /> Add Holiday
             </button>
           </div>
         </div>
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2">
+          <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
             <table className="min-w-full w-screen  overflow-x-scroll   text-nowrap">
               <thead className="bg-[#0098f1] text-white">
                 <tr>

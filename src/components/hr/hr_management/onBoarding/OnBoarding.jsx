@@ -152,23 +152,23 @@ const OnBoarding = () => {
         </p>
       </div>
 
-      <div className="flex flex-col justify-center items-center mt-[170px]">
+      <div className="flex flex-col justify-center items-center ">
         <button
-          className="bg-[#0098F1] flex justify-center text-[18px] mb-3 items-center gap-2 text-white p-2 rounded-lg px-4 font-normal"
+          className="bg-[#0098F1] flex justify-center py-3 text-sm lg:text-[18px] mb-3 items-center gap-2 text-white p-2 rounded-lg px-4 font-normal"
           onClick={newEmployeeRequest}
         >
           <FiMail />
           Employee Onboarding Request
         </button>
-        <div className="text-[17px] text-wrap w-[260px] md:w-[400px] text-center mb-6">
+        <div className="text-[16px] text-wrap  md:w-[400px] text-center mb-6">
           Please complete this form for new employees, who are not currently on
           Spyd Technology
         </div>
       </div>
       {newModal && (
-        <div className="fixed inset-0 bg-gray-400 bg-opacity-60 justify-center overflow-y-auto items-start flex">
-          <div className="flex flex-col justify-center mt-7 bg-white w-[350px] md:w-[720px] lg:w-[800px] rounded-md p-8 lg:pr-8 items-center">
-            <div className="font-semibold mb-3 text-2xl">
+        <div className="fixed inset-0 bg-gray-400 z-50 bg-opacity-60 justify-center overflow-y-auto items-start flex">
+          <div className="flex flex-col z-50 justify-center mt-7 bg-white mb-2 w-[350px] md:w-[720px] lg:w-[800px] rounded-md p-4 mx-2  items-center">
+            <div className="font-semibold mb-3 text-lg">
               Employee Onboarding
             </div>
             <div className="font-normal md:font-semibold mb-6">
@@ -562,8 +562,8 @@ const OnBoarding = () => {
         </div>
       )}
       {savedData.length > 0 && (
-        <div className="mt-6">
-          <div className="mt-5 overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-10 mx-4">
+        <div className="">
+          <div className=" overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2">
             <table className="min-w-full divide-y divide-gray-200 w-screen overflow-x-scroll  text-nowrap">
               <thead className="bg-[#0098F1] text-white">
                 <tr className="text-nowrap">
@@ -697,16 +697,16 @@ const OnBoarding = () => {
             </table>
           </div>
           <div className="flex justify-between gap-x-5 md:gap-x-0 items-center mt-4 mb-8">
-            <div className="text-lg text-[#0098F1] ml-3">
+            <div className="text-[12px] md:text-lg text-[#0098F1] ml-3">
               Total Records:{" "}
               <span className="font-semibold text-md text-[#0098F1]">
                 {savedData.length}
               </span>
             </div>
-            <div className="text-[#0098F1] font-semibold">
+            <div className="text-[#0098F1] text-[12px] md:text-lg font-normal">
               Page {currentPage} of {totalPages}
             </div>
-            <div className="flex items-center gap-2 mr-4">
+            <div className="flex items-center gap-2 mr-3">
               <button
                 onClick={handlePreviousPage}
                 disabled={currentPage === 1}

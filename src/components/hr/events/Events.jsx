@@ -3,6 +3,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { FiPlusCircle } from "react-icons/fi";
 const initialEvents = [
   { id: 1, day: "Thursday", date: "25 Apr 2024", name: "New Event" },
   // Add more Events if needed
@@ -265,15 +266,13 @@ const Events = () => {
       <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold mb-4">
         Hr / Events
       </h2>
-      <div className="flex justify-end mb-4 mt-4">
+      <div className="flex justify-end mb-4  ">
         <button
-          className="bg-[#0098F1] text-white flex items-center rounded-lg px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 lg:px-6 lg:py-4 text-xs sm:text-sm md:text-base lg:text-lg"
+          className="bg-[#0098F1] text-white  flex justify-center  items-center py-3  p-4   rounded-lg"
           onClick={() => setIsModalOpen(true)}
         >
-          <FaPlusCircle className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mr-2" />
-          <span className="font-medium text-xs sm:text-sm md:text-base lg:text-lg">
-            Add New Event
-          </span>
+          <FiPlusCircle className="text-white text-lg mr-2" />
+          <span className="text-sm lg:text-lg">Add New Event</span>
         </button>
       </div>
       <div className="flex flex-col lg:flex-row gap-4">

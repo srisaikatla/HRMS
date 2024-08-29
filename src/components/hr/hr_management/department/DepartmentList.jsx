@@ -4,7 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
-
+import { FiPlusCircle } from "react-icons/fi";
 const initialData = [
   {
     id: 1,
@@ -151,17 +151,17 @@ function DepartmentList() {
         </p>
       </div>
 
-      <div className="flex justify-end mb-4 mr-4 h-[50px] rounded-lg">
+      <div className="flex justify-end mb-4  rounded-lg">
         <button
           type="button"
-          className="flex items-center bg-[#0098f1] text-white px-4 py-2 rounded-lg shadow hover:bg-[#007acc]"
+          className="flex items-center  text-sm lg:text-lg bg-[#0098f1] text-white p-4 py-3 rounded-lg "
           onClick={handleAddDepartment}
         >
-          <FaPlusCircle className="text-xl mr-2" /> Add Department
+          <FiPlusCircle className="text-xl mr-2" /> Add Department
         </button>
       </div>
 
-      <div className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4">
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
         <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="sticky top-0">
             <tr>

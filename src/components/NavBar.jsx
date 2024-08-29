@@ -104,9 +104,9 @@ function NavBar({ onIconClick, options, projectOptions }) {
           id="topbar"
           className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          <div className="h-[42px]  bg-[#0098f1] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px] rounded-lg flex justify-center items-center relative">
+          <div className="h-[42px]  bg-[#0098f1] ml-10 md:ml-60   w-[180px] sm:w-[300px] lg:w-[560px] rounded-lg flex justify-center items-center relative">
             <input
-              className="pl-2 px-4 bg-[#0098f1] text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none"
+              className="pl-4 px-4  bg-[#0098f1]  text-sm placeholder:text-white outline-none placeholder:text-left w-full rounded-xl text-white border-none"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
@@ -211,7 +211,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
 
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
+          className="hidden md:flex md:mt-2 justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
         >
           <div className="relative">
             <FaCalendarCheck

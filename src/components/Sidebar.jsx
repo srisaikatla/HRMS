@@ -168,7 +168,7 @@ const SideBar = () => {
 
   const projectOptions = [
     { title: "Dashboard", icon: <FaTachometerAlt /> },
-    { title: "Inbox", icon: <FaFileAlt /> },
+    // { title: "Inbox", icon: <FaFileAlt /> },
     { title: "Chat", icon: <FaUser /> },
     {
       title: "Project",
@@ -259,7 +259,7 @@ const SideBar = () => {
                 alt="Profile"
               />
               <p className="text-[16px] pl-2">
-                Welcome {auth.user ? auth.user.firstName : "user"}
+                Welcome {auth.user ? auth.user.firstName : "User"}
               </p>
             </div>
           )}
