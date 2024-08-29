@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from "react";
 import profile from "../../../assets/hr/profile/man.png";
 import importantprofilepic from "../../../assets/hr/employee/profile/profile.jpg";
@@ -6,6 +5,8 @@ import { GoArrowUpRight } from "react-icons/go";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCircleChevronLeft } from "react-icons/fa6";
 import { FaCircleChevronRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import AddLeavePage from "../../../components/hr/employeeForm/AddLeavePage";
 import {
   BarChart,
   Bar,
@@ -81,7 +82,7 @@ function EmployeDashboard() {
         importantprofilepic,
         importantprofilepic,
         importantprofilepic,
-      ], // Replace with actual images
+      ],
     },
     {
       deadline: "22 aug 2024",
@@ -95,7 +96,7 @@ function EmployeDashboard() {
         importantprofilepic,
         importantprofilepic,
         importantprofilepic,
-      ], // Replace with actual images
+      ],
     },
     {
       deadline: "22 aug 2024",
@@ -109,422 +110,401 @@ function EmployeDashboard() {
         importantprofilepic,
         importantprofilepic,
         importantprofilepic,
-      ], // Replace with actual images
+      ],
     },
     // Add more projects here
   ];
   const containerRef = useRef(null);
   const auth = useSelector((state) => state.auth);
-
+  const [activeTab, setActiveTab] = useState("notification");
   const handleScrollLeft = () => {
     if (containerRef.current) {
-      containerRef.current.scrollBy({ left: -600, behavior: "smooth" }); // Increased scroll amount
+      containerRef.current.scrollBy({ left: -600, behavior: "smooth" }); // Increased scroll
     }
   };
 
   const handleScrollRight = () => {
     if (containerRef.current) {
-      containerRef.current.scrollBy({ left: 600, behavior: "smooth" }); // Increased scroll amount
+      containerRef.current.scrollBy({ left: 600, behavior: "smooth" }); // Increased scroll
     }
   };
+  const content = (
+    <div className="mt-4">
+      {Array(4)
+        .fill()
+        .map((_, index) => (
+          <div key={index} className="flex items-center mb-3">
+            <img
+              src={importantprofilepic} // Replace with your image source
+              alt="User Avatar"
+              className="rounded-full h-[40px] w-[40px]"
+            />
+            <div className="ml-3">
+              <p className="font-medium">Your Leave Request Has Been</p>
+              <span className="text-muted-foreground dark:text-muted text-[12px]">
+                10:30 21 Aug 2024
+              </span>
+            </div>
+          </div>
+        ))}
+      <span className="block border-b-2 border-[#000000] mb-3"></span>
+    </div>
+  );
 
   return (
-    <div>
-      <div>
-        {/* Left Column */}
-        <div className="flex flex-col">
-          {/* Welcome Container */}
-          <div className="flex mt-[20px]">
+    <div className="p-4 bg-[#2A546D] bg-opacity-5">
+      <div className=" lg:grid-cols-3 grid  gap-4">
+        <div className="flex flex-col items-center bg-gradient-to-r from-[#2A546D] to-[#2A546D]  h-[300px] justify-center p-6 md:p-8 lg:p-10  rounded-lg shadow-lg text-center max-w-xs md:max-w-sm lg:max-w-md mx-auto">
+          <div className="flex items-center justify-center mb-4">
+            <img
+              src={importantprofilepic}
+              className="rounded-full h-[66px] w-[66px] md:h-[80px] md:w-[80px] shadow-md"
+              alt="Profile"
+            />
+          </div>
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-white">
+            Welcome Back, Mounika
+          </h1>
+          <p className="text-white mt-2 text-sm sm:text-base md:text-lg lg:text-xl px-2 sm:px-4">
+            You have 4 meetings today
+          </p>
+          <button className="bg-white text-[#2A546D] h-[60px] sm:h-[65px] md:h-[70px] w-[100px] sm:w-[120px] md:w-[130px] mt-4 sm:mt-6 md:mt-8 rounded-lg transition duration-300 hover:bg-orange-300 flex items-center justify-center text-sm sm:text-base md:text-lg shadow-md">
+            View Profile
+          </button>
+        </div>
+
+        <div className="bg-white w-full  h-auto rounded-lg p-4 md:p-6 shadow-md">
+          <h1 className="text-[#000000] text-[16px] md:text-[18px] font-bold text-center">
+            Attendance & Leaves
+          </h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+            <div className=" rounded-lg h-[70px] md:h-[80px] text-center flex items-center justify-center p-2">
+              <h2 className="text-[#1B888F] text-[16px] md:text-[18px] font-semibold">
+                <span className="block">5.5</span>
+                <span className="text-nowrap font-normal text-[12px] md:text-[14px]">
+                  Leaves Taken
+                </span>
+              </h2>
+            </div>
+            <div className=" rounded-lg h-[70px] md:h-[80px] text-center flex items-center justify-center p-2">
+              <h2 className="text-[#FF0099] text-[16px] md:text-[18px] font-semibold">
+                <span className="block">12</span>
+                <span className="text-nowrap font-normal text-[12px] md:text-[14px]">
+                  Remaining
+                </span>
+              </h2>
+            </div>
+            <div className=" rounded-lg h-[70px] md:h-[80px] text-center flex items-center justify-center p-2">
+              <h2 className="text-[#2A8F4C] text-[16px] md:text-[18px] font-semibold">
+                <span className="block">5.5</span>
+                <span className="text-nowrap font-normal text-[12px] md:text-[14px]">
+                  Leaves Taken
+                </span>
+              </h2>
+            </div>
+            <div className=" rounded-lg h-[70px] md:h-[80px] text-center flex items-center justify-center p-2">
+              <h2 className="text-[#9747FF] text-[16px] md:text-[18px] font-semibold">
+                <span className="block">5.5</span>
+                <span className="text-nowrap font-normal text-[12px] md:text-[14px]">
+                  Leaves Taken
+                </span>
+              </h2>
+            </div>
+            <div className=" rounded-lg h-[70px] md:h-[80px] text-center flex items-center justify-center p-2">
+              <h2 className="text-[#0098F1] text-[16px] md:text-[18px] font-semibold">
+                <span className="block">12</span>
+                <span className="text-nowrap font-normal text-[12px] md:text-[14px]">
+                  Remaining
+                </span>
+              </h2>
+            </div>
+            <div className=" rounded-lg h-[70px] md:h-[80px] text-center flex items-center justify-center p-2">
+              <h2 className="text-[#F20B0B] text-[16px] md:text-[18px] font-semibold">
+                <span className="block">5.5</span>
+                <span className="text-nowrap font-normal text-[12px] md:text-[14px]">
+                  Leaves Taken
+                </span>
+              </h2>
+            </div>
+          </div>
+          <Link to="/add-leavePage">
+            <p className="text-[#2A546D] text-[16px] md:text-[18px] font-semibold flex items-center mt-4 justify-center">
+              Apply Leave
+              <GoArrowUpRight className="text-[#2A546D] ml-2 text-[16px]" />
+            </p>
+          </Link>
+        </div>
+
+        <div className="bg-white w-full overflow-y-auto h-[310px] scrollbar-custom text-[#2A546D] rounded-lg p-4 md:p-6 shadow-md">
+          <div className="flex justify-between items-center">
+            <h2 className="text-[24px] font-semibold text-[#000000]">
+              Important
+            </h2>
+            <a
+              href="#"
+              className="text-[14px] md:text-[16px] font-semibold text-[#000000]"
+            >
+              View More →
+            </a>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex justify-between items-center mt-2">
+            <div className="flex items-center">
+              <span
+                onClick={() => setActiveTab("notification")}
+                className={`cursor-pointer text-[#000000] font-semibold text-[14px] md:text-[16px] border-b-2 pb-1 ${
+                  activeTab === "notification"
+                    ? "border-[#000000]"
+                    : "border-transparent"
+                }`}
+              >
+                Notification
+              </span>
+            </div>
+            <span
+              onClick={() => setActiveTab("schedules")}
+              className={`cursor-pointer flex items-center text-secondary text-[14px] md:text-[16px] ${
+                activeTab === "schedules"
+                  ? "border-b-2 border-[#000000]"
+                  : "border-transparent"
+              }`}
+            >
+              <FaCalendarAlt className="mr-2" /> Schedules
+            </span>
+          </div>
+
+          {/* Content based on the active tab */}
+          <div>
+            {activeTab === "notification" && content}
+            {activeTab === "schedules" && content}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid justify-between  space-x-3  md:grid-cols-2 grid-cols-1 mt-5 space-y-5 lg:space-y-0">
+        <div className="bg-white w-full   h-[420px]  rounded-lg  shadow-md flex flex-col">
+          <h1 className="text-[#000000] pt-5 text-[16px] font-bold text-center mb-4">
+            Statistics
+          </h1>
+          <div className="flex justify-center  mb-4">
             <div
-              className="relative w-[455px] h-[250px]  rounded-lg mb-5 mt-[18px] ml-[8px] mr-4 shadow-lg "
+              className="bg-white shadow-xl w-[140px] md:w-[180px] text-center h-[80px] md:h-[100px] pt-[10px] md:pt-[15px] mr-2 md:mr-4"
               style={{
-                background: "radial-gradient(circle, #E65F2B 0%, #FF9900 100%)",
+                // background: "radial-gradient(circle, #2A546D 0%, #FF9900 100%)",
+                borderRadius: "12px",
+                textAlign: "center",
               }}
             >
-              <div className="absolute inset-0 flex flex-col pl-[40px] items-center justify-center">
-                <h1 className="text-white pl-6 font-bold text-[23px]">
-                  Welcome Back,
-                </h1>
-                <h1 className="text-white mt-2 font-bold text-[20px]">
-                  {auth.employee
-                    ? auth.employee.firstName + " " + auth.employee.lastName
-                    : "employee"}
-                </h1>
-                <p className="text-white mt-2 text-[20px]">
-                  You have 4 meetings today
-                </p>
-                <button className="bg-white text-[#E65F2B] h-[45px] w-[150px] mt-8 rounded-lg transition duration-300">
-                  View Profile
-                </button>
-              </div>
-              <div
-                style={{
-                  clipPath: "polygon(0 0, 63% 0, 21% 100%, 0% 100%)",
-                  backgroundColor: "#FFD3C2",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "40%",
-                  height: "100%",
-                  display: "flex",
-                  paddingLeft: "10px",
-                  paddingBottom: "100px",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={profile}
-                  className="rounded-full h-[66px] w-[66px]"
-                  alt="Profile"
-                />
-              </div>
+              <span className="text-gray-950 font-semibold text-[14px] md:text-[16px]">
+                Remaining
+              </span>
+              <br />
+              <span className="text-gray-950 font-semibold text-[14px] md:text-[16px]">
+                2 : 36 Min
+              </span>
             </div>
-            {/* Attendance & Leaves + Important Container */}
-            <div className="flex mt-5">
-              {/* Attendance & Leaves Container */}
-              <div className="bg-white w-auto h-[300px] mb-5">
-                <h1 className="text-[#E65F2B] text-[16px]] font-bold text-center mt-0">
-                  Attendance & Leaves
-                </h1>
-                <div className="flex justify-around w-full mt-5">
-                  <div className="bg-gradient-to-r from-[#E65F2B] to-[#FF9900] rounded-lg   w-[130px] h-[80px] text-center">
-                    <h2 className="text-white text-[21px] font-semibold">
-                      <span className="block">5.5</span>
-                      <span className="text-nowrap font-normal text-[16px] pr-2 pl-1">
-                        Leaves Taken
-                      </span>
-                    </h2>
-                  </div>
-                  <div className="bg-gradient-to-r from-[#E65F2B] to-[#FF9900] rounded-lg   w-[130px] h-[80px] text-center">
-                    <h2 className="text-white text-[21px] font-semibold">
-                      <span className="block">5.5</span>
-                      <span className="text-nowrap font-normal text-[16px] pr-2 pl-1">
-                        Leaves Taken
-                      </span>
-                    </h2>
-                  </div>
+            <div
+              className="bg-white shadow-xl w-[140px] md:w-[180px] text-center h-[80px] md:h-[100px] pt-[10px] md:pt-[15px]"
+              style={{
+                // background: "radial-gradient(circle, #2A546D 0%, #FF9900 100%)",
+                borderRadius: "12px",
+                textAlign: "center",
+              }}
+            >
+              <span className="text-gray-950 font-semibold text-[14px] md:text-[16px]">
+                OverTime
+              </span>
+              <br />
+              <span className="text-gray-950 font-semibold text-[14px] md:text-[16px]">
+                0 Hrs 36 Min
+              </span>
+            </div>
+          </div>
+          <div
+            className="bg-white shadow-xl w-[140px] md:w-[180px] ml-auto mr-auto mt-[20px] md:mt-[30px] h-[80px] md:h-[100px] pt-[10px] md:pt-[15px]"
+            style={{
+              // background: "radial-gradient(circle, #2A546D 0%, #FF9900 100%)",
+              borderRadius: "12px",
+              textAlign: "center",
+            }}
+          >
+            <span className="text-gray-950 font-semibold text-[14px] md:text-[16px]">
+              Break
+            </span>
+            <br />
+            <span className="text-gray-950 font-semibold text-[14px] md:text-[16px]">
+              0 Hrs 30 Min
+            </span>
+          </div>
+        </div>
 
-                  <div className="bg-gradient-to-r from-[#E65F2B] to-[#FF9900] rounded-lg   w-[130px] h-[80px] text-center">
-                    <h2 className="text-white text-[21px] font-semibold">
-                      <span className="block">5.5</span>
-                      <span className="text-nowrap font-normal text-[16px] pr-2 pl-1">
-                        Leaves Taken
-                      </span>
-                    </h2>
-                  </div>
-                </div>
-                <div className="flex justify-around w-full mt-5">
-                  <div className="bg-gradient-to-r from-[#E65F2B] to-[#FF9900] rounded-lg   w-[130px] h-[80px] text-center">
-                    <h2 className="text-white text-[21px] font-semibold">
-                      <span className="block">5.5</span>
-                      <span className="text-nowrap font-normal text-[16px] pr-2 pl-1">
-                        Leaves Taken
-                      </span>
-                    </h2>
-                  </div>
-                  <div className="bg-gradient-to-r from-[#E65F2B] to-[#FF9900] rounded-lg   w-[130px] h-[80px] text-center">
-                    <h2 className="text-white text-[21px] font-semibold">
-                      <span className="block">5.5</span>
-                      <span className="text-nowrap font-normal text-[16px] pr-2 pl-1">
-                        Leaves Taken
-                      </span>
-                    </h2>
-                  </div>
-                  <div className="bg-gradient-to-r from-[#E65F2B] to-[#FF9900] rounded-lg   w-[130px] h-[80px] text-center">
-                    <h2 className="text-white text-[21px] font-semibold">
-                      <span className="block">5.5</span>
-                      <span className="text-nowrap pr-2 text-[16px]   font-normal pl-1">
-                        Leaves Taken
-                      </span>
-                    </h2>
-                  </div>
-                </div>
-                <p className="text-[#E65F2B] text-[16px] font-semibold flex items-center mt-4 px-4">
-                  Apply Leave
-                  <GoArrowUpRight className="text-[#E65F2B] ml-2 text-[16px]" />
-                </p>
-              </div>
-
-              {/* Important Container */}
-              <div className="bg-white shadow-lg w-[350px] h-[300px] ml-[20px] p-4">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-[30px] font-semibold text-[#E65F2B]">
-                    Important
-                  </h2>
-                  <a
-                    href="#"
-                    className="text-[16px] font-semibold text-[#E65F2B]"
+        <div className="bg-white  shadow-xl w-full h-[420px]   rounded-lg">
+          <div className="flex flex-col  h-full">
+            <div className="flex justify-between items-center mb-4 px-2 md:px-4">
+              <span className="text-[#2A546D] pt-5  text-[14px] md:text-[18px] lg:text-[23px] font-bold">
+                Weekly Working Hours
+              </span>
+              <select className="h-[30px] sm:block  mt-10   bg-gradient-to-r from-[#2A546D] to-[#2A546D] outline-none text-white pl-2 rounded-lg  md:mt-4">
+                <option>This Week</option>
+              </select>
+            </div>
+            <div className="flex flex-grow px-2 md:px-4">
+              <div className="flex flex-col justify-between pr-2 md:pr-4 border-r border-gray-300">
+                {[0, 5, 10, 15, 20, 25, 30, 35].map((hour) => (
+                  <div
+                    className="text-gray-600 text-[8px] md:text-[10px] lg:text-xs"
+                    key={hour}
                   >
-                    View More →
-                  </a>
-                </div>
-                <div className="flex justify-between items-center mt-2">
-                  <div className="flex items-center">
-                    <span className="text-[#E65F2B] font-semibold text-[16px] border-b-2 border-[#E65F2B] pb-1">
-                      Notification
-                    </span>
+                    {hour}
                   </div>
-                  <span className="flex items-center text-secondary text-[16px] dark:text-secondary-foreground">
-                    <FaCalendarAlt className="mr-2" /> Schedules
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <div className="flex items-center mb-3">
-                    <img
-                      src={importantprofilepic}
-                      alt="User Avatar"
-                      className="rounded-full"
-                    />
-                    <div className="ml-3">
-                      <p className="font-medium">Your Leave Request Has Been</p>
-                      <span className="text-muted-foreground dark:text-muted">
-                        10:30 21 Aug 2024
-                      </span>
-                    </div>
-                  </div>
-                  <span className="block border-b-2 border-orange-200 mb-3"></span>
-                  {/* Repeat other notifications here */}
-                  <div className="flex items-center mb-3">
-                    <img
-                      src={importantprofilepic}
-                      alt="User Avatar"
-                      className="rounded-full"
-                    />
-                    <div className="ml-3">
-                      <p className="font-medium">Your Leave Request Has Been</p>
-                      <span className="text-muted-foreground dark:text-muted">
-                        10:30 21 Aug 2024
-                      </span>
-                    </div>
-                  </div>
-                  <span className="block border-b-2 border-orange-200 mb-3"></span>
-                </div>
+                ))}
               </div>
-            </div>
-          </div>
-
-          {/* Statistics Container */}
-          <div className="flex">
-            <div className="bg-white h-[400px] w-[400px]  mb-[20px]   flex flex-col p-4   ml-[8px]">
-              <h1 className="text-[#E65F2B] text-[16px]] font-bold text-center mb-4">
-                Statistics
-              </h1>
-
-              <div className="flex mt-[10px] mb-4">
-                <div
-                  className="bg-white shadow-xl w-[180px] text-center h-[100px] pt-[15px] mr-4"
-                  style={{
-                    background:
-                      "radial-gradient(circle, #E65F2B 0%, #FF9900 100%)",
-                    borderRadius: "12px", // Adjust this value as needed
-                  }}
-                >
-                  <span className="text-white font-semibold text-[16px]">
-                    Remaining
-                  </span>
-                  <br />
-                  <span className="text-white  font-semibold text-[16px]">
-                    2 : 36 Min
-                  </span>
-                </div>
-                <div
-                  className="bg-white shadow-xl w-[180px] text-center h-[100px] pt-[15px]"
-                  style={{
-                    background:
-                      "radial-gradient(circle, #E65F2B 0%, #FF9900 100%)",
-                    borderRadius: "12px", // Adjust this value as needed
-                  }}
-                >
-                  <span className="text-white font-semibold text-[16px]">
-                    OverTime
-                  </span>
-                  <br />
-                  <span className="text-white font-semibold text-[16px]">
-                    0 Hrs 36 Min
-                  </span>
-                </div>
-              </div>
-              <div
-                className="bg-white shadow-xl w-[180px]  ml-[90px] mt-[30px] h-[100px] pt-[15px]"
-                style={{
-                  background:
-                    "radial-gradient(circle, #E65F2B 0%, #FF9900 100%)",
-                  borderRadius: "12px", // Adjust this value as needed
-                }}
-              >
-                <span className="text-white font-semibold pl-[50px] text-[16px]">
-                  Break
-                </span>
-                <br />
-                <span className="text-white font-semibold  pl-[30px] text-[16px]">
-                  1 Hrs 36 Min
-                </span>
-              </div>
-              <p className="text-[#E65F2B] text-[16px] font-semibold flex items-center mt-4">
-                View attendance
-                <GoArrowUpRight className="text-[#E65F2B] ml-2 text-[16px]" />
-              </p>
-            </div>
-
-            {/* Working Hours Container */}
-            <div className="bg-white shadow-xl w-[460px] h-[400px] pb-[16px] ml-[16px]">
-              <div className="flex flex-col h-full">
-                {/* Chart Header */}
-                <div className="flex justify-between items-center mb-4 px-4">
-                  <span className="text-[#E65F2B] text-[23px] font-bold">
-                    Weekly Working Hours
-                  </span>
-                  {/* <span className="text-[#E65F2B] text-[23px] font-semibold">Total: 40 Hrs</span> */}
-                  <select className="h-[40px] w-[120px] bg-[#E65F2B] outline-none text-white pl-2 rounded-lg mt-4">
-                    <option>This Week</option>
-                  </select>
-                </div>
-                {/* Chart Container */}
-                <div className="flex flex-grow px-4">
-                  {/* Y-Axis (Hours) */}
-                  <div className="flex flex-col justify-between pr-4 border-r border-gray-300">
-                    {[0, 5, 10, 15, 20, 25, 30, 35].map((hour) => (
-                      <div className="text-gray-600 text-xs" key={hour}>
-                        {hour}
+              <div className="flex flex-grow">
+                <div className="flex flex-grow pb-[10px] md:pb-[20px] justify-between">
+                  {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, index) => {
+                    const heights = ["30%", "40%", "80%", "50%", "70%"]; // Example heights
+                    return (
+                      <div className="flex-1 mx-0.5 md:mx-1" key={day}>
+                        <div className="relative bg-gray-200 w-[10px] md:w-[15px] lg:w-[20px] rounded-lg overflow-hidden h-[150px] md:h-[250px] lg:h-[300px] ml-[10px] md:ml-[20px] lg:ml-[30px]">
+                          <div
+                            className="absolute bottom-0 left-0 w-full bg-[#2A546D] rounded-t-lg"
+                            style={{ height: heights[index] }} // Dynamic height
+                          />
+                        </div>
+                        <div className="text-center text-[8px] md:text-[10px] lg:text-xs text-gray-600 mt-1">
+                          {day}
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                  {/* X-Axis (Days of the Week) */}
-                  <div className="flex flex-grow ">
-                    {/* Bars Container */}
-                    <div className="flex flex-grow pb-[20px] justify-between">
-                      {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day, index) => {
-                        const heights = ["60%", "40%", "80%", "50%", "70%"]; // Example heights
-                        return (
-                          <div className="flex-1 mx-1" key={day}>
-                            <div className="relative bg-gray-200 w-[20px] ml-[30px] rounded-lg overflow-hidden h-[300px]">
-                              <div
-                                className="absolute bottom-0 left-0 w-full bg-[#E65F2B] rounded-t-lg"
-                                style={{ height: heights[index] }} // Dynamic height
-                              />
-                            </div>
-                            <div className="text-center  text-xs text-gray-600 mt-1">
-                              {day}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Upcoming Holidays Container */}
-          <div className="bg-white rounded-[15px]  shadow-lg w-[455px] h-[120px] mt-[5px] ml-[8px]">
-            <div
-              className="flex items-center justify-between w-full h-full px-4"
-              style={{
-                background: "radial-gradient(circle, #E65F2B 0%, #FF9900 100%)",
-                borderRadius: "12px", // Adjust this value as needed
-              }}
-            >
-              <h1 className="text-white text-[16px] font-semibold">
-                Upcoming Holidays
-              </h1>
-              <button className="bg-white text-[#E65F2B] h-[40px] w-[120px] rounded-[5px]">
-                View All
-              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* {projects} */}
-      <div className="bg-white shadow-lg   h-[460px] mt-[18px]">
-        <div className="flex justify-start p-3">
-          <h1 className="text-[#E65F2B] mt-[20px] font-semibold text-nowrap text-[20px]">
+      <div className="lg:w-[620px] w-auto h-auto mt-5  rounded-lg ">
+        <div
+          className=" grid grid-cols-1  md:grid-cols-2  items-center bg-[#2A546D] justify-between  h-full lg:px-4 py-10  rounded-lg"
+          style={{
+            borderRadius: "12px", // Adjust this value as needed
+          }}
+        >
+          <h1 className="text-white   text-lg md:text-[23px]  font-semibold text-center md:text-left mb-3 md:mb-0">
+            Upcoming Holidays
+          </h1>
+          <div className="text-center">
+            <Link to="">
+              <button className="bg-white text-[#2A546D] w-auto  px-10 py-2   rounded-[5px] mt-3 md:mt-0">
+                View All
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* On Going Projects */}
+      <div className="bg-white shadow-lg h-auto mt-[18px] lg:h-[460px]">
+        <div className="flex  flex-row justify-between p-3">
+          <h1 className="text-[#2A546D] mt-[20px]  font-semibold text-wrap text-[18px] lg:text-[20px]">
             On Going Projects
           </h1>
-          <div className="flex items-end text-end space-x-2 mb-8 w-[80px] ml-[1000px]">
+          <div className="flex items-center  space-x-2 mt-2 ">
             <FaCircleChevronLeft
               onClick={handleScrollLeft}
-              className="text-[#E65F2B] cursor-pointer text-2xl" // Adjust size here
+              className="text-[#2A546D] cursor-pointer text-xl lg:text-2xl"
             />
             <FaCircleChevronRight
               onClick={handleScrollRight}
-              className="text-[#E65F2B] cursor-pointer text-2xl" // Adjust size here
+              className="text-[#2A546D] cursor-pointer text-xl lg:text-2xl"
             />
           </div>
         </div>
 
         <div
-          className="flex  w-auto ml-5 scroll-smooth mb-12   overflow-y-scroll text-lg scrollbar-thin scrollbar-track-white scrollbar-thumb-orange-600 pt-10 mx-4"
+          className="flex overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#2A546D] py-4 mx-4 space-x-4"
           ref={containerRef}
         >
-          <div className="flex space-x-4 min-w-max">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-lg w-[350px] min-h-[150px]"
-              >
-                <div className="bg-[#F20B0B] w-[210px] h-[40px] rounded-br-lg">
-                  <h1 className="text-white p-2">
-                    Deadline: {project.deadline}
-                  </h1>
-                </div>
-                <h1 className="text-[#E65F2B] font-semibold p-2 pl-2 text-[16px]">
-                  {project.title}
-                </h1>
-                <p className="text-[#E65F2B] text-[16px] pl-3 pb-[20px]">
-                  {project.description}
-                </p>
-                <div className="flex pb-[20px]">
-                  <button className="bg-[#E65F2B] bg-opacity-25 ml-[10px] rounded-lg text-[#E65F2B] h-[43px] w-[150px]">
-                    {project.totalTasks} total tasks
-                  </button>
-                  <button className="bg-[#E65F2B] bg-opacity-25 ml-[10px] rounded-lg text-[#E65F2B] h-[43px] w-[150px]">
-                    {project.completedTasks} completed tasks
-                  </button>
-                </div>
-                <div className="flex items-center">
-                  <p className="text-[#E65F2B] pl-3">Project Leader:</p>
-                  <div className="flex pl-[20px] -space-x-4">
-                    {project.profilePics.map((pic, picIndex) => (
-                      <img
-                        key={picIndex}
-                        className="w-10 h-10 rounded-full border-2 border-white"
-                        src={pic}
-                        alt={`Profile ${picIndex + 1}`}
-                      />
-                    ))}
-                  </div>
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-lg w-[250px] py-4 sm:w-[300px] lg:w-[350px] min-h-[190px] flex-shrink-0"
+            >
+              <div className="bg-[#2A546D] w-full h-[40px] rounded-br-lg">
+                <h1 className="text-white p-2">Deadline: {project.deadline}</h1>
+              </div>
+              <h1 className="text-[#2A546D] font-semibold p-2 text-[14px] sm:text-[16px]">
+                {project.title}
+              </h1>
+              <p className="text-[#2A546D] text-[14px] sm:text-[16px] pl-3 pb-[20px]">
+                {project.description}
+              </p>
+              <div className="flex pb-[20px] flex-wrap gap-2">
+                <button className="bg-[#2A546D] bg-opacity-25 ml-[10px] rounded-lg text-[#2A546D] h-[43px] w-[140px] sm:w-[150px]">
+                  {project.totalTasks} total tasks
+                </button>
+                <button className="bg-[#2A546D] bg-opacity-25 ml-[10px] rounded-lg text-[#2A546D] h-[43px] w-[140px] sm:w-[150px]">
+                  {project.completedTasks} completed tasks
+                </button>
+              </div>
+              <div className="flex items-center">
+                <p className="text-[#2A546D] pl-3">Project Leader:</p>
+                <div className="flex pl-[10px] sm:pl-[20px] -space-x-4">
+                  {project.profilePics.map((pic, picIndex) => (
+                    <img
+                      key={picIndex}
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white"
+                      src={pic}
+                    />
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-[15px]  shadow-lg w-[455px] h-[200px]  ml-[8px]">
-          <div
-            className="items-center justify-between  w-[700px] h-full px-4"
-            style={{
-              background: "radial-gradient(circle, #E65F2B 0%, #FF9900 100%)",
-              borderRadius: "12px", // Adjust this value as needed
-            }}
-          >
-            <div className="flex py-4">
-              <img src={importantprofilepic} />
-              <h1 className="text-white text-[16px]  pl-4 font-semibold">
-                VishnuVardhan
-              </h1>
+              <div className="flex items-center">
+                <p className="text-[#2A546D] pl-3">Mambers:</p>
+                <div className="flex pl-[10px] sm:pl-[20px] -space-x-4">
+                  {project.profilePics.map((pic, picIndex) => (
+                    <img
+                      key={picIndex}
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white"
+                      src={pic}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
+      </div>
 
-            <p className="text-white font-semibold text-[16px]">
-              Employee of the month
-            </p>
-            <p className="text-white font-normal text-[14px]">
-              We are really proud of the difference you have made which gives
-              everybody <br />
-              the reason to applaud & appreciate
-            </p>
+      {/* Important Container */}
+
+      <div className="rounded-lg shadow-lg w-auto mt-10 h-auto mx-auto lg:mx-0 px-4 lg:px-0">
+        <div
+          className="flex flex-col  bg-[#2A546D] items-start p-4 md:p-6"
+          style={{
+            // background: "radial-gradient(circle, #2A546D 0%, #FF9900 100%)",
+            borderRadius: "12px",
+          }}
+        >
+          <div className="flex items-center mb-4">
+            <img
+              className="w-12 h-12 rounded-full border-2 border-white"
+              src={importantprofilepic}
+              alt="Profile"
+            />
+            <h1 className="text-white text-lg md:text-xl pl-4 font-semibold">
+              priya
+            </h1>
           </div>
+          <p className="text-white font-semibold text-lg md:text-xl mb-2">
+            Employee of the Month
+          </p>
+          <p className="text-white font-normal text-sm md:text-base">
+            We are really proud of the difference you have made which gives
+            everybody the reason to applaud & appreciate.
+          </p>
         </div>
       </div>
     </div>

@@ -73,7 +73,7 @@ function Payslip() {
 
   return (
     <>
-      <div id="main" className="text-[24px] font-semibold w-auto h-auto">
+      <div id="main" className="text-[24px] font-semibold w-auto min-h-screen">
         {showForm ? (
           <div id="submain1">
             <form>
