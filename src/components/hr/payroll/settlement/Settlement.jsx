@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import Select from "react-select";
-
+import { FiPlusCircle } from "react-icons/fi";
 const userdata = [
   {
     id: 1,
@@ -132,16 +132,13 @@ function Settlement() {
           Payroll / Settlements
         </span>
       </div>
-      <div
-        id="submain1"
-        className="flex flex-col lg:flex-row mx-4 justify-end items-center"
-      >
-        <div className="w-full mt-4 lg:w-auto h-[55px] px-4 flex rounded-lg bg-[#0098f1]">
+      <div id="submain1" className="flex    justify-end items-center">
+        <div className="  lg:w-auto  flex rounded-lg bg-[#0098f1]">
           <button
-            className="flex px-4 justify-center items-center w-full"
+            className="flex items-center  text-sm lg:text-lg bg-[#0098f1] text-white p-4 py-3 rounded-lg "
             onClick={handleOpenModal}
           >
-            <FaPlusCircle className="text-white text-xl mr-2" />
+            <FiPlusCircle className="text-white text-xl mr-2" />
             <span className="text-white bg-[#0098f1] font-medium text-sm lg:text-lg">
               Add Settlement
             </span>
