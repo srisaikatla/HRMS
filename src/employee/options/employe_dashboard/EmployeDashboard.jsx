@@ -236,7 +236,7 @@ function EmployeDashboard() {
               </h2>
             </div>
           </div>
-          <Link to="/add-leavePage">
+          <Link to="Apply Leave">
             <p className="text-[#2A546D] text-[16px] md:text-[18px] font-semibold flex items-center mt-4 justify-center">
               Apply Leave
               <GoArrowUpRight className="text-[#2A546D] ml-2 text-[16px]" />
@@ -516,15 +516,6 @@ function EmployeDashboard() {
       </div>
 
     </div>
-
-
-
-
   );
-
-
-
-
-
 }
 export default EmployeDashboard;

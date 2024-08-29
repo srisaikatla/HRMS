@@ -156,6 +156,7 @@ const EmployeeSideBar = () => {
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("employeeJwt");
+    localStorage.removeItem("employee")
     navigate("/");
   };
 

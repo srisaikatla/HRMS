@@ -11,7 +11,7 @@ function Attendance() {
   const [attendanceData, setAttendanceData] = useState([]);
   const jwt = localStorage.getItem("hrJwt");
   const today = new Date();
-  const currentYear = today.getFullYear() + 1;
+  const currentYear = today.getFullYear();
   const currentMonth = today.getMonth() + 1;
   const [searchYear, setSearchYear] = useState(currentYear);
   const [searchMonth, setSearchMonth] = useState(currentMonth);
@@ -111,6 +111,7 @@ function Attendance() {
           <select
             onChange={(e) => setSearchYear(e.target.value)}
             className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={searchYear}
           >
             <option value="">Select Year</option>
             {Array.from(new Set(attendanceData.map(entry => new Date(entry.punchIn).getFullYear()))).map(year => (
@@ -124,6 +125,7 @@ function Attendance() {
           <select
             onChange={(e) => setSearchMonth(e.target.value)}
             className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={searchMonth}
           >
             <option value="">Select Month</option>
             {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
@@ -187,58 +189,75 @@ function Attendance() {
           <thead className="bg-[#0098F1]">
             <tr>
               {/* Table Headers */}
-              <th className="py-2 bg-[#0098F1] px-4 border-b text-center sticky left-0 z-20 w-[170px] h-[50px]">
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center sticky left-0 z-10 text-white font-bold">
                 Employee Name
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
                 Employee ID
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                PunchIn
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
+                Punch In
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                PunchOut
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
+                Punch Out
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
                 Production Time
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Break time
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
+                Break Time
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
-                Working time
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
+                Working Time
               </th>
-              <th className="py-2 px-4 border-b text-center w-[100px] h-[50px]">
+              <th className="py-2 bg-[#0098F1] px-4 border-b text-center text-white font-bold">
                 Overtime
               </th>
             </tr>
           </thead>
-          <tbody>
-            {filteredData.length === 0 ? (
-              <tr>
-                <td colSpan="8" className="text-center py-4">
-                  No attendance records found.
-                </td>
-              </tr>
-            ) : (
+          <tbody className="text-sm">
+            {filteredData.length > 0 ? (
               filteredData.map((entry, index) => (
-                <tr key={index}>
-                  <td className="px-4 py-2 border">{entry.employeeName}</td>
-                  <td className="px-4 py-2 border">{entry.employeeId}</td>
-                  <td className="px-4 py-2 border">{new Date(entry.punchIn).toLocaleString()}</td>
-                  <td className="px-4 py-2 border">{new Date(entry.punchOut).toLocaleString()}</td>
-                  <td className="px-4 py-2 border">
+                <tr
+                  key={index}
+                  className={`${index % 2 === 0 ? "bg-[#FFFFFF]" : "bg-[#F5F5F5]"
+                    } hover:bg-gray-200`}
+                >
+                  <td className="px-4 py-2 border-b text-center sticky left-0 z-10 bg-inherit">
+                    {entry.employeeName}
+                  </td>
+                  <td className="px-4 py-2 border-b text-center">
+                    {entry.employeeId}
+                  </td>
+                  <td className="px-4 py-2 border-b text-center">
+                    {new Date(entry.punchIn).toLocaleString()}
+                  </td>
+                  <td className="px-4 py-2 border-b text-center">
+                    {new Date(entry.punchOut).toLocaleString()}
+                  </td>
+                  <td className="px-4 py-2 border-b text-center">
                     {formatTime(entry.productionHours, entry.productionMinutes, entry.productionSeconds)}
                   </td>
-                  <td className="px-4 py-2 border">
+                  <td className="px-4 py-2 border-b text-center">
                     {formatTime(entry.breakHours, entry.breakMinutes, entry.breakSeconds)}
                   </td>
-                  <td className="px-4 py-2 border">
-                    {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
+                  <td className="px-4 py-2 border-b text-center">
+                    {formatTime(entry.workingHours, entry.workingMinutes, entry.workingSeconds)}
                   </td>
-                  <td className="px-4 py-2 border">{entry.overtime} hours</td>
+                  <td className="px-4 py-2 border-b text-center">
+                    {entry.overtime} hours
+                  </td>
                 </tr>
               ))
+            ) : (
+              <tr>
+                <td
+                  className="px-4 py-2 border-b text-center"
+                  colSpan="8"
+                >
+                  No records found.
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
