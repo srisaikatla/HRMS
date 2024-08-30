@@ -24,15 +24,9 @@ const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId);
+  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1;
-  const [searchYear, setSearchYear] = useState(currentYear);
-  const [searchMonth, setSearchMonth] = useState(currentMonth);
-  const [searchDay, setSearchDay] = useState("");
-  const jwt = localStorage.getItem("employeeJwt");
+  const jwt = localStorage.getItem("jwt");
   const officeHours = 9;
 
 
@@ -55,16 +49,12 @@ const Attendance = () => {
   const filteredData1 = attendanceData.filter((entry) => entry.employeeId === employeeId);
   // Filtered data for search query
   const filteredData = filteredData1.filter((entry) => {
-    const entryDate = new Date(entry.punchIn);
-    const matchesYear = searchYear ? entryDate.getFullYear() === parseInt(searchYear) : true;
-    const matchesMonth = searchMonth ? entryDate.getMonth() + 1 === parseInt(searchMonth) : true;
-    const matchesDay = searchDay ? entryDate.getDate() === parseInt(searchDay) : true;
-    return matchesYear && matchesMonth && matchesDay && (
+    const entryDate = new Date(entry.punchIn).toLocaleDateString();
+    return entryDate === searchDate.toLocaleDateString() && (
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
-  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
+  });
 
 
   const calculateHours = (inTime, outTime) => {
@@ -210,7 +200,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(9, 30, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
         handlePunchButtonClick() // Call the punch-out function
@@ -238,7 +228,7 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(14, 30, 0, 0);
+    punchInLimit.setHours(9, 30, 0, 0);
     return now > punchInLimit;
   };
 
@@ -367,53 +357,13 @@ const Attendance = () => {
         <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
         <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
       </div>
-
-      <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
-        {/* Year Filter */}
-        <div className="relative mt-4 sm:mt-0">
-          <select
-            onChange={(e) => setSearchYear(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
-          >
-            <option value="">Select Year</option>
-            {Array.from(new Set(attendanceData.map(entry => new Date(entry.punchIn).getFullYear()))).map(year => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
-        </div>
-        {/* Month Filter */}
-        <div className="relative mt-4 sm:mt-0">
-          <select
-            onChange={(e) => setSearchMonth(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
-          >
-            <option value="">Select Month</option>
-            {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
-              <option key={month} value={month}>
-                {new Date(0, month - 1).toLocaleString('default', { month: 'long' })}
-              </option>
-            ))}
-          </select>
-        </div>
-        {/* Day Filter */}
-        <div className="relative mt-4 sm:mt-0">
-          <select
-            onChange={(e) => setSearchDay(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"        >
-            <option value="">Select Day</option>
-            {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
-              <option key={day} value={day}>{day}</option>
-            ))}
-          </select>
-        </div>
-      </div>
       <div className="flex space-x-4">
         {/* TimeSheet Container */}
 
         <div className="bg-white w-[500px] shadow-md rounded-lg p-6 mb-6 flex flex-col space-y-4">
           <h1 className="text-2xl font-bold text-gray-800">TimeSheet</h1>
 
-          <div className="bg-[#2A546D] text-white p-4 rounded-lg mb-4">
+          <div className="bg-[#0098F1] text-white p-4 rounded-lg mb-4">
             <h3 className="text-[20px] font-semibold">Punch In at</h3>
             <p className="text-[20px] font-normal">{currentDateTime}</p>
           </div>
@@ -429,16 +379,16 @@ const Attendance = () => {
                 cx="60"
                 cy="60"
                 r="54"
-                stroke={isPunchedIn ? "green" : "red"} // Orange color by default, green when punched in
+                stroke={isPunchedIn ? "green" : "#FF6F00"} // Orange color by default, green when punched in
                 strokeWidth="10"
                 fill="none"
                 clipPath="url(#half-circle)"
               />
             </svg>
-            <p className=" font-semibold text-[15px] mt-[110px] ml-[60px] text-[#2A546D]"> {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
+            <p className=" font-semibold text-[15px] mt-[110px] ml-[60px] text-[#E65F2B]"> {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className={`text-lg font-semibold ${isPunchedIn ? 'text-[#2A546D]' : 'text-red-600'}`}>
+            <p className={`text-lg font-semibold ${isPunchedIn ? 'text-blue-600' : 'text-red-600'}`}>
               {/* {isPunchedIn ? "Punched In" : "Punched Out"} */}
             </p>
           </div>
@@ -446,14 +396,14 @@ const Attendance = () => {
             <button
               onClick={handlePunchButtonClick}
               // disabled={isPastPunchInTime() && !isPunchedIn}
-              className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isPunchedIn ? 'bg-[#2A546D]' : 'bg-[#2A546D]'}`}
+              className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isPunchedIn ? 'bg-[#0098F1]' : 'bg-[#0098F1]'}`}
             >
               {isPunchedIn ? "Punch Out" : "Punch In"}
             </button>
             {isPunchedIn && (
               <button
                 onClick={handleBreakButtonClick}
-                className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isOnBreak ? 'bg-[#2A546D] hover:bg-[#2A546D]' : 'bg-[#2A546D] hover:bg-[#2A546D]'}`}
+                className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isOnBreak ? 'bg-[#0098F1] hover:bg-[#0098F1]' : 'bg-[#0098F1] hover:bg-[#0098F1]'}`}
               >
                 {isOnBreak ? "End Break" : "Start Break"}
               </button>
@@ -465,12 +415,12 @@ const Attendance = () => {
 
         {/* Employee Info Container */}
         <div className="bg-white shadow-md rounded-lg p-6 w-[500px] mb-6 space-y-4">
-          <h2 className="text-[20px] font-bold   mt-6 mb-4  text-[#2A546D]">Time Info</h2>
-          <p className=" font-semibold text-[15px] text-[#2A546D] ">Punch In Time: {punchInTime ? punchInTime.toLocaleString() : "N/A"}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">Punch Out Time: {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">Elapsed Time: {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]"> Break Time: {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]"> Total Break Time: {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}</p>
+          <h2 className="text-[20px] font-bold   mt-6 mb-4  text-[#E65F2B]">Time Info</h2>
+          <p className=" font-semibold text-[15px] text-[#E65F2B] ">Punch In Time: {punchInTime ? punchInTime.toLocaleString() : "N/A"}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]">Punch Out Time: {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]">Elapsed Time: {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]"> Break Time: {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}</p>
+          <p className=" font-semibold text-[15px] text-[#E65F2B]"> Total Break Time: {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}</p>
         </div>
       </div>
 
@@ -479,18 +429,18 @@ const Attendance = () => {
         <div className="flex flex-col space-y-4 mb-6">
         </div>
 
-        <div className="overflow-x-auto scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#2A546D]">
+        <div className="overflow-x-auto scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#E65F2B]">
           <table className="min-w-full divide-y divide-red-200">
-            <thead className="bg-[#2A546D] text-white">
+            <thead className="bg-[#E65F2B] text-white">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Employee ID</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Employee Name</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Punch In</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Punch Out</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Production Hours</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Break Duration</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Working Hours</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Overtime</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Employee ID</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Employee Name</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Punch In</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Punch Out</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Production Hours</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Break Duration</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Working Hours</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#E65F2B]">Overtime</th>
               </tr>
             </thead>
             <tbody>

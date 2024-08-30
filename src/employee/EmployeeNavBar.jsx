@@ -94,9 +94,9 @@ function EmployeeNavBar({ onIconClick, options }) {
           id="topbar"
           className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          <div className="h-[42px] bg-[#2A546D] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px]  rounded-lg flex justify-center items-center relative">
+          <div className="h-[42px] bg-[#2A546D] ml-10 md:ml-60    w-[180px] sm:w-[300px] lg:w-[560px]   rounded-lg flex justify-center items-center relative">
             <input
-              className="pl-2 px-4 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#2A546D]"
+              className="pl-4 px-4 text-sm placeholder:text-white outline-none placeholder:text-left w-full rounded-xl text-white border-none bg-[#2A546D]"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
@@ -121,7 +121,7 @@ function EmployeeNavBar({ onIconClick, options }) {
         </div>
         <div className="flex justify-start md:hidden z-50 mr-2">
           <FaBars
-            className="text-[#e65f2b] text-3xl hover:cursor-pointer"
+            className="text-[#2A546D] text-3xl hover:cursor-pointer"
             onClick={toggleDropdown}
           />
           {dropdownOpen && (
@@ -156,7 +156,7 @@ function EmployeeNavBar({ onIconClick, options }) {
                 <p className="pl-2 text-[#2A546D]">Holidays</p>
               </div>
 
-              <div
+              {/* <div
                 onClick={() => {
                   onIconClick("Chats");
                   setDropdownOpen(false);
@@ -168,8 +168,8 @@ function EmployeeNavBar({ onIconClick, options }) {
                   style={iconStyle("message")}
                 />
                 <p className="pl-2 text-[#2A546D]">Messages</p>
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 onClick={() => {
                   onIconClick("Inbox");
                   setDropdownOpen(false);
@@ -181,7 +181,7 @@ function EmployeeNavBar({ onIconClick, options }) {
                   style={iconStyle("mail")}
                 />
                 <p className="pl-2 text-[#2A546D]">Mails</p>
-              </div>
+              </div> */}
               <div
                 onClick={() => {
                   onIconClick("Apply Leave");
@@ -245,7 +245,7 @@ function EmployeeNavBar({ onIconClick, options }) {
               </div>
             )}
           </div>
-          <div className="relative">
+          {/* <div className="relative">
             <TiMessages
               className="hover:cursor-pointer"
               style={iconStyle("messages")}
@@ -258,8 +258,8 @@ function EmployeeNavBar({ onIconClick, options }) {
                 {tooltip}
               </div>
             )}
-          </div>
-          <div className="relative">
+          </div> */}
+          {/* <div className="relative">
             <FaEnvelope
               className="hover:cursor-pointer"
               style={iconStyle("mail")}
@@ -272,7 +272,7 @@ function EmployeeNavBar({ onIconClick, options }) {
                 {tooltip}
               </div>
             )}
-          </div>
+          </div> */}
           <div className="relative">
             <FaCalendarCheck
               className="hover:cursor-pointer"
