@@ -73,13 +73,13 @@ function Payslip() {
 
   return (
     <>
-      <div id="main" className="text-[24px] font-semibold w-auto h-auto">
+      <div id="main" className="text-[24px] font-semibold w-auto min-h-screen">
         {showForm ? (
           <div id="submain1">
             <form>
               <div
                 id="select"
-                className="flex flex-col gap-x-5 m-2 justify-center items-center pt-10 bg-white"
+                className="flex flex-col gap-x-5 m-2 justify-center items-center pt-16 bg-white"
               >
                 <div className="flex justify-center items-center gap-x-5">
                   <div className="h-60">
@@ -87,7 +87,7 @@ function Payslip() {
                       YEAR
                     </label>
                     <select
-                      className="px-20 text-[#2A546D] text-lg py-4 ml-2 bg-transparent border-2 border-[#2A546D] outline-none"
+                      className="px-20 text-[#2A546D] text-lg py-2 ml-2 bg-transparent border-2 border-[#2A546D] outline-none"
                       onChange={(e) => setPayslipYear(e.target.value)}
                     >
                       {years.map((year) => (
@@ -106,7 +106,7 @@ function Payslip() {
                       MONTH
                     </label>
                     <select
-                      className="px-20 text-lg py-4 text-[#2A546D] ml-2 bg-transparent border-2 border-[#2A546D] outline-none"
+                      className="px-20 text-lg py-2 text-[#2A546D] ml-2 bg-transparent border-2 border-[#2A546D] outline-none"
                       onChange={(e) => setPayslipMonth(e.target.value)}
                     >
                       {months.map((month) => (

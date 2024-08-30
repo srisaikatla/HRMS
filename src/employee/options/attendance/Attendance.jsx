@@ -24,15 +24,9 @@ const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId);
+  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1;
-  const [searchYear, setSearchYear] = useState(currentYear);
-  const [searchMonth, setSearchMonth] = useState(currentMonth);
-  const [searchDay, setSearchDay] = useState("");
-  const jwt = localStorage.getItem("employeeJwt");
+  const jwt = localStorage.getItem("jwt");
   const officeHours = 9;
 
 
@@ -55,16 +49,12 @@ const Attendance = () => {
   const filteredData1 = attendanceData.filter((entry) => entry.employeeId === employeeId);
   // Filtered data for search query
   const filteredData = filteredData1.filter((entry) => {
-    const entryDate = new Date(entry.punchIn);
-    const matchesYear = searchYear ? entryDate.getFullYear() === parseInt(searchYear) : true;
-    const matchesMonth = searchMonth ? entryDate.getMonth() + 1 === parseInt(searchMonth) : true;
-    const matchesDay = searchDay ? entryDate.getDate() === parseInt(searchDay) : true;
-    return matchesYear && matchesMonth && matchesDay && (
+    const entryDate = new Date(entry.punchIn).toLocaleDateString();
+    return entryDate === searchDate.toLocaleDateString() && (
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
-  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
+  });
 
 
   const calculateHours = (inTime, outTime) => {
@@ -366,47 +356,6 @@ const Attendance = () => {
       <div className="flex justify-center items-center space-x-4 mb-4">
         <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
         <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
-        {/* Year Filter */}
-        <div className="relative mt-4 sm:mt-0">
-          <select
-            onChange={(e) => setSearchYear(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select Year</option>
-            {Array.from(new Set(attendanceData.map(entry => new Date(entry.punchIn).getFullYear()))).map(year => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
-        </div>
-        {/* Month Filter */}
-        <div className="relative mt-4 sm:mt-0">
-          <select
-            onChange={(e) => setSearchMonth(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select Month</option>
-            {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
-              <option key={month} value={month}>
-                {new Date(0, month - 1).toLocaleString('default', { month: 'long' })}
-              </option>
-            ))}
-          </select>
-        </div>
-        {/* Day Filter */}
-        <div className="relative mt-4 sm:mt-0">
-          <select
-            onChange={(e) => setSearchDay(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select Day</option>
-            {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
-              <option key={day} value={day}>{day}</option>
-            ))}
-          </select>
-        </div>
       </div>
       <div className="flex space-x-4">
         {/* TimeSheet Container */}
