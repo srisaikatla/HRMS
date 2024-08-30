@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useMemo } from "react";
 import { ImProfile } from "react-icons/im";
-import { FaEnvelope, FaBars, FaSignOutAlt } from "react-icons/fa";
-import { TiMessages } from "react-icons/ti";
+import { FaBars, FaSignOutAlt } from "react-icons/fa";
 import { FaCalendarAlt, FaCalendarCheck } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { logout } from "../State/Auth/Action";
