@@ -21,9 +21,8 @@ const TeamCard = ({
       <img
         src={teamLeadImg}
         alt="Team Lead"
-        className={`w-24 h-24 rounded-full mx-auto mb-2 ${
-          ring ? "ring-4 ring-maroon-500" : ""
-        }`}
+        className={`w-24 h-24 rounded-full mx-auto mb-2 ${ring ? "ring-4 ring-maroon-500" : ""
+          }`}
       />
       <p className="text-center font-medium">{teamLead}</p>
       <p className="text-center text-sm text-[#E65F2B] mb-4">Team Lead</p>
@@ -47,9 +46,8 @@ const TeamCard = ({
               key={idx}
               src={img}
               alt={`Employee ${idx + 1}`}
-              className={`w-12 h-12 rounded-full border-2 border-gray-300 ${
-                idx < 3 ? "ring-2 ring-maroon-500" : ""
-              }`}
+              className={`w-12 h-12 rounded-full border-2 border-gray-300 ${idx < 3 ? "ring-2 ring-maroon-500" : ""
+                }`}
             />
           ))}
         </div>
