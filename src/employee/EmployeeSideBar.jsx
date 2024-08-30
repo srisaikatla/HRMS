@@ -213,7 +213,7 @@ const EmployeeSideBar = () => {
                     onChange={handleImageUpload}
                   />
                   <p className="text-[16px] text-nowrap text-white pb-4 pl-2">
-                    Welcome{" "}
+                    {/* Welcome{" "} */}
                     {auth.employee
                       ? auth.employee.firstName.toUpperCase() +
                       " " +
