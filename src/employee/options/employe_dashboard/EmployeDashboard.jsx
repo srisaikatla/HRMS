@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useRef, useState } from "react";
 import profile from "../../../assets/hr/profile/man.png";
 import importantprofilepic from "../../../assets/hr/employee/profile/profile.jpg";
@@ -7,26 +9,8 @@ import { FaCircleChevronLeft } from "react-icons/fa6";
 import { FaCircleChevronRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import AddLeavePage from "../../../components/hr/employeeForm/AddLeavePage";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 import { useSelector } from "react-redux";
 function EmployeDashboard({ onViewProfile, onLeave, onHoliday }) {
-  const data = [
-    { day: "Mon", hours: 200 },
-    { day: "Tue", hours: 150 },
-    { day: "Wed", hours: 250 },
-    { day: "Thu", hours: 220 },
-    { day: "Fri", hours: 270 },
-    { day: "Sat", hours: 80 },
-    { day: "Sun", hours: 50 },
-  ];
   const projects = [
     {
       deadline: "22 aug 2024",
@@ -170,7 +154,11 @@ function EmployeDashboard({ onViewProfile, onLeave, onHoliday }) {
             />
           </div>
           <h1 className="text-lg  lg:text-xl font-bold text-white">
-            Welcome Back, User
+            Welcome Back, {auth.employee
+              ? auth.employee.firstName +
+              " " +
+              auth.employee.lastName
+              : "user"}
           </h1>
           <p className="text-white mt-2 text-sm sm:text-base  lg:text-lg px-2 ">
             You have 4 meetings today
@@ -258,22 +246,20 @@ function EmployeDashboard({ onViewProfile, onLeave, onHoliday }) {
             <div className="flex items-center">
               <span
                 onClick={() => setActiveTab("notification")}
-                className={`cursor-pointer text-[#2A546D] font-semibold text-[14px]  border-b-2 pb-1 ${
-                  activeTab === "notification"
-                    ? "border-[#2A546D]"
-                    : "border-transparent"
-                }`}
+                className={`cursor-pointer text-[#2A546D] font-semibold text-[14px]  border-b-2 pb-1 ${activeTab === "notification"
+                  ? "border-[#2A546D]"
+                  : "border-transparent"
+                  }`}
               >
                 Notification
               </span>
             </div>
             <span
               onClick={() => setActiveTab("schedules")}
-              className={`cursor-pointer flex items-center  font-semibold  text-secondary text-[14px]  ${
-                activeTab === "schedules"
-                  ? "border-b-2 border-[#24546d]"
-                  : "border-transparent"
-              }`}
+              className={`cursor-pointer flex items-center  font-semibold  text-secondary text-[14px]  ${activeTab === "schedules"
+                ? "border-b-2 border-[#24546d]"
+                : "border-transparent"
+                }`}
             >
               <FaCalendarAlt className="mr-2" /> Schedules
             </span>
