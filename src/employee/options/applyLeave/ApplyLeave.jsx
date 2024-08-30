@@ -242,8 +242,8 @@ function ApplyLeave() {
       <div className="mt-4">
         <h3 className="text-lg font-semibold mb-2">My Leaves</h3>
 
-        <div className="overflow-x-auto rounded-lg">
-          <table className="table-auto w-full  border border-[#2A546D]">
+        <div className="   overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-4">
+          <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
             <thead>
               <tr className="bg-[#2A546D] text-white">
                 <th className="p-2">Leave Type</th>
@@ -252,32 +252,47 @@ function ApplyLeave() {
                 <th className="p-2">Half-Day</th>
                 <th className="p-2">Reason</th>
                 <th className="p-2">Status</th>
-                <th className="p-2">Actions</th>
+                {/* <th className="p-2">Actions</th> */}
               </tr>
             </thead>
             <tbody>
               {leaves.map((leave) => (
-                <tr key={leave.id} className="text-center text[#2A546D]">
-                  <td className="p-2">{leave.leaveType}</td>
-                  <td className="p-2">{leave.startdate}</td>
-                  <td className="p-2">{leave.enddate}</td>
-                  <td className="p-2">{leave.selecthalf}</td>
-                  <td className="p-2">{leave.reason}</td>
-                  <td className="p-2">{settingStatus(leave.status)}</td>
-                  <td className="p-2 flex justify-center space-x-2">
-                    <button
-                      className="text-blue-500"
-                      onClick={() => openEditModal(leave.id)}
-                    >
-                      <FiEdit />
-                    </button>
-                    <button
-                      className="text-red-500"
-                      onClick={() => openDeleteModal(leave.id)}
-                    >
-                      <FiTrash2 />
-                    </button>
+                <tr
+                  key={leave.id}
+                  className="text-center text-[#2A546D] border-[1px] border-[#2A546D] border-opacity-25"
+                >
+                  <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25">
+                    {leave.leaveType}
                   </td>
+                  <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25">
+                    {leave.startdate}
+                  </td>
+                  <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25">
+                    {leave.enddate}
+                  </td>
+                  <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25">
+                    {leave.selecthalf}
+                  </td>
+                  <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25">
+                    {leave.reason}
+                  </td>
+                  <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25">
+                    {settingStatus(leave.status)}
+                  </td>
+                  {/* <td className="p-2 border-[1px] border-[#2A546D] border-opacity-25 flex justify-center space-x-2">
+        <button
+          className="text-blue-500"
+          onClick={() => openEditModal(leave.id)}
+        >
+          <FiEdit />
+        </button>
+        <button
+          className="text-red-500"
+          onClick={() => openDeleteModal(leave.id)}
+        >
+          <FiTrash2 />
+        </button>
+      </td> */}
                 </tr>
               ))}
             </tbody>
