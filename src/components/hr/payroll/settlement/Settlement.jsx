@@ -128,7 +128,7 @@ function Settlement() {
   return (
     <div className="p-4 mt-4 min-h-screen">
       <div className="mb-4 lg:mb-0">
-        <span className="text-[#E65F2B] text-sm lg:text-lg font-bold">
+        <span className="text-[#0098F1] text-sm lg:text-lg font-bold">
           Payroll / Settlements
         </span>
       </div>

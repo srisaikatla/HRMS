@@ -49,7 +49,7 @@ const HRDashboard = () => {
   return (
     <div className="w-full h-auto overflow-y-hidden p-4 mt-4">
       <div className="pb-6">
-        <h2 className="text-[rgb(230,95,43)] lg:text-lg  text-sm font-bold mb-4">
+        <h2 className="text-[#0098f1] lg:text-lg  text-sm font-bold mb-4">
           Hr / Hr Dashboard
         </h2>
         <div className="space-y-6">
@@ -59,28 +59,28 @@ const HRDashboard = () => {
                 <div key={index} className="w-full">
                   <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
                     <BsPersonFillCheck className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
-                    <div className="text-white text-center sm:text-left">
+                    <div className="text-white text-center sm:text-left font-semibold">
                       New Employee
                       <div className="text-center">{data.new_Employee}</div>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
                     <MdGroups className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
-                    <div className="text-white text-center sm:text-left">
+                    <div className="text-white text-center sm:text-left font-semibold">
                       Total Employee
                       <div className="text-center">{data.Total_Employee}</div>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
                     <RiMoneyRupeeCircleLine className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
-                    <div className="text-white text-center sm:text-left">
+                    <div className="text-white text-center sm:text-left font-semibold">
                       Total Salary
                       <div className="text-center">{data.Total_Salary}</div>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg">
                     <TbReportMoney className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
-                    <div className="text-white text-center sm:text-left">
+                    <div className="text-white text-center sm:text-left font-semibold">
                       Avg Salary
                       <div className="text-center">{data.Avg_Salary}</div>
                     </div>
@@ -88,8 +88,8 @@ const HRDashboard = () => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-col justify-center bg-[#0098F1] p-6 md:p-4 mx-auto rounded-lg shadow w-full lg:w-1/4">
-              <div className="text-white text-center">
+            <div className="flex flex-col justify-start bg-[#0098F1] p-6 md:p-4 mx-auto rounded-lg shadow w-full lg:w-1/4">
+              <div className="text-white text-center mb-3">
                 <div className="text-[20px]">Income Analysis</div>
                 <div className="text-[12px] mb-3 ">
                   8% Higher than last month
@@ -213,13 +213,13 @@ const HRDashboard = () => {
             />
           </div>
           <div className="flex flex-col lg:flex-row gap-6 w-full lg:w-full overflow-hidden">
-            <div className="flex flex-col bg-[#0098F1] p-5 rounded-lg shadow w-full lg:w-2/3">
-              <div className="text-white text-2xl mb-6 md:px-4">
+            <div className="flex flex-col bg-white p-5 rounded-lg shadow-2xl w-full lg:w-2/3">
+              <div className="text-[#0098F1] text-2xl mb-6 md:px-4">
                 Employee Performance
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full md:mt-4 md:mb-5">
-                  <thead className="bg-white text-black">
+                  <thead className="bg-[#0098F1] text-white">
                     <tr>
                       <th className="p-4">Avatar</th>
                       <th className="p-4">Name</th>

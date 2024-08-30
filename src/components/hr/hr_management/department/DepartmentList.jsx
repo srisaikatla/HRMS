@@ -146,7 +146,7 @@ function DepartmentList() {
   return (
     <div id="main" className="min-h-screen p-4 mt-4">
       <div className=" mb-4">
-        <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+        <p className="text-[#0098F1] lg:text-lg text-sm font-bold mb-4">
           Hr Management / Employee / Department List
         </p>
       </div>
@@ -214,7 +214,7 @@ function DepartmentList() {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white lg:w-full p-6 rounded-lg shadow-lg w-64">
-            <h2 className="text-xl font-roboto mb-4 text-[#E65F2B]">
+            <h2 className="text-xl font-roboto mb-4 text-[#0098F1]">
               {editId ? "Edit Department" : "Add Department"}
             </h2>
             <div className="mb-4">

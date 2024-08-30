@@ -29,7 +29,7 @@ const FacebookPosts = () => {
   };
   return (
     <div className="bg-white p-5">
-      <h1 className="text-[#E65F2B] lg:text-xl font-bold mb-4">
+      <h1 className="text-[#0098F1] lg:text-xl font-bold mb-4">
         Facebook Recent Post
       </h1>
 
@@ -42,7 +42,7 @@ const FacebookPosts = () => {
       <div className="flex gap-3 justify-end">
         <button
           type="button"
-          className="bg-[#E65F2B] rounded-md px-2 "
+          className="bg-[#0098F1] rounded-md px-2 "
           onClick={onClickfile}
         >
           <img
@@ -52,14 +52,14 @@ const FacebookPosts = () => {
           />
         </button>
         <input type="file" ref={imageRef} hidden />
-        <button className="bg-[#E65F2B] rounded-md px-2">
+        <button className="bg-[#0098F1] rounded-md px-2">
           <img
             src="src/assets/hr/hrSocial/facebook/camera.png"
             className="w-[20px]"
             alt="camera image"
           />
         </button>
-        <button className=" text-lg bg-[#E65F2B] text-white rounded-lg px-6">
+        <button className=" text-lg bg-[#0098F1] text-white rounded-lg px-6">
           Post
         </button>
       </div>

@@ -147,7 +147,7 @@ function ITDeclarations() {
     <>
       <div id="main" className="min-h-screen p-4 mt-4">
         <div className=" mb-4 ">
-          <p className="text-[#E65F2B] text-sm lg:text-lg font-bold mb-4">
+          <p className="text-[#0098F1] text-sm lg:text-lg font-bold mb-4">
             Hr Management / Employee / IT Declarations
           </p>
         </div>
