@@ -185,9 +185,8 @@ const EmployeeSideBar = () => {
     <div className="relative bg-[#2A546D] bg-opacity-10">
       <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
-        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${
-          isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
+          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
@@ -222,14 +221,14 @@ const EmployeeSideBar = () => {
                     Welcome{" "}
                     {auth.employee
                       ? auth.employee.firstName.toUpperCase() +
-                        " " +
-                        auth.employee.lastName.toUpperCase()
+                      " " +
+                      auth.employee.lastName.toUpperCase()
                       : "User"}
                   </p>
                 </div>
                 <div className=" flex relative bottom-10 left-14">
                   <p className="text-[16px] text-white pl-2">
-                    User Designation
+                    {auth.employee ? auth.employee.designation : "user Designation"}
                   </p>
                 </div>
               </>
@@ -300,9 +299,8 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 p-4 transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
-        }`}
+        className={`flex-1 p-4 transition-all duration-300 ${isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+          }`}
       >
         {activeTab === "Employees Dashboard" && <EmployeDashboard />}
         {activeTab === "All Employees" && <AllEmployees />}

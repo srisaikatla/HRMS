@@ -20,6 +20,7 @@ const Profile = () => {
 
   // State for form values
   const [personalInfo, setPersonalInfo] = useState({
+    employeeId: auth.employee.employeeId,
     firstName: auth.employee.firstName,
     lastName: auth.employee.lastName,
     bloodGroup: auth.employee.bloodGroup,
@@ -138,6 +139,21 @@ const Profile = () => {
                 htmlFor="firstName"
                 className="block text-lg font-medium text-[#2A546D] mb-3"
               >
+                Employee ID
+              </label>
+              <input
+                id="employeeId"
+                type="text"
+                value={personalInfo.employeeId}
+                onChange={handleChangePersonalInfo}
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+              />
+            </div>
+            <div className="m-2">
+              <label
+                htmlFor="firstName"
+                className="block text-lg font-medium text-[#2A546D] mb-3"
+              >
                 First Name
               </label>
               <input
@@ -145,7 +161,7 @@ const Profile = () => {
                 type="text"
                 value={personalInfo.firstName}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -160,7 +176,7 @@ const Profile = () => {
                 type="text"
                 value={personalInfo.lastName}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -175,7 +191,7 @@ const Profile = () => {
                 type="text"
                 value={personalInfo.bloodGroup}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -190,7 +206,7 @@ const Profile = () => {
                 type="date"
                 value={personalInfo.dob}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -203,9 +219,9 @@ const Profile = () => {
               <input
                 id="officialEmail"
                 type="email"
-                value={contactInfo.officialEmail}
+                value={personalInfo.officialEmail}
                 onChange={handleChangeContactInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
           </div>
@@ -234,7 +250,7 @@ const Profile = () => {
                   type="email"
                   value={contactInfo.personalEmail}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -249,7 +265,7 @@ const Profile = () => {
                   type="tel"
                   value={contactInfo.phoneNumber}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -264,7 +280,7 @@ const Profile = () => {
                   type="tel"
                   value={contactInfo.alternatePhone}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
             </div>
@@ -319,7 +335,7 @@ const Profile = () => {
                   type="text"
                   value={personalInfo.firstName}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -334,7 +350,7 @@ const Profile = () => {
                   type="text"
                   value={personalInfo.lastName}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -349,7 +365,7 @@ const Profile = () => {
                   type="text"
                   value={personalInfo.bloodGroup}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -364,7 +380,7 @@ const Profile = () => {
                   type="date"
                   value={personalInfo.dob}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -377,9 +393,9 @@ const Profile = () => {
                 <input
                   id="officialEmail"
                   type="email"
-                  value={contactInfo.officialEmail}
+                  value={personalInfo.officialEmail}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
             </div>
