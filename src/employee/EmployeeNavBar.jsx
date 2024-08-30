@@ -1,12 +1,8 @@
-/* eslint-disable react/prop-types */
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ImProfile } from "react-icons/im";
 import { FaEnvelope, FaBars, FaSignOutAlt } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 import { FaCalendarAlt, FaCalendarCheck } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { logout } from "../State/Auth/Action";
-import { useNavigate } from "react-router-dom";
 
 function EmployeeNavBar({ onIconClick, options }) {
   const [hoveredIcon, setHoveredIcon] = useState("");
@@ -14,9 +10,7 @@ function EmployeeNavBar({ onIconClick, options }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
-  const jwt = localStorage.getItem("employeeJwt")
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+
   const flattenedOptions = useMemo(() => {
     return options.flatMap((option) => {
       if (option.subOptions) {
@@ -44,7 +38,7 @@ function EmployeeNavBar({ onIconClick, options }) {
   };
 
   const iconStyle = (iconName) => ({
-    color: hoveredIcon === iconName ? "#ef5f2b" : "#ef5f2b",
+    color: hoveredIcon === iconName ? "#2A546D" : "#2A546D",
     fontSize: "1.5rem",
     position: "relative",
   });
@@ -75,12 +69,6 @@ function EmployeeNavBar({ onIconClick, options }) {
     setSearchQuery("");
     setFilteredOptions([]);
   };
-  const handleLogout = () => {
-    dispatch(logout(jwt));
-    localStorage.removeItem("employeeJwt");
-    localStorage.removeItem("employee")
-    navigate("/option");
-  };
 
   return (
     <>
@@ -92,9 +80,9 @@ function EmployeeNavBar({ onIconClick, options }) {
           id="topbar"
           className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          <div className="h-[42px] bg-[#ef5f2b] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px]  rounded-lg flex justify-center items-center relative">
+          <div className="h-[42px] bg-[#2A546D] ml-10 md:ml-60    w-[180px] sm:w-[300px] lg:w-[560px]   rounded-lg flex justify-center items-center relative">
             <input
-              className="pl-2 px-4 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
+              className="pl-4 px-4 text-sm placeholder:text-white outline-none placeholder:text-left w-full rounded-xl text-white border-none bg-[#2A546D]"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
@@ -106,8 +94,9 @@ function EmployeeNavBar({ onIconClick, options }) {
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#e65f2b] ${option.isSubOption ? "" : "" // Indent subOptions
-                      }`}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#2A546D] ${
+                      option.isSubOption ? "" : "" // Indent subOptions
+                    }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.name : option.title}
@@ -119,7 +108,7 @@ function EmployeeNavBar({ onIconClick, options }) {
         </div>
         <div className="flex justify-start md:hidden z-50 mr-2">
           <FaBars
-            className="text-[#e65f2b] text-3xl hover:cursor-pointer"
+            className="text-[#2A546D] text-3xl hover:cursor-pointer"
             onClick={toggleDropdown}
           />
           {dropdownOpen && (
@@ -132,81 +121,80 @@ function EmployeeNavBar({ onIconClick, options }) {
                   onIconClick("Profile");
                   setDropdownOpen(false);
                 }}
-                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out pb-1 px-2"
+                className="border-b hover:bg-gray-200 flex border-[#2A546D] transition-all duration-1000 ease-in-out pb-1 px-2"
               >
                 <ImProfile
                   className="hover:cursor-pointer"
                   style={iconStyle("folder")}
                 />
-                <p className="pl-2 text-[#e65f2b]">Profile</p>
+                <p className="pl-2 text-[#2A546D]">Profile</p>
               </div>
               <div
                 onClick={() => {
                   onIconClick("Holidays");
                   setDropdownOpen(false);
                 }}
-                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
+                className="border-b hover:bg-gray-200 flex border-[#2A546D] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
               >
                 <FaCalendarAlt
                   className="hover:cursor-pointer"
                   style={iconStyle("calendar")}
                 />
-                <p className="pl-2 text-[#e65f2b]">Holidays</p>
+                <p className="pl-2 text-[#2A546D]">Holidays</p>
               </div>
 
-              <div
+              {/* <div
                 onClick={() => {
                   onIconClick("Chats");
                   setDropdownOpen(false);
                 }}
-                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+                className="border-b hover:bg-gray-200 flex border-[#2A546D] transition-all duration-1000 ease-in-out py-1 px-2"
               >
                 <TiMessages
                   className="hover:cursor-pointer"
                   style={iconStyle("message")}
                 />
-                <p className="pl-2 text-[#e65f2b]">Messages</p>
-              </div>
-              <div
+                <p className="pl-2 text-[#2A546D]">Messages</p>
+              </div> */}
+              {/* <div
                 onClick={() => {
                   onIconClick("Inbox");
                   setDropdownOpen(false);
                 }}
-                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+                className="border-b hover:bg-gray-200 flex border-[#2A546D] transition-all duration-1000 ease-in-out py-1 px-2"
               >
                 <FaEnvelope
                   className="hover:cursor-pointer"
                   style={iconStyle("mail")}
                 />
-                <p className="pl-2 text-[#e65f2b]">Mails</p>
-              </div>
+                <p className="pl-2 text-[#2A546D]">Mails</p>
+              </div> */}
               <div
                 onClick={() => {
                   onIconClick("Apply Leave");
                   setDropdownOpen(false);
                 }}
-                className="border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out py-1 px-2"
+                className="border-b hover:bg-gray-200 flex border-[#2A546D] transition-all duration-1000 ease-in-out py-1 px-2"
               >
                 <FaCalendarCheck
                   className="hover:cursor-pointer"
                   style={iconStyle("bell")}
                 />
-                <p className="pl-2 text-[#e65f2b]">Apply Leave</p>
+                <p className="pl-2 text-[#2A546D]">Apply Leave</p>
               </div>
 
               <div
                 onClick={() => {
-                  handleLogout();
+                  onIconClick("Logout");
                   setDropdownOpen(false);
                 }}
-                className="py-1 border-b hover:bg-gray-200 flex border-[#e65f2b] transition-all duration-1000 ease-in-out px-2"
+                className="py-1 border-b hover:bg-gray-200 flex border-[#2A546D] transition-all duration-1000 ease-in-out px-2"
               >
                 <FaSignOutAlt
                   className="hover:cursor-pointer"
                   style={iconStyle("filter")}
-
                 />
-                <p className="pl-2 text-[#e65f2b]">Logout</p>
+                <p className="pl-2 text-[#2A546D]">Logout</p>
               </div>
             </div>
           )}
@@ -225,7 +213,7 @@ function EmployeeNavBar({ onIconClick, options }) {
               onClick={() => onIconClick("Profile")}
             />
             {hoveredIcon === "profile" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#2A546D] text-white text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -239,12 +227,12 @@ function EmployeeNavBar({ onIconClick, options }) {
               onClick={() => onIconClick("Holidays")}
             />
             {hoveredIcon === "calendar" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#2A546D] text-white text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
           </div>
-          <div className="relative">
+          {/* <div className="relative">
             <TiMessages
               className="hover:cursor-pointer"
               style={iconStyle("messages")}
@@ -253,12 +241,12 @@ function EmployeeNavBar({ onIconClick, options }) {
               onClick={() => onIconClick("Chats")}
             />
             {hoveredIcon === "messages" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#2A546D] text-white text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
-          </div>
-          <div className="relative">
+          </div> */}
+          {/* <div className="relative">
             <FaEnvelope
               className="hover:cursor-pointer"
               style={iconStyle("mail")}
@@ -267,11 +255,11 @@ function EmployeeNavBar({ onIconClick, options }) {
               onClick={() => onIconClick("Inbox")}
             />
             {hoveredIcon === "mail" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#2A546D] text-white text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
-          </div>
+          </div> */}
           <div className="relative">
             <FaCalendarCheck
               className="hover:cursor-pointer"
@@ -283,7 +271,7 @@ function EmployeeNavBar({ onIconClick, options }) {
               onClick={() => onIconClick("Apply Leave")}
             />
             {hoveredIcon === "apply-leave" && (
-              <div className="absolute text-nowrap bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+              <div className="absolute text-nowrap bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#2A546D] text-white text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -294,10 +282,10 @@ function EmployeeNavBar({ onIconClick, options }) {
               style={iconStyle("logout")}
               onMouseEnter={() => handleMouseEnter("logout", "Logout")}
               onMouseLeave={handleMouseLeave}
-              onClick={handleLogout}
+              onClick={() => onIconClick("Logout")}
             />
             {hoveredIcon === "logout" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#e65f2b] text-white text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-[#2A546D] text-white text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}

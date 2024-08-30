@@ -99,13 +99,17 @@ function Main() {
   ];
 
   return (
-    <div id="main" className="text-[24px] font-semibold px-4 w-auto h-auto">
-      <div id="submain1" className="flex flex-row justify-between items-center">
-        <div>
-          <span className="flex">Employee</span>
-          <span className="text-[16px] font-medium">Dashboard / payslips</span>
+    <div id="main" className="p-4 mt-1 min-h-screen">
+      <div
+        id="submain1"
+        className="flex flex-col md:flex-row justify-between items-center "
+      >
+        <div className="">
+          <span className="text-[#2A546D] text-sm lg:text-lg font-semibold">
+            Employee / Payroll / Payslips
+          </span>
         </div>
-        <div className="w-[300px] h-[55px] flex rounded-lg bg-[#ef5f2b]">
+        <div className="w-[300px] h-[55px] flex rounded-lg bg-[#2A546D]">
           {[
             {
               component: (
@@ -114,7 +118,7 @@ function Main() {
                     data: csv.data,
                     filename: `payslip_${csv.title}.csv`,
                   }))}
-                  className="w-[100px] h-[55px] flex justify-center items-center bg-[#ef5f2b] rounded-l-lg"
+                  className="w-[100px] h-[55px] flex justify-center items-center bg-[#2A546D] rounded-l-lg"
                   target="_blank"
                 >
                   <BsFiletypeCsv className="text-white w-7 h-7" />
@@ -131,7 +135,7 @@ function Main() {
           ].map((button, index) => (
             <div
               key={index}
-              className={`w-[100px] h-[55px] flex justify-center items-center bg-[#ef5f2b] ${
+              className={`w-[100px] h-[55px] flex justify-center items-center bg-[#2A546D] ${
                 index !== 2 ? "border-r-2" : ""
               } ${
                 index === 0 ? "rounded-l-lg" : index === 2 ? "rounded-r-lg" : ""

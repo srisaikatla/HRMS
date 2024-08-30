@@ -147,22 +147,26 @@ const ProjectList = () => {
   };
 
   return (
-    <div id="main" className="h-screen mx-12 overflow-x-hidden text-lg font-normal">
-       <h2 className="text-xl font-bold mb-2">Employee</h2>
-       <h3 className="text-lg font-semibold mb-9">Dashboard/Projects/List</h3>
-      {/* <h2 className="text-[#e65f2b] font-bold text-xl mb-2">Project List</h2> */}
-      <div id="table" className="max-h-[70vh] overflow-y-auto">
-        <table className="min-w-[1100px]">
-          <thead className="bg-[#E65F2B]">
+    <div id="main" className=" min-h-screen mt-4 p-4 ">
+      <div className="  flex flex-col md:flex-row justify-between">
+        <div>
+          <span className=" text-[#2A546D] text-sm lg:text-lg font-medium">
+            Employee / Projects
+          </span>
+        </div>
+      </div>
+      <div className="   overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
+          <thead className="bg-[#2A546D]">
             <tr className="text-[#FFFFFF]">
-              <th className="p-2 text-center border-r border-white border-opacity-60 text-[18px] font-semibold">Project</th>
-              <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Created</th>
-              <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Deadline</th>
-              <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Progress</th>
-              <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Lead</th>
-              <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Team</th>
-              <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Status</th>
-              <th className="p-2 text-center text-[18px] font-semibold">Action</th>
+              <th className="p-2 ">Project</th>
+              <th className="p-2 ">Created</th>
+              <th className="p-2 ">Deadline</th>
+              <th className="p-2 ">Progress</th>
+              <th className="p-2 ">Lead</th>
+              <th className="p-2 px-20">Team</th>
+              <th className="p-2 ">Status</th>
+              {/* <th className="p-2 ">Action</th> */}
             </tr>
           </thead>
           <tbody>
@@ -174,19 +178,19 @@ const ProjectList = () => {
               return (
                 <tr
                   key={index}
-                  className="text-center text-[#E65F2B] font-medium text-[15px] w-full border-[1px] border-[#E65F2B] border-opacity-25"
+                  className="text-center text-[#2A546D] font-medium text-[15px] w-full border-[1px] border-[#2A546D] "
                 >
                   <td className="px-2">{item.project}</td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B]">
+                  <td className="px-2 border-x-[1px] border-[#2A546D]">
                     {dayjs(item.createdBy).format("DD MMM, YYYY")}
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B]">
+                  <td className="px-2 border-x-[1px] border-[#2A546D]">
                     {dayjs(item.Deadline).format("DD MMM, YYYY")}
                   </td>
-                  <td className="py-2 px-2 w-[120px] font-normal border-x-[1px] border-[#E65F2B]">
+                  <td className="py-2 px-2 w-[120px] font-normal border-x-[1px] border-[#2A546D]">
                     <div className="relative w-full h-4 bg-white border border-gray-300 rounded-full">
                       <div
-                        className={`h-full bg-[#1D7616] rounded-full`}
+                        className={`h-full bg-[#2df71e] rounded-full`}
                         style={{ width: `${percentage}%` }}
                       />
                       <span
@@ -198,10 +202,14 @@ const ProjectList = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B] flex-row justify-center items-center">
-                    <img src={item.Lead} alt="Type" className="mx-auto" />
+                  <td className="px-2 border-x-[1px] border-[#2A546D] flex-row justify-center items-center">
+                    <img
+                      src={item.Lead}
+                      alt="Type"
+                      className="w-10 h-10 mx-auto"
+                    />
                   </td>
-                  <td className="px-2 flex justify-start items-start space-x-1 w-full flex-wrap">
+                  <td className="px-4 flex justify-center items-center space-x-1 w-full ">
                     {Array.from({ length: item.TeamMembers }).map(
                       (_, memberIndex) => (
                         <img
@@ -213,10 +221,10 @@ const ProjectList = () => {
                       )
                     )}
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B]">
+                  <td className=" text-center px-2 border-x-[1px] border-[#2A546D]">
                     {GetStatus(item.Status)}
                   </td>
-                  <td className="px-2 text-white flex mt-2 justify-center items-center space-x-2 pb-1">
+                  {/* <td className="px-2 text-white flex mt-2 justify-center items-center space-x-2 pb-1">
                     <FiEye className="p-[10px] text-[35px] rounded bg-green-600 cursor-pointer" />
                     <TbEdit
                       onClick={() => editOpen(item, index)}
@@ -226,7 +234,7 @@ const ProjectList = () => {
                       onClick={() => handleDelete(index)}
                       className="p-[10px] text-[35px] rounded bg-red-600 cursor-pointer"
                     />
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}
@@ -239,11 +247,11 @@ const ProjectList = () => {
           onClick={editClose}
         >
           <form
-            className="bg-white w-1/2 p-8 pb-10 mt-3 rounded-md inset-0 m-auto flex flex-col space-y-4"
+            className="bg-white w-1/2 p-4 pb-12 inset-0 m-auto flex flex-col space-y-4"
             onClick={(e) => e.stopPropagation()}
             onSubmit={handleFormSubmit}
           >
-            <h2 className="text-xl font-semibold mb-4 text-[#E65F2B]">Edit Project</h2>
+            <h2 className="text-lg font-semibold mb-4">Edit Project</h2>
             <div>
               <label className="block text-sm font-medium mb-1">Project</label>
               <input
@@ -292,13 +300,13 @@ const ProjectList = () => {
               <button
                 type="button"
                 onClick={editClose}
-                className="px-3 py-2 bg-white border border-[#E65F2B] text-[#E65F2B] rounded"
+                className="px-4 py-2 bg-gray-300 rounded"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#E65F2B] text-white rounded"
+                className="px-4 py-2 bg-blue-500 text-white rounded"
               >
                 Save
               </button>

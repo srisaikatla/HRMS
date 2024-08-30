@@ -1,8 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
+// import Main from "./options/payslips/Main";
+// import Attendance from "./options/attendance/Attendance";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
 import Main from "./options/payslips/Main";
@@ -14,14 +15,18 @@ import {
   FaCalendarCheck,
   FaTasks,
   FaMoneyCheckAlt,
+  FaUser,
   FaSignOutAlt,
   FaProjectDiagram,
+  FaInbox,
+  FaComments,
   FaClipboardList,
   FaGavel,
   FaTicketAlt,
 } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { BsCalendarEvent } from "react-icons/bs";
+import { MdEvent } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
@@ -53,8 +58,24 @@ const EmployeeSideBar = () => {
     title: "",
     position: { x: 0, y: 0 },
   });
+  const [profileImage, setProfileImage] = useState(profile);
 
-  const jwt = localStorage.getItem("employeeJwt");
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target.result); // Set the image URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("fileInput").click();
+  };
+
+  const jwt = localStorage.getItem("jwt");
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -79,8 +100,8 @@ const EmployeeSideBar = () => {
     { title: "Profile", icon: <ImProfile /> },
     { title: "Apply Leave", icon: <FaCalendarCheck /> },
     { title: "Projects", icon: <FaProjectDiagram /> },
-    { title: "Inbox", icon: <FaEnvelope /> },
-    { title: "Chats", icon: <TiMessages /> },
+    // { title: "Inbox", icon: <FaEnvelope /> },
+    // { title: "Chats", icon: <TiMessages /> },
     { title: "Attendance", icon: <FaClipboardList /> },
     { title: "Rules", icon: <FaGavel /> },
     { title: "Tickets", icon: <FaTicketAlt /> },
@@ -162,12 +183,12 @@ const EmployeeSideBar = () => {
   };
 
   return (
-    <div className="relative bg-[#e65f2b] bg-opacity-10">
+    <div className="relative bg-[#2A546D] bg-opacity-10">
       <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
-        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${
+        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
@@ -178,21 +199,41 @@ const EmployeeSideBar = () => {
           </div>
           <div>
             {!isSidebarCollapsed && (
-              <div className="flex items-center relative top-0 pb-4 px-2">
-                <img
-                  src={profile}
-                  className="rounded-full w-[50px] h-[50px]"
-                  alt="Profile"
-                />
-                <p className="text-[16px] text-white pl-2">
-                  Welcome{" "}
-                  {auth.employee
-                    ? auth.employee.firstName.toUpperCase() +
-                      " " +
-                      auth.employee.lastName.toUpperCase()
-                    : "user"}
-                </p>
-              </div>
+              <>
+                <div className="flex items-center relative top-0 pb-4 px-2">
+                  {/* <img
+                    src={profile}
+                    className="rounded-full w-[50px] h-[50px]"
+                    alt="Profile"
+                  /> */}
+                  <img
+                    src={profileImage}
+                    className="rounded-full w-[50px] h-[50px] cursor-pointer"
+                    alt="Profile"
+                    onClick={triggerFileInput}
+                  />
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageUpload}
+                  />
+                  <p className="text-[16px] text-nowrap text-white pb-4 pl-2">
+                    Welcome{" "}
+                    {auth.employee
+                      ? auth.employee.firstName.toUpperCase() +
+                        " " +
+                        auth.employee.lastName.toUpperCase()
+                      : "User"}
+                  </p>
+                </div>
+                <div className=" flex relative bottom-10 left-14">
+                  <p className="text-[16px] text-white pl-2">
+                    User Designation
+                  </p>
+                </div>
+              </>
             )}
           </div>
 
@@ -203,8 +244,8 @@ const EmployeeSideBar = () => {
                 className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
                   activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
-                    ? "bg-white text-[#e65f2b] rounded-r-3xl"
-                    : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
+                    ? "bg-white text-[#2A546D] rounded-r-3xl"
+                    : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
                 }`}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
@@ -226,15 +267,15 @@ const EmployeeSideBar = () => {
 
                 {option.subOptions && openDropdown === option.title && (
                   <div
-                    className={`bg-[#e65f2b] text-white transition-all duration-300`}
+                    className={`bg-[#2A546D] text-white transition-all duration-300`}
                   >
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
                         className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
                           activeTab === subOption.name
-                            ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
-                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
+                            ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
+                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
                         }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
@@ -282,7 +323,7 @@ const EmployeeSideBar = () => {
       </div>
       {tooltip.show && (
         <div
-          className="fixed p-2 bg-[#e65f2b] text-white rounded-lg shadow-md z-50"
+          className="fixed p-2 bg-[#2A546D] text-white rounded-lg shadow-md z-50"
           style={{
             left: `${tooltip.position.x}px`,
             top: `${tooltip.position.y}px`,

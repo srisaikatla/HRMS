@@ -61,12 +61,12 @@ const UpdatePassword = () => {
 
     return (
         <div className="bg-white ml-10 mr-10 mt-5 p-4">
-            <h1 className="text-lg text-[#E65F2B]">UPDATE PASSWORD</h1>
+            <h1 className="text-lg text-[#2A546D]">UPDATE PASSWORD</h1>
 
             <form onSubmit={handleSubmit} className="mt-4">
                 <div className="flex justify-center">
                     <div className="w-200">
-                        <label htmlFor="currentPassword" className="block text-lg font-medium text-[#E65F2B] mb-3">
+                        <label htmlFor="currentPassword" className="block text-lg font-medium text-[#2A546D] mb-3">
                             Current Password
                         </label>
                         <input
@@ -75,7 +75,7 @@ const UpdatePassword = () => {
                             value={currentPassword}
                             onChange={(e) => setCurrentPassword(e.target.value)}
                             required
-                            className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                            className="block w-[400px] border border-[#2A546D] rounded-lg h-[40px] text-lg"
                         />
                         <p className="text-red-500 mt-1 text-sm">Required*</p>
                     </div>
@@ -83,7 +83,7 @@ const UpdatePassword = () => {
 
                 <div className="mt-4 flex justify-center">
                     <div className="w-200">
-                        <label htmlFor="newPassword" className="block text-lg font-medium text-[#E65F2B] mb-3">
+                        <label htmlFor="newPassword" className="block text-lg font-medium text-[#2A546D] mb-3">
                             New Password
                         </label>
                         <input
@@ -92,7 +92,7 @@ const UpdatePassword = () => {
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             required
-                            className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                            className="block w-[400px] border border-[#2A546D] rounded-lg h-[40px] text-lg"
                         />
                         <p className="text-red-500 mt-1 text-sm">Required*</p>
                     </div>
@@ -100,7 +100,7 @@ const UpdatePassword = () => {
 
                 <div className="mt-4 flex justify-center">
                     <div className="w-200">
-                        <label htmlFor="confirmNewPassword" className="block text-lg font-medium text-[#E65F2B] mb-3">
+                        <label htmlFor="confirmNewPassword" className="block text-lg font-medium text-[#2A546D] mb-3">
                             Confirm New Password
                         </label>
                         <input
@@ -109,7 +109,7 @@ const UpdatePassword = () => {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
-                            className="block w-[400px] border border-[#E65F2B] rounded-lg h-[40px] text-lg"
+                            className="block w-[400px] border border-[#2A546D] rounded-lg h-[40px] text-lg"
                         />
                         <p className="text-red-500 mt-1 text-sm">Required*</p>
                     </div>
@@ -123,7 +123,7 @@ const UpdatePassword = () => {
                     <button
                         type="submit"
                         disabled={!(currentPassword && newPassword && confirmPassword)}
-                        className={`px-4 py-2 ${currentPassword && newPassword && confirmPassword ? 'bg-[#E65F2B]' : 'bg-gray-400'} text-white rounded-lg`}
+                        className={`px-4 py-2 ${currentPassword && newPassword && confirmPassword ? 'bg-[#2A546D]' : 'bg-gray-400'} text-white rounded-lg`}
                     >
                         Update Password
                     </button>
@@ -132,7 +132,7 @@ const UpdatePassword = () => {
 
             {showPopup && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-[#E65F2B] p-8 rounded-lg text-center text-white">
+                    <div className="bg-[#2A546D] p-8 rounded-lg text-center text-white">
                         <h2 className="text-3xl mb-2">
                             <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
                         </h2>
