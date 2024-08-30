@@ -146,7 +146,7 @@ function HolidayList() {
           <div>Loading...</div>
         ) : (
           <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
-            <table className="min-w-full w-screen  overflow-x-scroll   text-nowrap">
+            <table className="min-w-full overflow-x-scroll   text-nowrap">
               <thead className="bg-[#0098f1] text-white">
                 <tr>
                   <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
