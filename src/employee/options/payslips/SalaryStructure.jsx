@@ -22,7 +22,7 @@ function SalaryStructure() {
           </span>
         </div>
       </div>
-      <div id="salary-structure" className="bg-white m-2 mt-4 p-4">
+      <div id="salary-structure" className="bg-white  mt-4 p-2">
         <div className="text-lg text-[#2A546D] pt-4 flex justify-between items-center">
           <p>Current Salary</p>
           <p>Effective Date: June 21, 2024</p>

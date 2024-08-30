@@ -129,22 +129,22 @@ const Education = () => {
   };
 
   return (
-    <div className="bg-white p-6 h-[500px] flex flex-col">
+    <div className="bg-white h-[500px] flex flex-col">
       <div className="flex justify-between items-center py-2">
         <h1 className="text-sm lg:text-lg text-[#2A546D]">EDUCATION INFO</h1>
 
         <button
-          className="flex items-center text-lg sm:text-xl md:text-2xl bg-[#2A546D] text-white h-[40px] sm:h-[50px] w-[100px] sm:w-[120px] justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          className="flex items-center text-lg  bg-[#2A546D] text-white px-3 py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           onClick={() => setIsAddModalOpen(true)}
         >
           <FaPlusCircle className="text-xl mr-2" aria-hidden="true" />
-          <span className="hidden sm:inline">Add</span>
-          <span className="inline sm:hidden">Add</span>
+          <span className="hidden text-lg sm:inline">Add</span>
+          <span className="inline text-lg sm:hidden">Add</span>
         </button>
       </div>
       <hr className="border-t-2 border-[#2A546D] mb-4" />
-      <div className="flex-grow overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="bg-[#2A546D]">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
@@ -188,13 +188,13 @@ const Education = () => {
                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
                   <button
                     onClick={() => handleEdit(item.id)}
-                    className="text-[#2A546D] hover:text-blue-700 mr-4"
+                    className="text-blue-600 mr-4"
                   >
                     <FiEdit className="inline text-xl" aria-label="Edit" />
                   </button>
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="text-[#2A546D] hover:text-red-700"
+                    className=" text-red-600"
                   >
                     <MdDelete className="inline text-xl" aria-label="Delete" />
                   </button>
@@ -222,7 +222,9 @@ const Education = () => {
                   }
                   className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                 >
-                  <option value="">Select Degree</option>
+                  <option value="" disabled hidden>
+                    Select Degree
+                  </option>
                   <option value="B.Tech">B.Tech</option>
                   <option value="B.Com">B.Com</option>
                   <option value="MCA">MCA</option>
@@ -301,7 +303,7 @@ const Education = () => {
               <div className="flex justify-end mt-4">
                 <button
                   onClick={handleSave}
-                  className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+                  className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                 >
                   Save
                 </button>
@@ -413,7 +415,7 @@ const Education = () => {
               <div className="flex justify-end mt-4">
                 <button
                   onClick={handleSave}
-                  className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+                  className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                 >
                   Save
                 </button>

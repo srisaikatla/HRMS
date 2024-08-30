@@ -345,7 +345,7 @@ const SideBar = () => {
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
         {activeTab === "Emp Attendance" && <Attandance />}
-        {/* {activeTab === "Leaves" && <Leaves />} */}
+        {activeTab === "Leaves" && <Leaves />}
         {activeTab === "Hr Dashboard" && <HrDashboard />}
 
 
