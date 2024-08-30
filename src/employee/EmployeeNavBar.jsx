@@ -90,7 +90,7 @@ function EmployeeNavBar({ onIconClick, options }) {
             />
 
             {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg rounded-lg z-10">
+              <div className="absolute top-[42px] overflow-y-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] h-32 left-0 bg-white w-full shadow-lg rounded-lg z-10">
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
@@ -202,7 +202,7 @@ function EmployeeNavBar({ onIconClick, options }) {
 
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
+          className="hidden md:flex  md:mt-2  justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
         >
           <div className="relative">
             <ImProfile

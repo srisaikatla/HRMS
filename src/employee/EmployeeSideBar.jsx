@@ -181,6 +181,9 @@ const EmployeeSideBar = () => {
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
   };
+  const handleSetActiveTab = (tab) => {
+    setActiveTab(tab);
+  };
 
   return (
     <div className="relative bg-[#2A546D] bg-opacity-10">
@@ -303,7 +306,13 @@ const EmployeeSideBar = () => {
           isSidebarCollapsed ? "ml-16" : "ml-[240px]"
         }`}
       >
-        {activeTab === "Employees Dashboard" && <EmployeDashboard />}
+        {activeTab === "Employees Dashboard" && (
+          <EmployeDashboard
+            onViewProfile={() => handleSetActiveTab("Profile")}
+            onLeave={() => handleSetActiveTab("Apply Leave")}
+            onHoliday={() => handleSetActiveTab("Holidays")}
+          />
+        )}
         {activeTab === "All Employees" && <AllEmployees />}
         {activeTab === "Holidays" && <EmployeHoliday />}
         {activeTab === "Events" && <Event />}

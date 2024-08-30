@@ -17,7 +17,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useSelector } from "react-redux";
-function EmployeDashboard() {
+function EmployeDashboard({ onViewProfile, onLeave, onHoliday }) {
   const data = [
     { day: "Mon", hours: 200 },
     { day: "Tue", hours: 150 },
@@ -175,12 +175,15 @@ function EmployeDashboard() {
           <p className="text-white mt-2 text-sm sm:text-base  lg:text-lg px-2 ">
             You have 4 meetings today
           </p>
-          <button className="bg-white text-[#2A546D] w-auto  px-10 py-2   rounded-[5px] mt-6">
+          <button
+            onClick={onViewProfile}
+            className="bg-white text-[#2A546D] w-auto  px-10 py-2   rounded-[5px] mt-6"
+          >
             View Profile
           </button>
         </div>
 
-        <div className="bg-white w-full h-auto lg:h-[310px] rounded-lg p-4 md:p-6 shadow-md">
+        <div className="bg-white w-full h-auto lg:h-[310px] rounded-lg p-4  shadow-md">
           <h1 className="text-[#2A546D] text-[16px] md:text-[18px] font-bold text-center">
             Attendance & Leaves
           </h1>
@@ -234,7 +237,7 @@ function EmployeDashboard() {
               </h2>
             </div>
           </div>
-          <Link to="/add-leavePage">
+          <Link onClick={onLeave}>
             <p className="text-[#2A546D] text-[16px] md:text-[18px] font-semibold flex items-center  justify-center">
               Apply Leave
               <GoArrowUpRight className="text-[#2A546D] ml-2 text-[16px]" />
@@ -242,7 +245,7 @@ function EmployeDashboard() {
           </Link>
         </div>
 
-        <div className="bg-white w-full overflow-y-auto h-[310px] scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] text-[#2A546D] rounded-lg p-4 md:p-6 shadow-md">
+        <div className="bg-white w-full overflow-y-auto h-[310px] scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] text-[#2A546D] rounded-lg p-4  shadow-md">
           <div className="flex justify-between items-center">
             <h2 className="text-[18px] font-bold text-[#2A546D]">Important</h2>
             <a href="#" className="text-[14px]  font-semibold text-[#2A546D]">
@@ -400,7 +403,7 @@ function EmployeDashboard() {
             </h1>
           </div>
           <div className="text-center ">
-            <Link to="">
+            <Link onClick={onHoliday}>
               <button className="bg-white text-[#2A546D] w-auto  px-10 py-2   rounded-[5px] mt-3 md:mt-0">
                 View All
               </button>

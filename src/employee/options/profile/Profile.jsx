@@ -95,7 +95,7 @@ const Profile = () => {
         style={{ height: navHeight }}
       >
         {/* Desktop View */}
-        <div className="hidden md:flex flex-grow">
+        <div className="hidden lg:flex flex-grow">
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
@@ -114,7 +114,7 @@ const Profile = () => {
         </div>
 
         {/* Mobile View */}
-        <div className="flex md:hidden flex-grow ">
+        <div className="flex lg:hidden flex-grow ">
           {[
             { tab: "personal", icon: <FaUser /> },
             { tab: "official", icon: <FaBriefcase /> },
@@ -353,14 +353,14 @@ const Profile = () => {
 
       {/* Personal Info Modal */}
       {isPersonalModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white  p-4 rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Personal Information
+              <h2 className="text-lg text-[#2A546D] font-semibold">
+                Edit Personal Info
               </h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg  cursor-pointer text-[#2A546D]"
                 onClick={handleClosePersonalModal}
               />
             </div>
@@ -456,14 +456,12 @@ const Profile = () => {
 
       {/* Contact Info Modal */}
       {isContactModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 text-[#2A546D] flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-3 py-4  rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Contact Information
-              </h2>
+              <h2 className="text-lg font-semibold">Edit Contact Info</h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg cursor-pointer"
                 onClick={handleCloseContactModal}
               />
             </div>
@@ -529,14 +527,12 @@ const Profile = () => {
 
       {/* Address Info Modal */}
       {isAddressesModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 text-[#2A546D]  flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-3 py-4 rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Address Information
-              </h2>
+              <h2 className="text-lg font-semibold">Edit Address Info</h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg cursor-pointer"
                 onClick={handleCloseAddressesModal}
               />
             </div>
