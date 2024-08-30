@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import styles
@@ -8,6 +9,7 @@ import { API_BASE_URL } from "../../../Config/api"
 
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
+  const [message, setMessage] = useState("")
   const [currentDateTime, setCurrentDateTime] = useState("");
   const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isOnBreak, setIsOnBreak] = useState(false);
@@ -22,10 +24,17 @@ const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
+  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId);
   const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
-  const jwt = localStorage.getItem("jwt");
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth() + 1;
+  const [searchYear, setSearchYear] = useState(currentYear);
+  const [searchMonth, setSearchMonth] = useState(currentMonth);
+  const [searchDay, setSearchDay] = useState("");
+  const jwt = localStorage.getItem("employeeJwt");
   const officeHours = 9;
+
 
   useEffect(() => {
     const fetchAttendanceData = async () => {
@@ -44,15 +53,19 @@ const Attendance = () => {
   }, [jwt]);
 
   const filteredData1 = attendanceData.filter((entry) => entry.employeeId === employeeId);
-
   // Filtered data for search query
-  const searchedData = filteredData1.filter((entry) => {
-    const entryDate = new Date(entry.punchIn).toLocaleDateString();
-    return entryDate === searchDate.toLocaleDateString() && (
+  const filteredData = filteredData1.filter((entry) => {
+    const entryDate = new Date(entry.punchIn);
+    const matchesYear = searchYear ? entryDate.getFullYear() === parseInt(searchYear) : true;
+    const matchesMonth = searchMonth ? entryDate.getMonth() + 1 === parseInt(searchMonth) : true;
+    const matchesDay = searchDay ? entryDate.getDate() === parseInt(searchDay) : true;
+    return matchesYear && matchesMonth && matchesDay && (
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  });
+
+  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
+
 
   const calculateHours = (inTime, outTime) => {
     const inDate = new Date(inTime);
@@ -192,8 +205,51 @@ const Attendance = () => {
     return () => clearInterval(breakTimer);
   }, [isOnBreak, breakStartTime]);
 
+
+  useEffect(() => {
+    const checkPunchOutTime = () => {
+      const now = new Date();
+      const logoutLimit = new Date();
+      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
+
+      if (isPunchedIn && now > logoutLimit) {
+        handlePunchButtonClick() // Call the punch-out function
+      }
+    };
+
+    const interval = setInterval(checkPunchOutTime, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, [isPunchedIn]);
+
+
+
+  const toIST = (date) => {
+    const options = { timeZone: 'Asia/Kolkata', hour12: false };
+    const istDate = new Date(date.toLocaleString('en-US', options));
+    return new Date(istDate.getTime() - (istDate.getTimezoneOffset() * 60000)); // Remove milliseconds
+  };
+
+  // Convert the punch-in and punch-out times to IST and remove milliseconds
+  const formatDateForBackend = (date) => {
+    return date ? toIST(date).toISOString().split('.')[0] : null;
+  };
+
+  const isPastPunchInTime = () => {
+    const now = new Date();
+    const punchInLimit = new Date();
+    punchInLimit.setHours(9, 30, 0, 0);
+    return now > punchInLimit;
+  };
+
+
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
+    if (isPastPunchInTime() && !isPunchedIn) {
+      setMessage("You need to login before 9:30 AM");
+      return;
+    }
+    setMessage("");
     if (isPunchedIn) {
       const newPunchOutTime = new Date();
       const production = calculateHours(punchInTime, newPunchOutTime);
@@ -211,11 +267,14 @@ const Attendance = () => {
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
       const workingHours = calculateWorkingHours(production, totalBreakDuration);
 
+
       const newEntry = {
         employeeId,
         employeeName,
-        punchIn: punchInTime, // Ensure to use Date objects
-        punchOut: newPunchOutTime,
+        punchIn: formatDateForBackend(punchInTime),
+        punchOut: formatDateForBackend(newPunchOutTime),
+        production,
+        breakDuration,
         productionHours: production.hours,
         productionMinutes: production.minutes,
         productionSeconds: production.seconds,
@@ -225,8 +284,10 @@ const Attendance = () => {
         overtime,
       };
 
-      // Update attendanceData state properly
 
+      // Update attendanceData state properly
+      const updatedAttendanceData = [...attendanceData, newEntry];
+      setAttendanceData(updatedAttendanceData);
 
       try {
         const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
@@ -235,8 +296,7 @@ const Attendance = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(response.data.message);
-        setAttendanceData((prevData) => [...prevData, response.data]);
+
       } catch (error) {
         console.error("Error saving attendance:", error);
       }
@@ -299,10 +359,6 @@ const Attendance = () => {
     }
   };
 
-  const handleDateChange = (date) => {
-    setSearchDate(date);
-  };
-
 
   return (
     <div className="max-w-4xl mx-auto p-6 ">
@@ -310,6 +366,47 @@ const Attendance = () => {
       <div className="flex justify-center items-center space-x-4 mb-4">
         <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
         <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
+        {/* Year Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchYear(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Year</option>
+            {Array.from(new Set(attendanceData.map(entry => new Date(entry.punchIn).getFullYear()))).map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+        </div>
+        {/* Month Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchMonth(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Month</option>
+            {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
+              <option key={month} value={month}>
+                {new Date(0, month - 1).toLocaleString('default', { month: 'long' })}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Day Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchDay(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Day</option>
+            {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+              <option key={day} value={day}>{day}</option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="flex space-x-4">
         {/* TimeSheet Container */}
@@ -349,6 +446,7 @@ const Attendance = () => {
           <div className="flex flex-col space-y-4">
             <button
               onClick={handlePunchButtonClick}
+              // disabled={isPastPunchInTime() && !isPunchedIn}
               className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isPunchedIn ? 'bg-[#0098F1]' : 'bg-[#0098F1]'}`}
             >
               {isPunchedIn ? "Punch Out" : "Punch In"}
@@ -397,14 +495,14 @@ const Attendance = () => {
               </tr>
             </thead>
             <tbody>
-              {searchedData.length === 0 ? (
+              {filteredData.length === 0 ? (
                 <tr>
                   <td colSpan="8" className="text-center py-4">
                     No attendance records found.
                   </td>
                 </tr>
               ) : (
-                searchedData.map((entry, index) => {
+                filteredData.map((entry, index) => {
                   const workingTime = calculateWorkingHours(
                     {
                       hours: entry.productionHours,

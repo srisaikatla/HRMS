@@ -230,47 +230,13 @@ const Compensation = () => {
 
   return (
     <>
-      <div id="main" className="h-auto pb-10 ">
-        <div className="ml-5 mb-4 pt-2">
-          <p className="text-[#E65F2B] lg:text-xl text-sm font-bold mb-4">
-            HR Management / Employees / Compensation
+      <div id="main" className="min-h-screen p-4 mt-4 ">
+        <div className=" mb-4 ">
+          <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+            Hr Management / Employee / Compensation
           </p>
         </div>
 
-        {/* <div className="mx-3">
-          <div className="flex justify-center items-center h-44">
-            <label className="block text-lg font-medium mb-2">
-              Employee Name:
-            </label>
-            <div className="ml-2 w-96">
-              <Select
-                options={employeeOptions}
-                classNamePrefix="select"
-                placeholder="Select an employee"
-                onChange={handleEmployeeChange}
-                className="border-[1px] border-blue-[#0098f1] rounded"
-              />
-            </div>
-            {selectedEmployee && (
-              <>
-                <button
-                  className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
-                  onClick={handleEditToggle}
-                >
-                  {editMode ? "Save" : "Edit"}
-                </button>
-                {editMode && (
-                  <button
-                    className="ml-2 px-4 py-2 bg-gray-500 text-white rounded"
-                    onClick={handleCancelEdit}
-                  >
-                    Cancel
-                  </button>
-                )}
-              </>
-            )}
-          </div>
-        </div> */}
         <div className="mx-3">
           <div className="flex flex-col md:flex-row justify-center items-center h-auto md:h-44 space-y-4 md:space-y-0">
             <label className="block text-lg font-medium mb-2 md:mb-0">
@@ -286,7 +252,7 @@ const Compensation = () => {
               />
             </div>
             {selectedEmployee && (
-              <div className="flex space-x-2 mt-4 md:mt-0">
+              <div className="flex ml-2  space-x-2 mt-4 md:mt-0">
                 <button
                   className="px-4 py-2 bg-blue-500 text-white rounded"
                   onClick={handleEditToggle}

@@ -93,9 +93,9 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
     return (
         <div className='bg-white h-[500px] flex flex-col p-6'>
             <div className="flex justify-between items-center py-2">
-                <h1 className="text-xl text-[#E65F2B]">ID PROOFS</h1>
+                <h1 className="text-xl text-[#2A546D]">ID PROOFS</h1>
                 <button
-                    className="flex items-center text-2xl bg-[#E65F2B] text-white h-[50px] w-[120px] justify-center rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
+                    className="flex items-center text-2xl bg-[#2A546D] text-white h-[50px] w-[120px] justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                     onClick={() => {
                         resetForm(); // Ensure form is reset when adding new document
                         handleOpenDocumentsModal();
@@ -105,10 +105,10 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                     Add
                 </button>
             </div>
-            <hr className="border-t-2 border-[#E65F2B] mb-4" />
+            <hr className="border-t-2 border-[#2A546D] mb-4" />
             <div className="flex-grow overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-[#E65F2B]">
+                    <thead className="bg-[#2A546D]">
                         <tr>
                             <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">ID Type</th>
                             <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">ID Number</th>
@@ -129,14 +129,14 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
                                     <button
                                         onClick={() => handleEdit(item.id)}
-                                        className="text-red-500 hover:text-blue-700 mr-4"
+                                        className="text-[#2A546D] hover:text-blue-700 mr-4"
                                         aria-label="Edit"
                                     >
                                         <FiEdit className="inline text-xl" aria-hidden="true" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(item.id)}
-                                        className="text-red-500 hover:text-red-700"
+                                        className="text-[#2A546D] hover:text-red-700"
                                         aria-label="Delete"
                                     >
                                         <MdDelete className="inline text-xl" aria-hidden="true" />
@@ -158,14 +158,14 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                         >
                             &times;
                         </button>
-                        <h2 className="text-2xl font-semibold mb-4 text-[#E65F2B]">{editMode ? 'Edit Document' : 'Add Document'}</h2>
+                        <h2 className="text-2xl font-semibold mb-4 text-[#2A546D]">{editMode ? 'Edit Document' : 'Add Document'}</h2>
                         <div className="grid grid-cols-1 gap-4">
                             <div>
                                 <select
                                     id="idType"
                                     value={idType}
                                     onChange={(e) => setIdType(e.target.value)}
-                                    className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none text-[#E65F2B]"
+                                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                                     aria-label="ID Type"
                                 >
                                     <option value="">Select ID Type</option>
@@ -181,7 +181,7 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                                     id="idNumber"
                                     value={idNumber}
                                     onChange={(e) => setIdNumber(e.target.value)}
-                                    className="w-full border-b border-[#E65F2B] bg-transparent rounded-none p-2 focus:border-[#E65F2B] outline-none"
+                                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none"
                                     placeholder="Enter ID Number"
                                     aria-label="ID Number"
                                 />
@@ -192,27 +192,27 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                                         type="checkbox"
                                         checked={isVerified}
                                         onChange={() => setIsVerified(!isVerified)}
-                                        className="w-[30px] h-[30px] mr-2 accent-[#E65F2B]"
+                                        className="w-[30px] h-[30px] mr-2 accent-[#2A546D]"
                                         aria-label="Verified"
                                     />
-                                    <label className="text-lg text-[#E65F2B]">Photo Id</label>
+                                    <label className="text-lg text-[#2A546D]">Photo Id</label>
                                 </div>
                                 <div className="flex items-center">
                                     <input
                                         type="checkbox"
                                         checked={isSubmitted}
                                         onChange={() => setIsSubmitted(!isSubmitted)}
-                                        className="w-[30px] h-[30px] mr-2 accent-[#E65F2B]"
+                                        className="w-[30px] h-[30px] mr-2 accent-[#2A546D]"
                                         aria-label="Submitted"
                                     />
-                                    <label className="text-lg text-[#E65F2B]">Date of Birth</label>
+                                    <label className="text-lg text-[#2A546D]">Date of Birth</label>
                                 </div>
                             </div>
                             <div className="mb-4">
                                 <input
                                     type="file"
                                     onChange={handleFileChange}
-                                    className="border border-[#E65F2B] h-[60px] w-full text-white cursor-pointer file:bg-[#E65F2B] file:h-[60px] file:w-[150px] file:text-white file:border-[#E65F2B]"
+                                    className="border border-[#2A546D] h-[60px] w-full text-white cursor-pointer file:bg-[#2A546D] file:h-[60px] file:w-[150px] file:text-white file:border-[#2A546D]"
                                     aria-label="Upload File"
                                 />
                                 {/* Display the selected file name */}
@@ -223,14 +223,14 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
                             <div className="flex justify-end mt-4">
                                 <button
                                     onClick={handleDocumentSave}
-                                    className="bg-[#E65F2B] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
+                                    className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg hover:bg-[#d4551a] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                                     aria-label="Save Document"
                                 >
                                     Save
                                 </button>
                                 <button
                                     onClick={handleCloseDocumentsModal}
-                                    className="bg-transparent border border-[#E65F2B] text-[#E65F2B] h-[40px] w-[120px] rounded-lg ml-2 hover:bg-[#E65F2B] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E65F2B]"
+                                    className="bg-transparent border border-[#2A546D] text-[#2A546D] h-[40px] w-[120px] rounded-lg ml-2 hover:bg-[#2A546D] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                                     aria-label="Cancel"
                                 >
                                     Cancel
@@ -243,7 +243,7 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
 
             {successMessage && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-                <div className="bg-[#E65F2B] p-8 rounded-lg text-center text-white">
+                <div className="bg-[#2A546D] p-8 rounded-lg text-center text-white">
                     <h2 className="text-3xl mb-4">
                         <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
                     </h2>
@@ -256,4 +256,6 @@ const Documents = ({ handleOpenDocumentsModal, handleCloseDocumentsModal, isDocu
 };
 
 export default Documents;
+
+
 

@@ -6,32 +6,20 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { CSVLink } from "react-csv";
 import Payslip from "./Payslip"; // Ensure Payslip component is imported
-import SalaryStructure from "./SalaryStructure";
-import Declaration from "./Declaration";
-import BankAccount from "./BankAccount";
-import { FaBars, FaTimes } from "react-icons/fa";
 
 function Main() {
-  const sections = [
-    { name: "Payslips", id: "payslip" }, // Updated ID for Payslip
-    { name: "Salary Structure", id: "salary-structure" },
-    { name: "Declaration", id: "declaration" },
-    { name: "Bank Account", id: "bank-account" },
-  ];
+  const sections = [{ name: "Payslips", id: "payslip" }]; // Only necessary section
 
   const [currentSection, setCurrentSection] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [earningsData, setEarningsData] = useState([]);
   const [deductionsData, setDeductionsData] = useState([]);
 
   useEffect(() => {
-    const sectionId = sections[currentSection].id;
-    const sectionElement = document.getElementById(sectionId);
+    const sectionElement = document.getElementById(sections[currentSection].id);
     if (sectionElement) {
       sectionElement.scrollIntoView({
         behavior: "smooth",
         block: "start",
-        inline: "start",
       });
     }
   }, [currentSection, sections]);
@@ -50,24 +38,10 @@ function Main() {
     }
   }, []);
 
-  const handleNextSection = (index) => {
-    setCurrentSection(
-      index === "next"
-        ? (prev) => (prev === sections.length - 1 ? 0 : prev + 1)
-        : index
-    );
-    setMenuOpen(false);
-  };
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
   const handlePDFDownload = () => {
-    const sectionId = sections[currentSection].id; // Get the current section's ID
-    const input = document.getElementById(sectionId);
+    const input = document.getElementById(sections[currentSection].id);
     if (!input) {
-      console.error(`Element with id '${sectionId}' not found.`);
+      console.error("Element not found.");
       return;
     }
 
@@ -125,24 +99,23 @@ function Main() {
   ];
 
   return (
-    <div id="main" className="text-[24px] font-semibold px-4 w-auto h-auto">
-      <div id="submain1" className="flex flex-row justify-between items-center">
-        <div>
-          <span className="flex">Employee</span>
-          <span className="text-[16px] font-medium">Dashboard / payslips</span>
+    <div id="main" className="p-4 md:p-6 lg:p-8">
+      <div id="submain1" className="flex flex-col md:flex-row justify-between items-center mb-4">
+        <div className="mb-4 md:mb-0">
+          <span className="text-xl md:text-2xl font-semibold">Employee</span>
+          <br />
+          <span className="text-sm md:text-base font-medium">Dashboard / payslips</span>
         </div>
-        <div className="w-[300px] h-[55px] flex rounded-lg bg-[#ef5f2b]">
+        <div className="w-[300px] h-[55px] flex rounded-lg bg-[#2A546D]">
           {[
             {
-              icon: <BsFiletypeCsv className="text-white w-7 h-7" />,
-              key: "csv",
               component: (
                 <CSVLink
                   data={csvData.map((csv) => ({
                     data: csv.data,
                     filename: `payslip_${csv.title}.csv`,
                   }))}
-                  className="w-[100px] h-[55px] flex justify-center items-center bg-[#ef5f2b] rounded-l-lg"
+                  className="w-[100px] h-[55px] flex justify-center items-center bg-[#2A546D] rounded-l-lg"
                   target="_blank"
                 >
                   <BsFiletypeCsv className="text-white w-7 h-7" />
@@ -151,24 +124,18 @@ function Main() {
             },
             {
               icon: <FaRegFilePdf className="text-white w-7 h-7" />,
-              key: "pdf",
               onClick: handlePDFDownload,
             },
             {
               icon: <IoPrint className="text-white w-7 h-7" />,
-              key: "print",
             },
-          ].map((button) => (
+          ].map((button, index) => (
             <div
-              key={button.key}
-              className={`w-[100px] h-[55px] flex justify-center items-center bg-[#ef5f2b] ${
-                button.key !== "print" ? "border-r-2" : ""
+              key={index}
+              className={`w-[100px] h-[55px] flex justify-center items-center bg-[#2A546D] ${
+                index !== 2 ? "border-r-2" : ""
               } ${
-                button.key === "csv"
-                  ? "rounded-l-lg"
-                  : button.key === "print"
-                  ? "rounded-r-lg"
-                  : ""
+                index === 0 ? "rounded-l-lg" : index === 2 ? "rounded-r-lg" : ""
               }`}
             >
               {button.component ? (
@@ -181,37 +148,7 @@ function Main() {
         </div>
       </div>
 
-      <nav className="py-4 pt-10 ">
-        <button className="text-black text-2xl sm:hidden" onClick={toggleMenu}>
-          {menuOpen ? <FaTimes className="mb-56" /> : <FaBars />}
-        </button>
-        <ul
-          className={`${
-            menuOpen ? "block" : "hidden"
-          } sm:flex sm:flex-row flex-col justify-around items-center flex sm:space-y-0 sm:space-x-4`}
-        >
-          {sections.map((section, index) => (
-            <li key={index} className="mt-2 sm:mt-0 ">
-              <button
-                className={`text-lg hover:text-[#ef5f2b] transition duration-300 ${
-                  currentSection === index
-                    ? "text-[#ef5f2b] underline underline-offset-4"
-                    : ""
-                } px-2 py-1 sm:px-4 sm:py-2 rounded`}
-                onClick={() => handleNextSection(index)}
-              >
-                {section.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div>
-        {currentSection === 0 && <Payslip />}
-        {currentSection === 1 && <SalaryStructure />}
-        {currentSection === 2 && <Declaration />}
-        {currentSection === 3 && <BankAccount />}
-      </div>
+      <div>{currentSection === 0 && <Payslip />}</div>
     </div>
   );
 }

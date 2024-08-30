@@ -9,6 +9,7 @@ import { API_BASE_URL } from "../../../../Config/api";
 import * as XLSX from "xlsx";
 import { useNavigate } from "react-router-dom";
 
+
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +37,10 @@ function AllEmployees() {
   });
   const [editEmployeeId, setEditEmployeeId] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("hrJwt");
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     if (!jwt) {
@@ -305,56 +308,59 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="mr-4 ">
-        <div className="ml-5 mb-4">
-          <p className="text-[#E65F2B] text-xl font-bold mb-4">
-            HR Management / Employees/All Employees
+      <div id="main" className="mr-4 p-4 min-h-screen  mt-4 px-2 ">
+        <div className="ml-2 mb-4">
+          <p className="text-[#E65F2B] text-sm lg:text-lg font-bold mb-4">
+            Hr Management / Employee / All Employees
           </p>
         </div>
 
-        <div className="flex justify-end mb-4">
+        <div className="flex flex-wrap justify-end mb-4 space-x-0 sm:space-x-4">
           <div
             id="addemployee"
-            className="w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
+            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
               onClick={() => setShowModal(true)}
             >
-              <FiPlusCircle className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
+              <FiPlusCircle className="text-2xl font-bold mr-2 bg-[#0098f1]" />
               Add Employee
             </button>
           </div>
           <div
             id="importexcel"
-            className="w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] ml-4"
+            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
               onClick={() => setIsPopupOpen(true)}
             >
-              <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
+              <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />
               Import Employee
             </button>
           </div>
           <div
-            id="importexcel"
-            className="w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] ml-4"
+            id="downloadData"
+            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
               onClick={handleDownload}
             >
-              <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />{" "}
+              <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />
               Download Data
             </button>
           </div>
         </div>
 
-        <div id="table" className=" overflow-x-scroll">
+        <div
+          id="table"
+          className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-10 mx-4"
+        >
           {loading ? (
             <div>Loading...</div>
           ) : (
@@ -516,7 +522,7 @@ function AllEmployees() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Offcial Email</label>
+                <label className="block text-gray-700">Official Email</label>
                 <input
                   type="email"
                   name="email"

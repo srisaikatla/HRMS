@@ -4,7 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
-
+import { FiPlusCircle } from "react-icons/fi";
 const initialData = [
   {
     id: 1,
@@ -48,7 +48,8 @@ function DepartmentList() {
   const [departments, setDepartments] = useState(initialData);
   const [editId, setEditId] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] = useState(false);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
 
   const [errors, setErrors] = useState({});
 
@@ -72,11 +73,12 @@ function DepartmentList() {
   const handleSaveDepartment = () => {
     const newErrors = {};
 
-
-    if (!departmentName) newErrors.departmentName = "Department Name is required.";
-    if (!departmentHead) newErrors.departmentHead = "Department Head is required.";
-    if (!totalEmployees) newErrors.totalEmployees = "Total Employees is required.";
-
+    if (!departmentName)
+      newErrors.departmentName = "Department Name is required.";
+    if (!departmentHead)
+      newErrors.departmentHead = "Department Head is required.";
+    if (!totalEmployees)
+      newErrors.totalEmployees = "Total Employees is required.";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -86,20 +88,22 @@ function DepartmentList() {
     if (editId !== null) {
       // Edit existing department
 
-      setDepartments(departments.map(department =>
-        department.id === editId
-          ? {
-            ...department,
-            department: departmentName,
-            departmentHead: departmentHead,
-            totalEmployees: parseInt(totalEmployees, 10) || 0,
-          }
-          : department
-      ));
+      setDepartments(
+        departments.map((department) =>
+          department.id === editId
+            ? {
+                ...department,
+                department: departmentName,
+                departmentHead: departmentHead,
+                totalEmployees: parseInt(totalEmployees, 10) || 0,
+              }
+            : department
+        )
+      );
     } else {
       // Add new department
-      const newId = departments.length > 0 ? departments[departments.length - 1].id + 1 : 1;
-
+      const newId =
+        departments.length > 0 ? departments[departments.length - 1].id + 1 : 1;
 
       const newDepartment = {
         id: newId,
@@ -118,8 +122,9 @@ function DepartmentList() {
   };
 
   const handleEdit = (id) => {
-
-    const departmentToEdit = departments.find(department => department.id === id);
+    const departmentToEdit = departments.find(
+      (department) => department.id === id
+    );
 
     if (departmentToEdit) {
       setEditId(id);
@@ -132,33 +137,32 @@ function DepartmentList() {
   };
 
   const handleDelete = (id) => {
-
-    setDepartments(departments.filter(department => department.id !== id));
+    setDepartments(departments.filter((department) => department.id !== id));
 
     setShowDeleteSuccessMessage(true);
     setTimeout(() => setShowDeleteSuccessMessage(false), 3000); // Hide message after 3 seconds
   };
 
   return (
-    <div id="main" className="h-screen p-4 ">
-      <div className="ml-3 mb-4">
-        <p className="text-[#E65F2B] text-xl font-bold mb-4">
-          HR Management / Employees / Department List
+    <div id="main" className="min-h-screen p-4 mt-4">
+      <div className=" mb-4">
+        <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+          Hr Management / Employee / Department List
         </p>
       </div>
 
-      <div className="flex justify-end mb-6 h-[50px] rounded-lg">
+      <div className="flex justify-end mb-4  rounded-lg">
         <button
           type="button"
-          className="flex items-center bg-[#0098f1] text-white px-4 py-2 rounded-lg shadow hover:bg-[#007acc]"
+          className="flex items-center  text-sm lg:text-lg bg-[#0098f1] text-white p-4 py-3 rounded-lg "
           onClick={handleAddDepartment}
         >
-          <FaPlusCircle className="text-2xl mr-2" /> Add New Department
+          <FiPlusCircle className="text-xl mr-2" /> Add Department
         </button>
       </div>
 
-      <div id="table" className="overflow-x-scroll">
-        <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="sticky top-0">
             <tr>
               <th className="py-3 px-4 border-b bg-[#0098f1] text-white text-left">
@@ -209,14 +213,15 @@ function DepartmentList() {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+          <div className="bg-white lg:w-full p-6 rounded-lg shadow-lg w-64">
             <h2 className="text-xl font-roboto mb-4 text-[#E65F2B]">
               {editId ? "Edit Department" : "Add Department"}
             </h2>
             <div className="mb-4">
-
-              <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="departmentName">
-
+              <label
+                className=" mb-2 text-sm font-roboto flex justify-between"
+                htmlFor="departmentName"
+              >
                 Department Name
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -232,9 +237,10 @@ function DepartmentList() {
               )}
             </div>
             <div className="mb-4">
-
-              <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="departmentHead">
-
+              <label
+                className="block mb-2 text-sm font-roboto flex justify-between"
+                htmlFor="departmentHead"
+              >
                 Department Head
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -250,9 +256,10 @@ function DepartmentList() {
               )}
             </div>
             <div className="mb-4">
-
-              <label className="block mb-2 text-sm font-roboto flex justify-between" htmlFor="totalEmployees">
-
+              <label
+                className="block mb-2 text-sm font-roboto flex justify-between"
+                htmlFor="totalEmployees"
+              >
                 Total Employees
                 {editId && <CiEdit className="text-[red] text-xl" />}
               </label>
@@ -293,8 +300,11 @@ function DepartmentList() {
               <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
             </h2>
 
-            <p>{editId ? "Department Updated Successfully" : "Department Added Successfully"}</p>
-
+            <p>
+              {editId
+                ? "Department Updated Successfully"
+                : "Department Added Successfully"}
+            </p>
           </div>
         </div>
       )}

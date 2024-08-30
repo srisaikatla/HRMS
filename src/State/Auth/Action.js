@@ -83,7 +83,7 @@ export const login = (userData) => async (dispatch) => {
     const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
     const user = response.data;
     if (user.jwt) {
-      localStorage.setItem('jwt', user.jwt);
+      localStorage.setItem('hrJwt', user.jwt);
       dispatch(loginSuccess(user.jwt));
       return { success: true };
     } else {
@@ -107,7 +107,7 @@ export const employee = (userData) => async (dispatch) => {
     const response = await axios.post(`${API_BASE_URL}/employee/signin`, userData);
     const employee = response.data;
     if (employee.jwt) {
-      localStorage.setItem('jwt', employee.jwt);
+      localStorage.setItem('employeeJwt', employee.jwt);
       dispatch(employeeLoginSuccess(employee.jwt));
       return { success: true };
     } else {
@@ -185,6 +185,5 @@ export const getEmployee = (jwt) => async (dispatch) => {
 export const logout = (token) => {
   return async (dispatch) => {
     dispatch({ type: LOGOUT });
-    localStorage.clear();
   };
 };

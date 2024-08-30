@@ -150,10 +150,10 @@ const ProjectList = () => {
     <div id="main" className="h-screen mx-12 overflow-x-hidden text-lg font-normal">
        <h2 className="text-xl font-bold mb-2">Employee</h2>
        <h3 className="text-lg font-semibold mb-9">Dashboard/Projects/List</h3>
-      {/* <h2 className="text-[#e65f2b] font-bold text-xl mb-2">Project List</h2> */}
+      {/* <h2 className="text-[#2A546D] font-bold text-xl mb-2">Project List</h2> */}
       <div id="table" className="max-h-[70vh] overflow-y-auto">
         <table className="min-w-[1100px]">
-          <thead className="bg-[#E65F2B]">
+          <thead className="bg-[#2A546D]">
             <tr className="text-[#FFFFFF]">
               <th className="p-2 text-center border-r border-white border-opacity-60 text-[18px] font-semibold">Project</th>
               <th className="p-2 text-center text-[18px] font-semibold border-r border-white border-opacity-60">Created</th>
@@ -174,16 +174,16 @@ const ProjectList = () => {
               return (
                 <tr
                   key={index}
-                  className="text-center text-[#E65F2B] font-medium text-[15px] w-full border-[1px] border-[#E65F2B] border-opacity-25"
+                  className="text-center text-[#2A546D] font-medium text-[15px] w-full border-[1px] border-[#2A546D] border-opacity-25"
                 >
                   <td className="px-2">{item.project}</td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B]">
+                  <td className="px-2 border-x-[1px] border-[#2A546D]">
                     {dayjs(item.createdBy).format("DD MMM, YYYY")}
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B]">
+                  <td className="px-2 border-x-[1px] border-[#2A546D]">
                     {dayjs(item.Deadline).format("DD MMM, YYYY")}
                   </td>
-                  <td className="py-2 px-2 w-[120px] font-normal border-x-[1px] border-[#E65F2B]">
+                  <td className="py-2 px-2 w-[120px] font-normal border-x-[1px] border-[#2A546D]">
                     <div className="relative w-full h-4 bg-white border border-gray-300 rounded-full">
                       <div
                         className={`h-full bg-[#1D7616] rounded-full`}
@@ -198,7 +198,7 @@ const ProjectList = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B] flex-row justify-center items-center">
+                  <td className="px-2 border-x-[1px] border-[#2A546D] flex-row justify-center items-center">
                     <img src={item.Lead} alt="Type" className="mx-auto" />
                   </td>
                   <td className="px-2 flex justify-start items-start space-x-1 w-full flex-wrap">
@@ -213,7 +213,7 @@ const ProjectList = () => {
                       )
                     )}
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#E65F2B]">
+                  <td className="px-2 border-x-[1px] border-[#2A546D]">
                     {GetStatus(item.Status)}
                   </td>
                   <td className="px-2 text-white flex mt-2 justify-center items-center space-x-2 pb-1">
@@ -243,7 +243,7 @@ const ProjectList = () => {
             onClick={(e) => e.stopPropagation()}
             onSubmit={handleFormSubmit}
           >
-            <h2 className="text-xl font-semibold mb-4 text-[#E65F2B]">Edit Project</h2>
+            <h2 className="text-xl font-semibold mb-4 text-[#2A546D]">Edit Project</h2>
             <div>
               <label className="block text-sm font-medium mb-1">Project</label>
               <input
@@ -292,13 +292,13 @@ const ProjectList = () => {
               <button
                 type="button"
                 onClick={editClose}
-                className="px-3 py-2 bg-white border border-[#E65F2B] text-[#E65F2B] rounded"
+                className="px-3 py-2 bg-white border border-[#2A546D] text-[#2A546D] rounded"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#E65F2B] text-white rounded"
+                className="px-6 py-2 bg-[#2A546D] text-white rounded"
               >
                 Save
               </button>

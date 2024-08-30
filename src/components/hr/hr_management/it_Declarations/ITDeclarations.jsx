@@ -145,16 +145,16 @@ function ITDeclarations() {
 
   return (
     <>
-      <div id="main" className="h-auto pb-10">
-        <div className="ml-5 mb-4 pt-2">
-          <p className="text-[#E65F2B] text-sm lg:text-xl font-bold mb-4">
-            HR Management / Employees / IT Declarations
+      <div id="main" className="min-h-screen p-4 mt-4">
+        <div className=" mb-4 ">
+          <p className="text-[#E65F2B] text-sm lg:text-lg font-bold mb-4">
+            Hr Management / Employee / IT Declarations
           </p>
         </div>
 
-        <div className="flex  lg:flex-row  flex-col lg:gap-y-0 gap-y-2 justify-between items-center pt-10 text-white mx-2">
+        <div className="flex  lg:flex-row  flex-col lg:gap-1 gap-y-2 justify-between items-center pt-10 text-white mx-2">
           <div
-            className="bg-[#0098f1] rounded-md text-[16px] w-[220px] h-[130px] flex justify-center items-center flex-col cursor-pointer"
+            className="bg-[#0098f1] text-wrap rounded-md text-[16px] w-[220px] h-[130px] flex justify-center items-center flex-col cursor-pointer"
             onClick={() => setFilter("employee")}
           >
             <span>{selectedEmployee ? 1 : 0}</span>
@@ -182,38 +182,7 @@ function ITDeclarations() {
             <span>Pending Approval</span>
           </div>
         </div>
-        {/* <div className="mx-3">
-          <div className="flex justify-center items-center h-44">
-            <label className="block text-lg font-medium mb-2">
-              Employee Name:
-            </label>
-            <div className="ml-2 w-96">
-              <Select
-                options={employeeOptions}
-                classNamePrefix="select"
-                placeholder="Select an employee"
-                onChange={handleEmployeeChange}
-                className="border-[1px] border-blue-[#0098f1] rounded"
-              />
-            </div>
-            {selectedEmployee && (
-              <div className="flex space-x-4">
-                <button
-                  className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Add IT Returns
-                </button>
-                <button
-                  className="ml-2 px-4 py-2 bg-gray-500 text-white rounded"
-                  onClick={() => setIsRequestModalOpen(true)}
-                >
-                  Request IT Returns
-                </button>
-              </div>
-            )}
-          </div>
-        </div> */}
+
         <div className="mx-3">
           <div className="flex flex-col md:flex-row justify-center items-center h-auto md:h-44">
             <label className="block text-lg font-medium mb-2 md:mb-0">
@@ -229,7 +198,7 @@ function ITDeclarations() {
               />
             </div>
             {selectedEmployee && (
-              <div className="mt-4 md:mt-0 flex flex-col md:flex-row md:space-x-4">
+              <div className="mt-4 pl-1 md:mt-0 flex flex-col md:flex-row md:space-x-4">
                 <button
                   className="px-4 py-2 bg-blue-500 text-white rounded"
                   onClick={() => setIsModalOpen(true)}
@@ -247,7 +216,7 @@ function ITDeclarations() {
           </div>
         </div>
 
-        <div className="flex lg:pt-0 pt-6 lg:flex-row flex-col">
+        <div className="flex lg:pt-0 pt-6  sm:flex-row flex-col">
           <div
             className={`lg:w-72 w-60 px-4 text-center cursor-pointer ${
               view === "detailed" ? "font-bold" : ""

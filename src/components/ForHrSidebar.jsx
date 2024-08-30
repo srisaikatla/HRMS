@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -78,6 +79,7 @@ const ForHrSidebar = ({
     { title: "Compensation", icon: <SiReadthedocs /> },
     { title: "IT Declarations", icon: <IoDocumentAttach /> },
     { title: "Leaves", icon: <BsCalendar2CheckFill /> },
+    // { title: "LeaveRequest", icon: <BsCalendar2CheckFill /> },
     { title: "Emp Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
     { title: "Onboarding", icon: <MdDepartureBoard /> },
@@ -105,7 +107,7 @@ const ForHrSidebar = ({
   ];
 
   const authOptions = [
-    { title: "Logout", link: "/login", icon: <IoMdLogOut /> },
+    { title: "Logout", link: "/option", icon: <IoMdLogOut /> },
     { title: "Register", link: "/register", icon: <FaCashRegister /> },
     {
       title: "Forgot Password",
@@ -143,25 +145,28 @@ const ForHrSidebar = ({
 
   const handleLogout = () => {
     dispatch(logout(jwt));
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("hrJwt");
+    localStorage.removeItem("profile");
     navigate("/option");
   };
 
   const handleOptionClickNavigate = (authOption) => {
-    navigate(authOption.link);
+    if (authOption.title === "Logout") {
+      handleLogout();
+    } else {
+      navigate(authOption.link);
+    }
   };
-
   return (
     <div className="pr-2">
       <ul className="pt-3 pr-1">
         {options.map((option) => (
           <React.Fragment key={option.title}>
             <li
-              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
-                activeTab === option.title
-                  ? "bg-white rounded-r-full text-[#ef5f2b]"
-                  : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
-              }`}
+              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${activeTab === option.title
+                ? "bg-white rounded-r-full text-[#ef5f2b]"
+                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+                }`}
               onClick={() => handleOptionClick(option)}
               onMouseOver={(event) => handleMouseOver(event, option.title)}
               onMouseOut={handleMouseOut}
@@ -200,11 +205,10 @@ const ForHrSidebar = ({
             {option.title === "HR Management" && showHrManagementOptions && (
               <ul>
                 <li
-                  className={`flex justify-between text-[16px] bg-opacity-50  pl-5 py-3 mb-1 cursor-pointer ${
-                    activeTab === "Employee"
-                      ? "bg-white bg-opacity-70 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-70 hover:text-[#ef5f2b] hover:rounded-r-full"
-                  }`}
+                  className={`flex justify-between text-[16px] bg-opacity-50  pl-5 py-3 mb-1 cursor-pointer ${activeTab === "Employee"
+                    ? "bg-white bg-opacity-70 rounded-r-full text-[#ef5f2b]"
+                    : "hover:bg-white hover:bg-opacity-70 hover:text-[#ef5f2b] hover:rounded-r-full"
+                    }`}
                   onClick={() => handleOptionClick({ title: "Employee" })}
                   onMouseOver={(event) => handleMouseOver(event, "Employee")}
                   onMouseOut={handleMouseOut}
@@ -235,11 +239,10 @@ const ForHrSidebar = ({
                     {employeeOptions.map((employeeOption) => (
                       <li
                         key={employeeOption.title}
-                        className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
-                          activeTab === employeeOption.title
-                            ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                            : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                        }`}
+                        className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === employeeOption.title
+                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                          }`}
                         onClick={() => setActiveTab(employeeOption.title)}
                         onMouseOver={(event) =>
                           handleMouseOver(event, employeeOption.title)
@@ -265,11 +268,10 @@ const ForHrSidebar = ({
                 {payrollOptions.map((payrollOption) => (
                   <li
                     key={payrollOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
-                      activeTab === payrollOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                    }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === payrollOption.title
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                     onClick={() => setActiveTab(payrollOption.title)}
                     onMouseOver={(event) =>
                       handleMouseOver(event, payrollOption.title)
@@ -293,11 +295,10 @@ const ForHrSidebar = ({
                 {reportOptions.map((reportOption) => (
                   <li
                     key={reportOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
-                      activeTab === reportOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                    }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === reportOption.title
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                     onClick={() => setActiveTab(reportOption.title)}
                     onMouseOver={(event) =>
                       handleMouseOver(event, reportOption.title)
@@ -321,11 +322,10 @@ const ForHrSidebar = ({
                 {accountOptions.map((accountOption) => (
                   <li
                     key={accountOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
-                      activeTab === accountOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                    }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === accountOption.title
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                     onClick={() => setActiveTab(accountOption.title)}
                     onMouseOver={(event) =>
                       handleMouseOver(event, accountOption.title)
@@ -343,17 +343,15 @@ const ForHrSidebar = ({
               </ul>
             )}
 
-            {/* Authentication Dropdown */}
             {option.title === "Authentication" && showAuthOptions && (
               <ul>
                 {authOptions.map((authOption) => (
                   <li
                     key={authOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
-                      activeTab === authOption.title
-                        ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
-                    }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === authOption.title
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      }`}
                     onClick={() => handleOptionClickNavigate(authOption)}
                     onMouseOver={(event) =>
                       handleMouseOver(event, authOption.title)

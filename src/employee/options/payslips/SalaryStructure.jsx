@@ -82,29 +82,29 @@ const salaryData = [
 function SalaryStructure() {
   return (
     <div id="salary-structure" className="bg-white m-2 p-4">
-      <p className="text-lg text-[#ef5f2b]">Salary Structure</p>
-      <div className="text-lg text-[#ef5f2b] pt-4 flex justify-between items-center">
+      <p className="text-lg text-[#2A546D]">Salary Structure</p>
+      <div className="text-lg text-[#2A546D] pt-4 flex justify-between items-center">
         <p>Current Salary</p>
         <p>Effective Date: June 21, 2024</p>
       </div>
-      <div className="overflow-x-scroll text-lg scrollbar-thin scrollbar-track-white scrollbar-thumb-orange-600 pt-10 mx-4">
+      <div className="overflow-x-scroll text-lg scrollbar-thin scrollbar-track-white scrollbar-thumb-[#2A546D] pt-10 mx-4">
         <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
-          <thead className="bg-[#ef5f2b] text-white">
+          <thead className="bg-[#2A546D] text-white">
             <tr>
-              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+              <th className="px-4 bg-[#2A546D] border-r border-white text-white py-2">
                 Components
               </th>
-              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+              <th className="px-4 bg-[#2A546D] border-r border-white text-white py-2">
                 Monthly
               </th>
-              <th className="px-4 bg-[#E65F2B] border-r border-white text-white py-2">
+              <th className="px-4 bg-[#2A546D] border-r border-white text-white py-2">
                 Yearly
               </th>
             </tr>
           </thead>
-          <tbody className="text-gray-700 bg-[#e65f2b] bg-opacity-10">
+          <tbody className="text-gray-700 bg-[#2A546D] bg-opacity-10">
             {salaryData.map((item, index) => (
-              <tr key={index} className="text-[#e65f2b]  border-white">
+              <tr key={index} className="text-[#2A546D]  border-white">
                 <td className="px-4 py-2 text-center border-r  border-white  ">
                   {item.component}
                 </td>

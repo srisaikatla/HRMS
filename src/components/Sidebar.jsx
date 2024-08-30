@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../assets/hr/employee/profile/profile.jpg";
@@ -7,6 +8,8 @@ import { useDispatch } from "react-redux";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
+import Leaves from "../components/hr/hr_management/Leaves/Leaves";
+import Attendance from "./hr/hr_management/employeAttandance/Attendance";
 
 import AccountPayments from "../components/hr/account/AccountPayments";
 import AccountExpenses from "../components/hr/account/AccountExpenses";
@@ -29,9 +32,9 @@ import Teams from "./project/teams/Teams";
 import Chat from "./project/chat/Chat";
 import ProjectList from "./project/projecttab/ProjectList";
 import ProjectDetails from "./project/projecttab/ProjectDetail";
+import Attandance from "./hr/hr_management/employeAttandance/Attendance";
 import Inbox from "./project/inbox/Inbox";
 import { getUser } from "../State/Auth/Action";
-// import EmployeImport from "./hr/hr_management/employeImport/EmployeImport";
 import Compensation from "./hr/hr_management/compensation/Compensation";
 import PayrollDashboard from "./hr/payroll/payroll_dashboard/PayrollDashboard";
 import PaySlip from "./hr/payroll/paySlips/PaySlips";
@@ -42,6 +45,7 @@ import OnBoarding from "./hr/hr_management/onBoarding/OnBoarding";
 import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary";
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll";
+import Department from "./hr/hr_management/department/DepartmentList";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -72,7 +76,6 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 const SideBar = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
   const [selectedHeader, setSelectedHeader] = useState("Hr");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -93,7 +96,7 @@ const SideBar = () => {
   ];
 
   const authOptions = [
-    { title: "Logout", link: "/login", icon: <FaBuilding /> },
+    { title: "Logout", link: "/option", icon: <FaBuilding /> },
     { title: "Register", link: "/register", icon: <FaBuilding /> },
     {
       title: "Forgot Password",
@@ -165,7 +168,7 @@ const SideBar = () => {
 
   const projectOptions = [
     { title: "Dashboard", icon: <FaTachometerAlt /> },
-    { title: "Inbox", icon: <FaFileAlt /> },
+    // { title: "Inbox", icon: <FaFileAlt /> },
     { title: "Chat", icon: <FaUser /> },
     {
       title: "Project",
@@ -176,7 +179,7 @@ const SideBar = () => {
     { title: "Teams", icon: <FaUsers /> },
     { title: "Tickets", icon: <FaClipboardList /> },
   ];
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("hrJwt");
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -231,16 +234,15 @@ const SideBar = () => {
   };
 
   return (
-    <div className="relative h-auto bg-[#0098f1] bg-opacity-10">
+    <div className="relative h-auto bg-[#0088f1] bg-opacity-10">
       <NavBar
         onIconClick={handleIconClick}
         options={options}
         projectOptions={projectOptions}
       />
       <div
-        className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${
-          isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } transition-all duration-300 ease-in-out`}
+        className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${isSidebarCollapsed ? "w-16" : "w-[240px]"
+          } transition-all duration-300 ease-in-out`}
       >
         <div className="flex justify-between items-center pt-10 pb-5 pl-5">
           <IoMdMenu
@@ -257,7 +259,7 @@ const SideBar = () => {
                 alt="Profile"
               />
               <p className="text-[16px] pl-2">
-                Welcome {auth.user ? auth.user.firstName : "user"}
+                Welcome {auth.user ? auth.user.firstName : "User"}
               </p>
             </div>
           )}
@@ -266,21 +268,19 @@ const SideBar = () => {
         {!isSidebarCollapsed && (
           <div className="text-[16px] text-white flex justify-around pr-5 pb-3 items-center">
             <span
-              className={`cursor-pointer ${
-                selectedHeader === "Hr"
-                  ? "underline decoration-2 underline-offset-8"
-                  : ""
-              }`}
+              className={`cursor-pointer ${selectedHeader === "Hr"
+                ? "underline decoration-2 underline-offset-8"
+                : ""
+                }`}
               onClick={() => handleHeaderClick("Hr")}
             >
               Hr
             </span>
             <span
-              className={`cursor-pointer ${
-                selectedHeader === "Project"
-                  ? "underline decoration-3 underline-offset-8"
-                  : ""
-              }`}
+              className={`cursor-pointer ${selectedHeader === "Project"
+                ? "underline decoration-3 underline-offset-8"
+                : ""
+                }`}
               onClick={() => handleHeaderClick("Project")}
             >
               Projects
@@ -308,16 +308,16 @@ const SideBar = () => {
       </div>
 
       <div
-        className={`flex-1 ml-4 transition-all ${
-          isSidebarCollapsed ? "ml-[70px]" : "ml-[240px]"
-        }`}
+        className={`flex-1  ml-4 transition-all ${isSidebarCollapsed ? "ml-[70px]" : "ml-[240px]"
+          }`}
       >
         {activeTab === "Holiday" && <HolidayTab />}
         {activeTab === "Events" && <Events />}
+        {activeTab === "Department" && <Department />}
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {activeTab === "Leaves" && <LeaveRequest />}
+        {/* {activeTab === "LeaveRequest" && <LeaveRequest />} */}
 
         {activeTab === "Report Invoice" && <ReportInvoice />}
         {activeTab === "Report Expenses" && <ReportExpenses />}
@@ -334,9 +334,7 @@ const SideBar = () => {
         {activeTab === "Clients" && <UserList />}
         {activeTab === "Teams" && <Teams />}
         {activeTab === "Tickets" && <Tickets />}
-        {activeTab === "Employee Import" && <EmployeImport />}
         {activeTab === "Compensation" && <Compensation />}
-        {activeTab === "Leaves" && <Leaves />}
         {activeTab === "DashBoard" && <PayrollDashboard />}
         {activeTab === "Payslips" && <PaySlip />}
         {activeTab === "Settlements" && <Settlement />}
@@ -346,8 +344,11 @@ const SideBar = () => {
         {activeTab === "IT Declarations" && <ITDeclarations />}
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
-        {activeTab === "Emp Attendance" && <EmployeAttandance />}
-        {activeTab === "Leaves" && <Leaves />}
+        {activeTab === "Emp Attendance" && <Attandance />}
+        {/* {activeTab === "Leaves" && <Leaves />} */}
+        {activeTab === "Hr Dashboard" && <HrDashboard />}
+
+
       </div>
 
       {tooltip.show && (

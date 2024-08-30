@@ -130,7 +130,7 @@ const SocialMedia = () => {
             onClick={handleNextPage}
             className="bg-[#E65F2B] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
           >
-            <GoChevronRight className="md:text-2xl"/>
+            <GoChevronRight className="md:text-2xl" />
           </button>
         </div>
       </div>

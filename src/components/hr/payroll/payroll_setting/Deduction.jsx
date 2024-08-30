@@ -111,10 +111,10 @@ const Deduction = () => {
   const totalPages = Math.ceil(values.length / recordsPerPage);
 
   return (
-    <div className="md:my-5 py-4">
+    <div className="md:my-5 py-3">
       <div className="flex flex-row justify-between mb-7">
-      <div className="flex gap-x-2">
-          <h3 className="md:text-xl font-semibold ">Deduction</h3>
+        <div className="flex gap-x-2">
+          <h3 className="md:text-lg font-semibold ">Deduction</h3>
           <button
             type="button"
             className="flex items-center md:gap-1 gap-x-[2px] max-md:mt-1"
@@ -126,40 +126,37 @@ const Deduction = () => {
         <button
           type="button"
           onClick={() => setShowModal(true)}
-         className="flex items-center md:gap-2 gap-1 bg-[#0098f1] md:p-2 p-1 md:px-4  rounded-lg text-white "
+          className="flex items-center md:gap-2 gap-1 bg-[#0098f1] md:p-2 p-1 md:px-4  rounded-lg text-white "
         >
           <AiFillPlusCircle className="md:text-xl" />
           <span className="max-md:text-xs font-bold">Add</span>
         </button>
       </div>
       <div className="overflow-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1]">
-        <table className="w-[1100px]">
-          <thead className="bg-[#0098f1] md:text-lg font-semibold">
-            <tr>
-              <th className="py-4 px-2 text-center w-[100px] border-r border-white border-opacity-60">
+        <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
+          <thead className="bg-[#0098f1] text-white lg:text-lg font-medium">
+            <tr className="">
+              <th className="py-3 px-2 text-center w-[100px] border-r border-white border-opacity-60">
                 Display Name
               </th>
-              <th className="py-4 px-2 text-center w-[120px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[120px] border-r border-white border-opacity-60">
                 Deduction Code
               </th>
-              <th className="py-4 px-2 text-center w-[40px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[40px] border-r border-white border-opacity-60">
                 Type
               </th>
-              <th className="py-4 px-2 text-center w-[10px] border-r border-white border-opacity-60">
+              <th className="py-3 px-2 text-center w-[10px] border-r border-white border-opacity-60">
                 Deduction On
               </th>
-              <th className="py-4 px-4 w-[110px] text-center border-r border-white border-opacity-60">
+              <th className="py-3 px-4 w-[110px] text-center border-r border-white border-opacity-60">
                 Amount
               </th>
-              <th className="py-4 px-4 text-center w-[10px]">Action</th>
+              <th className="py-3 px-4 text-center w-[10px]">Action</th>
             </tr>
           </thead>
           <tbody>
             {currentRecords.map((value) => (
-              <tr
-                key={value.id}
-                className="bg-[#0098f1] bg-opacity-20 md:text-lg font-normal"
-              >
+              <tr key={value.id} className=" md:text-lg font-normal">
                 <td className="py-2 px-2 border-b bg-transparent text-center border-r border-[#0098f1] border-opacity-80">
                   {value.DisplayName}
                 </td>
@@ -195,7 +192,6 @@ const Deduction = () => {
                     >
                       <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" />
                     </button>
-
                   </div>
                 </td>
               </tr>
@@ -221,10 +217,11 @@ const Deduction = () => {
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index + 1}
-            className={`px-3 py-1 mx-1 rounded-md ${currentPage === index + 1
+            className={`px-3 py-1 mx-1 rounded-md ${
+              currentPage === index + 1
                 ? "bg-[#0098f1] text-white"
                 : "bg-gray-200 text-black"
-              }`}
+            }`}
             onClick={() => handlePageChange(index + 1)}
           >
             {index + 1}
@@ -327,7 +324,9 @@ const Deduction = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6">
             <h2 className="text-xl mb-4 font-semibold">Confirm Deletion</h2>
-            <p className="font-normal">Are you sure you want to delete this allowance?</p>
+            <p className="font-normal">
+              Are you sure you want to delete this allowance?
+            </p>
             <div className="flex justify-center space-x-4 mt-4">
               <button
                 type="button"
@@ -351,21 +350,28 @@ const Deduction = () => {
       {viewAllowance && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
-            <h3 className="text-xl font-semibold mb-4 text-[#0098f1]">Allowance Details</h3>
+            <h3 className="text-xl font-semibold mb-4 text-[#0098f1]">
+              Allowance Details
+            </h3>
             <div className="mb-4 flex items-center space-x-3">
-              <h2 className="text-lg font-semibold">Display Name:</h2><span> {viewAllowance.DisplayName} </span>
+              <h2 className="text-lg font-semibold">Display Name:</h2>
+              <span> {viewAllowance.DisplayName} </span>
             </div>
             <div className="mb-4 flex items-center space-x-3">
-              <h2 className="text-lg font-semibold">Deduction Code:</h2><span> {viewAllowance.DeductionCode}</span>
+              <h2 className="text-lg font-semibold">Deduction Code:</h2>
+              <span> {viewAllowance.DeductionCode}</span>
             </div>
             <div className="mb-4 flex items-center space-x-3">
-              <h2 className="text-lg font-semibold">Type:</h2><span> {viewAllowance.Type}</span>
+              <h2 className="text-lg font-semibold">Type:</h2>
+              <span> {viewAllowance.Type}</span>
             </div>
             <div className="mb-4 flex items-center space-x-3">
-              <h2 className="text-lg font-semibold">Deduction On:</h2><span> {viewAllowance.DeductionOn}</span>
+              <h2 className="text-lg font-semibold">Deduction On:</h2>
+              <span> {viewAllowance.DeductionOn}</span>
             </div>
             <div className="mb-4 flex items-center space-x-3">
-              <h2 className="text-lg font-semibold">Amount:</h2><span> {viewAllowance.Amount}</span>
+              <h2 className="text-lg font-semibold">Amount:</h2>
+              <span> {viewAllowance.Amount}</span>
             </div>
             <button
               className="bg-[#0098f1] text-white font-semibold px-4 py-2 rounded-lg"
@@ -373,8 +379,8 @@ const Deduction = () => {
             >
               Close
             </button>
-            </div>
           </div>
+        </div>
       )}
     </div>
   );

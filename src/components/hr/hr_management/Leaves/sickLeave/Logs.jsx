@@ -187,22 +187,23 @@ const Logs = () => {
   );
 
   return (
-    <div className="p-5 m-3 bg-white">
-      <div className="justify-between items-center flex">
+    <div className="p-2 bg-white min-h-screen">
+      <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0 lg:space-x-4">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-[#0098f1] text-[16px] py-1 outline-[#0098f1] rounded px-4 placeholder:text-[16px]"
+          className="border w-full lg:w-auto border-[#0098f1] text-[16px] py-1 outline-[#0098f1] rounded px-4 placeholder:text-[16px]"
         />
         <button
           onClick={exportToExcel}
-          className="bg-[#0098f1] text-sm text-white px-4 py-2 rounded cursor-pointer"
+          className="bg-[#0098f1] text-sm text-white px-4 py-2 rounded cursor-pointer w-full lg:w-auto"
         >
           Export
         </button>
       </div>
+
       <div className="overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] mt-2">
         <table
           id="employee-logs-table"

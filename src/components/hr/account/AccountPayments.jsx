@@ -45,34 +45,33 @@ const initialData = [
 
 const AccountPayments = () => {
   return (
-    <div className="md:ml-5 pt-2 mr-2">
-      <h1 className="text-[#E65F2B] text-xl font-bold mb-4">
-        <span>Accounts/Payments</span>
+    <div className="p-4 mt-4 min-h-screen ">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold ">
+        <span>Accounts / Payments</span>
       </h1>
-
-      <div className="mt-10 w-full overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098F1] ">
-        <table className="text-left min-w-full text-nowrap">
+      <div className=" overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">
+        <table className="min-w-full  w-screen overflow-x-scroll text-nowrap">
           <thead className="bg-[#0098F1] text-white">
-            <tr>
-              <th className="py-2 px-7">ID</th>
-              <th className="py-2 px-7">Client Name</th>
-              <th className="py-2 px-7">Project Name</th>
-              <th className="py-2 px-7">Date</th>
-              <th className="py-2 px-7">Type</th>
-              <th className="py-2 px-7">Amount</th>
+            <tr className="text-center">
+              <th className="py-3 px-4">ID</th>
+              <th className="py-3 px-4">Client Name</th>
+              <th className="py-3 px-4">Project Name</th>
+              <th className="py-3 px-4">Date</th>
+              <th className="py-3 px-4">Type</th>
+              <th className="py-3 px-4">Amount</th>
             </tr>
           </thead>
           <tbody>
             {initialData.map((data) => (
-              <tr key={data.id} className="font-normal">
-                <td className="py-2 px-7">{data.id}</td>
-                <td className="py-2 px-7">{data.clientName}</td>
-                <td className="py-2 px-7">{data.projectName}</td>
-                <td className="py-2 px-7">{data.date}</td>
-                <td className="py-2 px-7">
+              <tr key={data.id} className="font-normal text-center">
+                <td className="py-2 px-4">{data.id}</td>
+                <td className="py-2 px-4">{data.clientName}</td>
+                <td className="py-2 px-4">{data.projectName}</td>
+                <td className="py-2 px-4">{data.date}</td>
+                <td className="py-2 px-4 text-center">
                   <img src={data.type} alt="image" />
                 </td>
-                <td className="py-2 px-7">{data.amount}</td>
+                <td className="py-2 text-center px-4">{data.amount}</td>
               </tr>
             ))}
           </tbody>

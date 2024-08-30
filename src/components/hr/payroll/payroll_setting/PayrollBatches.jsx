@@ -83,25 +83,25 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
         <table className="min-w-full text-nowrap max-md:text-xs">
           <thead className="bg-[#0098f1] text-white">
             <tr>
-              <th className="py-2 px-4 border-b border-r border-white">
+              <th className="py-3 px-4 border-b border-r border-white">
                 Full Time Batch
               </th>
-              <th className="py-2 px-4 border-b border-r border-white">
+              <th className="py-3 px-4 border-b border-r border-white">
                 #Of Employees
               </th>
-              <th className="py-2 px-4 border-b border-r border-white">
+              <th className="py-3 px-4 border-b border-r border-white">
                 Last Payroll Run
               </th>
-              <th className="py-2 px-4 border-b border-r border-white">
+              <th className="py-3 px-4 border-b border-r border-white">
                 Created By
               </th>
-              <th className="py-2 px-4 border-b">Status</th>
+              <th className="py-3 px-4 border-b">Status</th>
             </tr>
           </thead>
           <tbody>
             {batches.length === 0 ? (
               <tr>
-                <td className="py-2 px-4 md:text-center" colSpan="9">
+                <td className="py-3 px-4 md:text-center" colSpan="9">
                   No Batches found.
                 </td>
               </tr>
@@ -112,19 +112,19 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
                   onClick={() => onBatchClick(batch)}
                   className=" cursor-pointer"
                 >
-                  <td className="py-2 text-center border-r border-white hover:underline underline-offset-4">
+                  <td className="py-3 text-center border-r border-white hover:underline underline-offset-4">
                     {batch.name}
                   </td>
-                  <td className="py-2 text-center border-r border-white">
+                  <td className="py-3 text-center border-r border-white">
                     {batch.employees}
                   </td>
-                  <td className="py-2 text-center border-r border-white">
+                  <td className="py-3 text-center border-r border-white">
                     {batch.lastPayrollRun}
                   </td>
-                  <td className="py-2 text-center border-r border-white">
+                  <td className="py-3 text-center border-r border-white">
                     {batch.createdBy}
                   </td>
-                  <td className="py-2 text-center">{batch.status}</td>
+                  <td className="py-3 text-center">{batch.status}</td>
                 </tr>
               ))
             )}

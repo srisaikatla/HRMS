@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
@@ -14,11 +15,8 @@ import {
   FaCalendarCheck,
   FaTasks,
   FaMoneyCheckAlt,
-  FaUser,
   FaSignOutAlt,
   FaProjectDiagram,
-  FaInbox,
-  FaComments,
   FaClipboardList,
   FaGavel,
   FaTicketAlt,
@@ -31,6 +29,7 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import SalaryStructure from "./options/payslips/SalaryStructure";
+import Event from "./options/events/Events"
 import Declaration from "./options/payslips/Declaration";
 import BankAccount from "./options/payslips/BankAccount";
 import Chat from "./options/chat/Chat";
@@ -45,6 +44,8 @@ import { useNavigate } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { TiMessages } from "react-icons/ti";
+import Attendance from "./options/attendance/Attendance";
+import Activities from "./options/employeActivites/EmployeeActivities"
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -55,7 +56,7 @@ const EmployeeSideBar = () => {
     position: { x: 0, y: 0 },
   });
 
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("employeeJwt");
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -121,7 +122,7 @@ const EmployeeSideBar = () => {
   };
 
   const handleSubOptionMouseOver = (event, subOptionTitle) => {
-    event.stopPropagation(); // Prevent event from bubbling up to parent options
+    event.stopPropagation();
     handleMouseOver(event, subOptionTitle);
   };
 
@@ -154,7 +155,8 @@ const EmployeeSideBar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("employeeJwt");
+    localStorage.removeItem("employee")
     navigate("/");
   };
 
@@ -163,12 +165,11 @@ const EmployeeSideBar = () => {
   };
 
   return (
-    <div className="relative bg-[#e65f2b] bg-opacity-10">
+    <div className="relative bg-[#2A546D] bg-opacity-10">
       <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
-        className={`flex flex-col h-screen fixed bg-[#e65f2b] mr-20 transition-all duration-300 ${
-          isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#e65f2b] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
+          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
@@ -189,8 +190,8 @@ const EmployeeSideBar = () => {
                   Welcome{" "}
                   {auth.employee
                     ? auth.employee.firstName.toUpperCase() +
-                      " " +
-                      auth.employee.lastName.toUpperCase()
+                    " " +
+                    auth.employee.lastName.toUpperCase()
                     : "user"}
                 </p>
               </div>
@@ -201,12 +202,11 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
-                  activeTab === option.title ||
+                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
-                    ? "bg-white text-[#e65f2b] rounded-r-3xl"
-                    : "hover:bg-white hover:text-[#e65f2b] rounded-r-3xl"
-                }`}
+                  ? "bg-white text-[#2A546D] rounded-r-3xl"
+                  : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
+                  }`}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
                 onMouseOut={handleMouseOut}
@@ -227,16 +227,15 @@ const EmployeeSideBar = () => {
 
                 {option.subOptions && openDropdown === option.title && (
                   <div
-                    className={`bg-[#e65f2b] text-white transition-all duration-300`}
+                    className={`bg-[#2A546D] text-white transition-all duration-300`}
                   >
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-                        className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
-                          activeTab === subOption.name
-                            ? "bg-white bg-opacity-60 text-[#e65f2b] rounded-r-full"
-                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#e65f2b]"
-                        }`}
+                        className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${activeTab === subOption.name
+                          ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
+                          : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
+                          }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
@@ -259,16 +258,15 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 p-4 transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
-        }`}
+        className={`flex-1 p-4 transition-all duration-300 ${isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+          }`}
       >
         {activeTab === "Employees Dashboard" && <EmployeDashboard />}
         {activeTab === "All Employees" && <AllEmployees />}
         {activeTab === "Holidays" && <EmployeHoliday />}
-        {activeTab === "Events" && <EmployeHoliday />}
-        {activeTab === "Activities" && <EmployeDashboard />}
-        {activeTab === "Payslips" && <Payslip />}
+        {activeTab === "Events" && <Event />}
+        {activeTab === "Activities" && <Activities />}
+        {activeTab === "Payslips" && <Main />}
         {activeTab === "Profile" && <Profile />}
         {activeTab === "Apply Leave" && <ApplyLeave />}
         {activeTab === "Salary Structure" && <SalaryStructure />}
@@ -277,13 +275,13 @@ const EmployeeSideBar = () => {
         {activeTab === "Projects" && <ProjectList />}
         {activeTab === "Inbox" && <Inbox />}
         {activeTab === "Chats" && <Chat />}
-        {activeTab === "Attendance" && <EmployeDashboard />}
+        {activeTab === "Attendance" && <Attendance />}
         {activeTab === "Rules" && <Rules />}
         {activeTab === "Tickets" && <Tickets />}
       </div>
       {tooltip.show && (
         <div
-          className="fixed p-2 bg-[#e65f2b] text-white rounded-lg shadow-md z-50"
+          className="fixed p-2 bg-[#2A546D] text-white rounded-lg shadow-md z-50"
           style={{
             left: `${tooltip.position.x}px`,
             top: `${tooltip.position.y}px`,

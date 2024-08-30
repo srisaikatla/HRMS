@@ -346,9 +346,9 @@ const RunPayroll = () => {
   }
 
   return (
-    <div className="md:pl-5">
-      <h1 className="text-[#E65F2B] md:text-xl font-bold mb-4">
-        Payroll - Batch & Period
+    <div className="p-4 mt-4 min-h-screen">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+        Payroll / Batch & Period
       </h1>
       <div className="md:text-center">
         <div className="mb-4 max-md:mr-2">
@@ -441,7 +441,9 @@ const RunPayroll = () => {
                 <span>{payrollDetails.startedOn}</span>
               </p>
               <p className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-3">
-                <strong className="whitespace-nowrap">Payroll Started By:</strong>
+                <strong className="whitespace-nowrap">
+                  Payroll Started By:
+                </strong>
                 <span>{payrollDetails.startedBy}</span>
               </p>
             </div>

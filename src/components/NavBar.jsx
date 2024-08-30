@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useMemo } from "react";
 
 import { useNavigate } from "react-router-dom";
@@ -20,12 +22,14 @@ function NavBar({ onIconClick, options, projectOptions }) {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
 
-  const jwt = localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("hrjwt");
   const dispatch = useDispatch();
+
   const handleLogout = () => {
     dispatch(logout(jwt));
-    localStorage.removeItem("jwt");
-    navigate("/");
+    localStorage.removeItem("hrJwt");
+    localStorage.removeItem("profile")
+    navigate("/option");
   };
   const flattenedOptions = useMemo(() => {
     return [...options, ...projectOptions].flatMap((option) => {
@@ -100,9 +104,9 @@ function NavBar({ onIconClick, options, projectOptions }) {
           id="topbar"
           className="flex flex-grow w-full justify-center items-center mt-2 mx-2"
         >
-          <div className="h-[42px]  bg-[#0098f1] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px] rounded-lg flex justify-center items-center relative">
+          <div className="h-[42px]  bg-[#0098f1] ml-10 md:ml-60   w-[180px] sm:w-[300px] lg:w-[560px] rounded-lg flex justify-center items-center relative">
             <input
-              className="pl-2 px-4 bg-[#0098f1] text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none"
+              className="pl-4 px-4  bg-[#0098f1]  text-sm placeholder:text-white outline-none placeholder:text-left w-full rounded-xl text-white border-none"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
@@ -110,13 +114,15 @@ function NavBar({ onIconClick, options, projectOptions }) {
             />
 
             {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg z-10">
+              <div className="absolute top-[42px] rounded-lg overflow-y-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] h-32 left-0 bg-white w-full shadow-lg z-10">
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#0098f1] ${
+
+                    className={`py-2 px-4 hover:bg-[#0098f1] hover:bg-opacity-10 cursor-pointer text-[#0098f1] ${
                       option.isSubOption ? "" : ""
                     }`}
+
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.title : option.title}
@@ -157,7 +163,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 />
                 <p className="pl-2 text-[#0098f1]">Messages</p>
               </div>
-              <div
+              {/* <div
                 onClick={() => onIconClick("Inbox")}
                 className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 px-2"
               >
@@ -166,7 +172,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
                   style={iconStyle("mail")}
                 />
                 <p className="pl-2 text-[#0098f1]">Mails</p>
-              </div>
+              </div> */}
               <div
                 onClick={() => onIconClick("Holiday")}
                 className="border-b hover:bg-gray-200 flex border-[#0098f1] transition-all duration-1000 ease-in-out py-1 pt-1 px-2"
@@ -205,7 +211,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
 
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
+          className="hidden md:flex md:mt-2 justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
         >
           <div className="relative">
             <FaCalendarCheck
@@ -237,7 +243,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
             )}
           </div>
 
-          <div className="relative">
+          {/* <div className="relative">
             <FaEnvelope
               className="hover:cursor-pointer"
               style={iconStyle("Inbox")}
@@ -250,7 +256,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 {tooltip}
               </div>
             )}
-          </div>
+          </div> */}
 
           <div className="relative">
             <FaCalendarAlt

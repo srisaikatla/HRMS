@@ -67,9 +67,9 @@ const data = [
     total: 12400,
   },
 ];
-const timer = setTimeout(() => {
-  setIsPopupOpen(false);
-}, 10000);
+// const timer = setTimeout(() => {
+//   setIsPopupOpen(false);
+// }, 10000);
 
 const ProjectListTable = () => {
   return (
