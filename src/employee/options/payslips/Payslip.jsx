@@ -124,7 +124,7 @@ function Payslip() {
                 <div className="flex justify-center items-center pt-10 text-lg absolute">
                   <button
                     type="button"
-                    className="px-10 py-4 bg-[#2A546D] text-white font-medium rounded"
+                    className="px-10 py-3 bg-[#2A546D] text-white font-medium rounded"
                     onClick={handleDownload}
                   >
                     Generate

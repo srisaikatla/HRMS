@@ -34,8 +34,6 @@ const Profile = () => {
     alternatePhone: auth.employee.alternatePhoneNumber,
   });
 
-
-
   // Handlers for opening and closing modals
   const handleOpenPersonalModal = () => setIsPersonalModalOpen(true);
   const handleClosePersonalModal = () => setIsPersonalModalOpen(false);
@@ -56,7 +54,6 @@ const Profile = () => {
     const { id, value } = e.target;
     setContactInfo((prev) => ({ ...prev, [id]: value }));
   };
-
 
   const handleSavePersonalInfo = () => {
     handleClosePersonalModal();
@@ -83,12 +80,13 @@ const Profile = () => {
         style={{ height: navHeight }}
       >
         {/* Desktop View */}
-        <div className="hidden md:flex flex-grow">
+        <div className="hidden lg:flex flex-grow">
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === tab ? "bg-white text-black" : "text-white"
-                }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${
+                activeTab === tab ? "bg-white text-black" : "text-white"
+              }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -101,7 +99,7 @@ const Profile = () => {
         </div>
 
         {/* Mobile View */}
-        <div className="flex md:hidden flex-grow ">
+        <div className="flex lg:hidden flex-grow ">
           {[
             { tab: "personal", icon: <FaUser /> },
             { tab: "official", icon: <FaBriefcase /> },
@@ -110,8 +108,9 @@ const Profile = () => {
           ].map(({ tab, icon }) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${activeTab === tab ? "bg-white text-black" : "text-white"
-                }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${
+                activeTab === tab ? "bg-white text-black" : "text-white"
+              }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -310,14 +309,14 @@ const Profile = () => {
 
       {/* Personal Info Modal */}
       {isPersonalModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white  p-4 rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Personal Information
+              <h2 className="text-lg text-[#2A546D] font-semibold">
+                Edit Personal Info
               </h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg  cursor-pointer text-[#2A546D]"
                 onClick={handleClosePersonalModal}
               />
             </div>
@@ -413,14 +412,12 @@ const Profile = () => {
 
       {/* Contact Info Modal */}
       {isContactModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 text-[#2A546D] flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-3 py-4  rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Contact Information
-              </h2>
+              <h2 className="text-lg font-semibold">Edit Contact Info</h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg cursor-pointer"
                 onClick={handleCloseContactModal}
               />
             </div>
@@ -475,6 +472,62 @@ const Profile = () => {
             <div className="flex justify-end mt-4">
               <button
                 onClick={handleSaveContactInfo}
+                className="bg-[#2A546D] text-white py-2 px-4 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Address Info Modal */}
+      {isAddressesModalOpen && (
+        <div className="fixed inset-0 z-50 text-[#2A546D]  flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-3 py-4 rounded-lg shadow-lg w-auto">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-semibold">Edit Address Info</h2>
+              <MdCancelPresentation
+                className="text-lg cursor-pointer"
+                onClick={handleCloseAddressesModal}
+              />
+            </div>
+            <hr className="border-t-2 border-[#2A546D] my-4" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="m-2">
+                <label
+                  htmlFor="currentAddress"
+                  className="block text-lg font-medium text-[#2A546D] mb-3"
+                >
+                  Current Address
+                </label>
+                <input
+                  id="currentAddress"
+                  type="text"
+                  value={addressInfo.currentAddress}
+                  onChange={handleChangeAddressInfo}
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                />
+              </div>
+              <div className="m-2">
+                <label
+                  htmlFor="permanentAddress"
+                  className="block text-lg font-medium text-[#2A546D] mb-3"
+                >
+                  Permanent Address
+                </label>
+                <input
+                  id="permanentAddress"
+                  type="text"
+                  value={addressInfo.permanentAddress}
+                  onChange={handleChangeAddressInfo}
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={handleSaveAddressInfo}
                 className="bg-[#2A546D] text-white py-2 px-4 rounded-lg"
               >
                 Save
