@@ -193,13 +193,13 @@ function DepartmentList() {
                 </td>
                 <td className="py-2 px-4 border-b text-center flex justify-center">
                   <button
-                    className="bg-[#2A8F4C] text-white px-3 py-1 rounded-lg mr-2 hover:bg-[#1d7b40]"
+                    className="bg-[#2A8F4C] text-white px-3 py-1 rounded-lg mr-2"
                     onClick={() => handleEdit(department.id)}
                   >
                     <FiEdit className="text-xl" />
                   </button>
                   <button
-                    className="bg-[#FF3636] text-white px-3 py-1 rounded-lg hover:bg-[#d32f2f]"
+                    className="bg-[#0098F1] text-white px-3 py-1 rounded-lg"
                     onClick={() => handleDelete(department.id)}
                   >
                     <RiDeleteBin6Line className="text-xl" />
@@ -213,7 +213,7 @@ function DepartmentList() {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white lg:w-full p-6 rounded-lg shadow-lg w-64">
+          <div className="bg-white lg:w-[600px] p-6 rounded-lg shadow-lg w-64">
             <h2 className="text-xl font-roboto mb-4 text-[#0098F1]">
               {editId ? "Edit Department" : "Add Department"}
             </h2>
@@ -282,7 +282,7 @@ function DepartmentList() {
                 Save
               </button>
               <button
-                className="bg-gray-500 text-white h-[40px] w-[100px] rounded mr-2 hover:bg-gray-600 m-4"
+                className="bg-white text-[#0098f1] h-[40px] w-[100px] rounded mr-2 border border-[#0098f1] m-4"
                 onClick={handleCloseModal}
               >
                 Cancel
@@ -295,7 +295,7 @@ function DepartmentList() {
       {/* Success Message */}
       {showSuccessMessage && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+          <div className="bg-[#0098F1] p-8 rounded-lg text-center text-white">
             <h2 className="text-3xl mb-4">
               <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
             </h2>

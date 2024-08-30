@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 const userdata = [
   {
     id: 1,
@@ -87,6 +88,7 @@ function Settlement() {
   const [selectedPayPeriod, setSelectedPayPeriod] = useState(null);
   const [payPeriods, setPayPeriods] = useState([]);
   const [tableData, setTableData] = useState(initialData);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -121,7 +123,11 @@ function Settlement() {
 
       // Add the new entry to the table data
       setTableData([...tableData, newEntry]);
+      setShowSuccessMessage(true);
     }
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
     handleCloseModal();
   };
 
@@ -292,9 +298,19 @@ function Settlement() {
                 onClick={handleStart}
                 disabled={!selectedEmployer || !selectedPayPeriod}
               >
-                Start
+                Save
               </button>
             </div>
+          </div>
+        </div>
+      )}
+      {showSuccessMessage && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <span>Settlement Added Successfully!</span>
           </div>
         </div>
       )}

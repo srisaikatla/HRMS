@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const employees = [
   "Kate Cross (SDT006)",
@@ -35,6 +36,7 @@ function ITDeclarations() {
   const [pendingCount, setPendingCount] = useState(0);
   const [unverifiedCount, setUnverifiedCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [filter, setFilter] = useState("all");
   const [formData, setFormData] = useState({
     financialYear: "",
@@ -112,6 +114,10 @@ function ITDeclarations() {
       verified: false,
       status: "",
     });
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 2000);
   };
   const handleRequestSubmit = (e) => {
     e.preventDefault();
@@ -200,13 +206,13 @@ function ITDeclarations() {
             {selectedEmployee && (
               <div className="mt-4 pl-1 md:mt-0 flex flex-col md:flex-row md:space-x-4">
                 <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  className="px-4 py-2 bg-[#0098f1] text-white rounded"
                   onClick={() => setIsModalOpen(true)}
                 >
                   Add IT Returns
                 </button>
                 <button
-                  className="mt-2 md:mt-0 md:ml-2 px-4 py-2 bg-gray-500 text-white rounded"
+                  className="mt-2 md:mt-0 md:ml-2 px-4 py-2 bg-white border border-[#0098f1] text-[#0098f1] rounded"
                   onClick={() => setIsRequestModalOpen(true)}
                 >
                   Request IT Returns
@@ -251,7 +257,7 @@ function ITDeclarations() {
           <div className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-10 mx-4">
             <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
               <thead>
-                <tr>
+                <tr className="bg-[#0098f1] text-white">
                   <th className="py-2 px-4 border-b">Financial Year</th>
                   <th className="py-2 px-4 border-b">Employee Name</th>
                   <th className="py-2 px-4 border-b">Declaration Name</th>
@@ -301,7 +307,7 @@ function ITDeclarations() {
           <div className="mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-10 mx-4">
             <table className="min-w-full  w-screen overflow-x-scroll  text-nowrap">
               <thead>
-                <tr>
+                <tr className="bg-[#0098f1] text-white">
                   <th className="py-2 px-4 border-b">Financial Year</th>
                   <th className="py-2 px-4 border-b">Employee Name</th>
 
@@ -341,11 +347,11 @@ function ITDeclarations() {
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <div className="bg-white w-[300px] lg:w-[600px] h-96 overflow-y-scroll p-6 rounded-md">
-              <h2 className="text-xl mb-4">Add IT Declaration</h2>
+              <h2 className="text-xl mb-4 text-[#0098f1]">Add IT Declaration</h2>
               <form onSubmit={handleFormSubmit}>
                 <div className="mb-4">
                   <label
-                    className="block text-sm font-medium mb-1"
+                    className="block text-sm text-[#0098F1] font-medium mb-1"
                     htmlFor="employeeName"
                   >
                     Employee Name
@@ -361,7 +367,7 @@ function ITDeclarations() {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block text-sm font-medium mb-1"
+                    className="block text-sm text-[#0098F1] font-medium mb-1"
                     htmlFor="financialYear"
                   >
                     Financial Year
@@ -383,7 +389,7 @@ function ITDeclarations() {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block text-sm font-medium mb-1"
+                    className="block text-sm text-[#0098F1] font-medium mb-1"
                     htmlFor="declarationName"
                   >
                     Declaration Name
@@ -407,7 +413,7 @@ function ITDeclarations() {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block text-sm font-medium mb-1"
+                    className="block text-sm text-[#0098F1] font-medium mb-1"
                     htmlFor="section"
                   >
                     Section
@@ -423,7 +429,7 @@ function ITDeclarations() {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block text-sm font-medium mb-1"
+                    className="block text-sm text-[#0098F1] font-medium mb-1"
                     htmlFor="maxLimit"
                   >
                     Max Limit
@@ -439,7 +445,7 @@ function ITDeclarations() {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block text-sm font-medium mb-1"
+                    className="block text-sm text-[#0098F1] font-medium mb-1"
                     htmlFor="amount"
                   >
                     Amount
@@ -454,7 +460,7 @@ function ITDeclarations() {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">
+                  <label className="block text-sm text-[#0098F1] font-medium mb-1">
                     Verified
                   </label>
                   <div className="flex space-x-4">
@@ -462,7 +468,7 @@ function ITDeclarations() {
                       type="button"
                       className={`px-4 py-2 rounded ${
                         formData.verified
-                          ? "bg-blue-500 text-white"
+                          ? "bg-[#0098f1] text-white"
                           : "bg-gray-200"
                       }`}
                       onClick={() =>
@@ -475,7 +481,7 @@ function ITDeclarations() {
                       type="button"
                       className={`px-4 py-2 rounded ${
                         !formData.verified
-                          ? "bg-blue-500 text-white"
+                          ? "bg-[#0098f1] text-white"
                           : "bg-gray-200"
                       }`}
                       onClick={() =>
@@ -488,7 +494,7 @@ function ITDeclarations() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2">
+                  <label className="block text-sm text-[#0098F1] font-medium mb-2">
                     Status
                   </label>
                   <Select
@@ -504,14 +510,14 @@ function ITDeclarations() {
                 <div className="flex justify-end">
                   <button
                     type="button"
-                    className="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                    className="px-4 py-2 bg-white border border-[#0098f1] text-[#0098f1] rounded mr-2"
                     onClick={() => setIsModalOpen(false)}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded"
+                    className="px-4 py-2 bg-[#0098f1] text-white rounded"
                   >
                     Submit
                   </button>
@@ -524,7 +530,7 @@ function ITDeclarations() {
         {isRequestModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <div className="bg-white w-[300px] lg:w-[600px] p-6 rounded-md">
-              <h2 className="text-xl mb-4">Request IT Return</h2>
+              <h2 className="text-xl mb-4 text-[#0098f1]">Request IT Return</h2>
               <form onSubmit={handleRequestSubmit}>
                 <div className="mb-4">
                   <label
@@ -544,14 +550,14 @@ function ITDeclarations() {
                 <div className="flex justify-end">
                   <button
                     type="button"
-                    className="px-4 py-2 bg-gray-500 text-white rounded mr-2"
+                    className="px-4 py-2 bg-white border border-[#0098f1] text-[#0098f1] rounded mr-2"
                     onClick={() => setIsRequestModalOpen(false)}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded"
+                    className="px-4 py-2 bg-[#0098f1] text-white rounded"
                   >
                     Send Request
                   </button>
@@ -560,6 +566,18 @@ function ITDeclarations() {
             </div>
           </div>
         )}
+        {showSuccess && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <p>
+            Batch Added Successfully
+            </p>
+          </div>
+        </div>
+      )}
       </div>
     </>
   );

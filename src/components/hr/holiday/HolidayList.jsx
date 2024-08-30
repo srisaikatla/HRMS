@@ -257,14 +257,14 @@
                     onClick={
                       editHolidayId ? handleUpdateHoliday : handleAddHoliday
                     }
-                    className="bg-blue-500 text-white px-4 py-3 rounded"
+                    className="bg-[#0098f1] text-white px-6 py-3 rounded"
                   >
                     {editHolidayId ? "Update" : "Add"}
                   </button>
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="ml-2 bg-gray-500 text-white px-4 py-3 rounded"
+                    className="ml-2 bg-white border border-[#0098f1] text-[#0098f1] px-4 py-3 rounded"
                   >
                     Cancel
                   </button>
