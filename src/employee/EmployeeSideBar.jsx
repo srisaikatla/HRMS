@@ -48,7 +48,7 @@ import { TiMessages } from "react-icons/ti";
 import Attendance from "./options/attendance/Attendance";
 import Activities from "./options/employeActivites/EmployeeActivities";
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState("Employees Dashboard");
+  const [activeTab, setActiveTab] = useState(localStorage.getItem('EMPLOYEE_ACTIVE_TAB') || "Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
   const [tooltip, setTooltip] = useState({
@@ -152,6 +152,7 @@ const EmployeeSideBar = () => {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
       setActiveTab(option.title);
+      localStorage.setItem('EMPLOYEE_ACTIVE_TAB', option.title);
       setOpenDropdown("");
       if (option.title === "Logout") {
         handleLogout();
@@ -161,6 +162,7 @@ const EmployeeSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
+    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', option.title);
     setActiveTab(subOption.name);
   };
 

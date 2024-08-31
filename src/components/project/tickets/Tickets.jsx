@@ -168,20 +168,20 @@ const Tickets = () => {
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr key={ticket.id} className="border-b">
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                <tr key={ticket.id} className="border-b m-1">
+                  <td className=" text-xs md:text-sm">
                     {ticket.id}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.assignBy}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.assignTo}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.email}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.subject}
                   </td>
                   <td
@@ -193,10 +193,10 @@ const Tickets = () => {
                   >
                     {ticket.status}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.date}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm flex items-center space-x-2">
+                  <td className=" text-xs md:text-sm flex items-center space-x-2">
                     <button
                       className="bg-green-500 hover:bg-green-700 py-1 px-3 rounded-lg text-white"
                       onClick={() => handleEdit(ticket.id)}
