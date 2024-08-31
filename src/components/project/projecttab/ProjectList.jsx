@@ -148,7 +148,7 @@ const ProjectList = () => {
 
   return (
     <div id="main" className=" min-h-screen mt-4 p-4 w-auto overflow-x-hidden">
-      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-2">
+      <h2 className="text-[#0098f1] font-bold text-sm lg:text-lg mb-2">
         Projects / Project List
       </h2>
       <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4">
@@ -302,7 +302,7 @@ const ProjectList = () => {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded"
+                className="px-4 py-2 bg-[#0098f1] text-white rounded"
               >
                 Save
               </button>

@@ -74,24 +74,24 @@ const data = [
 const ProjectListTable = () => {
   return (
     <div className="p-4 ">
-      <h2 className="text-xl font-bold  text-blue-500 mb-4">Project List</h2>
+      <h2 className="text-xl font-bold  text-[#0098F1] mb-4">Project List</h2>
       <div className="overflow-x-auto">
         <table className="min-w-[680px] bg-white border border-gray-300">
           <thead>
             <tr>
-              <th className="py-3 px-4 bg-blue-500 text-white border-b text-left">
+              <th className="py-3 px-4 bg-[#0098F1] text-white border-b text-left">
                 Team
               </th>
-              <th className="py-3 px-4 bg-blue-500 text-white border-b text-left">
+              <th className="py-3 px-4 bg-[#0098F1] text-white border-b text-left">
                 Change
               </th>
-              <th className="py-3 px-4 bg-blue-500 text-white border-b text-center">
+              <th className="py-3 px-4 bg-[#0098F1] text-white border-b text-center">
                 Sales
               </th>
-              <th className="py-3 px-4 bg-blue-500 text-white border-b text-center">
+              <th className="py-3 px-4 bg-[#0098F1] text-white border-b text-center">
                 Price
               </th>
-              <th className="py-3 px-4 bg-blue-500 text-white border-b text-center">
+              <th className="py-3 px-4 bg-[#0098F1] text-white border-b text-center">
                 Total
               </th>
             </tr>
@@ -99,7 +99,7 @@ const ProjectListTable = () => {
           <tbody>
             {data.map((item, idx) => (
               <tr key={idx} className="bg-white hover:bg-gray-100">
-                <td className="py-3 border-b border-blue-500">
+                <td className="py-3 border-b border-[#0098F1]">
                   <div className="relative flex items-center">
                     {item.team.map((img, imgIdx) => (
                       <img
@@ -115,16 +115,16 @@ const ProjectListTable = () => {
                     ))}
                   </div>
                 </td>
-                <td className="py-3 border-b border-blue-500 flex justify-center items-center">
+                <td className="py-3 border-b border-[#0098F1] flex justify-center items-center">
                   {item.change}
                 </td>
-                <td className="py-3 px-4 border-b border-blue-500 text-center">
+                <td className="py-3 px-4 border-b border-[#0098F1] text-center">
                   {item.sales}
                 </td>
-                <td className="py-3 px-4 border-b border-blue-500 text-center">
+                <td className="py-3 px-4 border-b border-[#0098F1] text-center">
                   {item.price}
                 </td>
-                <td className="py-3 px-4 border-b border-blue-500 text-center">
+                <td className="py-3 px-4 border-b border-[#0098F1] text-center">
                   {item.total}
                 </td>
               </tr>

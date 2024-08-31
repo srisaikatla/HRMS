@@ -51,7 +51,7 @@ const projects = [
 const ProjectGrid = () => {
   return (
     <div className="p-4 mt-4 min-h-screen">
-      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-2">
+      <h2 className="text-[#0098f1] font-bold text-sm lg:text-lg mb-2">
         Projects / Project Grid
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
@@ -65,9 +65,9 @@ const ProjectGrid = () => {
             </h3>
             <p className="text-gray-500 mb-4">{project.description}</p>
             <div className="relative">
-              <div className="h-2 w-full rounded-xl bg-[#E65F2B] opacity-35 mb-4"></div>
+              <div className="h-2 w-full rounded-xl bg-[#0098f1] opacity-35 mb-4"></div>
               <div
-                className="absolute top-0 left-0 h-2 rounded-xl bg-[#E65F2B]"
+                className="absolute top-0 left-0 h-2 rounded-xl bg-[#0098f1]"
                 style={{ width: `${project.progress}%` }}
               ></div>
             </div>

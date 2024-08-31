@@ -76,7 +76,7 @@ const Dashboard = () => {
       title: {
         display: true,
         text: "Work Report",
-        color: "#E65F2B",
+        color: "#0098F1",
         font: {
           size: 18,
         },

@@ -143,11 +143,11 @@ const ProjectDetail = () => {
 
   return (
     <div className="w-auto mt-4 p-4">
-      <h2 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-4">
+      <h2 className="text-[#0098f1] font-bold text-sm lg:text-lg mb-4">
         Projects / Project Detail
       </h2>
       <div className="w-full flex flex-col md:flex-row gap-2">
-        <div className="w-full md:w-2/3 bg-[#E65F2B] text-white p-6 flex flex-col">
+        <div className="w-full md:w-2/3 bg-[#0098f1] text-white p-6 flex flex-col">
           <h3 className="text-xl font-semibold mb-7">
             iNext - One Page Responsive Template
           </h3>
@@ -290,7 +290,7 @@ const ProjectDetail = () => {
             })}
           </div>
           <div className="w-full h-auto mt-4 bg-white rounded-md lg:p-6 md:p-3 shadow-xl">
-            <h3 className="text-[#E65F2B] text-lg font-semibold">
+            <h3 className="text-[#0098f1] text-lg font-semibold">
               Assigned Team
             </h3>
             <div>
@@ -316,7 +316,7 @@ const ProjectDetail = () => {
             </div>
           </div>
           <div className="w-full h-auto mt-4 bg-white rounded-md p-6 shadow-xl">
-            <h3 className="text-[#E65F2B] text-center text-xl font-semibold">
+            <h3 className="text-[#0098f1] text-center text-xl font-semibold">
               About Clients
             </h3>
             <div>
@@ -328,7 +328,7 @@ const ProjectDetail = () => {
                   >
                     <img src={item.img} alt="teamlead" />
                     <div className="flex flex-col justify-center items-center py-2">
-                      <div className="text-[#E65F2B] font-semibold">
+                      <div className="text-[#0098f1] font-semibold">
                         {item.name}
                       </div>
                       <div className="text-[#000000] text-sm">
@@ -351,14 +351,14 @@ const ProjectDetail = () => {
         </div>
         <div className="w-full md:w-3/4 bg-white h-auto md:h-auto mt-2 pt-4 pl-2 shadow-xl rounded-md overflow-y-auto">
           <div className="relative ">
-            <div className="absolute left-5 top-1 h-full border-l-2 border-[#E65F2B]"></div>
+            <div className="absolute left-5 top-1 h-full border-l-2 border-[#0098f1]"></div>
             {messages
               .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
               .map((message, index) => (
                 <div className="relative flex items-start mb-8" key={index}>
-                  <div className="absolute left-5 top-1 h-full border-l-2 border-[#E65F2B]"></div>
+                  <div className="absolute left-5 top-1 h-full border-l-2 border-[#0098f1]"></div>
                   <div className="flex items-start ml-8">
-                    <div className="w-3 h-3 bg-[#E65F2B] rounded-full z-10 mt-1.5 pl-3 -ml-4"></div>
+                    <div className="w-3 h-3 bg-[#0098f1] rounded-full z-10 mt-1.5 pl-3 -ml-4"></div>
                     <div className="grid ml-6 gap-2">
                       <p className="text-sm text-gray-500">
                         {formatTimestamp(message.timestamp)}
@@ -394,7 +394,7 @@ const ProjectDetail = () => {
                               <a
                                 href={URL.createObjectURL(image)}
                                 download
-                                className="text-blue-500 underline flex items-end"
+                                className="text-[#0098f1] underline flex items-end"
                               >
                                 <MdOutlineFileDownload className="w-[21px] h-[21px] " />
                               </a>

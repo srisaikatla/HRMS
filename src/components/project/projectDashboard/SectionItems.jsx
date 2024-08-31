@@ -27,8 +27,8 @@ const SectionItems = () => {
             className="flex items-center justify-between border-b-[1px] border-[#0098F1] py-2"
           >
             <div className="flex items-center space-x-3">
-              <div className="text-2xl text-blue-500">{item.icon}</div>
-              <span className="text-lg text-gray-700">{item.label}</span>
+              <div className="text-2xl text-[#0098F1]">{item.icon}</div>
+              <span className="text-lg text-[#0098F1]">{item.label}</span>
             </div>
             <span
               className={`px-4 py-1 rounded-[5px] w-[60px] text-white ${item.color}`}
