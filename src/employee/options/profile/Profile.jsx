@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { MdCancelPresentation } from "react-icons/md";
 import Education from "./Education";
@@ -6,6 +6,7 @@ import Documents from "./Documents";
 import UpdatePassword from "./UpdatePassword"; // Import the new component
 import OfficialInformation from "./OfficialInformation";
 import { FaUser, FaBriefcase, FaFile, FaLock } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   // State for active tab
@@ -14,28 +15,25 @@ const Profile = () => {
   // State for modal visibility
   const [isPersonalModalOpen, setIsPersonalModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [isAddressesModalOpen, setIsAddressesModalOpen] = useState(false);
   const [isDocumentsModalOpen, setIsDocumentsModalOpen] = useState(false);
+  const auth = useSelector((state) => state.auth);
 
   // State for form values
   const [personalInfo, setPersonalInfo] = useState({
-    firstName: "",
-    lastName: "",
-    bloodGroup: "",
-    dob: "",
-    officialEmail: "",
+    firstName: auth.employee.firstName,
+    lastName: auth.employee.lastName,
+    bloodGroup: auth.employee.bloodGroup,
+    dob: auth.employee.dob,
+    officialEmail: auth.employee.email,
   });
 
   const [contactInfo, setContactInfo] = useState({
-    personalEmail: "",
-    phoneNumber: "",
-    alternatePhone: "",
+    personalEmail: auth.employee.personalEmail,
+    phoneNumber: auth.employee.phoneNumber,
+    alternatePhone: auth.employee.alternatePhoneNumber,
   });
 
-  const [addressInfo, setAddressInfo] = useState({
-    currentAddress: "",
-    permanentAddress: "",
-  });
+
 
   // Handlers for opening and closing modals
   const handleOpenPersonalModal = () => setIsPersonalModalOpen(true);
@@ -43,9 +41,6 @@ const Profile = () => {
 
   const handleOpenContactModal = () => setIsContactModalOpen(true);
   const handleCloseContactModal = () => setIsContactModalOpen(false);
-
-  const handleOpenAddressesModal = () => setIsAddressesModalOpen(true);
-  const handleCloseAddressesModal = () => setIsAddressesModalOpen(false);
 
   const handleOpenDocumentsModal = () => setIsDocumentsModalOpen(true);
   const handleCloseDocumentsModal = () => setIsDocumentsModalOpen(false);
@@ -61,10 +56,6 @@ const Profile = () => {
     setContactInfo((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleChangeAddressInfo = (e) => {
-    const { id, value } = e.target;
-    setAddressInfo((prev) => ({ ...prev, [id]: value }));
-  };
 
   const handleSavePersonalInfo = () => {
     handleClosePersonalModal();
@@ -72,10 +63,6 @@ const Profile = () => {
 
   const handleSaveContactInfo = () => {
     handleCloseContactModal();
-  };
-
-  const handleSaveAddressInfo = () => {
-    handleCloseAddressesModal();
   };
 
   const navHeight = "60px";
@@ -99,9 +86,8 @@ const Profile = () => {
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${
-                activeTab === tab ? "bg-white text-black" : "text-white"
-              }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === tab ? "bg-white text-black" : "text-white"
+                }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -123,9 +109,8 @@ const Profile = () => {
           ].map(({ tab, icon }) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${
-                activeTab === tab ? "bg-white text-black" : "text-white"
-              }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${activeTab === tab ? "bg-white text-black" : "text-white"
+                }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -285,50 +270,6 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="bg-white mt-3">
-            <div className="flex justify-between items-center py-4">
-              <h1 className="text-lg text-[#2A546D]">ADDRESS INFO</h1>
-              <FiEdit
-                className="text-xl text-[#2A546D]"
-                onClick={handleOpenAddressesModal}
-              />
-            </div>
-
-            <hr className="border-t-2 border-[#2A546D] mb-4" />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="m-2">
-                <label
-                  htmlFor="currentAddress"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Current Address
-                </label>
-                <input
-                  id="currentAddress"
-                  type="text"
-                  value={addressInfo.currentAddress}
-                  onChange={handleChangeAddressInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
-                />
-              </div>
-              <div className="m-2">
-                <label
-                  htmlFor="permanentAddress"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Permanent Address
-                </label>
-                <input
-                  id="permanentAddress"
-                  type="text"
-                  value={addressInfo.permanentAddress}
-                  onChange={handleChangeAddressInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
-                />
-              </div>
-            </div>
-          </div>
           <div className="bg-white mt-3">
             <Education
               degree="B.Tech"
@@ -518,64 +459,6 @@ const Profile = () => {
             <div className="flex justify-end mt-4">
               <button
                 onClick={handleSaveContactInfo}
-                className="bg-[#2A546D] text-white py-2 px-4 rounded-lg"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Address Info Modal */}
-      {isAddressesModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Address Information
-              </h2>
-              <MdCancelPresentation
-                className="text-xl cursor-pointer"
-                onClick={handleCloseAddressesModal}
-              />
-            </div>
-            <hr className="border-t-2 border-[#2A546D] my-4" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="m-2">
-                <label
-                  htmlFor="currentAddress"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Current Address
-                </label>
-                <input
-                  id="currentAddress"
-                  type="text"
-                  value={addressInfo.currentAddress}
-                  onChange={handleChangeAddressInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
-                />
-              </div>
-              <div className="m-2">
-                <label
-                  htmlFor="permanentAddress"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Permanent Address
-                </label>
-                <input
-                  id="permanentAddress"
-                  type="text"
-                  value={addressInfo.permanentAddress}
-                  onChange={handleChangeAddressInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
-                />
-              </div>
-            </div>
-            <div className="flex justify-end mt-4">
-              <button
-                onClick={handleSaveAddressInfo}
                 className="bg-[#2A546D] text-white py-2 px-4 rounded-lg"
               >
                 Save
