@@ -20,6 +20,7 @@ const Profile = () => {
 
   // State for form values
   const [personalInfo, setPersonalInfo] = useState({
+    employeeId: auth.employee.employeeId,
     firstName: auth.employee.firstName,
     lastName: auth.employee.lastName,
     bloodGroup: auth.employee.bloodGroup,
@@ -32,8 +33,6 @@ const Profile = () => {
     phoneNumber: auth.employee.phoneNumber,
     alternatePhone: auth.employee.alternatePhoneNumber,
   });
-
-
 
   // Handlers for opening and closing modals
   const handleOpenPersonalModal = () => setIsPersonalModalOpen(true);
@@ -55,7 +54,6 @@ const Profile = () => {
     const { id, value } = e.target;
     setContactInfo((prev) => ({ ...prev, [id]: value }));
   };
-
 
   const handleSavePersonalInfo = () => {
     handleClosePersonalModal();
@@ -82,7 +80,7 @@ const Profile = () => {
         style={{ height: navHeight }}
       >
         {/* Desktop View */}
-        <div className="hidden md:flex flex-grow">
+        <div className="hidden lg:flex flex-grow">
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
@@ -100,7 +98,7 @@ const Profile = () => {
         </div>
 
         {/* Mobile View */}
-        <div className="flex md:hidden flex-grow ">
+        <div className="flex lg:hidden flex-grow ">
           {[
             { tab: "personal", icon: <FaUser /> },
             { tab: "official", icon: <FaBriefcase /> },
@@ -138,6 +136,21 @@ const Profile = () => {
                 htmlFor="firstName"
                 className="block text-lg font-medium text-[#2A546D] mb-3"
               >
+                Employee ID
+              </label>
+              <input
+                id="employeeId"
+                type="text"
+                value={personalInfo.employeeId}
+                onChange={handleChangePersonalInfo}
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+              />
+            </div>
+            <div className="m-2">
+              <label
+                htmlFor="firstName"
+                className="block text-lg font-medium text-[#2A546D] mb-3"
+              >
                 First Name
               </label>
               <input
@@ -145,7 +158,7 @@ const Profile = () => {
                 type="text"
                 value={personalInfo.firstName}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -160,7 +173,7 @@ const Profile = () => {
                 type="text"
                 value={personalInfo.lastName}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -175,7 +188,7 @@ const Profile = () => {
                 type="text"
                 value={personalInfo.bloodGroup}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -190,7 +203,7 @@ const Profile = () => {
                 type="date"
                 value={personalInfo.dob}
                 onChange={handleChangePersonalInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -203,9 +216,9 @@ const Profile = () => {
               <input
                 id="officialEmail"
                 type="email"
-                value={contactInfo.officialEmail}
+                value={personalInfo.officialEmail}
                 onChange={handleChangeContactInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
           </div>
@@ -234,7 +247,7 @@ const Profile = () => {
                   type="email"
                   value={contactInfo.personalEmail}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -249,7 +262,7 @@ const Profile = () => {
                   type="tel"
                   value={contactInfo.phoneNumber}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -264,7 +277,7 @@ const Profile = () => {
                   type="tel"
                   value={contactInfo.alternatePhone}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
             </div>
@@ -294,14 +307,14 @@ const Profile = () => {
 
       {/* Personal Info Modal */}
       {isPersonalModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white  p-4 rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Personal Information
+              <h2 className="text-lg text-[#2A546D] font-semibold">
+                Edit Personal Info
               </h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg  cursor-pointer text-[#2A546D]"
                 onClick={handleClosePersonalModal}
               />
             </div>
@@ -319,7 +332,7 @@ const Profile = () => {
                   type="text"
                   value={personalInfo.firstName}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -334,7 +347,7 @@ const Profile = () => {
                   type="text"
                   value={personalInfo.lastName}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -349,7 +362,7 @@ const Profile = () => {
                   type="text"
                   value={personalInfo.bloodGroup}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -364,7 +377,7 @@ const Profile = () => {
                   type="date"
                   value={personalInfo.dob}
                   onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -377,9 +390,9 @@ const Profile = () => {
                 <input
                   id="officialEmail"
                   type="email"
-                  value={contactInfo.officialEmail}
+                  value={personalInfo.officialEmail}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg"
+                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
             </div>
@@ -397,14 +410,12 @@ const Profile = () => {
 
       {/* Contact Info Modal */}
       {isContactModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[50vw]">
+        <div className="fixed inset-0 z-50 text-[#2A546D] flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-3 py-4  rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold">
-                Edit Contact Information
-              </h2>
+              <h2 className="text-lg font-semibold">Edit Contact Info</h2>
               <MdCancelPresentation
-                className="text-xl cursor-pointer"
+                className="text-lg cursor-pointer"
                 onClick={handleCloseContactModal}
               />
             </div>

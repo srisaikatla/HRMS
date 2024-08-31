@@ -11,19 +11,18 @@ const TeamCard = ({
   tags,
   employees,
   employeeImgs,
-  ring = false, // Add a new prop for ring
+  ring = false,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg w-[300px] h-[400px] hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white rounded-lg shadow-lg h-[400px] hover:shadow-xl transition-shadow duration-300">
       <h3 className="text-[#0098F1] text-xl font-semibold mb-4 text-center">
         {teamName}
       </h3>
       <img
         src={teamLeadImg}
         alt="Team Lead"
-        className={`w-24 h-24 rounded-full mx-auto mb-2 ${
-          ring ? "ring-4 ring-maroon-500" : ""
-        }`}
+        className={`w-24 h-24 rounded-full mx-auto mb-2 ${ring ? "ring-4 ring-maroon-500" : ""
+          }`}
       />
       <p className="text-center font-medium">{teamLead}</p>
       <p className="text-center text-sm text-[#0098F1] mb-4">Team Lead</p>
@@ -47,9 +46,8 @@ const TeamCard = ({
               key={idx}
               src={img}
               alt={`Employee ${idx + 1}`}
-              className={`w-12 h-12 rounded-full border-2 border-gray-300 ${
-                idx < 3 ? "ring-2 ring-maroon-500" : ""
-              }`}
+              className={`w-12 h-12 rounded-full border-2 border-gray-300 ${idx < 3 ? "ring-2 ring-maroon-500" : ""
+                }`}
             />
           ))}
         </div>
@@ -76,7 +74,25 @@ const TeamList = () => {
         profilepic,
         profilepic,
         profilepic,
-        profilepic, // Five profile pictures
+        profilepic,
+      ],
+    },
+    {
+      teamName: "Web Designing Team",
+      teamLead: "Ashwini",
+      teamLeadImg: Web,
+      tags: [
+        { label: "ReactJS", color: "blue-500" },
+        { label: "Angular", color: "blue-500" },
+        { label: "VueJS", color: "blue-500" },
+      ],
+      employees: "1 Lead, 3 Employees",
+      employeeImgs: [
+        profilepic,
+        profilepic,
+        profilepic,
+        profilepic,
+        profilepic,
       ],
     },
     {
@@ -94,7 +110,7 @@ const TeamList = () => {
         profilepic,
         profilepic,
         profilepic,
-        profilepic, // Five profile pictures
+        profilepic,
       ],
     },
     {
@@ -112,23 +128,16 @@ const TeamList = () => {
         profilepic,
         profilepic,
         profilepic,
-        profilepic, // Five profile pictures
+        profilepic,
       ],
     },
   ];
 
   return (
-    <div className=" w-auto    ">
-      <h2 className="text-xl font-bold mb-6 text-start ml-10 text-[#0098F1]">
-        SpyD Team
-      </h2>
-      <p className="mb-8 text-center text-lg text-[#0098F1]">
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout.
-      </p>
-      <div className="grid grid-cols-1 ml-[50px] pt-4 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
+    <div>
+      <div className="grid grid-cols-1  md:gap-4 md:mr-5 md:w-auto gap-8 w-auto pt-4 sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
         {teams.map((team, idx) => (
-          <div key={idx} className="relative">
+          <div key={idx} className="relative w-auto md:w-[320px] md:px-4 ">
             <TeamCard {...team} />
           </div>
         ))}
