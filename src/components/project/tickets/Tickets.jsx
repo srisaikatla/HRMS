@@ -188,7 +188,7 @@ const Tickets = () => {
                     className={` text-center text-xs md:text-sm ${
                       ticket.status === "PENDING"
                         ? "text-white   bg-[#2A8F4C]"
-                        : "text-white bg-yellow-500"
+                        : "text-white bg-yellow-500 "
                     } rounded-lg`}
                   >
                     {ticket.status}
