@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
@@ -116,6 +116,18 @@ const ForHrSidebar = ({
     },
     { title: "Page 404", link: "/404", icon: <TbError404 /> },
   ];
+
+  useEffect(() => {
+    const isPayrollOption = payrollOptions.find(op => op.title === activeTab);
+    const isEmployeeOption = employeeOptions.find(op => op.title === activeTab);
+    const isReportOption = reportOptions.find(op => op.title === activeTab);
+    const isAccountsOption = accountOptions.find(op => op.title === activeTab);
+    isPayrollOption && setShowPayrollOptions(!!isPayrollOption);
+    isEmployeeOption && setShowEmployeeOptions(!!isEmployeeOption);
+    isReportOption && setShowReportOptions(!!isReportOption);
+    isAccountsOption && setShowAccountOptions(!!isAccountsOption);
+    isEmployeeOption && setShowHrManagementOptions(!!isEmployeeOption || activeTab === "HR Management" || activeTab === "Employee");
+  }, [activeTab]);
 
   const handleOptionClick = (option) => {
     localStorage.setItem('HR_ACTIVE_TAB', option.title);
@@ -245,7 +257,10 @@ const ForHrSidebar = ({
                           ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
                           : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                           }`}
-                        onClick={() => setActiveTab(employeeOption.title)}
+                        onClick={() => {
+                          localStorage.setItem('HR_ACTIVE_TAB', employeeOption.title);
+                          setActiveTab(employeeOption.title)
+                        }}
                         onMouseOver={(event) =>
                           handleMouseOver(event, employeeOption.title)
                         }
@@ -274,7 +289,10 @@ const ForHrSidebar = ({
                       ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
                       : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
-                    onClick={() => setActiveTab(payrollOption.title)}
+                    onClick={() => {
+                      localStorage.setItem('HR_ACTIVE_TAB', payrollOption.title);
+                      setActiveTab(payrollOption.title)
+                    }}
                     onMouseOver={(event) =>
                       handleMouseOver(event, payrollOption.title)
                     }
@@ -301,7 +319,10 @@ const ForHrSidebar = ({
                       ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
                       : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
-                    onClick={() => setActiveTab(reportOption.title)}
+                    onClick={() => {
+                      localStorage.setItem('HR_ACTIVE_TAB', reportOption.title);
+                      setActiveTab(reportOption.title)
+                    }}
                     onMouseOver={(event) =>
                       handleMouseOver(event, reportOption.title)
                     }
@@ -328,7 +349,10 @@ const ForHrSidebar = ({
                       ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
                       : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
-                    onClick={() => setActiveTab(accountOption.title)}
+                    onClick={() => {
+                      localStorage.setItem('HR_ACTIVE_TAB', accountOption.title);
+                      setActiveTab(accountOption.title)
+                    }}
                     onMouseOver={(event) =>
                       handleMouseOver(event, accountOption.title)
                     }
