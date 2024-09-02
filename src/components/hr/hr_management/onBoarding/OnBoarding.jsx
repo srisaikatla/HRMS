@@ -147,7 +147,7 @@ const OnBoarding = () => {
   return (
     <div className="min-h-screen">
       <div className="mt-4   p-4">
-        <p className="text-[#E65F2B] lg:text-lg  text-sm font-bold mb-4">
+        <p className="text-[#0098F1] lg:text-lg  text-sm font-bold mb-4">
           Hr Management / Employee / Employee Onboarding
         </p>
       </div>

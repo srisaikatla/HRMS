@@ -353,7 +353,7 @@ const SideBar = () => {
 
       {tooltip.show && (
         <div
-          className="absolute  bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          className="absolute  bg-white text-[#0098f1] p-2 rounded-md shadow-lg z-50"
           style={{
             top: `${tooltip.position.y}px`,
             left: `${tooltip.position.x}px`,

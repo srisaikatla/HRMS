@@ -69,7 +69,7 @@ function PayrollForms() {
           className="flex  flex-row justify-between items-center"
         >
           <div>
-            <span className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+            <span className="text-[#0098F1] lg:text-lg text-sm font-bold mb-4">
               Payroll / Payroll Forms
             </span>
           </div>

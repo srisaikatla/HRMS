@@ -9,6 +9,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const initialValues = [
   {
@@ -27,6 +28,7 @@ const initialValues = [
 const Allowances = () => {
   const [showModal, setShowModal] = useState(false);
   const [values, setValues] = useState(initialValues);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [newAllowance, setNewAllowance] = useState({
     DisplayName: "",
     AllowanceCode: "",
@@ -42,6 +44,8 @@ const Allowances = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [viewAllowance, setViewAllowance] = useState(null);
+  const [showDeleteSuccessMessage, setShowDeleteSuccessMessage] =
+    useState(false);
   const recordsPerPage = 10;
 
   const handleInputChange = (e) => {
@@ -73,6 +77,10 @@ const Allowances = () => {
       PT: "",
       Amount: "",
     });
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 2000);
   };
 
   const setButton = (e) => {
@@ -97,6 +105,11 @@ const Allowances = () => {
     setValues(values.filter((allowance) => allowance.id !== deleteId));
     setIsDeleteModalOpen(false);
     setDeleteId(null);
+    setShowDeleteSuccessMessage(true);
+
+    setTimeout(() => {
+      setShowDeleteSuccessMessage(false);
+    }, 3000);
   };
 
   const openDeleteModal = (id) => {
@@ -447,14 +460,14 @@ const Allowances = () => {
                 <button
                   type="button"
                   onClick={handleAddAllowance}
-                  className="p-1 md:px-4 md:py-2 bg-[#0098f1] text-white rounded-md"
+                  className="p-1 md:px-6 md:py-2 bg-[#0098f1] text-white rounded-md"
                 >
                   {editAllowanceId ? "Update" : "Add"}
                 </button>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className=" p-1 md:px-4 md:py-2 bg-gray-300 text-black rounded-md"
+                  className=" p-1 md:px-4 md:py-2 bg-white border border-[#0098f1] text-[#0098f1] rounded-md"
                 >
                   Cancel
                 </button>
@@ -467,7 +480,7 @@ const Allowances = () => {
       {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6">
-            <h2 className="text-xl mb-4 font-semibold">Confirm Deletion</h2>
+            <h2 className="text-xl mb-4 text-[#0098f1] font-semibold">Confirm Deletion</h2>
             <p className="font-normal">
               Are you sure you want to delete this allowance?
             </p>
@@ -482,7 +495,7 @@ const Allowances = () => {
               <button
                 type="button"
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="px-4 py-2 bg-gray-300 font-semibold text-black rounded-md"
+                className="px-4 py-2 bg-white border border-[#0098f1] font-semibold text-[#0098f1] rounded-md"
               >
                 Cancel
               </button>
@@ -535,6 +548,28 @@ const Allowances = () => {
             >
               Close
             </button>
+          </div>
+        </div>
+      )}
+      {showSuccess && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <p>
+            Batch Added Successfully
+            </p>
+          </div>
+        </div>
+      )}
+      {showDeleteSuccessMessage && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-red-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <p>Event deleted successfully!</p>
           </div>
         </div>
       )}

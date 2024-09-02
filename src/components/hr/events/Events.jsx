@@ -263,7 +263,7 @@ const Events = () => {
 
   return (
     <div className="p-4 mt-4  ">
-      <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold mb-4">
+      <h2 className="text-[#0098f1] lg:text-lg text-sm  font-bold mb-4">
         Hr / Events
       </h2>
       <div className="flex justify-end mb-4  ">
@@ -355,7 +355,7 @@ const Events = () => {
         <h1 className="text-xl font-bold  text-[#0098F1]">Events List</h1>
         <div className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2">
           <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
-            <thead className="bg-[#0098F1]">
+            <thead className="bg-[#0098F1] text-white">
               <tr>
                 <th className="p-2 border-r border-white text-center border-opacity-80">
                   Day

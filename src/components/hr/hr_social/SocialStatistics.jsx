@@ -132,7 +132,7 @@ const options = {
 const SocialStatistics = () => {
   return (
     <div className="bg-white py-5 w-full p-2 md:p-4 lg:p-6">
-      <h1 className="text-[#E65F2B] text-[16px] md:text-[20px] lg:text-[24px] font-bold">
+      <h1 className="text-[#0098F1] text-[16px] md:text-[20px] lg:text-[24px] font-bold">
         Social Statistics
       </h1>
       <div className="py-4 w-full " style={{ height: "300px", width: "100%" }}>

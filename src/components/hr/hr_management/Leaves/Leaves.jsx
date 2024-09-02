@@ -88,7 +88,7 @@ const Leaves = () => {
 
   return (
     <div className="p-4 mt-4 min-h-screen">
-      <h1 className="text-[#E65F2B] lg:text-lg font-bold mb-4">
+      <h1 className="text-[#0098F1] lg:text-lg font-bold mb-4">
         Hr Management / Employee / Leaves
       </h1>
       <div className="grid lg:grid-cols-5  grid-cols-1 gap-4">
