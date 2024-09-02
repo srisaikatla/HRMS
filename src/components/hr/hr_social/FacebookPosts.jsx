@@ -65,8 +65,8 @@ const FacebookPosts = () => {
       </div>
       <div className="my-5">
         {facebookPosts.map((post) => (
-          <div className="flex justify-between my-5 text-[#0098F1] max-md:text-xs">
-            <div className="flex gap-x-4 ">
+          <div className="flex justify-between my-5 text-[#0098F1] max-lg:text-xs">
+            <div className="flex gap-x-2 ">
               <img src={post.image} alt="post pic" className="w-6 h-6" />
               <div>
                 <h1>{post.name}</h1>
