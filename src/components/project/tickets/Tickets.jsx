@@ -139,7 +139,7 @@ const Tickets = () => {
         <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-1">
           <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
             <thead>
-              <tr className="bg-blue-500 text-white">
+              <tr className="bg-[#0098F1] text-white">
                 <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
                   ID
                 </th>
@@ -168,35 +168,35 @@ const Tickets = () => {
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr key={ticket.id} className="border-b">
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                <tr key={ticket.id} className="border-b m-1">
+                  <td className=" text-xs md:text-sm">
                     {ticket.id}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.assignBy}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.assignTo}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.email}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.subject}
                   </td>
                   <td
-                    className={`py-2  md:py-4 text-center text-xs md:text-sm ${
+                    className={` text-center text-xs md:text-sm ${
                       ticket.status === "PENDING"
                         ? "text-white   bg-[#2A8F4C]"
-                        : "text-white bg-yellow-500"
+                        : "text-white bg-yellow-500 "
                     } rounded-lg`}
                   >
                     {ticket.status}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm">
                     {ticket.date}
                   </td>
-                  <td className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm flex items-center space-x-2">
+                  <td className=" text-xs md:text-sm flex items-center space-x-2">
                     <button
                       className="bg-green-500 hover:bg-green-700 py-1 px-3 rounded-lg text-white"
                       onClick={() => handleEdit(ticket.id)}

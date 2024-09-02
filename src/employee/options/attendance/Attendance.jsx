@@ -24,8 +24,8 @@ const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
-  const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
+  const [employeeId, setEmployeeId] = useState(auth.employee?.employeeId); // New state for employee ID
+  const [employeeName, setEmployeeName] = useState(auth.employee?.firstName.toUpperCase() + " " + auth.employee?.lastName.toUpperCase());
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth() + 1;

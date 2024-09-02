@@ -76,8 +76,8 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 const SideBar = () => {
-  const [activeTab, setActiveTab] = useState("Hr Dashboard");
-  const [selectedHeader, setSelectedHeader] = useState("Hr");
+  const [activeTab, setActiveTab] = useState(localStorage.getItem('HR_ACTIVE_TAB') || "Hr Dashboard");
+  const [selectedHeader, setSelectedHeader] = useState(localStorage.getItem('HR_HEADER') || "Hr");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -184,6 +184,7 @@ const SideBar = () => {
   const dispatch = useDispatch();
 
   const handleHeaderClick = (header) => {
+    localStorage.setItem('HR_HEADER', header);
     setSelectedHeader(header);
   };
 
@@ -345,7 +346,7 @@ const SideBar = () => {
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
         {activeTab === "Emp Attendance" && <Attandance />}
-        {/* {activeTab === "Leaves" && <Leaves />} */}
+        {activeTab === "Leaves" && <Leaves />}
         {activeTab === "Hr Dashboard" && <HrDashboard />}
 
 
@@ -353,7 +354,7 @@ const SideBar = () => {
 
       {tooltip.show && (
         <div
-          className="absolute  bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          className="absolute  bg-white text-[#0098f1] p-2 rounded-md shadow-lg z-50"
           style={{
             top: `${tooltip.position.y}px`,
             left: `${tooltip.position.x}px`,

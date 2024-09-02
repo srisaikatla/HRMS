@@ -284,7 +284,8 @@
 
 // export default AddProject;
 import React, { useState } from "react";
-import { BsCheck2Circle } from "react-icons/bs";
+// import { BsCheck2Circle } from "react-icons/bs";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const AddProject = () => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -353,7 +354,7 @@ const AddProject = () => {
     <>
       <div className="p-4 mt-4 min-h-screen">
         <div className="">
-          <p className="text-[#e65f2b] font-bold text-sm lg:text-lg">
+          <p className="text-[#0098F1] font-bold text-sm lg:text-lg">
             Projects / Add Project
           </p>
         </div>
@@ -520,7 +521,7 @@ const AddProject = () => {
             <div className="flex justify-end pt-3 space-x-4">
               <button
                 type="submit"
-                className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="py-2 px-4 bg-[#0098F1] text-white font-semibold rounded-md shadow-md hover:bg-[#0098F1] focus:outline-none focus:ring-2 focus:ring-blue-300"
               >
                 Create
               </button>
@@ -549,17 +550,10 @@ const AddProject = () => {
           </form>
         </div>
         {showSuccess && (
-          <div className="fixed top-20 right-4 w-80 p-4 bg-green-100 border-t-4 border-green-500 rounded-b shadow-md">
-            <div className="flex">
-              <div className="py-1">
-                <BsCheck2Circle className="h-6 w-6 text-green-500" />
-              </div>
-              <div className="ml-3 ">
-                <p className="text-sm text-green-700 font-bold">Success!</p>
-                <p className="text-sm text-green-700">
-                  Project added successfully.
-                </p>
-              </div>
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+              <h2 className="md:text-3xl mb-4">Project Added Successfully</h2>
             </div>
           </div>
         )}

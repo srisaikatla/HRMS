@@ -228,7 +228,7 @@ const UserList = () => {
 
   return (
     <div className="p-5 flex flex-col h-screen">
-      <h1 className="text-xl text-orange-500 font-bold mb-4">Clients</h1>
+      <h1 className="text-xl text-[#0098F1] font-bold mb-4">Clients</h1>
 
       <div className="flex justify-end mb-4">
         <button
@@ -300,7 +300,7 @@ const UserList = () => {
       {isModalOpen && (
         <div className="fixed inset-0  z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-8  w-full max-w-xl  h-[500px] overflow-y-auto">
-            <h2 className="text-2xl mb-4 text-[#E65F2B] font-roboto">
+            <h2 className="text-2xl mb-4 text-[#0098F1] font-roboto">
               {editUserId ? "Edit User" : "Add List"}
             </h2>
             <form className="grid grid-cols-2 gap-4 w-full">
@@ -448,7 +448,7 @@ const UserList = () => {
             </form>
 
             <div className="mt-4">
-              <h2 className="text-[#E65F2B] mt-10 ml-0 mb-5 font-roboto text-2xl leading-[38.73px] tracking-[0.5%]">
+              <h2 className="text-[#0098F1] mt-10 ml-0 mb-5 font-roboto text-2xl leading-[38.73px] tracking-[0.5%]">
                 Module Permission
               </h2>
               <table className="w-full">

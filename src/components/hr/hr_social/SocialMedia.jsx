@@ -76,10 +76,10 @@ const SocialMedia = () => {
 
   return (
     <div className="bg-white rounded-lg my-5 py-5 p-3">
-      <h1 className="text-[20px] text-[#E65F2B] font-bold ">Social Media</h1>
+      <h1 className="text-[20px] text-[#0098F1] font-bold ">Social Media</h1>
       <div className="flex flex-col gap-5 my-5 ">
         <div className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1]">
-          <table className="min-w-[950px]">
+          <table className="min-w-[950px] w-full">
             <thead className="bg-[#0098F1] text-white ">
               <tr>
                 <th className="py-2">Media</th>
@@ -105,7 +105,7 @@ const SocialMedia = () => {
                   <td className="py-4">{user.comment}</td>
                   <td className="py-4">{user.share}</td>
                   <td className="py-4">
-                    <button className="border-2 border-[#E65F2B] text-[#E65F2B] rounded-md px-8 py-1">
+                    <button className="border-2 border-[#0098F1] text-[#0098F1] rounded-md px-8 py-1">
                       {user.members}
                     </button>
                   </td>
@@ -121,14 +121,14 @@ const SocialMedia = () => {
           </p>
           <button
             onClick={handlePreviousPage}
-            className="bg-[#E65F2B] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
+            className="bg-[#0098F1] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
           >
             <GoChevronLeft className="md:text-2xl" />
           </button>
 
           <button
             onClick={handleNextPage}
-            className="bg-[#E65F2B] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
+            className="bg-[#0098F1] rounded-full md:h-12 h-6 md:w-12 w-6 flex items-center justify-center text-white"
           >
             <GoChevronRight className="md:text-2xl" />
           </button>

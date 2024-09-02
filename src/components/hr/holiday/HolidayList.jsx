@@ -124,7 +124,7 @@ function HolidayList() {
   return (
     <>
       <div className="p-4 mt-4 min-h-screen">
-        <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold ">
+        <h2 className="text-[#0098F1] lg:text-lg text-sm  font-bold ">
           Hr / Holidays List
         </h2>
 
@@ -146,7 +146,7 @@ function HolidayList() {
           <div>Loading...</div>
         ) : (
           <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
-            <table className="min-w-full overflow-x-scroll   text-nowrap">
+            <table className="min-w-full w-screen  overflow-x-scroll   text-nowrap">
               <thead className="bg-[#0098f1] text-white">
                 <tr>
                   <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
