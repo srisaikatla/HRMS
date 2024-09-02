@@ -91,7 +91,7 @@ function Attendance() {
   return (
     <div id="main" className="min-h-screen p-4 mt-4">
       <div className="">
-        <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+        <p className="text-[#0098F1] lg:text-lg text-sm font-bold mb-4">
           Hr Management / Employee / Attendance
         </p>
       </div>
@@ -101,7 +101,7 @@ function Attendance() {
             type="search"
             placeholder="Search by employee name..."
             onChange={handleSearchChange}
-            className="pl-10 pr-4 py-2 w-full sm:w-80 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="pl-10 pr-4 py-2 w-full sm:w-80 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0098F1]"
           />
           <FaSearch className="absolute top-3 left-3 text-gray-500" />
         </div>
@@ -110,7 +110,7 @@ function Attendance() {
         <div className="relative mt-4 sm:mt-0">
           <select
             onChange={(e) => setSearchYear(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0098F1]"
             value={searchYear}
           >
             <option value="">Select Year</option>
@@ -124,7 +124,7 @@ function Attendance() {
         <div className="relative mt-4 sm:mt-0">
           <select
             onChange={(e) => setSearchMonth(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0098F1]"
             value={searchMonth}
           >
             <option value="">Select Month</option>
@@ -140,7 +140,7 @@ function Attendance() {
         <div className="relative mt-4 sm:mt-0">
           <select
             onChange={(e) => setSearchDay(e.target.value)}
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0098F1]"
           >
             <option value="">Select Day</option>
             {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
@@ -173,7 +173,7 @@ function Attendance() {
         <div className="relative mt-4 sm:mt-0">
           <button
             onClick={exportToExcel}
-            className="flex items-center p-2 border border-gray-300 rounded-lg bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex items-center p-2 border border-gray-300 rounded-lg bg-[#0098F1] text-white hover:bg-[#0098F1] focus:outline-none focus:ring-2 focus:ring-[#0098F1]"
           >
             <FaFileExport className="mr-2" />
             Export to Excel

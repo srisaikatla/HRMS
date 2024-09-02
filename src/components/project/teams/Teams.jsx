@@ -87,14 +87,14 @@ const Teams = () => {
 
   return (
     <div className="p-4 mt-4">
-      <h1 className="text-[#e65f2b] font-bold text-sm lg:text-lg mb-3">
+      <h1 className="text-[#0098F1] font-bold text-sm lg:text-lg mb-3">
         Teams
       </h1>
 
       <div className="w-full mb-5">
         <input
           type="search"
-          className="w-full  bg-transparent border-2 border-blue-500 rounded-lg outline-none px-3 py-2 placeholder-[#0098F1]"
+          className="w-full  bg-transparent border-2 border-[#0098F1] rounded-lg outline-none px-3 py-2 placeholder-[#0098F1]"
           style={{
             borderColor: "#0098F1",
             color: "black",
@@ -117,14 +117,14 @@ const Teams = () => {
               </h1>
               <img
                 src={team.image}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#E65F2B] shadow-md mx-auto p-1"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-[#0098F1] shadow-md mx-auto p-1"
                 alt="Team avatar"
               />
 
-              <p className="text-base sm:text-xl font-roboto text-[#E65F2B] mt-2">
+              <p className="text-base sm:text-xl font-roboto text-[#0098F1] mt-2">
                 {team.Name}
               </p>
-              <p className="text-base sm:text-xl font-roboto text-[#E65F2B]">
+              <p className="text-base sm:text-xl font-roboto text-[#0098F1]">
                 {team.Position}
               </p>
 
@@ -140,7 +140,7 @@ const Teams = () => {
               </div>
 
               <div className="flex items-center justify-center mt-2">
-                <h1 className="text-base sm:text-xl mt-2 mr-2 text-[#E65F2B]">
+                <h1 className="text-base sm:text-xl mt-2 mr-2 text-[#0098F1]">
                   Employees:
                 </h1>
                 <div className="flex items-center">

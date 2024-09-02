@@ -118,6 +118,8 @@ const ForHrSidebar = ({
   ];
 
   const handleOptionClick = (option) => {
+    localStorage.setItem('HR_ACTIVE_TAB', option.title);
+    setActiveTab(option.title);
     switch (option.title) {
       case "HR Management":
         setShowHrManagementOptions(!showHrManagementOptions);
@@ -164,8 +166,8 @@ const ForHrSidebar = ({
           <React.Fragment key={option.title}>
             <li
               className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${activeTab === option.title
-                ? "bg-white rounded-r-full text-[#ef5f2b]"
-                : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+                ? "bg-white rounded-r-full text-[#0098f1]"
+                : "hover:bg-white hover:text-[#0098f1] hover:rounded-r-full"
                 }`}
               onClick={() => handleOptionClick(option)}
               onMouseOver={(event) => handleMouseOver(event, option.title)}
@@ -206,8 +208,8 @@ const ForHrSidebar = ({
               <ul>
                 <li
                   className={`flex justify-between text-[16px] bg-opacity-50  pl-5 py-3 mb-1 cursor-pointer ${activeTab === "Employee"
-                    ? "bg-white bg-opacity-70 rounded-r-full text-[#ef5f2b]"
-                    : "hover:bg-white hover:bg-opacity-70 hover:text-[#ef5f2b] hover:rounded-r-full"
+                    ? "bg-white bg-opacity-70 rounded-r-full text-[#0098F1]"
+                    : "hover:bg-white hover:bg-opacity-70 hover:text-[#0098F1] hover:rounded-r-full"
                     }`}
                   onClick={() => handleOptionClick({ title: "Employee" })}
                   onMouseOver={(event) => handleMouseOver(event, "Employee")}
@@ -240,8 +242,8 @@ const ForHrSidebar = ({
                       <li
                         key={employeeOption.title}
                         className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === employeeOption.title
-                          ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                          ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                           }`}
                         onClick={() => setActiveTab(employeeOption.title)}
                         onMouseOver={(event) =>
@@ -269,8 +271,8 @@ const ForHrSidebar = ({
                   <li
                     key={payrollOption.title}
                     className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === payrollOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
                     onClick={() => setActiveTab(payrollOption.title)}
                     onMouseOver={(event) =>
@@ -296,8 +298,8 @@ const ForHrSidebar = ({
                   <li
                     key={reportOption.title}
                     className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === reportOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
                     onClick={() => setActiveTab(reportOption.title)}
                     onMouseOver={(event) =>
@@ -323,8 +325,8 @@ const ForHrSidebar = ({
                   <li
                     key={accountOption.title}
                     className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === accountOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
                     onClick={() => setActiveTab(accountOption.title)}
                     onMouseOver={(event) =>
@@ -349,8 +351,8 @@ const ForHrSidebar = ({
                   <li
                     key={authOption.title}
                     className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === authOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
                       }`}
                     onClick={() => handleOptionClickNavigate(authOption)}
                     onMouseOver={(event) =>

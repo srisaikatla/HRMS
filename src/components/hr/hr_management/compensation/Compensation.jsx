@@ -232,7 +232,7 @@ const Compensation = () => {
     <>
       <div id="main" className="min-h-screen p-4 mt-4 ">
         <div className=" mb-4 ">
-          <p className="text-[#E65F2B] lg:text-lg text-sm font-bold mb-4">
+          <p className="text-[#0098F1] lg:text-lg text-sm font-bold mb-4">
             Hr Management / Employee / Compensation
           </p>
         </div>
@@ -254,14 +254,14 @@ const Compensation = () => {
             {selectedEmployee && (
               <div className="flex ml-2  space-x-2 mt-4 md:mt-0">
                 <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                  className="px-4 py-2 bg-[#0098f1] text-white rounded"
                   onClick={handleEditToggle}
                 >
                   {editMode ? "Save" : "Edit"}
                 </button>
                 {editMode && (
                   <button
-                    className="px-4 py-2 bg-gray-500 text-white rounded"
+                    className="px-4 py-2 bg-white border border-[#0098f1] text-[#0098f1] rounded"
                     onClick={handleCancelEdit}
                   >
                     Cancel

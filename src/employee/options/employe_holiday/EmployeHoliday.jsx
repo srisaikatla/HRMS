@@ -41,7 +41,7 @@ function EmployeHoliday() {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <table className="min-w-full w-screen overflow-x-scroll   text-nowrap ">
+            <table className="min-w-full overflow-x-scroll text-nowrap ">
               <thead className="bg-[#2A546D] text-white">
                 <tr>
                   <th className="py-3 px-4 text-center border-r border-white border-opacity-60 text-lg font-semibold">

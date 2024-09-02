@@ -48,7 +48,9 @@ import { TiMessages } from "react-icons/ti";
 import Attendance from "./options/attendance/Attendance";
 import Activities from "./options/employeActivites/EmployeeActivities";
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState("Employees Dashboard");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("EMPLOYEE_ACTIVE_TAB") || "Employees Dashboard"
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
   const [tooltip, setTooltip] = useState({
@@ -152,6 +154,7 @@ const EmployeeSideBar = () => {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
       setActiveTab(option.title);
+      localStorage.setItem("EMPLOYEE_ACTIVE_TAB", option.title);
       setOpenDropdown("");
       if (option.title === "Logout") {
         handleLogout();
@@ -161,6 +164,7 @@ const EmployeeSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", option.title);
     setActiveTab(subOption.name);
   };
 
@@ -202,7 +206,7 @@ const EmployeeSideBar = () => {
           <div>
             {!isSidebarCollapsed && (
               <>
-                <div className="flex items-center relative top-0 pb-4 px-2">
+                <div className="flex items-center  w-72  relative top-0 pb-4 px-2">
                   <img
                     src={profileImage}
                     className="rounded-full w-[50px] h-[50px] cursor-pointer"
@@ -216,7 +220,7 @@ const EmployeeSideBar = () => {
                     style={{ display: "none" }}
                     onChange={handleImageUpload}
                   />
-                  <p className="text-[16px] leading-4 font-bold text-wrap text-white pb-8 pl-2">
+                  <p className="text-[16px] leading-4   font-bold text-wrap text-white pb-8 pl-2">
                     {/* Welcome{" "} */}
                     {auth.employee
                       ? auth.employee.firstName.toUpperCase() +
@@ -226,7 +230,7 @@ const EmployeeSideBar = () => {
                   </p>
                 </div>
                 <div className=" flex relative bottom-10 left-14">
-                  <p className="text-[16px] leading-4 text-wrap w-32  text-white pl-2">
+                  <p className="text-[16px] leading-4 text-wrap w-48   text-white pl-2">
                     {auth.employee
                       ? auth.employee.designation
                       : "user designation"}

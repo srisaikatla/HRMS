@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useMemo } from "react";
 import { ImProfile } from "react-icons/im";
-import { FaEnvelope, FaBars, FaSignOutAlt } from "react-icons/fa";
-import { TiMessages } from "react-icons/ti";
+import { FaBars, FaSignOutAlt } from "react-icons/fa";
 import { FaCalendarAlt, FaCalendarCheck } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { logout } from "../State/Auth/Action";
@@ -14,9 +13,9 @@ function EmployeeNavBar({ onIconClick, options }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
-  const jwt = localStorage.getItem("employeeJwt")
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const jwt = localStorage.getItem("employeeJwt");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const flattenedOptions = useMemo(() => {
     return options.flatMap((option) => {
@@ -80,7 +79,7 @@ function EmployeeNavBar({ onIconClick, options }) {
   const handleLogout = () => {
     dispatch(logout(jwt));
     localStorage.removeItem("employeeJwt");
-    localStorage.removeItem("employee")
+    localStorage.removeItem("employee");
     navigate("/option");
   };
 
@@ -108,8 +107,9 @@ function EmployeeNavBar({ onIconClick, options }) {
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#2A546D] ${option.isSubOption ? "" : "" // Indent subOptions
-                      }`}
+                    className={`py-2 px-4 hover:bg-gray-200 cursor-pointer text-[#2A546D] ${
+                      option.isSubOption ? "" : "" // Indent subOptions
+                    }`}
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.name : option.title}

@@ -83,9 +83,9 @@ const EmployeCompose = ({ onSendMessage, onSaveDraft }) => {
   };
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#FCEFE9]">
+    <div className="rounded-r-xl min-w-[800px] border border-[#E65F2B]">
       <div className="m-5">
-        <h1 className="text-xl font-semibold">EmployeCompose</h1>
+        <h1 className="text-xl font-semibold">Compose</h1>
         <form
           action=""
           className="bg-white p-4 my-3 rounded-lg shadow-sm flex flex-col gap-4"
@@ -278,7 +278,7 @@ const EmployeCompose = ({ onSendMessage, onSaveDraft }) => {
           <div className="flex gap-2">
             <button
               type="submit"
-              className="bg-green-600 text-white px-4 py-2 rounded-md text-sm"
+              className="bg-[#E65F2B] text-white px-4 py-2 rounded-md text-sm"
               onClick={handleSendButton}
             >
               Send Message

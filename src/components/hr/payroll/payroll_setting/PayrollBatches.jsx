@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { BsCheck2Circle } from "react-icons/bs";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
   const [showModal, setShowModal] = useState(false);
@@ -50,7 +51,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
-    }, 2000);
+    },2000);
   };
 
   const handleCancel = () => {
@@ -137,7 +138,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
 
       {showModal && (
         <div className="fixed inset-0 bg-blue-100 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-3 rounded-lg shadow-lg w-56 md:w-[600px] flex flex-col">
+          <div className="bg-white text-[#0098f1] p-3 rounded-lg shadow-lg w-56 md:w-[600px] flex flex-col">
             <h2 className="md:text-lg font-bold mb-2 md:mb-4 ">
               Add Batch <hr />
             </h2>
@@ -154,14 +155,14 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
               />
             </div>
             {errorMessage && (
-              <div className="text-blue-600 text-sm mt-2 self-center pr-32">
+              <div className="text-[#0098f1] text-sm mt-2 self-center pr-32">
                 {errorMessage}
               </div>
             )}
             <div className="flex justify-end gap-2 my-3">
               <button
                 type="button"
-                className="bg-blue-500 text-white p-2 rounded-lg max-md:text-xs"
+                className="bg-white border border-[#0098f1] text-[#0098f1] p-2 rounded-lg max-md:text-xs"
                 onClick={handleCancel}
               >
                 Cancel
@@ -169,7 +170,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
               <button
                 type="button"
                 onClick={handleSave}
-                className="bg-green-500 text-white p-2 rounded-lg max-md:text-xs"
+                className="bg-[#0098f1] text-white p-2 px-4 rounded-lg max-md:text-xs"
               >
                 Save
               </button>
@@ -178,14 +179,14 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
         </div>
       )}
       {showSuccess && (
-        <div className="fixed inset-0 bg-orange-100 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-3 rounded-lg shadow-lg md:w-[400px]">
-            <div className="flex flex-col justify-center items-center gap-3">
-              <BsCheck2Circle className="text-[#0098f1] text-2xl md:text-5xl" />
-              <span className="text-[#0098f1] md:text-2xl text-center">
-                Batch Added Successfully
-              </span>
-            </div>
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            <p>
+            Batch Added Successfully
+            </p>
           </div>
         </div>
       )}

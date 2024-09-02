@@ -1,6 +1,6 @@
 import React from "react";
 // import teamImage from '../assets/image1.png'; // Replace with your actual team image path
-
+import teamImage from "../../../assets/project/projectGrid/profile.jpg"
 const EmployeeActivities = () => {
   const activities = [
     {
@@ -54,14 +54,14 @@ const EmployeeActivities = () => {
               {activity.by && <p>{activity.by}</p>}
               <p>{activity.description}</p>
               {activity.team && (
-                <div className="flex  items-center mt-2">
+                <div className="flex   items-center mt-2">
                   <span className=" mr-3">Team :</span>
                   {[...Array(activity.teamMembers)].map((_, i) => (
                     <img
                       key={i}
-                      // src={teamImage}
+                      src={teamImage}
                       alt="team-member"
-                      className="w-6 h-6 rounded-full ml-3"
+                      className="w-6 h-6 rounded-full ml-3 bg-slate-300"
                     />
                   ))}
                 </div>

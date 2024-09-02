@@ -66,7 +66,7 @@ const ReportInvoice = () => {
   }, []);
   return (
     <div className="mt-4 p-4 min-h-screen">
-      <h2 className="text-[#E65F2B] lg:text-lg  text-sm font-bold ">
+      <h2 className="text-[#0098F1] lg:text-lg  text-sm font-bold ">
         Report / Invoice
       </h2>
       <div className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-6 mx-4">

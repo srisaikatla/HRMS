@@ -40,13 +40,19 @@ const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
+  const [employeeId, setEmployeeId] = useState(auth.employee?.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(
-    auth.employee.firstName.toUpperCase() +
+    auth.employee?.firstName.toUpperCase() +
       " " +
-      auth.employee.lastName.toUpperCase()
+      auth.employee?.lastName.toUpperCase()
   );
-  const jwt = localStorage.getItem("jwt");
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth() + 1;
+  const [searchYear, setSearchYear] = useState(currentYear);
+  const [searchMonth, setSearchMonth] = useState(currentMonth);
+  const [searchDay, setSearchDay] = useState("");
+  const jwt = localStorage.getItem("employeeJwt");
   const officeHours = 9;
 
   useEffect(() => {
@@ -69,14 +75,27 @@ const Attendance = () => {
     (entry) => entry.employeeId === employeeId
   );
   // Filtered data for search query
-  const filteredData = filteredData1.filter((entry) => {
-    const entryDate = new Date(entry.punchIn).toLocaleDateString();
-    return (
-      entryDate === searchDate.toLocaleDateString() &&
-      (entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
-  });
+  const filteredData = filteredData1
+    .filter((entry) => {
+      const entryDate = new Date(entry.punchIn);
+      const matchesYear = searchYear
+        ? entryDate.getFullYear() === parseInt(searchYear)
+        : true;
+      const matchesMonth = searchMonth
+        ? entryDate.getMonth() + 1 === parseInt(searchMonth)
+        : true;
+      const matchesDay = searchDay
+        ? entryDate.getDate() === parseInt(searchDay)
+        : true;
+      return (
+        matchesYear &&
+        matchesMonth &&
+        matchesDay &&
+        (entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    })
+    .sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
 
   const calculateHours = (inTime, outTime) => {
     const inDate = new Date(inTime);
@@ -407,19 +426,21 @@ const Attendance = () => {
           </span>
         </div>
       </div>
-      <div className="flex text-[#2A546D] justify-end items-center space-x-4 mb-4">
-        <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
-        <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
+      <div className="flex flex-col md:flex-row text-[#2A546D] text-sm lg:text-lg  justify-end items-center space-x-4 mb-4 pt-4">
+        <p className=" font-semibold">Employee ID: {employeeId}</p>
+        <p className=" font-semibold">Employee Name: {employeeName}</p>
       </div>
-      <div className="gap-4   grid-cols-2 grid">
+      <div className="gap-4  grid-cols-1  md:grid-cols-2 grid">
         {/* TimeSheet Container */}
 
         <div className="bg-white w-auto shadow-md rounded-lg p-4 justify-center items-center  mb-6 flex flex-col space-y-4">
-          <h1 className="text-xl font-bold text-[#2A546D]">TimeSheet</h1>
+          <h1 className="text-sm lg:text-lg  font-bold text-[#2A546D]">
+            TimeSheet
+          </h1>
 
           <div className="bg-[#2A546D] text-white p-4 rounded-lg mb-4">
-            <h3 className="text-[20px] font-semibold">Punch In at</h3>
-            <p className="text-[20px] font-normal">{currentDateTime}</p>
+            <h3 className="text-sm lg:text-lg  font-semibold">Punch In at</h3>
+            <p className="text-sm lg:text-lg  font-normal">{currentDateTime}</p>
           </div>
 
           <div className="relative   w-[200px] h-[200px]] ">
@@ -436,20 +457,20 @@ const Attendance = () => {
                 cx="60"
                 cy="60"
                 r="54"
-                stroke={isPunchedIn ? "green" : "#FF6F00"} // Orange color by default, green when punched in
+                stroke={isPunchedIn ? "green" : "red"} //  // Orange color by default, green when punched in
                 strokeWidth="10"
                 fill="none"
                 clipPath="url(#half-circle)"
               />
             </svg>
-            <p className=" font-semibold text-[15px] mt-[110px] ml-[60px] text-[#2A546D]">
+            <p className=" font-semibold text-sm  lg:text-lg  mt-[110px] ml-[60px] text-[#2A546D]">
               {" "}
               {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}
             </p>
           </div>
           <div className="flex justify-between items-center">
             <p
-              className={`text-lg font-semibold ${
+              className={`text-sm lg:text-lg  font-semibold ${
                 isPunchedIn ? "text-blue-600" : "text-red-600"
               }`}
             >
@@ -460,7 +481,7 @@ const Attendance = () => {
             <button
               onClick={handlePunchButtonClick}
               // disabled={isPastPunchInTime() && !isPunchedIn}
-              className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${
+              className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${
                 isPunchedIn ? "bg-[#2A546D]" : "bg-[#2A546D]"
               }`}
             >
@@ -469,7 +490,7 @@ const Attendance = () => {
             {isPunchedIn && (
               <button
                 onClick={handleBreakButtonClick}
-                className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${
+                className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${
                   isOnBreak
                     ? "bg-[#2A546D] hover:bg-[#2A546D]"
                     : "bg-[#2A546D] hover:bg-[#2A546D]"
@@ -483,26 +504,26 @@ const Attendance = () => {
 
         {/* Employee Info Container */}
         <div className="bg-white shadow-md rounded-lg p-4 w-auto mb-6 space-y-4">
-          <h2 className="text-[20px] font-bold   mb-4  text-[#2A546D]">
+          <h2 className="text-sm lg:text-lg  font-bold   mb-4  text-[#2A546D]">
             Time Info
           </h2>
-          <p className=" font-semibold text-[15px] text-[#2A546D] ">
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D] ">
             Punch In Time: {punchInTime ? punchInTime.toLocaleString() : "N/A"}
           </p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
             Punch Out Time:{" "}
             {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}
           </p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
             Elapsed Time:{" "}
             {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}
           </p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
             {" "}
             Break Time:{" "}
             {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}
           </p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
             {" "}
             Total Break Time:{" "}
             {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}
@@ -511,35 +532,37 @@ const Attendance = () => {
       </div>
 
       <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
-        <h2 className="text-[#2A546D] text-lg mb-4">Attendance Log</h2>
+        <h2 className="text-[#2A546D] text-sm lg:text-lg font-semibold mb-4">
+          Attendance Log
+        </h2>
         <div className="flex flex-col space-y-4 mb-6"></div>
 
         <div className="overflow-x-auto scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#2A546D]">
           <table className="min-w-full divide-y divide-red-200">
             <thead className="bg-[#2A546D] text-white">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Employee ID
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Employee Name
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Punch In
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Punch Out
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Production Hours
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Break Duration
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Working Hours
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
                   Overtime
                 </th>
               </tr>

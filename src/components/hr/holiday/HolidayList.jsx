@@ -124,7 +124,7 @@ function HolidayList() {
   return (
     <>
       <div className="p-4 mt-4 min-h-screen">
-        <h2 className="text-[#E65F2B] lg:text-lg text-sm  font-bold ">
+        <h2 className="text-[#0098F1] lg:text-lg text-sm  font-bold ">
           Hr / Holidays List
         </h2>
 

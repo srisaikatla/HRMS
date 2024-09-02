@@ -191,7 +191,7 @@ const EmployeeImport = () => {
   return (
     <div className="bg-sky-100 flex flex-col p-5">
       <div className="mb-4">
-        <h1 className="text-[#E65F2B] text-xl p-5">
+        <h1 className="text-[#0098F1] text-xl p-5">
           HR Management / All Employees
         </h1>
       </div>
@@ -460,13 +460,13 @@ const EmployeeImport = () => {
                     <>
                       <button
                         onClick={() => handleSaveEdit(user.id)}
-                        className="text-[#E65F2B] mr-2"
+                        className="text-[#0098F1] mr-2"
                       >
                         Save
                       </button>
                       <button
                         onClick={() => setEditingUserId(null)}
-                        className="text-red-600"
+                        className="text-[#0098F1]"
                       >
                         Cancel
                       </button>
@@ -475,13 +475,13 @@ const EmployeeImport = () => {
                     <>
                       <button
                         onClick={() => handleEdit(user.id)}
-                        className="text-[#E65F2B] mr-2"
+                        className="text-[#0098F1] mr-2"
                       >
                         <FiEdit size={20} />
                       </button>
                       <button
                         onClick={() => handleDelete(user.id)}
-                        className="text-red-600"
+                        className="text-[#0098F1]"
                       >
                         <FiTrash size={20} />
                       </button>
@@ -685,7 +685,7 @@ const EmployeeImport = () => {
                 <button
                   type="button"
                   onClick={handleCloseAddEmployeeModal}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg mr-2"
+                  className="text-[#0098F1] text-white px-4 py-2 rounded-lg mr-2"
                 >
                   Cancel
                 </button>

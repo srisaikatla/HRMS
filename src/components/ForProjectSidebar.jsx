@@ -26,7 +26,7 @@ const ForProjectSidebar = ({
   const projectOptions = [
     { title: "Dashboard", icon: <GrDashboard /> },
     // { title: "Inbox", icon: <FaFileAlt /> },
-    { title: "Chat", icon: <TiMessages /> },
+    // { title: "Chat", icon: <TiMessages /> },
     { title: "Project", icon: <FaTasks />, hasSubOptions: true },
     { title: "Clients", icon: <FaUserFriends /> },
     { title: "Teams", icon: <FaUsers /> },
@@ -44,6 +44,7 @@ const ForProjectSidebar = ({
     if (option.hasSubOptions) {
       setShowProjectOptions(!showProjectOptions);
     } else {
+      localStorage.setItem('HR_ACTIVE_TAB', option.title);
       setActiveTab(option.title);
     }
   };
@@ -54,8 +55,8 @@ const ForProjectSidebar = ({
         <React.Fragment key={option.title}>
           <li
             className={`flex justify-between text-[16px] pl-5 py-3 mb-1 items-center cursor-pointer ${activeTab === option.title
-              ? "bg-white rounded-r-full text-[#ef5f2b]"
-              : "hover:bg-white hover:text-[#ef5f2b] hover:rounded-r-full"
+              ? "bg-white rounded-r-full text-[#0098f1]"
+              : "hover:bg-white hover:text-[#0098f1] hover:rounded-r-full"
               }`}
             onClick={() => handleOptionClick(option)}
             onMouseOver={(event) => handleMouseOver(event, option.title)}

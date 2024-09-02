@@ -152,8 +152,8 @@ const EmployeInboxPage = ({ onSelectMessage }) => {
   }
 
   return (
-    <div className="rounded-r-xl min-w-[850px] border border-[#E65F2B]">
-      <div className="flex justify-between py-5 mx-10">
+    <div className="rounded-r-xl min-w-[800px] border border-[#E65F2B]">
+      <div className="flex justify-between py-5 mx-5">
         <h1 className="text-xl font-semibold">Inbox</h1>
         <div className="flex items-center gap-1 border px-5 rounded-lg border-[#E65F2B] bg-white">
           <CiSearch className="text-2xl text-[#E65F2B]" />
@@ -164,7 +164,7 @@ const EmployeInboxPage = ({ onSelectMessage }) => {
           />
         </div>
       </div>
-      <div className="flex items-center justify-between mx-10">
+      <div className="flex items-center justify-between mx-5">
         <div className="flex gap-7 items-center">
           <button
             onClick={handleMainCheckboxClick}
@@ -203,11 +203,11 @@ const EmployeInboxPage = ({ onSelectMessage }) => {
           </button>
         </div>
       </div>
-      <ul className="m-10">
+      <ul className="m-5">
         {currentItems.map((data, index) => (
           <li
             key={index}
-            className=" cursor-pointer flex justify-between border-b py-3 group"
+            className="h-20 cursor-pointer flex justify-between gap-x-3 border-t border-[#E65F2B] py-3 group"
           >
             <div className="flex gap-5">
               <button onClick={() => handleCheckboxClick(index)} className="">

@@ -76,8 +76,12 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 const SideBar = () => {
-  const [activeTab, setActiveTab] = useState("Hr Dashboard");
-  const [selectedHeader, setSelectedHeader] = useState("Hr");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("HR_ACTIVE_TAB") || "Hr Dashboard"
+  );
+  const [selectedHeader, setSelectedHeader] = useState(
+    localStorage.getItem("HR_HEADER") || "Hr"
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [profileImage, setProfileImage] = useState(profile);
   const [tooltip, setTooltip] = useState({
@@ -200,6 +204,7 @@ const SideBar = () => {
   const dispatch = useDispatch();
 
   const handleHeaderClick = (header) => {
+    localStorage.setItem("HR_HEADER", header);
     setSelectedHeader(header);
   };
 
@@ -270,7 +275,7 @@ const SideBar = () => {
         <div>
           {!isSidebarCollapsed && (
             <>
-              <div className="flex items-center relative top-0 pb-4 px-2">
+              <div className="flex items-center w-72 relative top-0 pb-4 px-2">
                 {/* <img
                 src={profile}
                 className="rounded-full w-[50px] h-[50px]"
@@ -290,7 +295,7 @@ const SideBar = () => {
                   onChange={handleImageUpload}
                 />
 
-                <p className="text-[16px] leading-4 font-bold text-wrap text-white pb-8 pl-2">
+                <p className="text-[16px] uppercase leading-4 font-bold text-wrap text-white pb-8 pl-2">
                   {/* Welcome{" "} */}
                   {auth.user ? auth.user.firstName : "User"}
                   {/* {auth.employee
@@ -301,11 +306,11 @@ const SideBar = () => {
                 </p>
               </div>
               <div className=" flex relative bottom-10 left-14">
-                <p className="text-[16px] leading-4 text-wrap w-32  text-white pl-2">
+                <p className="text-[16px] leading-4 text-wrap w-48  text-white pl-2">
                   {/* {auth.employee
                       ? auth.employee.designation
                       : "user designation"} */}
-                  Designation
+                  Super Admin
                 </p>
               </div>
             </>
@@ -401,7 +406,7 @@ const SideBar = () => {
 
       {tooltip.show && (
         <div
-          className="absolute  bg-white text-[#e65f2b] p-2 rounded-md shadow-lg z-50"
+          className="absolute  bg-white text-[#0098f1] p-2 rounded-md shadow-lg z-50"
           style={{
             top: `${tooltip.position.y}px`,
             left: `${tooltip.position.x}px`,
