@@ -223,7 +223,7 @@ function DepartmentList() {
                 htmlFor="departmentName"
               >
                 Department Name
-                {editId && <CiEdit className="text-[red] text-xl" />}
+                {editId && <CiEdit className="text-[#0098F1] text-xl" />}
               </label>
               <input
                 type="text"
@@ -233,7 +233,7 @@ function DepartmentList() {
                 onChange={(e) => setDepartmentName(e.target.value)}
               />
               {errors.departmentName && (
-                <p className="text-red-500 text-sm">{errors.departmentName}</p>
+                <p className="text-[#0098F1] text-sm">{errors.departmentName}</p>
               )}
             </div>
             <div className="mb-4">
@@ -242,7 +242,7 @@ function DepartmentList() {
                 htmlFor="departmentHead"
               >
                 Department Head
-                {editId && <CiEdit className="text-[red] text-xl" />}
+                {editId && <CiEdit className="text-[#0098F1] text-xl" />}
               </label>
               <input
                 type="text"
@@ -252,7 +252,7 @@ function DepartmentList() {
                 onChange={(e) => setDepartmentHead(e.target.value)}
               />
               {errors.departmentHead && (
-                <p className="text-red-500 text-sm">{errors.departmentHead}</p>
+                <p className="text-[#0098F1] text-sm">{errors.departmentHead}</p>
               )}
             </div>
             <div className="mb-4">
@@ -261,7 +261,7 @@ function DepartmentList() {
                 htmlFor="totalEmployees"
               >
                 Total Employees
-                {editId && <CiEdit className="text-[red] text-xl" />}
+                {editId && <CiEdit className="text-[#0098F1] text-xl" />}
               </label>
               <input
                 type="number"
@@ -271,7 +271,7 @@ function DepartmentList() {
                 onChange={(e) => setTotalEmployees(e.target.value)}
               />
               {errors.totalEmployees && (
-                <p className="text-red-500 text-sm">{errors.totalEmployees}</p>
+                <p className="text-[#0098F1] text-sm">{errors.totalEmployees}</p>
               )}
             </div>
             <div className="flex justify-center">
@@ -312,7 +312,7 @@ function DepartmentList() {
       {/* Delete Success Message */}
       {showDeleteSuccessMessage && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-red-500 p-8 rounded-lg text-center text-white">
+          <div className="bg-[#0098F1] p-8 rounded-lg text-center text-white">
             <h2 className="text-3xl mb-4">
               <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
             </h2>
