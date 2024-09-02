@@ -40,7 +40,7 @@ const TwitterPosts = () => {
       </div>
       <div className="my-5">
         {twitterPosts.map((post) => (
-          <div className="flex justify-between my-5  text-[#0098F1] max-md:text-xs">
+          <div className="flex justify-between my-5  text-[#0098F1] max-lg:text-xs">
             <div className="flex gap-x-2">
               <img src={post.image} alt="post pic" className="h-6 w-6" />
               <div>
