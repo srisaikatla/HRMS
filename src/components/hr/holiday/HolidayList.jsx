@@ -156,28 +156,58 @@
               </button>
             </div>
           </div>
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
-              <table className="min-w-full w-screen  overflow-x-scroll   text-nowrap">
-                <thead className="bg-[#0098f1] text-white">
-                  <tr>
-                    <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                      Sl.No
-                    </th>
-                    <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                      Day
-                    </th>
-                    <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                      Date
-                    </th>
-                    <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                      Holiday Name
-                    </th>
-                    <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
-                      Action
-                    </th>
+
+        </div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className=" mt-2 overflow-x-scroll  scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 ">
+            <table className="min-w-full overflow-x-scroll   text-nowrap">
+              <thead className="bg-[#0098f1] text-white">
+                <tr>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Sl.No
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Day
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Date
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Holiday Name
+                  </th>
+                  <th className="py-4 px-4 border-b bg-[#0098f1] bg-opacity-30 text-center text-nowrap">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {holidays.map((holiday, index) => (
+                  <tr key={holiday.holidayName}>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {index + 1}
+                    </td>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {holiday.day}
+                    </td>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {holiday.date}
+                    </td>
+                    <td className="py-3 px-4 border-b text-center truncate">
+                      {holiday.holidayName}
+                    </td>
+                    <td className="py-3 flex justify-center items-center px-4 text-center  border-b  truncate">
+                      <FiEdit
+                        className="text-blue-500 cursor-pointer mr-2"
+                        onClick={() => handleEditHoliday(holiday)}
+                      />
+                      <FiTrash2
+                        className="text-red-500 cursor-pointer "
+                        onClick={() => handleDeleteHoliday(holiday.holidayName)}
+                      />
+                    </td>
+
                   </tr>
                 </thead>
                 <tbody>

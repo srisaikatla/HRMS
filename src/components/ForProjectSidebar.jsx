@@ -26,7 +26,7 @@ const ForProjectSidebar = ({
   const projectOptions = [
     { title: "Dashboard", icon: <GrDashboard /> },
     // { title: "Inbox", icon: <FaFileAlt /> },
-    { title: "Chat", icon: <TiMessages /> },
+    // { title: "Chat", icon: <TiMessages /> },
     { title: "Project", icon: <FaTasks />, hasSubOptions: true },
     { title: "Clients", icon: <FaUserFriends /> },
     { title: "Teams", icon: <FaUsers /> },

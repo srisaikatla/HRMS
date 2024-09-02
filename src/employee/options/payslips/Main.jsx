@@ -99,12 +99,15 @@ function Main() {
   ];
 
   return (
-    <div id="main" className="p-4 md:p-6 lg:p-8">
-      <div id="submain1" className="flex flex-col md:flex-row justify-between items-center mb-4">
-        <div className="mb-4 md:mb-0">
-          <span className="text-xl md:text-2xl font-semibold">Employee</span>
-          <br />
-          <span className="text-sm md:text-base font-medium">Dashboard / payslips</span>
+    <div id="main" className="p-4 mt-1 min-h-screen">
+      <div
+        id="submain1"
+        className="flex flex-col md:flex-row justify-between items-center "
+      >
+        <div className="">
+          <span className="text-[#2A546D] text-sm lg:text-lg font-semibold">
+            Employee / Payroll / Payslips
+          </span>
         </div>
         <div className="w-[300px] h-[55px] flex rounded-lg bg-[#2A546D]">
           {[

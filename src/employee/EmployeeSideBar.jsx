@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import profile from "../employeeAssets/profile/boy.png";
 import EmployeeNavBar from "./EmployeeNavBar";
-import Main from "./options/payslips/Main";
+// import Main from "./options/payslips/Main";
+// import Attendance from "./options/attendance/Attendance";
 import AllEmployees from "./options/allEmployees/AllEmployees";
 import ApplyLeave from "./options/applyLeave/ApplyLeave";
-import Payslip from "./options/payslips/Payslip";
+import Main from "./options/payslips/Main";
 import EmployeHoliday from "./options/employe_holiday/EmployeHoliday";
 import Inbox from "./options/employe_inbox/EmployeInbox";
 import {
@@ -29,7 +30,7 @@ import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { PiHandDepositFill } from "react-icons/pi";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import SalaryStructure from "./options/payslips/SalaryStructure";
-import Event from "./options/events/Events"
+import Event from "./options/events/Events";
 import Declaration from "./options/payslips/Declaration";
 import BankAccount from "./options/payslips/BankAccount";
 import Chat from "./options/chat/Chat";
@@ -45,7 +46,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { TiMessages } from "react-icons/ti";
 import Attendance from "./options/attendance/Attendance";
-import Activities from "./options/employeActivites/EmployeeActivities"
+import Activities from "./options/employeActivites/EmployeeActivities";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState("Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -55,6 +56,22 @@ const EmployeeSideBar = () => {
     title: "",
     position: { x: 0, y: 0 },
   });
+  const [profileImage, setProfileImage] = useState(profile);
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target.result); // Set the image URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("fileInput").click();
+  };
 
   const jwt = localStorage.getItem("employeeJwt");
   const dispatch = useDispatch();
@@ -81,8 +98,8 @@ const EmployeeSideBar = () => {
     { title: "Profile", icon: <ImProfile /> },
     { title: "Apply Leave", icon: <FaCalendarCheck /> },
     { title: "Projects", icon: <FaProjectDiagram /> },
-    { title: "Inbox", icon: <FaEnvelope /> },
-    { title: "Chats", icon: <TiMessages /> },
+    // { title: "Inbox", icon: <FaEnvelope /> },
+    // { title: "Chats", icon: <TiMessages /> },
     { title: "Attendance", icon: <FaClipboardList /> },
     { title: "Rules", icon: <FaGavel /> },
     { title: "Tickets", icon: <FaTicketAlt /> },
@@ -163,6 +180,9 @@ const EmployeeSideBar = () => {
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
   };
+  const handleSetActiveTab = (tab) => {
+    setActiveTab(tab);
+  };
 
   return (
     <div className="relative bg-[#2A546D] bg-opacity-10">
@@ -180,21 +200,36 @@ const EmployeeSideBar = () => {
           </div>
           <div>
             {!isSidebarCollapsed && (
-              <div className="flex items-center relative top-0 pb-4 px-2">
-                <img
-                  src={profile}
-                  className="rounded-full w-[50px] h-[50px]"
-                  alt="Profile"
-                />
-                <p className="text-[16px] text-white pl-2">
-                  Welcome{" "}
-                  {auth.employee
-                    ? auth.employee.firstName.toUpperCase() +
-                    " " +
-                    auth.employee.lastName.toUpperCase()
-                    : "user"}
-                </p>
-              </div>
+              <>
+                <div className="flex items-center relative top-0 pb-4 px-2">
+                  <img
+                    src={profileImage}
+                    className="rounded-full w-[50px] h-[50px] cursor-pointer"
+                    alt="Profile"
+                    onClick={triggerFileInput}
+                  />
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageUpload}
+                  />
+                  <p className="text-[16px] text-nowrap text-white pb-4 pl-2">
+                    {/* Welcome{" "} */}
+                    {auth.employee
+                      ? auth.employee.firstName.toUpperCase() +
+                      " " +
+                      auth.employee.lastName.toUpperCase()
+                      : "User"}
+                  </p>
+                </div>
+                <div className=" flex relative bottom-10 left-14">
+                  <p className="text-[16px] text-white pl-2">
+                    {auth.employee ? auth.employee.designation : "user Designation"}
+                  </p>
+                </div>
+              </>
             )}
           </div>
 
@@ -202,11 +237,13 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
+
                 className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
                   ? "bg-white text-[#2A546D] rounded-r-3xl"
                   : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
                   }`}
+
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
                 onMouseOut={handleMouseOut}
@@ -232,10 +269,12 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
+
                         className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${activeTab === subOption.name
                           ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
                           : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
                           }`}
+
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
@@ -261,7 +300,13 @@ const EmployeeSideBar = () => {
         className={`flex-1 p-4 transition-all duration-300 ${isSidebarCollapsed ? "ml-16" : "ml-[240px]"
           }`}
       >
-        {activeTab === "Employees Dashboard" && <EmployeDashboard />}
+        {activeTab === "Employees Dashboard" && (
+          <EmployeDashboard
+            onViewProfile={() => handleSetActiveTab("Profile")}
+            onLeave={() => handleSetActiveTab("Apply Leave")}
+            onHoliday={() => handleSetActiveTab("Holidays")}
+          />
+        )}
         {activeTab === "All Employees" && <AllEmployees />}
         {activeTab === "Holidays" && <EmployeHoliday />}
         {activeTab === "Events" && <Event />}

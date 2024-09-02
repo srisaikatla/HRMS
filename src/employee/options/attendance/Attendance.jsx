@@ -24,7 +24,7 @@ const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
-  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId);
+  const [employeeId, setEmployeeId] = useState(auth.employee.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(auth.employee.firstName.toUpperCase() + " " + auth.employee.lastName.toUpperCase());
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -63,7 +63,6 @@ const Attendance = () => {
       entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
   }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
 
 
@@ -210,7 +209,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(9, 30, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
         handlePunchButtonClick() // Call the punch-out function
@@ -238,7 +237,7 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(14, 30, 0, 0);
+    punchInLimit.setHours(9, 30, 0, 0);
     return now > punchInLimit;
   };
 
@@ -367,7 +366,6 @@ const Attendance = () => {
         <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
         <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
       </div>
-
       <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
         {/* Year Filter */}
         <div className="relative mt-4 sm:mt-0">
@@ -429,7 +427,7 @@ const Attendance = () => {
                 cx="60"
                 cy="60"
                 r="54"
-                stroke={isPunchedIn ? "green" : "red"} // Orange color by default, green when punched in
+                stroke={isPunchedIn ? "green" : "red"} //  // Orange color by default, green when punched in
                 strokeWidth="10"
                 fill="none"
                 clipPath="url(#half-circle)"

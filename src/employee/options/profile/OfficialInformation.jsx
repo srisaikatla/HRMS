@@ -1,11 +1,13 @@
-import React, { useState, useCallback } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useCallback } from 'react';
 import { FiEdit } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 
 // Modal Component
 const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
     if (!isVisible) return null;
 
-    const { dateOfJoining, panNo, designation, department, reportingTo } = officialInfo;
+    const { dateOfJoining, designation, department, reportingTo } = officialInfo;
 
     // Determine visibility of fields based on values
     const isDepartmentVisible = designation !== '';
@@ -17,31 +19,19 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
                 <h2 className="text-lg font-bold text-[#2A546D] mb-4">Edit Official Information</h2>
                 <form>
                     <div className="mb-4">
-                    <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
-    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#2A546D] mb-2">
-        Date of Joining
-    </label>
-    <input
-        id="dateOfJoining"
-        type="date"
-        value={dateOfJoining}
-        onChange={handleChange}
-        className="block w-full border border-[#2A546D] rounded-lg h-10 text-lg px-3 sm:h-9 sm:text-base sm:px-2"
-    />
-</div>
+                        <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
+                            <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#2A546D] mb-2">
+                                Date of Joining
+                            </label>
+                            <input
+                                id="dateOfJoining"
+                                type="date"
+                                value={dateOfJoining}
+                                onChange={handleChange}
+                                className="block w-full border border-[#2A546D] rounded-lg h-10 text-lg px-3 sm:h-9 sm:text-base sm:px-2"
+                            />
+                        </div>
 
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="panNo" className="block text-lg font-medium text-[#2A546D] mb-2">
-                            PAN No.
-                        </label>
-                        <input
-                            id="panNo"
-                            type="text"
-                            value={panNo}
-                            onChange={handleChange}
-                            className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-                        />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="designation" className="block text-lg font-medium text-[#2A546D] mb-2">
@@ -124,11 +114,11 @@ const Modal = ({ isVisible, onClose, onSave, officialInfo, handleChange }) => {
 };
 
 const OfficialInformation = () => {
+    const auth = useSelector((state) => state.auth)
     // State for official information
     const [officialInfo, setOfficialInfo] = useState({
-        dateOfJoining: '',
-        panNo: '',
-        designation: '',
+        dateOfJoining: auth.employee.joinDate,
+        designation: auth.employee.designation,
         department: '',
         reportingTo: ''
     });
@@ -166,31 +156,19 @@ const OfficialInformation = () => {
             <hr className="border-t-2 border-[#2A546D] mb-4" />
 
             <div className="flex flex-col items-center space-y-4">
-            <div className="w-full lg:w-1/2">
-    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#2A546D] mb-2">
-        Date of Joining
-    </label>
-    <input
-        id="dateOfJoining"
-        type="date"
-        value={officialInfo.dateOfJoining}
-        onChange={handleChange}
-        className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-    />
-</div>
-
-<div className="w-full lg:w-1/2">
-                    <label htmlFor="panNo" className="block text-lg font-medium text-[#2A546D] mb-2">
-                        PAN No.
+                <div className="w-full lg:w-1/2">
+                    <label htmlFor="dateOfJoining" className="block text-lg font-medium text-[#2A546D] mb-2">
+                        Date of Joining
                     </label>
                     <input
-                        id="panNo"
-                        type="text"
-                        value={officialInfo.panNo}
+                        id="dateOfJoining"
+                        type="date"
+                        value={officialInfo.dateOfJoining}
                         onChange={handleChange}
                         className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                     />
                 </div>
+
                 <div className="w-full lg:w-1/2">
                     <label htmlFor="designation" className="block text-lg font-medium text-[#2A546D] mb-2">
                         Designation
@@ -209,7 +187,7 @@ const OfficialInformation = () => {
                     />
                 </div>
                 {officialInfo.designation && (
-                      <div className="w-full lg:w-1/2">
+                    <div className="w-full lg:w-1/2">
                         <label htmlFor="department" className="block text-lg font-medium text-[#2A546D] mb-2">
                             Department
                         </label>
@@ -236,7 +214,7 @@ const OfficialInformation = () => {
                     </div>
                 )}
                 {officialInfo.designation && officialInfo.department && (
-                      <div className="w-full lg:w-1/2">
+                    <div className="w-full lg:w-1/2">
                         <label htmlFor="reportingTo" className="block text-lg font-medium text-[#2A546D] mb-2">
                             Reporting To
                         </label>
