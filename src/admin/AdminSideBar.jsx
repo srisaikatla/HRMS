@@ -16,7 +16,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 
 const AdminSideBar = () => {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("Company Information");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
   const [tooltip, setTooltip] = useState({

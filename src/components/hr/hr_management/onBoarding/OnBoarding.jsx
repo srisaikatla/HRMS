@@ -563,7 +563,7 @@ const OnBoarding = () => {
       )}
       {savedData.length > 0 && (
         <div className="">
-          <div className=" overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2">
+          <div className=" overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-2ssssssssss">
             <table className="min-w-full divide-y divide-gray-200 w-screen overflow-x-scroll  text-nowrap">
               <thead className="bg-[#0098F1] text-white">
                 <tr className="text-nowrap">

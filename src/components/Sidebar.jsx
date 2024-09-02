@@ -79,6 +79,7 @@ const SideBar = () => {
   const [activeTab, setActiveTab] = useState("Hr Dashboard");
   const [selectedHeader, setSelectedHeader] = useState("Hr");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [profileImage, setProfileImage] = useState(profile);
   const [tooltip, setTooltip] = useState({
     show: false,
     title: "",
@@ -179,6 +180,21 @@ const SideBar = () => {
     { title: "Teams", icon: <FaUsers /> },
     { title: "Tickets", icon: <FaClipboardList /> },
   ];
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target.result); // Set the image URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("fileInput").click();
+  };
   const jwt = localStorage.getItem("hrJwt");
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -241,8 +257,9 @@ const SideBar = () => {
         projectOptions={projectOptions}
       />
       <div
-        className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${isSidebarCollapsed ? "w-16" : "w-[240px]"
-          } transition-all duration-300 ease-in-out`}
+        className={`fixed top-0 h-screen pb-10 bg-[#0098f1] text-white overflow-x-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent ${
+          isSidebarCollapsed ? "w-16" : "w-[240px]"
+        } transition-all duration-300 ease-in-out`}
       >
         <div className="flex justify-between items-center pt-10 pb-5 pl-5">
           <IoMdMenu
@@ -252,35 +269,67 @@ const SideBar = () => {
         </div>
         <div>
           {!isSidebarCollapsed && (
-            <div className="flex items-center relative top-0 pb-4 px-2">
-              <img
+            <>
+              <div className="flex items-center relative top-0 pb-4 px-2">
+                {/* <img
                 src={profile}
                 className="rounded-full w-[50px] h-[50px]"
                 alt="Profile"
-              />
-              <p className="text-[16px] pl-2">
-                Welcome {auth.user ? auth.user.firstName : "User"}
-              </p>
-            </div>
+              /> */}
+                <img
+                  src={profileImage}
+                  className="rounded-full w-[50px] h-[50px] cursor-pointer"
+                  alt="Profile"
+                  onClick={triggerFileInput}
+                />
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageUpload}
+                />
+
+                <p className="text-[16px] leading-4 font-bold text-wrap text-white pb-8 pl-2">
+                  {/* Welcome{" "} */}
+                  {auth.user ? auth.user.firstName : "User"}
+                  {/* {auth.employee
+                      ? auth.employee.firstName.toUpperCase() +
+                        " " +
+                        auth.employee.lastName.toUpperCase()
+                      : "User Name"} */}
+                </p>
+              </div>
+              <div className=" flex relative bottom-10 left-14">
+                <p className="text-[16px] leading-4 text-wrap w-32  text-white pl-2">
+                  {/* {auth.employee
+                      ? auth.employee.designation
+                      : "user designation"} */}
+                  Designation
+                </p>
+              </div>
+            </>
           )}
         </div>
 
         {!isSidebarCollapsed && (
           <div className="text-[16px] text-white flex justify-around pr-5 pb-3 items-center">
             <span
-              className={`cursor-pointer ${selectedHeader === "Hr"
-                ? "underline decoration-2 underline-offset-8"
-                : ""
-                }`}
+              className={`cursor-pointer ${
+                selectedHeader === "Hr"
+                  ? "underline decoration-2 underline-offset-8"
+                  : ""
+              }`}
               onClick={() => handleHeaderClick("Hr")}
             >
               Hr
             </span>
             <span
-              className={`cursor-pointer ${selectedHeader === "Project"
-                ? "underline decoration-3 underline-offset-8"
-                : ""
-                }`}
+              className={`cursor-pointer ${
+                selectedHeader === "Project"
+                  ? "underline decoration-3 underline-offset-8"
+                  : ""
+              }`}
               onClick={() => handleHeaderClick("Project")}
             >
               Projects
@@ -308,8 +357,9 @@ const SideBar = () => {
       </div>
 
       <div
-        className={`flex-1  ml-4 transition-all ${isSidebarCollapsed ? "ml-[70px]" : "ml-[240px]"
-          }`}
+        className={`flex-1  ml-4 transition-all ${
+          isSidebarCollapsed ? "ml-[70px]" : "ml-[240px]"
+        }`}
       >
         {activeTab === "Holiday" && <HolidayTab />}
         {activeTab === "Events" && <Events />}
@@ -345,10 +395,8 @@ const SideBar = () => {
         {activeTab === "Payroll Summary" && <PayrollSummary />}
         {activeTab === "Run payroll" && <RunPayRoll />}
         {activeTab === "Emp Attendance" && <Attandance />}
-        {/* {activeTab === "Leaves" && <Leaves />} */}
+        {activeTab === "Leaves" && <Leaves />}
         {activeTab === "Hr Dashboard" && <HrDashboard />}
-
-
       </div>
 
       {tooltip.show && (

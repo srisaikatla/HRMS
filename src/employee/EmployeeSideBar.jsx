@@ -173,7 +173,7 @@ const EmployeeSideBar = () => {
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("employeeJwt");
-    localStorage.removeItem("employee")
+    localStorage.removeItem("employee");
     navigate("/");
   };
 
@@ -188,8 +188,9 @@ const EmployeeSideBar = () => {
     <div className="relative bg-[#2A546D] bg-opacity-10">
       <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
-        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
-          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${
+          isSidebarCollapsed ? "w-16" : "w-[240px]"
+        } pb-10 h-screen fixed z-10 top-0 overflow-y-auto overflow-x-hidden bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
@@ -202,11 +203,6 @@ const EmployeeSideBar = () => {
             {!isSidebarCollapsed && (
               <>
                 <div className="flex items-center relative top-0 pb-4 px-2">
-                  {/* <img
-                    src={profile}
-                    className="rounded-full w-[50px] h-[50px]"
-                    alt="Profile"
-                  /> */}
                   <img
                     src={profileImage}
                     className="rounded-full w-[50px] h-[50px] cursor-pointer"
@@ -220,18 +216,20 @@ const EmployeeSideBar = () => {
                     style={{ display: "none" }}
                     onChange={handleImageUpload}
                   />
-                  <p className="text-[16px] text-nowrap text-white pb-4 pl-2">
-                    Welcome{" "}
+                  <p className="text-[16px] leading-4 font-bold text-wrap text-white pb-8 pl-2">
+                    {/* Welcome{" "} */}
                     {auth.employee
                       ? auth.employee.firstName.toUpperCase() +
-                      " " +
-                      auth.employee.lastName.toUpperCase()
-                      : "User"}
+                        " " +
+                        auth.employee.lastName.toUpperCase()
+                      : "User Name"}
                   </p>
                 </div>
                 <div className=" flex relative bottom-10 left-14">
-                  <p className="text-[16px] text-white pl-2">
-                    {auth.employee ? auth.employee.designation : "user Designation"}
+                  <p className="text-[16px] leading-4 text-wrap w-32  text-white pl-2">
+                    {auth.employee
+                      ? auth.employee.designation
+                      : "user designation"}
                   </p>
                 </div>
               </>
@@ -242,13 +240,12 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-
-                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${activeTab === option.title ||
+                className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${
+                  activeTab === option.title ||
                   (option.subOptions && openDropdown === option.title)
-                  ? "bg-white text-[#2A546D] rounded-r-3xl"
-                  : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
-                  }`}
-
+                    ? "bg-white text-[#2A546D] rounded-r-3xl"
+                    : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
+                }`}
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
                 onMouseOut={handleMouseOut}
@@ -274,12 +271,11 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-
-                        className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${activeTab === subOption.name
-                          ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
-                          : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
-                          }`}
-
+                        className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${
+                          activeTab === subOption.name
+                            ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
+                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
+                        }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }
@@ -302,8 +298,9 @@ const EmployeeSideBar = () => {
         </div>
       </div>
       <div
-        className={`flex-1 p-4 transition-all duration-300 ${isSidebarCollapsed ? "ml-16" : "ml-[240px]"
-          }`}
+        className={`flex-1 p-4 transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-[240px]"
+        }`}
       >
         {activeTab === "Employees Dashboard" && (
           <EmployeDashboard

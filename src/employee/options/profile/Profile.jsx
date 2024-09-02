@@ -482,7 +482,7 @@ const Profile = () => {
       )}
 
       {/* Address Info Modal */}
-      {isAddressesModalOpen && (
+      {/* {isAddressesModalOpen && (
         <div className="fixed inset-0 z-50 text-[#2A546D]  flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-3 py-4 rounded-lg shadow-lg w-auto">
             <div className="flex justify-between items-center">
@@ -535,7 +535,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
