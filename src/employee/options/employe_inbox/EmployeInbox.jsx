@@ -38,7 +38,7 @@ const EmployeInbox = () => {
     };
 
     return (
-        <div className=" pl-6">
+        <div className="">
             <h1 className="text-[#E65F2B] px-2">Inbox</h1>
             <div className="flex gap-2 px-2 mt-5">
                 <InboxSidebar onItemClick={handleItemClick} />

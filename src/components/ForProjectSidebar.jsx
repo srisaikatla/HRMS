@@ -44,6 +44,7 @@ const ForProjectSidebar = ({
     if (option.hasSubOptions) {
       setShowProjectOptions(!showProjectOptions);
     } else {
+      localStorage.setItem('HR_ACTIVE_TAB', option.title);
       setActiveTab(option.title);
     }
   };

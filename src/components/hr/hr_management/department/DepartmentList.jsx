@@ -238,7 +238,7 @@ function DepartmentList() {
             </div>
             <div className="mb-4">
               <label
-                className="block mb-2 text-sm font-roboto flex justify-between"
+                className=" mb-2 text-sm font-roboto flex justify-between"
                 htmlFor="departmentHead"
               >
                 Department Head
@@ -257,7 +257,7 @@ function DepartmentList() {
             </div>
             <div className="mb-4">
               <label
-                className="block mb-2 text-sm font-roboto flex justify-between"
+                className=" mb-2 text-sm font-roboto flex justify-between"
                 htmlFor="totalEmployees"
               >
                 Total Employees

@@ -15,7 +15,7 @@ const TeamCard = ({
 }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg h-[400px] hover:shadow-xl transition-shadow duration-300">
-      <h3 className="text-blue-600 text-xl font-semibold mb-4 text-center">
+      <h3 className="text-[#0098F1] text-xl font-semibold mb-4 text-center">
         {teamName}
       </h3>
       <img
@@ -25,19 +25,19 @@ const TeamCard = ({
           }`}
       />
       <p className="text-center font-medium">{teamLead}</p>
-      <p className="text-center text-sm text-[#E65F2B] mb-4">Team Lead</p>
+      <p className="text-center text-sm text-[#0098F1] mb-4">Team Lead</p>
       <div className="flex justify-center flex-wrap mb-4">
         {tags.map((tag, idx) => (
           <span
             key={idx}
-            className={`bg-${tag.color} text-white mx-2 px-4 py-2 rounded-[10px] text-xs`}
+            className={`bg-[#0098F1] text-white mx-2 px-4 py-2 rounded-[10px] text-xs`}
           >
             {tag.label}
           </span>
         ))}
       </div>
       <div className="flex">
-        <p className="text-center mt-5 ml-8 text-sm text-[#E65F2B] mb-2">
+        <p className="text-center mt-5 ml-8 text-sm text-[#0098F1] mb-2">
           Employees:
         </p>
         <div className="flex justify-center mb-4 -space-x-6">
@@ -52,7 +52,7 @@ const TeamCard = ({
           ))}
         </div>
       </div>
-      <p className="text-center text-sm text-blue-500">{employees}</p>
+      <p className="text-center text-sm text-[#0098F1]">{employees}</p>
     </div>
   );
 };
@@ -64,9 +64,9 @@ const TeamList = () => {
       teamLead: "Ratnapriya",
       teamLeadImg: Web,
       tags: [
-        { label: "ReactJS", color: "blue-500" },
-        { label: "Angular", color: "blue-500" },
-        { label: "VueJS", color: "blue-500" },
+        { label: "ReactJS"},
+        { label: "Angular"},
+        { label: "VueJS" },
       ],
       employees: "1 Lead, 3 Employees",
       employeeImgs: [
@@ -100,9 +100,9 @@ const TeamList = () => {
       teamLead: "Raghavendra",
       teamLeadImg: Marketing,
       tags: [
-        { label: "Social", color: "blue-500" },
-        { label: "HTML/CSS", color: "blue-500" },
-        { label: "Twitter", color: "blue-500" },
+        { label: "Social" },
+        { label: "HTML/CSS" },
+        { label: "Twitter"},
       ],
       employees: "1 Lead, 3 Employees",
       employeeImgs: [
@@ -118,9 +118,9 @@ const TeamList = () => {
       teamLead: "Susie Willis",
       teamLeadImg: Sales,
       tags: [
-        { label: "Photoshop", color: "blue-500" },
-        { label: "HTML", color: "blue-500" },
-        { label: "Java", color: "blue-500" },
+        { label: "Photoshop"},
+        { label: "HTML" },
+        { label: "Java"},
       ],
       employees: "1 Lead, 3 Employees",
       employeeImgs: [

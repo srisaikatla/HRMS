@@ -118,6 +118,8 @@ const ForHrSidebar = ({
   ];
 
   const handleOptionClick = (option) => {
+    localStorage.setItem('HR_ACTIVE_TAB', option.title);
+    setActiveTab(option.title);
     switch (option.title) {
       case "HR Management":
         setShowHrManagementOptions(!showHrManagementOptions);

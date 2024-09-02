@@ -31,39 +31,39 @@ const EmployeSentPage = ({ sentMessage, onDeleteMessage, onSelectMessage }) => {
   };
 
   return (
-    <div className="rounded-r-xl min-w-[850px] bg-[#FCEFE9] p-5">
+    <div className="rounded-r-xl min-w-[800px] border border-[#E65F2B] p-5">
       <h1 className="text-xl font-semibold mb-5">Sent</h1>
       <ul>
         {sentMessage.map((message, index) => (
           <li
-            key={index}
-            className="cursor-pointer flex justify-between border-b py-3 group"
-          >
-            <div className="flex gap-5">
-              <button onClick={() => handleCheckboxToggle(index)}>
-                <img
-                  src={checkedStatus[index] ? Checked : unChecked}
-                  alt="checkbox"
-                />
-              </button>
-              <button onClick={() => handleStarToggle(index)} className="">
-                <img src={starredStatus[index] ? filledStar : unfilledstar} alt="star" />
-              </button>
-              <div onClick={() => onSelectMessage(message)} className="max-w-[600px]">
-                <h1 className="font-medium">{message.subject}</h1>
-                <p className="text-sm truncate">{message.message}</p>
-              </div>
-            </div>
+          key={index}
+          className="h-20 cursor-pointer flex justify-between border-b py-3 group"
+        >
+          <div className="flex gap-5">
+            <button onClick={() => handleCheckboxToggle(index)}>
+              <img
+                src={checkedStatus[index] ? Checked : unChecked}
+                alt="checkbox"
+              />
+            </button>
+            <button className="">
+              <img src={unfilledstar} alt="star" />
+            </button>
             <div>
-              <p className="group-hover:hidden">{getCurrentDate()}</p>
-              <button
-                onClick={() => onDeleteMessage(index)}
-                className="hidden group-hover:block bg-red-500 p-2 text-xl text-white rounded-lg"
-              >
-                Delete
-              </button>
+              <h1>{message.to}</h1>
+              <p>{message.cc}</p>
             </div>
-          </li>
+          </div>
+          <div>
+            <p className="group-hover:hidden">{getCurrentDate()}</p>
+            <button
+              onClick={() => onDeleteMessage(index)}
+              className="hidden group-hover:block bg-red-500 p-2 text-xl text-white rounded-lg"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
         ))}
       </ul>
     </div>

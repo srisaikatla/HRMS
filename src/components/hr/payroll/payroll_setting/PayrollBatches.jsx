@@ -51,7 +51,7 @@ const PayrollBatches = ({ onBatchClick, onBatchesUpdate }) => {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
-    }, 2000);
+    },2000);
   };
 
   const handleCancel = () => {

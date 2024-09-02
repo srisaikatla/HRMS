@@ -79,7 +79,7 @@ const SocialMedia = () => {
       <h1 className="text-[20px] text-[#0098F1] font-bold ">Social Media</h1>
       <div className="flex flex-col gap-5 my-5 ">
         <div className="overflow-x-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1]">
-          <table className="min-w-[950px]">
+          <table className="min-w-[950px] w-full">
             <thead className="bg-[#0098F1] text-white ">
               <tr>
                 <th className="py-2">Media</th>

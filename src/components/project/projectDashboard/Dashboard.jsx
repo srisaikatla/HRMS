@@ -120,7 +120,7 @@ const Dashboard = () => {
       title: {
         display: true,
         text: "Work Report",
-        color: "#E65F2B",
+        color: "#0098F1",
         font: {
           size: 18,
         },
@@ -302,8 +302,8 @@ const Dashboard = () => {
               className="flex items-center justify-between border-b border-[#0098F1] py-2"
             >
               <div className="flex items-center space-x-3">
-                <div className="text-2xl text-blue-500">{item.icon}</div>
-                <span className="text-lg text-gray-700">{item.label}</span>
+                <div className="text-2xl text-[#0098F1]">{item.icon}</div>
+                <span className="text-lg text-[#0098F1]">{item.label}</span>
               </div>
               <span
                 className={`px-4 py-1 rounded-[5px] w-[60px] text-white ${item.color}`}
@@ -315,7 +315,7 @@ const Dashboard = () => {
         </div>
 
         {/* Income Analysis */}
-        <div className="bg-white p-8 rounded-lg shadow-lg text-blue-500   w-auto h-[450px]">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-[#0098F1]   w-auto h-[450px]">
           <h2 className="text-2xl  text-center font-bold mb-2">
             Income Analysis
           </h2>
@@ -327,17 +327,17 @@ const Dashboard = () => {
 
         {/* To-Do List */}
         <div className="bg-white p-4 rounded-lg shadow-lg h-[460px] flex flex-col items-center justify-center">
-          <h2 className="text-xl font-bold text-orange-600 mb-4">TO DOList</h2>
+          <h2 className="text-xl font-bold text-[#0098F1] mb-4">TO DOList</h2>
           <ul className="space-y-2 py-4">
             {items.map((item, index) => (
               <li key={index} className="flex items-center py-1">
                 <input
                   type="checkbox"
-                  className="form-checkbox h-5 w-5 text-orange-600 border border-orange-600 rounded"
+                  className="form-checkbox h-5 w-5 text-[#0098F1] border border-[#0098F1] rounded"
                   checked={item.checked}
                   onChange={() => handleChange(index)}
                 />
-                <span className="ml-2 text-orange-600">{item.text}</span>
+                <span className="ml-2 text-[#0098F1]">{item.text}</span>
               </li>
             ))}
           </ul>
@@ -349,28 +349,28 @@ const Dashboard = () => {
         <div className="mt-5 lg:w-full overflow-x-scroll  ">
           <table className=" bg-white border lg:w-full  w-auto  border-gray-300">
             <thead>
-              <tr>
-                <th className="py-3 px-4 bg-blue-500 text-white border-b text-left">
+              <tr className="bg-[#0098F1]">
+                <th className="py-3 px-4 text-white border-b text-left">
                   Team
                 </th>
-                <th className="py-3 px-4 bg-blue-500 text-white border-b text-left">
+                <th className="py-3 px-4  text-white border-b text-left">
                   Change
                 </th>
-                <th className="py-3 px-4 bg-blue-500 text-white border-b text-center">
+                <th className="py-3 px-4 text-white border-b text-center">
                   Sales
                 </th>
-                <th className="py-3 px-4 bg-blue-500 text-white border-b text-center">
+                <th className="py-3 px-4  text-white border-b text-center">
                   Price
                 </th>
-                <th className="py-3 px-4 bg-blue-500 text-white border-b text-center">
+                <th className="py-3 px-4  text-white border-b text-center">
                   Total
                 </th>
               </tr>
             </thead>
             <tbody>
               {ProjectListTable.map((item, idx) => (
-                <tr key={idx} className="bg-white hover:bg-gray-100">
-                  <td className="py-3 border-b border-blue-500">
+                <tr key={idx} className="bg-white hover:bg-gray-100 border-b border-[#0098F1]">
+                  <td className="py-3 ">
                     <div className="relative flex items-center">
                       {item.team.map((img, imgIdx) => (
                         <img
@@ -386,16 +386,16 @@ const Dashboard = () => {
                       ))}
                     </div>
                   </td>
-                  <td className="py-3 border-b border-blue-500 flex justify-center items-center">
+                  <td className="py-3  flex justify-center items-center">
                     {item.change}
                   </td>
-                  <td className="py-3 px-4 border-b border-blue-500 text-center">
+                  <td className="py-3 px-4  text-center">
                     {item.sales}
                   </td>
-                  <td className="py-3 px-4 border-b border-blue-500 text-center">
+                  <td className="py-3 px-4  text-center">
                     {item.price}
                   </td>
-                  <td className="py-3 px-4 border-b border-blue-500 text-center">
+                  <td className="py-3 px-4  text-center">
                     {item.total}
                   </td>
                 </tr>

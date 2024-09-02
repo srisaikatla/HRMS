@@ -76,8 +76,8 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 const SideBar = () => {
-  const [activeTab, setActiveTab] = useState("Hr Dashboard");
-  const [selectedHeader, setSelectedHeader] = useState("Hr");
+  const [activeTab, setActiveTab] = useState(localStorage.getItem('HR_ACTIVE_TAB') || "Hr Dashboard");
+  const [selectedHeader, setSelectedHeader] = useState(localStorage.getItem('HR_HEADER') || "Hr");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -184,6 +184,7 @@ const SideBar = () => {
   const dispatch = useDispatch();
 
   const handleHeaderClick = (header) => {
+    localStorage.setItem('HR_HEADER', header);
     setSelectedHeader(header);
   };
 
