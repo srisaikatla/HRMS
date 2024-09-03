@@ -208,7 +208,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(21, 0, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
         handlePunchButtonClick() // Call the punch-out function
@@ -236,7 +236,7 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(9, 30, 0, 0);
+    punchInLimit.setHours(20, 30, 0, 0);
     return now > punchInLimit;
   };
 
@@ -282,10 +282,8 @@ const Attendance = () => {
         workingHours: workingDuration.hours,
         workingMinutes: workingDuration.minutes,
         workingSeconds: workingDuration.seconds,
-
         overtime,
       };
-
 
       // Update attendanceData state properly
       const updatedAttendanceData = [...attendanceData, newEntry];
@@ -320,15 +318,15 @@ const Attendance = () => {
       localStorage.removeItem('breakStartTime');
     } else {
       //Check if already punched out today
-      const hasPunchedOutToday = attendanceData.some(entry => {
-        const entryDate = new Date(entry.punchOut).toLocaleDateString();
-        return entry.employeeId === employeeId && entryDate === today;
-      });
+      // const hasPunchedOutToday = attendanceData.some(entry => {
+      //   const entryDate = new Date(entry.punchOut).toLocaleDateString();
+      //   return entry.employeeId === employeeId && entryDate === today;
+      // });
 
-      if (hasPunchedOutToday) {
-        alert("You have already punched out today. You cannot punch in again.");
-        return;
-      }
+      // if (hasPunchedOutToday) {
+      //   alert("You have already punched out today. You cannot punch in again.");
+      //   return;
+      // }
       const newPunchInTime = new Date();
       setPunchInTime(newPunchInTime);
       setIsPunchedIn(true);
@@ -474,8 +472,8 @@ const Attendance = () => {
               <button
                 onClick={handleBreakButtonClick}
                 className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${isOnBreak
-                    ? "bg-[#2A546D] hover:bg-[#2A546D]"
-                    : "bg-[#2A546D] hover:bg-[#2A546D]"
+                  ? "bg-[#2A546D] hover:bg-[#2A546D]"
+                  : "bg-[#2A546D] hover:bg-[#2A546D]"
                   }`}
               >
                 {isOnBreak ? "End Break" : "Start Break"}
