@@ -9,43 +9,23 @@ import { API_BASE_URL } from "../../../Config/api";
 
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("")
   const [currentDateTime, setCurrentDateTime] = useState("");
-  const [currentBreakTime, setCurrentBreakTime] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [currentBreakTime, setCurrentBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [punchInTime, setPunchInTime] = useState(null);
   const [punchOutTime, setPunchOutTime] = useState(null);
   const [breakStartTime, setBreakStartTime] = useState(null);
   const [breakEndTime, setBreakEndTime] = useState(null);
-  const [totalBreakTime, setTotalBreakTime] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const [lastElapsedTime, setLastElapsedTime] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const [elapsedTime, setElapsedTime] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [totalBreakTime, setTotalBreakTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [lastElapsedTime, setLastElapsedTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [elapsedTime, setElapsedTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [attendanceData, setAttendanceData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const auth = useSelector((state) => state.auth);
   const [searchDate, setSearchDate] = useState(new Date());
   const [employeeId, setEmployeeId] = useState(auth.employee?.employeeId); // New state for employee ID
-  const [employeeName, setEmployeeName] = useState(
-    auth.employee?.firstName.toUpperCase() +
-      " " +
-      auth.employee?.lastName.toUpperCase()
-  );
+  const [employeeName, setEmployeeName] = useState(auth.employee?.firstName.toUpperCase() + " " + auth.employee?.lastName.toUpperCase());
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth() + 1;
@@ -55,47 +35,36 @@ const Attendance = () => {
   const jwt = localStorage.getItem("employeeJwt");
   const officeHours = 9;
 
+
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/api/attendance`, {
           headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
+            "Authorization": `Bearer ${jwt}`,
+          }
         });
         setAttendanceData(response.data);
       } catch (error) {
-        console.error("Error fetching attendance data:", error);
+        console.error('Error fetching attendance data:', error);
       }
     };
     fetchAttendanceData();
   }, [jwt]);
 
-  const filteredData1 = attendanceData.filter(
-    (entry) => entry.employeeId === employeeId
-  );
+  const filteredData1 = attendanceData.filter((entry) => entry.employeeId === employeeId);
   // Filtered data for search query
-  const filteredData = filteredData1
-    .filter((entry) => {
-      const entryDate = new Date(entry.punchIn);
-      const matchesYear = searchYear
-        ? entryDate.getFullYear() === parseInt(searchYear)
-        : true;
-      const matchesMonth = searchMonth
-        ? entryDate.getMonth() + 1 === parseInt(searchMonth)
-        : true;
-      const matchesDay = searchDay
-        ? entryDate.getDate() === parseInt(searchDay)
-        : true;
-      return (
-        matchesYear &&
-        matchesMonth &&
-        matchesDay &&
-        (entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-    })
-    .sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
+  const filteredData = filteredData1.filter((entry) => {
+    const entryDate = new Date(entry.punchIn);
+    const matchesYear = searchYear ? entryDate.getFullYear() === parseInt(searchYear) : true;
+    const matchesMonth = searchMonth ? entryDate.getMonth() + 1 === parseInt(searchMonth) : true;
+    const matchesDay = searchDay ? entryDate.getDate() === parseInt(searchDay) : true;
+    return matchesYear && matchesMonth && matchesDay && (
+      entry.employeeId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      entry.employeeName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }).sort((a, b) => new Date(b.punchIn) - new Date(a.punchIn));
+
 
   const calculateHours = (inTime, outTime) => {
     const inDate = new Date(inTime);
@@ -109,10 +78,7 @@ const Attendance = () => {
   };
 
   const accumulateTime = (prevTime, newTime) => {
-    let totalSeconds =
-      prevTime.hours * 3600 +
-      prevTime.minutes * 60 +
-      prevTime.seconds +
+    let totalSeconds = (prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds) +
       (newTime.hours * 3600 + newTime.minutes * 60 + newTime.seconds);
 
     const hours = Math.floor(totalSeconds / 3600);
@@ -132,19 +98,17 @@ const Attendance = () => {
     return { hours, minutes, seconds };
   };
 
+
   const updateBreakTime = (newBreakTime) => {
     const updatedBreakTime = accumulateTime(totalBreakTime, newBreakTime);
     setTotalBreakTime(updatedBreakTime);
-    localStorage.setItem("totalBreakTime", JSON.stringify(updatedBreakTime));
+    localStorage.setItem('totalBreakTime', JSON.stringify(updatedBreakTime));
   };
 
+
   const calculateWorkingHours = (productionTime, breakTime) => {
-    const productionInSeconds =
-      productionTime.hours * 3600 +
-      productionTime.minutes * 60 +
-      productionTime.seconds;
-    const breakInSeconds =
-      breakTime.hours * 3600 + breakTime.minutes * 60 + breakTime.seconds;
+    const productionInSeconds = (productionTime.hours * 3600) + (productionTime.minutes * 60) + productionTime.seconds;
+    const breakInSeconds = (breakTime.hours * 3600) + (breakTime.minutes * 60) + breakTime.seconds;
     const workingSeconds = Math.max(0, productionInSeconds - breakInSeconds); // Prevent negative working time
 
     const workingHours = Math.floor(workingSeconds / 3600);
@@ -157,6 +121,7 @@ const Attendance = () => {
       seconds: workingSecondsLeft,
     };
   };
+
 
   const getCurrentDateTime = () => {
     const now = new Date();
@@ -179,31 +144,21 @@ const Attendance = () => {
   }, []);
 
   useEffect(() => {
-    const storedPunchInTime = localStorage.getItem("punchInTime");
-    const storedElapsedTime = localStorage.getItem("elapsedTime");
-    const storedBreakTime = localStorage.getItem("totalBreakTime");
-    const storedIsPunchedIn = localStorage.getItem("isPunchedIn");
-    const storedLastElapsedTime = localStorage.getItem("lastElapsedTime");
-    const storedIsOnBreak = localStorage.getItem("isOnBreak");
-    const storedBreakStartTime = localStorage.getItem("breakStartTime");
+    const storedPunchInTime = localStorage.getItem('punchInTime');
+    const storedElapsedTime = localStorage.getItem('elapsedTime');
+    const storedBreakTime = localStorage.getItem('totalBreakTime');
+    const storedIsPunchedIn = localStorage.getItem('isPunchedIn');
+    const storedLastElapsedTime = localStorage.getItem('lastElapsedTime');
+    const storedIsOnBreak = localStorage.getItem('isOnBreak');
+    const storedBreakStartTime = localStorage.getItem('breakStartTime');
 
     if (storedPunchInTime) {
       setPunchInTime(new Date(storedPunchInTime));
-      setIsPunchedIn(storedIsPunchedIn === "true");
-      setElapsedTime(
-        JSON.parse(storedElapsedTime) || { hours: 0, minutes: 0, seconds: 0 }
-      );
-      setTotalBreakTime(
-        JSON.parse(storedBreakTime) || { hours: 0, minutes: 0, seconds: 0 }
-      );
-      setLastElapsedTime(
-        JSON.parse(storedLastElapsedTime) || {
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
-        }
-      );
-      setIsOnBreak(storedIsOnBreak === "true");
+      setIsPunchedIn(storedIsPunchedIn === 'true');
+      setElapsedTime(JSON.parse(storedElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setTotalBreakTime(JSON.parse(storedBreakTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setLastElapsedTime(JSON.parse(storedLastElapsedTime) || { hours: 0, minutes: 0, seconds: 0 });
+      setIsOnBreak(storedIsOnBreak === 'true');
       if (storedBreakStartTime) {
         setBreakStartTime(new Date(storedBreakStartTime));
       }
@@ -213,30 +168,18 @@ const Attendance = () => {
   useEffect(() => {
     let timer;
     if (isPunchedIn && punchInTime) {
-      const startTime =
-        lastElapsedTime.hours * 3600 * 1000 +
-        lastElapsedTime.minutes * 60 * 1000 +
-        lastElapsedTime.seconds * 1000;
+      const startTime = lastElapsedTime.hours * 3600 * 1000 + lastElapsedTime.minutes * 60 * 1000 + lastElapsedTime.seconds * 1000;
       const punchInDate = new Date(punchInTime);
 
       timer = setInterval(() => {
         const now = new Date();
-        const diffMs =
-          now -
-          punchInDate +
-          startTime -
-          (totalBreakTime.hours * 3600 * 1000 +
-            totalBreakTime.minutes * 60 * 1000 +
-            totalBreakTime.seconds * 1000);
+        const diffMs = now - punchInDate + startTime - (totalBreakTime.hours * 3600 * 1000 + totalBreakTime.minutes * 60 * 1000 + totalBreakTime.seconds * 1000);
         const hours = Math.floor(diffMs / 3600000);
         const minutes = Math.floor((diffMs % 3600000) / 60000);
         const seconds = Math.floor((diffMs % 60000) / 1000);
         setElapsedTime({ hours, minutes, seconds });
         // Save to localStorage every second to persist data
-        localStorage.setItem(
-          "elapsedTime",
-          JSON.stringify({ hours, minutes, seconds })
-        );
+        localStorage.setItem('elapsedTime', JSON.stringify({ hours, minutes, seconds }));
       }, 1000);
     } else {
       clearInterval(timer);
@@ -261,6 +204,7 @@ const Attendance = () => {
     return () => clearInterval(breakTimer);
   }, [isOnBreak, breakStartTime]);
 
+
   useEffect(() => {
     const checkPunchOutTime = () => {
       const now = new Date();
@@ -268,7 +212,7 @@ const Attendance = () => {
       logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
-        handlePunchButtonClick(); // Call the punch-out function
+        handlePunchButtonClick() // Call the punch-out function
       }
     };
 
@@ -277,15 +221,17 @@ const Attendance = () => {
     return () => clearInterval(interval);
   }, [isPunchedIn]);
 
+
+
   const toIST = (date) => {
-    const options = { timeZone: "Asia/Kolkata", hour12: false };
-    const istDate = new Date(date.toLocaleString("en-US", options));
-    return new Date(istDate.getTime() - istDate.getTimezoneOffset() * 60000); // Remove milliseconds
+    const options = { timeZone: 'Asia/Kolkata', hour12: false };
+    const istDate = new Date(date.toLocaleString('en-US', options));
+    return new Date(istDate.getTime() - (istDate.getTimezoneOffset() * 60000)); // Remove milliseconds
   };
 
   // Convert the punch-in and punch-out times to IST and remove milliseconds
   const formatDateForBackend = (date) => {
-    return date ? toIST(date).toISOString().split(".")[0] : null;
+    return date ? toIST(date).toISOString().split('.')[0] : null;
   };
 
   const isPastPunchInTime = () => {
@@ -294,6 +240,7 @@ const Attendance = () => {
     punchInLimit.setHours(9, 30, 0, 0);
     return now > punchInLimit;
   };
+
 
   const handlePunchButtonClick = async () => {
     const today = new Date().toLocaleDateString();
@@ -316,12 +263,9 @@ const Attendance = () => {
 
       const totalBreakDuration = { ...totalBreakTime };
 
-      const overtime =
-        production.hours > officeHours ? production.hours - officeHours : 0;
-      const workingDuration = calculateWorkingHours(
-        production,
-        totalBreakDuration
-      );
+      const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
+      const workingDuration = calculateWorkingHours(production, totalBreakDuration);
+
 
       const newEntry = {
         employeeId,
@@ -339,24 +283,23 @@ const Attendance = () => {
         workingHours: workingDuration.hours,
         workingMinutes: workingDuration.minutes,
         workingSeconds: workingDuration.seconds,
+
         overtime,
       };
+
 
       // Update attendanceData state properly
       const updatedAttendanceData = [...attendanceData, newEntry];
       setAttendanceData(updatedAttendanceData);
 
       try {
-        const response = await axios.post(
-          `${API_BASE_URL}/api/attendance`,
-          newEntry,
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.post(`${API_BASE_URL}/api/attendance`, newEntry, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            "Content-Type": "application/json",
+          },
+        });
+
       } catch (error) {
         console.error("Error saving attendance:", error);
       }
@@ -369,16 +312,16 @@ const Attendance = () => {
       setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
       setTotalBreakTime({ hours: 0, minutes: 0, seconds: 0 });
 
-      localStorage.removeItem("punchInTime");
-      localStorage.removeItem("elapsedTime");
-      localStorage.removeItem("totalBreakTime");
-      localStorage.removeItem("isPunchedIn");
-      localStorage.removeItem("lastElapsedTime");
-      localStorage.removeItem("isOnBreak");
-      localStorage.removeItem("breakStartTime");
+      localStorage.removeItem('punchInTime');
+      localStorage.removeItem('elapsedTime');
+      localStorage.removeItem('totalBreakTime');
+      localStorage.removeItem('isPunchedIn');
+      localStorage.removeItem('lastElapsedTime');
+      localStorage.removeItem('isOnBreak');
+      localStorage.removeItem('breakStartTime');
     } else {
       //Check if already punched out today
-      const hasPunchedOutToday = attendanceData.some((entry) => {
+      const hasPunchedOutToday = attendanceData.some(entry => {
         const entryDate = new Date(entry.punchOut).toLocaleDateString();
         return entry.employeeId === employeeId && entryDate === today;
       });
@@ -392,14 +335,14 @@ const Attendance = () => {
       setIsPunchedIn(true);
       setLastElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
       setElapsedTime({ hours: 0, minutes: 0, seconds: 0 });
-      localStorage.setItem("punchInTime", newPunchInTime);
-      localStorage.setItem("isPunchedIn", "true");
-      localStorage.setItem(
-        "lastElapsedTime",
-        JSON.stringify({ hours: 0, minutes: 0, seconds: 0 })
-      );
+      localStorage.setItem('punchInTime', newPunchInTime);
+      localStorage.setItem('isPunchedIn', 'true');
+      localStorage.setItem('lastElapsedTime', JSON.stringify({ hours: 0, minutes: 0, seconds: 0 }));
     }
   };
+
+
+
 
   const handleBreakButtonClick = () => {
     if (isOnBreak) {
@@ -408,17 +351,18 @@ const Attendance = () => {
       updateBreakTime(newBreakTime);
       setBreakEndTime(now);
       setIsOnBreak(false);
-      localStorage.removeItem("breakStartTime");
-      localStorage.setItem("isOnBreak", "false");
+      localStorage.removeItem('breakStartTime');
+      localStorage.setItem('isOnBreak', 'false');
     } else {
       const now = new Date();
       setBreakStartTime(now);
       setIsOnBreak(true);
-      localStorage.setItem("breakStartTime", now);
-      localStorage.setItem("isOnBreak", "true");
+      localStorage.setItem('breakStartTime', now);
+      localStorage.setItem('isOnBreak', 'true');
     }
   };
 
+  
   return (
     <div className="min-h-screen mt-4 p-4 ">
       {/* <h1 className="text-3xl font-bold text-gray-800 mb-6">Employee Attendance</h1> */}
