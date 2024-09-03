@@ -208,7 +208,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(21, 0, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
         handlePunchButtonClick() // Call the punch-out function
@@ -219,6 +219,14 @@ const Attendance = () => {
 
     return () => clearInterval(interval);
   }, [isPunchedIn]);
+
+  const formatTime = (totalHours, totalMinutes, totalSeconds) => {
+    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+
+    return `${hours} hours, ${minutes} mins, ${seconds} secs`;
+  };
 
 
 
@@ -236,7 +244,7 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(20, 30, 0, 0);
+    punchInLimit.setHours(9, 30, 0, 0);
     return now > punchInLimit;
   };
 
@@ -318,15 +326,15 @@ const Attendance = () => {
       localStorage.removeItem('breakStartTime');
     } else {
       //Check if already punched out today
-      // const hasPunchedOutToday = attendanceData.some(entry => {
-      //   const entryDate = new Date(entry.punchOut).toLocaleDateString();
-      //   return entry.employeeId === employeeId && entryDate === today;
-      // });
+      const hasPunchedOutToday = attendanceData.some(entry => {
+        const entryDate = new Date(entry.punchOut).toLocaleDateString();
+        return entry.employeeId === employeeId && entryDate === today;
+      });
 
-      // if (hasPunchedOutToday) {
-      //   alert("You have already punched out today. You cannot punch in again.");
-      //   return;
-      // }
+      if (hasPunchedOutToday) {
+        alert("You have already punched out today. You cannot punch in again.");
+        return;
+      }
       const newPunchInTime = new Date();
       setPunchInTime(newPunchInTime);
       setIsPunchedIn(true);
@@ -579,9 +587,8 @@ const Attendance = () => {
                       <td className="px-4 py-2 border">
                         {new Date(entry.punchOut).toLocaleString()}
                       </td>
-                      <td className="px-4 py-2 border">
-                        {entry.productionHours} hours, {entry.productionMinutes}{" "}
-                        mins, {entry.productionSeconds} secs
+                      <td className="px-4 py-2 border">{formatTime(entry.productionHours, entry.productionMinutes, entry.productionSeconds)}
+
                       </td>
                       <td className="px-4 py-2 border">
                         {entry.breakHours} hours, {entry.breakMinutes} mins,{" "}
