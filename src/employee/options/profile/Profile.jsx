@@ -20,18 +20,18 @@ const Profile = () => {
 
   // State for form values
   const [personalInfo, setPersonalInfo] = useState({
-    employeeId: auth.employee.employeeId,
-    firstName: auth.employee.firstName,
-    lastName: auth.employee.lastName,
-    bloodGroup: auth.employee.bloodGroup,
-    dob: auth.employee.dob,
-    officialEmail: auth.employee.email,
+    employeeId: auth.employee?.employeeId,
+    firstName: auth.employee?.firstName,
+    lastName: auth.employee?.lastName,
+    bloodGroup: auth.employee?.bloodGroup,
+    dob: auth.employee?.dob,
+    officialEmail: auth.employee?.email,
   });
 
   const [contactInfo, setContactInfo] = useState({
-    personalEmail: auth.employee.personalEmail,
-    phoneNumber: auth.employee.phoneNumber,
-    alternatePhone: auth.employee.alternatePhoneNumber,
+    personalEmail: auth.employee?.personalEmail,
+    phoneNumber: auth.employee?.phoneNumber,
+    alternatePhone: auth.employee?.alternatePhoneNumber,
   });
 
   // Handlers for opening and closing modals
@@ -84,8 +84,9 @@ const Profile = () => {
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === tab ? "bg-white text-black" : "text-white"
-                }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${
+                activeTab === tab ? "bg-white text-black" : "text-white"
+              }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -107,8 +108,9 @@ const Profile = () => {
           ].map(({ tab, icon }) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${activeTab === tab ? "bg-white text-black" : "text-white"
-                }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${
+                activeTab === tab ? "bg-white text-black" : "text-white"
+              }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >

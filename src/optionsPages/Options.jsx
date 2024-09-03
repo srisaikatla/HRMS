@@ -19,24 +19,28 @@ const Options = () => {
 
   return (
     <>
-      <div className="bg-blue-800 w-full h-screen flex justify-center items-center gap-x-16">
+      <div className="bg-blue-800 w-full h-screen flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16 p-4">
         <button
-          className="flex justify-center items-center flex-col shadow-2xl p-8 rounded-md border border-gray-200"
+          className="flex justify-center items-center flex-col shadow-2xl p-6 sm:p-8 rounded-md border border-gray-200"
           onClick={handleAdminClick}
         >
-          <div className="text-[100px] font-semibold font text-gray-400">
+          <div className="text-[60px] sm:text-[80px] md:text-[100px] font-semibold text-gray-400">
             <MdOutlineSettingsSuggest />
           </div>
-          <div className="text-[30px] text-gray-300">Admin</div>
+          <div className="text-[20px] sm:text-[25px] md:text-[30px] text-gray-300">
+            Admin
+          </div>
         </button>
         <button
-          className="flex justify-center items-center flex-col shadow-2xl p-8 rounded-md border border-gray-200"
+          className="flex justify-center items-center flex-col shadow-2xl p-6 sm:p-8 rounded-md border border-gray-200"
           onClick={handleUserClick}
         >
-          <div className="text-[100px] font-semibold font text-gray-400">
+          <div className="text-[60px] sm:text-[80px] md:text-[100px] font-semibold text-gray-400">
             <FaUserAlt />
           </div>
-          <div className="text-[30px] text-gray-300">Hr</div>
+          <div className="text-[20px] sm:text-[25px] md:text-[30px] text-gray-300">
+            Hr
+          </div>
         </button>
       </div>
     </>

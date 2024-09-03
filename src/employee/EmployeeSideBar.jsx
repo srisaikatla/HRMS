@@ -48,9 +48,13 @@ import { TiMessages } from "react-icons/ti";
 import Attendance from "./options/attendance/Attendance";
 import Activities from "./options/employeActivites/EmployeeActivities";
 const EmployeeSideBar = () => {
-  const [activeTab, setActiveTab] = useState(localStorage.getItem('EMPLOYEE_ACTIVE_TAB') || "Employees Dashboard");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("EMPLOYEE_ACTIVE_TAB") || "Employees Dashboard"
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState("");
+  const [openDropdown, setOpenDropdown] = useState(
+    localStorage.getItem("EMPLOYEE_OPEN_DROPDOWN") || ""
+  );
   const [tooltip, setTooltip] = useState({
     show: false,
     title: "",
@@ -80,10 +84,13 @@ const EmployeeSideBar = () => {
 
   const options = [
     { title: "Employees Dashboard", icon: <MdSpaceDashboard /> },
+
     { title: "All Employees", icon: <FaUsers /> },
-    { title: "Holidays", icon: <FaCalendarAlt /> },
-    { title: "Events", icon: <BsCalendarEvent /> },
+    { title: "Attendance", icon: <FaClipboardList /> },
+    { title: "Apply Leave", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
+    { title: "Holidays", icon: <FaCalendarAlt /> },
+
     {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
@@ -96,13 +103,14 @@ const EmployeeSideBar = () => {
       showAlways: true,
     },
     { title: "Profile", icon: <ImProfile /> },
-    { title: "Apply Leave", icon: <FaCalendarCheck /> },
+
     { title: "Projects", icon: <FaProjectDiagram /> },
+    { title: "Events", icon: <BsCalendarEvent /> },
     // { title: "Inbox", icon: <FaEnvelope /> },
     // { title: "Chats", icon: <TiMessages /> },
-    { title: "Attendance", icon: <FaClipboardList /> },
-    { title: "Rules", icon: <FaGavel /> },
+
     { title: "Tickets", icon: <FaTicketAlt /> },
+    { title: "Rules", icon: <FaGavel /> },
     { title: "Logout", icon: <FaSignOutAlt /> },
   ];
 
@@ -149,11 +157,15 @@ const EmployeeSideBar = () => {
 
   const handleOptionClick = (option) => {
     if (option.subOptions) {
-      setOpenDropdown(openDropdown === option.title ? "" : option.title);
+      const newDropdownState =
+        openDropdown === option.title ? "" : option.title;
+      setOpenDropdown(newDropdownState);
+      localStorage.setItem("EMPLOYEE_OPEN_DROPDOWN", newDropdownState);
     } else {
       setActiveTab(option.title);
-      localStorage.setItem('EMPLOYEE_ACTIVE_TAB', option.title);
+      localStorage.setItem("EMPLOYEE_ACTIVE_TAB", option.title);
       setOpenDropdown("");
+      localStorage.removeItem("EMPLOYEE_OPEN_DROPDOWN");
       if (option.title === "Logout") {
         handleLogout();
       }
@@ -162,7 +174,7 @@ const EmployeeSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
-    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', subOption.title);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", subOption.title);
     setActiveTab(subOption.name);
     localStorage.setItem("EMPLOYEE_ACTIVE_TAB", subOption.name);
   };
@@ -176,15 +188,17 @@ const EmployeeSideBar = () => {
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("employeeJwt");
-    localStorage.removeItem("employee")
+    localStorage.removeItem("employee");
     navigate("/");
   };
 
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", iconTitle);
   };
   const handleSetActiveTab = (tab) => {
     setActiveTab(tab);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", tab);
   };
 
   return (
@@ -192,7 +206,7 @@ const EmployeeSideBar = () => {
       <EmployeeNavBar onIconClick={handleIconClick} options={options} />
       <div
         className={`flex flex-col h-screen fixed bg-[#2A546D] mr-20 transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-[240px]"
-          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+          } pb-10 h-screen fixed z-10 top-0 overflow-y-auto overflow-x-hidden bg-[#2A546D] scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-3 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
@@ -204,7 +218,7 @@ const EmployeeSideBar = () => {
           <div>
             {!isSidebarCollapsed && (
               <>
-                <div className="flex items-center relative top-0 pb-4 px-2">
+                <div className="flex items-center  w-72  relative top-0 pb-4 px-2">
                   <img
                     src={profileImage}
                     className="rounded-full w-[50px] h-[50px] cursor-pointer"
@@ -218,18 +232,20 @@ const EmployeeSideBar = () => {
                     style={{ display: "none" }}
                     onChange={handleImageUpload}
                   />
-                  <p className="text-[16px] text-nowrap text-white pb-4 pl-2">
+                  <p className="text-[16px] leading-4   font-bold text-wrap text-white pb-8 pl-2">
                     {/* Welcome{" "} */}
                     {auth.employee
                       ? auth.employee.firstName.toUpperCase() +
                       " " +
                       auth.employee.lastName.toUpperCase()
-                      : "User"}
+                      : "User Name"}
                   </p>
                 </div>
                 <div className=" flex relative bottom-10 left-14">
-                  <p className="text-[16px] text-white pl-2">
-                    {auth.employee ? auth.employee.designation : "user Designation"}
+                  <p className="text-[16px] leading-4 text-wrap w-[180px]   text-white pl-2">
+                    {auth.employee
+                      ? auth.employee.designation
+                      : "user designation"}
                   </p>
                 </div>
               </>
@@ -240,13 +256,11 @@ const EmployeeSideBar = () => {
             {options.map((option, index) => (
               <div
                 key={index}
-
                 className={`flex flex-col transition-all my-1 duration-500 cursor-pointer ${activeTab === option.title ||
-                  (option.subOptions && openDropdown === option.title)
-                  ? "bg-white text-[#2A546D] rounded-r-3xl"
-                  : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
+                    (option.subOptions && openDropdown === option.title)
+                    ? "bg-white text-[#2A546D] rounded-r-3xl"
+                    : "hover:bg-white hover:text-[#2A546D] rounded-r-3xl"
                   }`}
-
                 onClick={() => handleOptionClick(option)}
                 onMouseOver={(event) => handleMouseOver(event, option.title)}
                 onMouseOut={handleMouseOut}
@@ -272,12 +286,10 @@ const EmployeeSideBar = () => {
                     {option.subOptions.map((subOption, subIndex) => (
                       <div
                         key={subIndex}
-
                         className={`p-3 text-nowrap pl-4 flex items-center my-1 cursor-pointer ${activeTab === subOption.name
-                          ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
-                          : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
+                            ? "bg-white bg-opacity-60 text-[#2A546D] rounded-r-full"
+                            : "hover:bg-white hover:bg-opacity-60 hover:rounded-r-full hover:text-[#2A546D]"
                           }`}
-
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
                         }

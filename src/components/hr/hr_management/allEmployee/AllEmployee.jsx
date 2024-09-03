@@ -8,8 +8,8 @@ import { LuImport } from "react-icons/lu";
 import { API_BASE_URL } from "../../../../Config/api";
 import * as XLSX from "xlsx";
 import { useNavigate } from "react-router-dom";
-
-
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { ImCross } from "react-icons/im";
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,8 +39,6 @@ function AllEmployees() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const jwt = localStorage.getItem("hrJwt");
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     if (!jwt) {
@@ -320,21 +318,21 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="mr-4 p-4 min-h-screen  mt-4 px-2 ">
-        <div className="ml-2 mb-4">
-          <p className="text-[#0098F1] text-sm lg:text-lg font-bold mb-4">
+      <div id="main" className=" p-4 min-h-screen  mt-4 ">
+        <div className=" mb-4">
+          <p className="text-[#0098f1] text-sm lg:text-lg font-bold mb-4">
             Hr Management / Employee / All Employees
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-end mb-4 space-x-0 sm:space-x-4">
+        <div className="flex flex-col lg:flex-row justify-end mb-4 space-y-2 lg:space-y-0 lg:space-x-2">
           <div
             id="addemployee"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end text-center items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={() => setShowModal(true)}
             >
               <FiPlusCircle className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -343,11 +341,11 @@ function AllEmployees() {
           </div>
           <div
             id="importexcel"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={() => setIsPopupOpen(true)}
             >
               <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -356,11 +354,11 @@ function AllEmployees() {
           </div>
           <div
             id="downloadData"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={handleDownload}
             >
               <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -371,13 +369,13 @@ function AllEmployees() {
 
         <div
           id="table"
-          className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-10 mx-4"
+          className="  overflow-x-scroll overflow-y-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4"
         >
           {loading ? (
             <div>Loading...</div>
           ) : (
             <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
-              <thead className="bg-[#0098f1] ">
+              <thead className="bg-[#0098f1] text-white ">
                 <tr>
                   <th className="py-2 px-4 border-b bg-transparent text-center">
                     <img
@@ -413,7 +411,7 @@ function AllEmployees() {
               <tbody>
                 {employees.map((employee, index) => (
                   <tr key={employee.employeeId}>
-                    <td className="py-2 px-4 border-b text-center bg-transparent">
+                    <td className="py-2 px-4 border text-center bg-transparent">
                       <img
                         src={
                           isChecked[employee.employeeId] ? checkbox : uncheckbox
@@ -429,7 +427,7 @@ function AllEmployees() {
                     <td className="py-2 px-4 border-b text-center">
                       <img
                         src={employee.profileImage}
-                        alt="Employee"
+                        alt="profile"
                         className="w-12 h-12 rounded-full"
                       />
                     </td>
@@ -455,11 +453,11 @@ function AllEmployees() {
                         Invite
                       </button>
                       <FiEdit
-                        className="text-blue-500 cursor-pointer mr-2"
+                        className="text-blue-600 cursor-pointer mr-2"
                         onClick={() => handleEditEmployee(employee)}
                       />
                       <FiTrash2
-                        className="text-red-500 cursor-pointer"
+                        className="text-red-600 cursor-pointer"
                         onClick={() =>
                           handleDeleteEmployee(employee.employeeId)
                         }
@@ -659,23 +657,46 @@ function AllEmployees() {
       )}
 
       {/* Success Messages */}
-      {showSuccessMessage && (
+      {/* {showSuccessMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
           Employee added/updated successfully!
+        </div>
+      )} */}
+      {showSuccessMessage && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-[#0098f1] p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            Employee added/updated successfully!
+          </div>
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
-          Employee deleted successfully!
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-red-600 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            Employee Removed successfully!
+          </div>
         </div>
       )}
 
       {/* Error Message */}
       {errorMessage && (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
-          {errorMessage}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-red-600 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <ImCross className="inline-block text-6xl" />
+            </h2>
+            {errorMessage}
+          </div>
         </div>
+        // <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
+        //   {errorMessage}
+        // </div>
       )}
     </>
   );

@@ -28,7 +28,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
   const handleLogout = () => {
     dispatch(logout(jwt));
     localStorage.removeItem("hrJwt");
-    localStorage.removeItem("profile")
+    localStorage.removeItem("profile");
     navigate("/option");
   };
   const flattenedOptions = useMemo(() => {
@@ -118,11 +118,9 @@ function NavBar({ onIconClick, options, projectOptions }) {
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}
-
                     className={`py-2 px-4 hover:bg-[#0098f1] hover:bg-opacity-10 cursor-pointer text-[#0098f1] ${
                       option.isSubOption ? "" : ""
                     }`}
-
                     onClick={() => handleSuggestionClick(option)}
                   >
                     {option.isSubOption ? option.title : option.title}
@@ -222,7 +220,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
               onClick={() => onIconClick("Events")}
             />
             {hoveredIcon === "Events" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#0098f1] text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -237,7 +235,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
               onClick={() => onIconClick("Chat")}
             />
             {hoveredIcon === "Chat" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#0098f1] text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -252,7 +250,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
               onClick={() => onIconClick("Inbox")}
             />
             {hoveredIcon === "Inbox" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#0098f1] text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -267,7 +265,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
               onClick={() => onIconClick("Holiday")}
             />
             {hoveredIcon === "Holiday" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#0098f1] text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -282,7 +280,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
               onClick={() => onIconClick("Activities")}
             />
             {hoveredIcon === "Activities" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#0098f1] text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}
@@ -297,7 +295,7 @@ function NavBar({ onIconClick, options, projectOptions }) {
               onClick={handleLogout}
             />
             {hoveredIcon === "Logout" && (
-              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#e65f2b] text-xs p-1 rounded">
+              <div className="absolute bottom-[-2.0rem] left-1/2 transform -translate-x-1/2 bg-white text-[#0098f1] text-xs p-1 rounded">
                 {tooltip}
               </div>
             )}

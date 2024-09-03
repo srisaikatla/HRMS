@@ -1,4 +1,3 @@
-
 // import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 // function Register() {
@@ -83,14 +82,14 @@
 // }
 
 // export default Register;
-import React, { useState } from 'react';
-import { FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
+import React, { useState } from "react";
+import { FaCheckCircle, FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -104,7 +103,7 @@ function Register() {
       role,
     };
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     setIsRegistered(true);
   };
 
@@ -119,27 +118,29 @@ function Register() {
           <div className="flex justify-center items-center   mb-4">
             <FaCheckCircle className="w-12 h-12 text-white" />
           </div>
-          <h2 className="text-white text-lg font-semibold">Registration successful!</h2>
+          <h2 className="text-white text-lg font-semibold">
+            Registration successful!
+          </h2>
         </div>
       ) : (
         <div
           className="bg-gradient-to-b  w-full max-w-xl rounded-3xl"
           style={{
-            background: "linear-gradient(180deg, rgba(0, 88, 139, 0.1936) 0%, rgba(0, 88, 139, 0.1936) 100%)"
+            background:
+              "linear-gradient(180deg, rgba(0, 88, 139, 0.1936) 0%, rgba(0, 88, 139, 0.1936) 100%)",
           }}
         >
-         <div className=" pl-7">
-         <h2 className="text-2xl font-medium text-white text-start pt-8 pl-7">
-            Create an account
-          </h2>
-
-         </div>
+          <div className=" ">
+            <h2 className="text-2xl font-medium text-white text-center pt-8 ">
+              Create an account
+            </h2>
+          </div>
           <form onSubmit={handleSubmit} className="space-y-4 p-4">
             <div className="pl-10 relative ">
               <select
                 id="role"
                 className="w-[90%] pl-3 h-10 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFFFFF]"
-                style={{ backgroundPosition: 'calc(100% - 10px) center' }}
+                style={{ backgroundPosition: "calc(100% - 10px) center" }}
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 required
@@ -187,7 +188,11 @@ function Register() {
                 className="absolute inset-y-0 right-9 pr-6 flex items-center cursor-pointer"
                 onClick={togglePasswordVisibility}
               >
-                {passwordVisible ? <FaEyeSlash className="text-gray-500 ml-4" /> : <FaEye className="text-gray-500 ml-4" />}
+                {passwordVisible ? (
+                  <FaEyeSlash className="text-gray-500 ml-4" />
+                ) : (
+                  <FaEye className="text-gray-500 ml-4" />
+                )}
               </div>
             </div>
             <div className="pl-10 pt-2">
@@ -200,7 +205,7 @@ function Register() {
             </div>
           </form>
           <p className="text-center text-white pb-8">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <a href="/login" className="text-[#ffffff] underline">
               Login
             </a>

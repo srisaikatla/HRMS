@@ -11,7 +11,6 @@ const TeamCard = ({
   tags,
   employees,
   employeeImgs,
-  ring = false,
 }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg h-[400px] hover:shadow-xl transition-shadow duration-300">
@@ -21,8 +20,7 @@ const TeamCard = ({
       <img
         src={teamLeadImg}
         alt="Team Lead"
-        className={`w-24 h-24 rounded-full mx-auto mb-2 ${ring ? "ring-4 ring-maroon-500" : ""
-          }`}
+        className="w-24 h-24 rounded-full mx-auto mb-2 "
       />
       <p className="text-center font-medium">{teamLead}</p>
       <p className="text-center text-sm text-[#0098F1] mb-4">Team Lead</p>

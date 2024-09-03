@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 /* eslint-disable react/prop-types */
 import React, { useRef, useState } from "react";
 import profile from "../../../assets/hr/profile/man.png";

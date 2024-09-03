@@ -27,7 +27,7 @@ function SalaryStructure() {
           <p>Current Salary</p>
           <p>Effective Date: June 21, 2024</p>
         </div>
-        <div className="overflow-x-scroll text-lg scrollbar-thin scrollbar-track-white scrollbar-thumb-[#2A546D] pt-10 mx-4">
+        <div className="overflow-x-scroll text-lg scrollbar-thin scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-2">
           <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
             <thead className="bg-[#2A546D] text-white">
               <tr>
