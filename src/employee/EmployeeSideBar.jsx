@@ -174,7 +174,7 @@ const EmployeeSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
-    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", option.title);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", subOption.title);
     setActiveTab(subOption.name);
     localStorage.setItem("EMPLOYEE_ACTIVE_TAB", subOption.name);
   };
