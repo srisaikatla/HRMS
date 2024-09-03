@@ -430,6 +430,45 @@ const Attendance = () => {
         <p className=" font-semibold">Employee ID: {employeeId}</p>
         <p className=" font-semibold">Employee Name: {employeeName}</p>
       </div>
+       <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
+        {/* Year Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchYear(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          >
+            <option value="">Select Year</option>
+            {Array.from(new Set(attendanceData.map(entry => new Date(entry.punchIn).getFullYear()))).map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+        </div>
+        {/* Month Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchMonth(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          >
+            <option value="">Select Month</option>
+            {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
+              <option key={month} value={month}>
+                {new Date(0, month - 1).toLocaleString('default', { month: 'long' })}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Day Filter */}
+        <div className="relative mt-4 sm:mt-0">
+          <select
+            onChange={(e) => setSearchDay(e.target.value)}
+            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"        >
+            <option value="">Select Day</option>
+            {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
+              <option key={day} value={day}>{day}</option>
+            ))}
+          </select>
+        </div>
+      </div>
       <div className="gap-4  grid-cols-1  md:grid-cols-2 grid">
         {/* TimeSheet Container */}
 
