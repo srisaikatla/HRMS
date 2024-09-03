@@ -318,7 +318,7 @@ const Attendance = () => {
 
       const overtime =
         production.hours > officeHours ? production.hours - officeHours : 0;
-      const workingHours = calculateWorkingHours(
+      const workingDuration = calculateWorkingHours(
         production,
         totalBreakDuration
       );
@@ -336,6 +336,9 @@ const Attendance = () => {
         breakHours: totalBreakDuration.hours,
         breakMinutes: totalBreakDuration.minutes,
         breakSeconds: totalBreakDuration.seconds,
+        workingHours: workingDuration.hours,
+        workingMinutes: workingDuration.minutes,
+        workingSeconds: workingDuration.seconds,
         overtime,
       };
 
@@ -647,8 +650,7 @@ const Attendance = () => {
                         {entry.breakSeconds} secs
                       </td>
                       <td className="px-4 py-2 border">
-                        {workingTime.hours} hours, {workingTime.minutes} mins,{" "}
-                        {workingTime.seconds} secs
+                        {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
                       </td>
                       <td className="px-4 py-2 border">
                         {entry.overtime} hours
