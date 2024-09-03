@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import styles
 import axios from 'axios';
 import { useSelector } from "react-redux";
@@ -264,7 +263,7 @@ const Attendance = () => {
       const totalBreakDuration = { ...totalBreakTime };
 
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
-      const workingHours = calculateWorkingHours(production, totalBreakDuration);
+      const workingDuration = calculateWorkingHours(production, totalBreakDuration);
 
 
       const newEntry = {
@@ -280,6 +279,10 @@ const Attendance = () => {
         breakHours: totalBreakDuration.hours,
         breakMinutes: totalBreakDuration.minutes,
         breakSeconds: totalBreakDuration.seconds,
+        workingHours: workingDuration.hours,
+        workingMinutes: workingDuration.minutes,
+        workingSeconds: workingDuration.seconds,
+
         overtime,
       };
 
@@ -526,7 +529,7 @@ const Attendance = () => {
                         {entry.breakHours} hours, {entry.breakMinutes} mins, {entry.breakSeconds} secs
                       </td>
                       <td className="px-4 py-2 border">
-                        {workingTime.hours} hours, {workingTime.minutes} mins, {workingTime.seconds} secs
+                        {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
                       </td>
                       <td className="px-4 py-2 border">{entry.overtime} hours</td>
                     </tr>
