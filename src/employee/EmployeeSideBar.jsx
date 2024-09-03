@@ -50,7 +50,7 @@ import Activities from "./options/employeActivites/EmployeeActivities";
 const EmployeeSideBar = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('EMPLOYEE_ACTIVE_TAB') || "Employees Dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState("");
+  const [openDropdown, setOpenDropdown] = useState(localStorage.getItem('EMPLOYEE_OPEN_DROPDOWN') || "");
   const [tooltip, setTooltip] = useState({
     show: false,
     title: "",
@@ -149,11 +149,14 @@ const EmployeeSideBar = () => {
 
   const handleOptionClick = (option) => {
     if (option.subOptions) {
-      setOpenDropdown(openDropdown === option.title ? "" : option.title);
+      const newDropdownState = openDropdown === option.title ? "" : option.title;
+      setOpenDropdown(newDropdownState);
+      localStorage.setItem('EMPLOYEE_OPEN_DROPDOWN', newDropdownState);
     } else {
       setActiveTab(option.title);
       localStorage.setItem('EMPLOYEE_ACTIVE_TAB', option.title);
       setOpenDropdown("");
+      localStorage.removeItem('EMPLOYEE_OPEN_DROPDOWN');
       if (option.title === "Logout") {
         handleLogout();
       }
@@ -162,8 +165,8 @@ const EmployeeSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
-    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', subOption.title);
     setActiveTab(subOption.name);
+    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', subOption.name);
   };
 
   const toggleSidebar = () => {
@@ -181,9 +184,11 @@ const EmployeeSideBar = () => {
 
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
+    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', iconTitle);
   };
   const handleSetActiveTab = (tab) => {
     setActiveTab(tab);
+    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', tab);
   };
 
   
