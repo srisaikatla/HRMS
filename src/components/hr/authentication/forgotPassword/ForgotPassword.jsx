@@ -263,12 +263,14 @@ const ForgotPassword = () => {
         className="bg-card p-4 m-4 rounded-xl w-full shadow-lg max-w-lg text-white"
         style={{
           background:
-              "linear-gradient(to bottom, rgba(195, 195, 195, 0.31) 31%, rgba(195, 195, 195, 0.31) 31%)",
-      }}
+            "linear-gradient(to bottom, rgba(195, 195, 195, 0.31) 31%, rgba(195, 195, 195, 0.31) 31%)",
+        }}
       >
         {step === 1 && (
           <>
-            <h1 className="text-center mb-6 mt-4 text-2xl font-bold">Password Request</h1>
+            <h1 className="text-center mb-6 mt-4 text-2xl font-semibold">
+              Password Request
+            </h1>
             <form onSubmit={handleEmailSubmit}>
               <div className="mb-4 pb-2">
                 <input
@@ -285,7 +287,6 @@ const ForgotPassword = () => {
                   type="email"
                   placeholder="Employee Name"
                   className="w-full px-4 py-2 border text-black border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFFFFF]"
-                  
                   required
                 />
               </div>
@@ -294,7 +295,6 @@ const ForgotPassword = () => {
                   type="email"
                   placeholder="Employee ID"
                   className="w-full px-4 py-2 border text-black border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFFFFF]"
-                  
                   required
                 />
               </div>

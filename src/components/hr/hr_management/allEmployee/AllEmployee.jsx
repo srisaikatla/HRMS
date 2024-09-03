@@ -313,14 +313,14 @@ function AllEmployees() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-end mb-4 space-x-0 sm:space-x-4">
+        <div className="flex flex-col lg:flex-row justify-end mb-4 space-y-2 lg:space-y-0 lg:space-x-2">
           <div
             id="addemployee"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end text-center items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={() => setShowModal(true)}
             >
               <FiPlusCircle className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -329,11 +329,11 @@ function AllEmployees() {
           </div>
           <div
             id="importexcel"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={() => setIsPopupOpen(true)}
             >
               <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -342,11 +342,11 @@ function AllEmployees() {
           </div>
           <div
             id="downloadData"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={handleDownload}
             >
               <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />
