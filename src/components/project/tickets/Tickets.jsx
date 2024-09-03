@@ -136,56 +136,56 @@ const Tickets = () => {
           ))}
         </div>
 
-        <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-1">
-          <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
+        <div className="  overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-1">
+          <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
             <thead>
               <tr className="bg-[#0098F1] text-white">
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   ID
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   Assign By
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   Assign To
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   E-mail ID
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   Subject
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   Status
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   Date
                 </th>
-                <th className="py-2 md:py-4 px-2 md:px-4 text-left text-xs md:text-sm">
+                <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr key={ticket.id} className="border-b m-1">
-                  <td className=" text-xs md:text-sm">
+                <tr key={ticket.id} className="border-b text-center ">
+                  <td className=" text-xs md:text-sm ">
                     {ticket.id}
                   </td>
-                  <td className=" text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm ">
                     {ticket.assignBy}
                   </td>
-                  <td className=" text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm ">
                     {ticket.assignTo}
                   </td>
-                  <td className=" text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm ">
                     {ticket.email}
                   </td>
-                  <td className=" text-xs md:text-sm">
+                  <td className=" text-xs md:text-sm ">
                     {ticket.subject}
                   </td>
                   <td
-                    className={` text-center text-xs md:text-sm ${
+                    className={` text-center text-xs md:text-sm   ${
                       ticket.status === "PENDING"
                         ? "text-white   bg-[#2A8F4C]"
                         : "text-white bg-yellow-500 "
@@ -196,7 +196,7 @@ const Tickets = () => {
                   <td className=" text-xs md:text-sm">
                     {ticket.date}
                   </td>
-                  <td className=" text-xs md:text-sm flex items-center space-x-2">
+                  <td className=" text-xs md:text-sm flex items-center space-x-2 justify-center">
                     <button
                       className="bg-green-500 hover:bg-green-700 py-1 px-3 rounded-lg text-white"
                       onClick={() => handleEdit(ticket.id)}
