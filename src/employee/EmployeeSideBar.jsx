@@ -230,7 +230,7 @@ const EmployeeSideBar = () => {
                   </p>
                 </div>
                 <div className=" flex relative bottom-10 left-14">
-                  <p className="text-[16px] leading-4 text-wrap w-48   text-white pl-2">
+                  <p className="text-[16px] leading-4 text-wrap w-[180px]   text-white pl-2">
                     {auth.employee
                       ? auth.employee.designation
                       : "user designation"}

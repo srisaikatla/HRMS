@@ -46,6 +46,7 @@ import ITDeclarations from "./hr/hr_management/it_Declarations/ITDeclarations";
 import PayrollSummary from "./hr/payroll/payrollSummary/PayrollSummary";
 import RunPayRoll from "./hr/payroll/runPayRoll/RunPayroll";
 import Department from "./hr/hr_management/department/DepartmentList";
+import EmployeePasswordReq from "./hr/hr_management/employePasswordReq/EmployeePasswordReq";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -372,7 +373,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {/* {activeTab === "LeaveRequest" && <LeaveRequest />} */}
+        {activeTab === "Emp password Request" && < EmployeePasswordReq/>}
 
         {activeTab === "Report Invoice" && <ReportInvoice />}
         {activeTab === "Report Expenses" && <ReportExpenses />}

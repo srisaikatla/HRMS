@@ -58,12 +58,15 @@ const Roles = () => {
   };
 
   return (
-    <div className="pl-5 pb-5">
-      <h1 className="font-semibold">Admin</h1>
-      <p className="font-semibold">
-        <span>Dashboard</span> / <span>Company Role</span>
-      </p>
-      <div className="flex flex-col md:flex-row gap-5 my-5">
+    <div className="p-4 mt-4 min-h-screen">
+      <div className="  flex flex-col md:flex-row justify-between">
+        <div>
+          <span className=" text-black text-sm lg:text-lg font-medium">
+            Admin / Roles
+          </span>
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row gap-5 my-5 mx-auto">
         <button
           type="button"
           onClick={() => setAddCustomerBtn(false)}
@@ -82,41 +85,41 @@ const Roles = () => {
 
       {addCustomerBtn ? (
         <div className="flex flex-col gap-5 md:items-center">
-        <div className="flex flex-col md:flex-row md:items-center md:space-x-20 mr-3">
-          <label className="font-semibold text-[#E65F2B]">Role Name</label>
-          <input
-            type="text"
-            className="md:w-80 py-1 border-2 rounded-md border-[#E65F2B] outline-none pl-1"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
+          <div className="flex flex-col md:flex-row md:items-center md:space-x-20 mr-3">
+            <label className="font-semibold text-[#E65F2B]">Role Name</label>
+            <input
+              type="text"
+              className="md:w-80 py-1 border-2 rounded-md border-[#E65F2B] outline-none pl-1"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+          <div className="flex flex-col md:flex-row md:items-center md:space-x-10 mr-3">
+            <label className="font-semibold text-[#E65F2B]">
+              Role Description
+            </label>
+            <input
+              type="text"
+              className="md:w-80 py-1 border-2 rounded-md border-[#E65F2B] outline-none pl-1"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
+          </div>
+          <div className="space-x-3 md:space-x-8 font-semibold">
+            <button
+              onClick={handleSave}
+              className="px-4 py-2 md:w-32 rounded-lg bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white"
+            >
+              Save
+            </button>
+            <button
+              onClick={handleCancel}
+              className="px-4 py-2 md:w-32 rounded-lg border-2 border-[#E65F2B] text-[#E65F2B]"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:space-x-10 mr-3">
-          <label className="font-semibold text-[#E65F2B]">
-            Role Description
-          </label>
-          <input
-            type="text"
-            className="md:w-80 py-1 border-2 rounded-md border-[#E65F2B] outline-none pl-1"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          />
-        </div>
-        <div className="space-x-3 md:space-x-8 font-semibold">
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 md:w-32 rounded-lg bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white"
-          >
-            Save
-          </button>
-          <button
-            onClick={handleCancel}
-            className="px-4 py-2 md:w-32 rounded-lg border-2 border-[#E65F2B] text-[#E65F2B]"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
       ) : (
         <div className="flex flex-col md:items-center mr-2">
           <div className="flex flex-col gap-y-2 md:flex-row md:items-center md:space-x-5">

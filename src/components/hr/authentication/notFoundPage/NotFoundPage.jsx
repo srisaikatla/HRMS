@@ -1,6 +1,7 @@
 import React from "react";
 import { IoMdHome } from "react-icons/io";
 import { FaChevronLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const NotFoundPage = () => {
   return (
     <div className="flex items-center   justify-center  min-h-screen bg-[#0098F1]">
@@ -24,14 +25,20 @@ const NotFoundPage = () => {
             to report this issue.
           </p>
           <div className="flex justify-center space-x-4">
+            <Link  to="/">
+            
             <button className="flex items-center bg-white w-36 h-14  text-[#E65F2B] px-4 py-2  rounded hover:bg-slate-100">
               <FaChevronLeft className="text-[#E65F2B] mb-[px]  text-xl" />
               Go Back
             </button>
+            </Link>
+            <Link to="/">
+            
             <button className="flex items-center bg-white w-36 h-14  text-[#E65F2B] px-4 py-2 rounded hover:bg-slate-100">
               <IoMdHome className="text-[#E65F2B] mb-[3px] mr-2 text-xl " />
               Home
             </button>
+            </Link>
           </div>
         </div>
       </div>

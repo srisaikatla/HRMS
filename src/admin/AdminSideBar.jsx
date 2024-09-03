@@ -20,6 +20,7 @@ const AdminSideBar = () => {
     localStorage.getItem("ADMIN_ACTIVE_TAB") || "Company Information"
   );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [profileImage, setProfileImage] = useState(profile);
   const [openDropdown, setOpenDropdown] = useState("");
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -66,6 +67,20 @@ const AdminSideBar = () => {
     setTooltip({ show: false, title: "", position: { x: 0, y: 0 } });
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target.result); // Set the image URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("fileInput").click();
+  };
   const options = [
     { title: "Company Information", icon: <IoInformationCircle /> },
     { title: "Account Details", icon: <MdManageAccounts /> },
@@ -127,14 +142,48 @@ const AdminSideBar = () => {
           </div>
           <div>
             {!isSidebarCollapsed && (
-              <div className="flex items-center relative top-0 pb-4 px-2">
+              <>
+                {/* <div className="flex items-center relative top-0 pb-4 px-2">
                 <img
                   src={profile}
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
                 <p className="text-[16px] pl-2">Welcome Admin</p>
-              </div>
+              </div> */}
+                <div className="flex items-center  w-72  relative top-0 pb-4 px-2">
+                  <img
+                    src={profileImage}
+                    className="rounded-full w-[50px] h-[50px] cursor-pointer"
+                    alt="Profile"
+                    onClick={triggerFileInput}
+                  />
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageUpload}
+                  />
+                  <p className="text-[16px] leading-4   font-bold text-wrap text-white pb-8 pl-2">
+                    {/* Welcome{" "} */}
+                    {/* {auth.employee
+                      ? auth.employee.firstName.toUpperCase() +
+                        " " +
+                        auth.employee.lastName.toUpperCase()
+                      : "User Name"} */}
+                    Admin Name
+                  </p>
+                </div>
+                <div className=" flex relative bottom-10 left-14">
+                  <p className="text-[16px] leading-4 text-wrap w-[180px]   text-white pl-2">
+                    {/* {auth.employee
+                      ? auth.employee.designation
+                      : "user designation"} */}
+                    Admin Designation
+                  </p>
+                </div>
+              </>
             )}
           </div>
           <div className="flex bg-transparent flex-col">
