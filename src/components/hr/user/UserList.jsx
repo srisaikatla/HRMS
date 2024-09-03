@@ -232,27 +232,27 @@ const UserList = () => {
 
       <div className="flex justify-end mb-4">
         <button
-          className="bg-[#0098F1] text-white flex items-center rounded-lg px-6 py-3"
+          className="bg-[#0098F1] text-white flex items-center rounded-lg md:px-6 md:py-3 max-md:p-1"
           onClick={() => setIsModalOpen(true)}
         >
-          <FaPlusCircle className="text-white text-xl mr-2" />
-          <span className="text-white font-medium text-lg mr-2">
+          <FaPlusCircle className="text-white md:text-xl mr-2" />
+          <span className="text-white font-medium md:text-lg md:mr-2">
             Add New User
           </span>
         </button>
       </div>
 
-      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4">
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] md:pt-4 md:mx-4">
         <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr className="text-left">
-              <th className="text-lg py-2 px-4 "></th>
-              <th className="text-lg text-white py-4 px-8 ">Name</th>
-              <th className="text-lg text-white py-2  px-8">E-mail Id</th>
-              <th className="text-lg text-white py-2 px-4 ">Status</th>
-              <th className="text-lg text-white py-2 px-4 ">Created Date</th>
-              <th className="text-lg text-white py-2 px-4 text-center">Role</th>
-              <th className="text-lg text-white py-2 px-8 ">Action</th>
+              <th className="md:text-lg md:py-2 md:px-4  max-md:py-2"></th>
+              <th className="md:text-lg text-white md:py-4 px-8 max-md:py-2 ">Name</th>
+              <th className="md:text-lg text-white md:py-2 px-8 max-md:py-2">E-mail Id</th>
+              <th className="md:text-lg text-white md:py-2 px-4 max-md:py-2">Status</th>
+              <th className="md:text-lg text-white md:py-2 px-4 max-md:py-2 ">Created Date</th>
+              <th className="md:text-lg text-white md:py-2 px-4 max-md:py-2 text-center">Role</th>
+              <th className="md:text-lg text-white md:py-2 px-8 max-md:py-2 ">Action</th>
             </tr>
           </thead>
           <tbody className="font-normal">
