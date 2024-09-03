@@ -162,7 +162,7 @@ const EmployeeSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
-    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', option.title);
+    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', subOption.title);
     setActiveTab(subOption.name);
   };
 
@@ -185,6 +185,8 @@ const EmployeeSideBar = () => {
   const handleSetActiveTab = (tab) => {
     setActiveTab(tab);
   };
+
+  
 
   return (
     <div className="relative bg-[#2A546D] bg-opacity-10">
