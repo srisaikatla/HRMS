@@ -87,8 +87,8 @@ const ForProjectSidebar = ({
                 <li
                   key={dropdownOption.title}
                   className={`flex text-[16px] pl-6 py-2 mb-1 items-center cursor-pointer ${activeTab === dropdownOption.title
-                    ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
-                    : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
+                    ? "bg-white bg-opacity-50 rounded-r-full text-[#0098f1]"
+                    : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098f1] hover:rounded-r-full"
                     }`}
                   onClick={() => {
                     localStorage.setItem('HR_ACTIVE_TAB', dropdownOption.title);
