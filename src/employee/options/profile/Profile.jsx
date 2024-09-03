@@ -84,8 +84,9 @@ const Profile = () => {
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === tab ? "bg-white text-black" : "text-white"
-                }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${
+                activeTab === tab ? "bg-white text-black" : "text-white"
+              }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -107,8 +108,9 @@ const Profile = () => {
           ].map(({ tab, icon }) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${activeTab === tab ? "bg-white text-black" : "text-white"
-                }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${
+                activeTab === tab ? "bg-white text-black" : "text-white"
+              }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >

@@ -16,7 +16,9 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 
 const AdminSideBar = () => {
-  const [activeTab, setActiveTab] = useState(localStorage.getItem('ADMIN_ACTIVE_TAB') || "Company Information");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("ADMIN_ACTIVE_TAB") || "Company Information"
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
   const [tooltip, setTooltip] = useState({
@@ -87,7 +89,7 @@ const AdminSideBar = () => {
     if (option.subOptions) {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
-      localStorage.setItem('ADMIN_ACTIVE_TAB', option.title);
+      localStorage.setItem("ADMIN_ACTIVE_TAB", option.title);
       setActiveTab(option.title);
       setOpenDropdown("");
     }
@@ -95,7 +97,7 @@ const AdminSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
-    localStorage.setItem('ADMIN_ACTIVE_TAB', subOption.name);
+    localStorage.setItem("ADMIN_ACTIVE_TAB", subOption.name);
     setActiveTab(subOption.name);
   };
 
