@@ -29,7 +29,7 @@ function HrLogin() {
   };
 
   return (
-    <div className="bg-[#0098F1] w-screen h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
+    <div className="bg-[#0098f1] w-screen h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
       <div
         className="relative  w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-[300px] sm:h-[350px] md:h-[300px] lg:h-[300px] xl:h-[350px] rounded-[20px] md:rounded-[25px] flex flex-col items-center justify-center shadow-xl p-6  md:p-8 "
         style={{
@@ -37,9 +37,12 @@ function HrLogin() {
             "linear-gradient(to bottom, rgba(0, 88, 139, 0.2) 19.36%, rgba(0, 88, 139, 0.2) 19.36%)",
         }}
       >
-        <h2 className="text-lg font-medium text-white text-center">
-          Login to your account
-        </h2>
+        <div className="">
+          <h2 className=" text-lg md:text-2xl pb-4 font-medium text-white  ">
+            Login to your account
+          </h2>
+        </div>
+
         <form
           onSubmit={handleSubmit}
           className="flex flex-col w-full space-y-4"

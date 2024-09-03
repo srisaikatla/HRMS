@@ -52,7 +52,9 @@ const EmployeeSideBar = () => {
     localStorage.getItem("EMPLOYEE_ACTIVE_TAB") || "Employees Dashboard"
   );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(localStorage.getItem('EMPLOYEE_OPEN_DROPDOWN') || "");
+  const [openDropdown, setOpenDropdown] = useState(
+    localStorage.getItem("EMPLOYEE_OPEN_DROPDOWN") || ""
+  );
   const [tooltip, setTooltip] = useState({
     show: false,
     title: "",
@@ -82,10 +84,13 @@ const EmployeeSideBar = () => {
 
   const options = [
     { title: "Employees Dashboard", icon: <MdSpaceDashboard /> },
+
     { title: "All Employees", icon: <FaUsers /> },
-    { title: "Holidays", icon: <FaCalendarAlt /> },
-    { title: "Events", icon: <BsCalendarEvent /> },
+    { title: "Attendance", icon: <FaClipboardList /> },
+    { title: "Apply Leave", icon: <FaCalendarCheck /> },
     { title: "Activities", icon: <FaTasks /> },
+    { title: "Holidays", icon: <FaCalendarAlt /> },
+
     {
       title: "Payroll",
       icon: <FaMoneyCheckAlt />,
@@ -98,13 +103,14 @@ const EmployeeSideBar = () => {
       showAlways: true,
     },
     { title: "Profile", icon: <ImProfile /> },
-    { title: "Apply Leave", icon: <FaCalendarCheck /> },
+
     { title: "Projects", icon: <FaProjectDiagram /> },
+    { title: "Events", icon: <BsCalendarEvent /> },
     // { title: "Inbox", icon: <FaEnvelope /> },
     // { title: "Chats", icon: <TiMessages /> },
-    { title: "Attendance", icon: <FaClipboardList /> },
-    { title: "Rules", icon: <FaGavel /> },
+
     { title: "Tickets", icon: <FaTicketAlt /> },
+    { title: "Rules", icon: <FaGavel /> },
     { title: "Logout", icon: <FaSignOutAlt /> },
   ];
 
@@ -151,14 +157,15 @@ const EmployeeSideBar = () => {
 
   const handleOptionClick = (option) => {
     if (option.subOptions) {
-      const newDropdownState = openDropdown === option.title ? "" : option.title;
+      const newDropdownState =
+        openDropdown === option.title ? "" : option.title;
       setOpenDropdown(newDropdownState);
-      localStorage.setItem('EMPLOYEE_OPEN_DROPDOWN', newDropdownState);
+      localStorage.setItem("EMPLOYEE_OPEN_DROPDOWN", newDropdownState);
     } else {
       setActiveTab(option.title);
       localStorage.setItem("EMPLOYEE_ACTIVE_TAB", option.title);
       setOpenDropdown("");
-      localStorage.removeItem('EMPLOYEE_OPEN_DROPDOWN');
+      localStorage.removeItem("EMPLOYEE_OPEN_DROPDOWN");
       if (option.title === "Logout") {
         handleLogout();
       }
@@ -169,7 +176,7 @@ const EmployeeSideBar = () => {
     event.stopPropagation();
     localStorage.setItem("EMPLOYEE_ACTIVE_TAB", option.title);
     setActiveTab(subOption.name);
-    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', subOption.name);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", subOption.name);
   };
 
   const toggleSidebar = () => {
@@ -187,14 +194,12 @@ const EmployeeSideBar = () => {
 
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
-    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', iconTitle);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", iconTitle);
   };
   const handleSetActiveTab = (tab) => {
     setActiveTab(tab);
-    localStorage.setItem('EMPLOYEE_ACTIVE_TAB', tab);
+    localStorage.setItem("EMPLOYEE_ACTIVE_TAB", tab);
   };
-
-  
 
   return (
     <div className="relative bg-[#2A546D] bg-opacity-10">
