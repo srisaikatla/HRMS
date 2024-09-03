@@ -20,18 +20,18 @@ const Profile = () => {
 
   // State for form values
   const [personalInfo, setPersonalInfo] = useState({
-    employeeId: auth.employee.employeeId,
-    firstName: auth.employee.firstName,
-    lastName: auth.employee.lastName,
-    bloodGroup: auth.employee.bloodGroup,
-    dob: auth.employee.dob,
-    officialEmail: auth.employee.email,
+    employeeId: auth.employee?.employeeId,
+    firstName: auth.employee?.firstName,
+    lastName: auth.employee?.lastName,
+    bloodGroup: auth.employee?.bloodGroup,
+    dob: auth.employee?.dob,
+    officialEmail: auth.employee?.email,
   });
 
   const [contactInfo, setContactInfo] = useState({
-    personalEmail: auth.employee.personalEmail,
-    phoneNumber: auth.employee.phoneNumber,
-    alternatePhone: auth.employee.alternatePhoneNumber,
+    personalEmail: auth.employee?.personalEmail,
+    phoneNumber: auth.employee?.phoneNumber,
+    alternatePhone: auth.employee?.alternatePhoneNumber,
   });
 
   // Handlers for opening and closing modals
