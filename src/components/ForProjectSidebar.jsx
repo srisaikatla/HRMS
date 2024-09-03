@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaTasks,
   FaUserFriends,
@@ -39,6 +39,11 @@ const ForProjectSidebar = ({
     { title: "Project Grid", icon: <GrProjects /> },
     { title: "Project Detail", icon: <TbListDetails /> },
   ];
+
+  useEffect(() => {
+    const isProjectOption = projectDropdownOptions.find(op => op.title === activeTab);
+    isProjectOption && setShowProjectOptions(!!isProjectOption);
+  }, [activeTab]);
 
   const handleOptionClick = (option) => {
     if (option.hasSubOptions) {
@@ -85,7 +90,10 @@ const ForProjectSidebar = ({
                     ? "bg-white bg-opacity-50 rounded-r-full text-[#ef5f2b]"
                     : "hover:bg-white hover:bg-opacity-50 hover:text-[#ef5f2b] hover:rounded-r-full"
                     }`}
-                  onClick={() => setActiveTab(dropdownOption.title)}
+                  onClick={() => {
+                    localStorage.setItem('HR_ACTIVE_TAB', dropdownOption.title);
+                    setActiveTab(dropdownOption.title)
+                  }}
                   onMouseOver={(event) =>
                     handleMouseOver(event, dropdownOption.title)
                   }

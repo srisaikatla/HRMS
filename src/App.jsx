@@ -26,7 +26,7 @@ function App() {
           <Route path="/" element={<EmployeeLogin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgotPassword />} />
-          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
           <Route path="/employee" element={<EmployeeSideBar />} />
           <Route path="/option" element={<Options />} />
           <Route path="/admin" element={<AdminSideBar />} />
