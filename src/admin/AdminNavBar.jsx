@@ -98,7 +98,7 @@ function AdminNavBar({ onIconClick, options }) {
             />
 
             {filteredOptions.length > 0 && (
-              <div className="absolute top-[42px] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg rounded-lg z-10">
+              <div className="absolute top-[42px] scrollbar-thin scrollbar-track-white scrollbar-thumb-[#e65f2b] overflow-y-scroll h-32 left-0 bg-white w-full shadow-lg rounded-lg z-10">
                 {filteredOptions.map((option, index) => (
                   <div
                     key={index}

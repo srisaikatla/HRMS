@@ -42,7 +42,17 @@ function CompanySettingsNavigation() {
   ];
   return (
     <>
-      <div id="main" className="text-[15px] w-auto h-auto text-nowrap px-4 ">
+      <div
+        id="main"
+        className="text-[15px] w-auto h-auto text-nowrap p-4 mt-4  "
+      >
+        <div className="  flex flex-col md:flex-row justify-between">
+          <div>
+            <span className=" text-black text-sm lg:text-lg font-medium">
+              Admin / Company Settings
+            </span>
+          </div>
+        </div>
         <div className="lg:hidden w-auto  mb-4 flex justify-center items-center">
           <Select
             value={options.find((option) => option.value === activeTab)}
