@@ -17,6 +17,7 @@ import Settlement from "./options/pay_roll/Settlements";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
+import Support from "./options/support/Support"
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState(
@@ -260,6 +261,7 @@ const AdminSideBar = () => {
           {activeTab === "Account Details" && <AccountDetails />}
           {activeTab === "Payroll Forms" && <PayRollForms />}
           {activeTab === "Settlements" && <Settlement />}
+          {activeTab === "Support" && <Support />}
         </div>
       </div>
 
