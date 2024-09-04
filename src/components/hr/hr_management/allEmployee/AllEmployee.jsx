@@ -86,21 +86,36 @@ function AllEmployees() {
     return password;
   };
 
-  const handleAddEmployee = async () => {
+
+
+  const handleInvite = async (employee) => {
     try {
       const password = generatePassword();
       const response = await axios.post(`${API_BASE_URL}/employee/register`, {
-        ...newEmployee,
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        email: employee.email,
+        phoneNumber: employee.phoneNumber,
+        role: employee.role,
+        employeeId: employee.employeeId,
+        joinDate: employee.joinDate,
+        aadharCardNumber: employee.aadharCardNumber,
+        panNumber: employee.panNumber,
+        dob: employee.dob,
+        personalEmail: employee.personalEmail,
+        designation: employee.designation,
+        bloodGroup: employee.bloodGroup,
         password,
       });
       setEmployees((prev) => [...prev, response.data]);
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
       closeModal();
-      fetchEmployees();
+      fetchEmployees()
+      console.log("Invite sent:", response.data);
     } catch (error) {
-      console.error("Error adding employee:", error);
-      setErrorMessage("Error adding employee");
+      console.error("Error sending invite:", error);
+      setErrorMessage("Error sending invite");
       setTimeout(() => setErrorMessage(""), 3000);
     }
   };
@@ -159,6 +174,27 @@ function AllEmployees() {
       setErrorMessage("Error deleting employee");
       setTimeout(() => setErrorMessage(""), 3000);
     }
+  };
+
+  const handleAddEmployee = () => {
+    setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
+    setNewEmployee({
+      employeeId: "",
+      firstName: "",
+      lastName: "",
+      joinDate: "",
+      phoneNumber: "",
+      bloodGroup: "",
+      personalEmail: "",
+      email: "",
+      dob: "",
+      designation: "",
+      role: "",
+      panNumber: "",
+      aadharCardNumber: "",
+      profileImage: "",
+    });
+    setShowModal(false)
   };
 
   const closeModal = () => {
@@ -257,30 +293,6 @@ function AllEmployees() {
           setTimeout(() => setErrorMessage(""), 3000);
           return;
         }
-
-        // Post data to backend
-        await Promise.all(
-          formattedData.map(async ({ employee, password }) => {
-            try {
-              const response = await axios.post(
-                `${API_BASE_URL}/employee/register`,
-                {
-                  ...employee,
-                  password, // Send password along with employee data
-                }
-              );
-              console.log("Response for employee:", response.data);
-              newEmployees.push(response.data);
-            } catch (error) {
-              console.error(
-                "Error posting employee data:",
-                error.response ? error.response.data : error.message
-              );
-              throw error; // Ensure error handling is applied in case of failure
-            }
-          })
-        );
-
         // Update local state after successful upload
         // setEmployees((prev) => [...prev, ...formattedData.map(({ employee }) => employee)]);
         setShowSuccessMessage(true);
@@ -387,6 +399,7 @@ function AllEmployees() {
                   <th className="border p-2">Role</th>
                   <th className="border p-2">PAN Number</th>
                   <th className="border p-2">Aadhar Card Number</th>
+                  <th className="border p-2">Invite</th>
                   <th
                     className="border 
                   p-2"
@@ -432,7 +445,13 @@ function AllEmployees() {
                     <td className="border p-2">{employee.role}</td>
                     <td className="border p-2">{employee.panNumber}</td>
                     <td className="border p-2">{employee.aadharCardNumber}</td>
-                    <td className="border p-2 py-6 flex">
+                    <td className="border p-2">
+                      <button
+                        className="bg-blue-500 text-white p-2 rounded"
+                        onClick={() => handleInvite(employee)}
+                      >
+                        Invite
+                      </button>
                       <FiEdit
                         className="text-blue-600 cursor-pointer mr-2"
                         onClick={() => handleEditEmployee(employee)}

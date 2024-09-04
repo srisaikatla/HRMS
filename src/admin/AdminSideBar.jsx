@@ -9,6 +9,7 @@ import { RiMoneyRupeeCircleFill, RiBankFill } from "react-icons/ri";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
 import CompanyInformation from "./options/company_info/CompanyInformation";
+// import Company from "./options/company_settings/company/Company";
 import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
 import PayRollForms from "./options/pay_roll/PayrollForms";

@@ -195,7 +195,7 @@ function AdminNavBar({ onIconClick, options }) {
         </div>
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
+          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-3 mr-10"
         >
           <div className="relative">
             <IoInformationCircle

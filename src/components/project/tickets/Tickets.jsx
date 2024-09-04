@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 import { FaTrashAlt } from "react-icons/fa";
 
@@ -139,7 +140,7 @@ const Tickets = () => {
         <div className="  overflow-x-scroll scrollbar-thin scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-1">
           <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
             <thead>
-              <tr className="bg-[#0098F1] text-white">
+              <tr className="bg-[#0098F1] text-white ">
                 <th className="py-2 md:py-4 px-2 md:px-4 text-xs md:text-sm">
                   ID
                 </th>
@@ -168,46 +169,36 @@ const Tickets = () => {
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr key={ticket.id} className="border-b text-center ">
-                  <td className=" text-xs md:text-sm ">
-                    {ticket.id}
+                <tr key={ticket.id} className="border-b text-center  ">
+                  <td className=" text-xs md:text-sm ">{ticket.id}</td>
+                  <td className=" text-xs md:text-sm ">{ticket.assignBy}</td>
+                  <td className=" text-xs md:text-sm ">{ticket.assignTo}</td>
+                  <td className=" text-xs md:text-sm ">{ticket.email}</td>
+                  <td className=" text-xs md:text-sm ">{ticket.subject}</td>
+                  <td>
+                    <p
+                      className={` text-center text-xs md:text-sm py-1  ${
+                        ticket.status === "PENDING"
+                          ? "text-white   bg-[#2A8F4C]"
+                          : "text-white bg-yellow-500 "
+                      } rounded-lg`}
+                    >
+                      {ticket.status}
+                    </p>
                   </td>
-                  <td className=" text-xs md:text-sm ">
-                    {ticket.assignBy}
-                  </td>
-                  <td className=" text-xs md:text-sm ">
-                    {ticket.assignTo}
-                  </td>
-                  <td className=" text-xs md:text-sm ">
-                    {ticket.email}
-                  </td>
-                  <td className=" text-xs md:text-sm ">
-                    {ticket.subject}
-                  </td>
-                  <td
-                    className={` text-center text-xs md:text-sm   ${
-                      ticket.status === "PENDING"
-                        ? "text-white   bg-[#2A8F4C]"
-                        : "text-white bg-yellow-500 "
-                    } rounded-lg`}
-                  >
-                    {ticket.status}
-                  </td>
-                  <td className=" text-xs md:text-sm">
-                    {ticket.date}
-                  </td>
+                  <td className=" text-xs md:text-sm">{ticket.date}</td>
                   <td className=" text-xs md:text-sm flex items-center space-x-2 justify-center">
                     <button
-                      className="bg-green-500 hover:bg-green-700 py-1 px-3 rounded-lg text-white"
+                      className="text-blue-500 flex py-1 items-center"
                       onClick={() => handleEdit(ticket.id)}
                     >
-                      ✏️
+                      <FiEdit className="mr-1 bg-[#2A8F4C] text-white rounded-md size-6 p-1" />
                     </button>
                     <button
-                      className="bg-red-500 hover:bg-red-700 py-1 px-3 rounded-lg text-white"
+                      className="flex items-center justify-center"
                       onClick={() => handleDelete(ticket.id)}
                     >
-                      <FaTrashAlt className="h-4 w-4" />
+                      <FiTrash2 className="mr-1 bg-[#FF3636] text-white flex items-center size-6 p-1 rounded-md" />
                     </button>
                   </td>
                 </tr>
