@@ -220,6 +220,14 @@ const Attendance = () => {
     return () => clearInterval(interval);
   }, [isPunchedIn]);
 
+  const formatTime = (totalHours, totalMinutes, totalSeconds) => {
+    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+
+    return `${hours} hours, ${minutes} mins, ${seconds} secs`;
+  };
+
 
 
   const toIST = (date) => {
@@ -282,10 +290,8 @@ const Attendance = () => {
         workingHours: workingDuration.hours,
         workingMinutes: workingDuration.minutes,
         workingSeconds: workingDuration.seconds,
-
         overtime,
       };
-
 
       // Update attendanceData state properly
       const updatedAttendanceData = [...attendanceData, newEntry];
@@ -474,8 +480,8 @@ const Attendance = () => {
               <button
                 onClick={handleBreakButtonClick}
                 className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${isOnBreak
-                    ? "bg-[#2A546D] hover:bg-[#2A546D]"
-                    : "bg-[#2A546D] hover:bg-[#2A546D]"
+                  ? "bg-[#2A546D] hover:bg-[#2A546D]"
+                  : "bg-[#2A546D] hover:bg-[#2A546D]"
                   }`}
               >
                 {isOnBreak ? "End Break" : "Start Break"}
@@ -581,9 +587,8 @@ const Attendance = () => {
                       <td className="px-4 py-2 border">
                         {new Date(entry.punchOut).toLocaleString()}
                       </td>
-                      <td className="px-4 py-2 border">
-                        {entry.productionHours} hours, {entry.productionMinutes}{" "}
-                        mins, {entry.productionSeconds} secs
+                      <td className="px-4 py-2 border">{formatTime(entry.productionHours, entry.productionMinutes, entry.productionSeconds)}
+
                       </td>
                       <td className="px-4 py-2 border">
                         {entry.breakHours} hours, {entry.breakMinutes} mins,{" "}
