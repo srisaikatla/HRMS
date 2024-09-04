@@ -186,14 +186,14 @@ function Shifts() {
   };
 
   return (
-    <div>
+    <div className="p-4">
       <div className="flex gap-x-2">
         <button
           className="flex items-center gap-x-1 bg-[#E65F2B] p-2 px-3 rounded-lg text-white"
           onClick={() => setAddNew(true)}
         >
           <FaCirclePlus />
-          <span className="text-xs font-semibold">Add New</span>
+          <span className="text-xs py-1 font-semibold">Add New</span>
         </button>
         <button className="flex items-center gap-x-1 text-[#E65F2B]">
           <GrCircleInformation className="text-sm" />
