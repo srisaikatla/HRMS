@@ -8,28 +8,29 @@ import ManageAddons from "./ManageAddons";
 const AccountDetails = () => {
   const [openTab, setOpenTab] = useState(1);
 
-  const activeClasses =
-    "decoration-2 text-white";
+  const activeClasses = "decoration-2 text-white";
   const inactiveClasses = "";
 
   return (
-    <div className="w-[960px] mx-auto py-2 ">
-      <div>
-      <div>
-      <h1 className="font-bold text-xl">Admin</h1>
-      <p className="font-semibold my-1">
-        <span>Dashboard</span> / <span>Account Details / Account: Overview</span>
-      </p>
-      </div>
-      <div></div>
+    <div className="w-auto min-h-screen mx-auto  p-4 mt-4 ">
+      <div className="  flex flex-col md:flex-row justify-between">
+        <div>
+          <span className=" text-black text-sm lg:text-lg font-medium">
+            Admin / Account Details
+          </span>
+        </div>
       </div>
       <div className="px-2 my-5">
         <ul className="flex bg-white rounded-md">
           <li
             onClick={() => setOpenTab(1)}
             className={`flex-1 flex justify-center items-center h-12 ${
-              openTab === 1 ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252] rounded-l-md" : ""
-            } ${openTab === 1 ? "-mb-px" : "mr-1"} transition-colors duration-300`}
+              openTab === 1
+                ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252] rounded-l-md"
+                : ""
+            } ${
+              openTab === 1 ? "-mb-px" : "mr-1"
+            } transition-colors duration-300`}
           >
             <a
               href="#"
@@ -43,8 +44,12 @@ const AccountDetails = () => {
           <li
             onClick={() => setOpenTab(2)}
             className={`flex-1 flex justify-center items-center h-12 ${
-              openTab === 2 ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252]" : ""
-            } ${openTab === 2 ? "-mb-px" : "mr-1"} transition-colors duration-300`}
+              openTab === 2
+                ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252]"
+                : ""
+            } ${
+              openTab === 2 ? "-mb-px" : "mr-1"
+            } transition-colors duration-300`}
           >
             <a
               href="#"
@@ -58,8 +63,12 @@ const AccountDetails = () => {
           <li
             onClick={() => setOpenTab(3)}
             className={`flex-1 flex justify-center items-center h-12 ${
-              openTab === 3 ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252]" : ""
-            } ${openTab === 3 ? "-mb-px" : "mr-1"} transition-colors duration-300`}
+              openTab === 3
+                ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252]"
+                : ""
+            } ${
+              openTab === 3 ? "-mb-px" : "mr-1"
+            } transition-colors duration-300`}
           >
             <a
               href="#"
@@ -73,8 +82,12 @@ const AccountDetails = () => {
           <li
             onClick={() => setOpenTab(4)}
             className={`flex-1 flex justify-center items-center h-12 ${
-              openTab === 4 ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252]" : ""
-            } ${openTab === 4 ? "-mb-px" : "mr-1"} transition-colors duration-300`}
+              openTab === 4
+                ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252]"
+                : ""
+            } ${
+              openTab === 4 ? "-mb-px" : "mr-1"
+            } transition-colors duration-300`}
           >
             <a
               href="#"
@@ -88,8 +101,12 @@ const AccountDetails = () => {
           <li
             onClick={() => setOpenTab(5)}
             className={`flex-1 flex justify-center items-center h-12 ${
-              openTab === 5 ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252] rounded-r-md" : ""
-            } ${openTab === 5 ? "-mb-px" : "mr-1"} transition-colors duration-300`}
+              openTab === 5
+                ? "bg-gradient-to-r from-[#E65F2B] to-[#FFC252] rounded-r-md"
+                : ""
+            } ${
+              openTab === 5 ? "-mb-px" : "mr-1"
+            } transition-colors duration-300`}
           >
             <a
               href="#"

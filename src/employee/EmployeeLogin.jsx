@@ -80,7 +80,9 @@ function EmployeeLogin() {
                             className="w-full h-[50px] pl-12 pr-4 border bg-[#FFFFFF] border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00588B]"
                         />
                         <div className="text-sm text-white mt-2 text-right">
-                            <Link className="hover:underline cursor-pointer">
+                            <Link 
+                               to="/forget-password"
+                            className="hover:underline cursor-pointer">
                                 Forgot Password?
                             </Link>
                         </div>

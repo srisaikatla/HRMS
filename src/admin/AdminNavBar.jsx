@@ -84,13 +84,13 @@ function AdminNavBar({ onIconClick, options }) {
             style={{
               backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
             }}
-            className="h-[42px] ml-10 md:ml-60   w-[180px] sm:w-[250px] lg:w-[428px]   rounded-lg flex justify-center items-center relative"
+            className="h-[42px] ml-10 md:ml-60   w-[180px] sm:w-[300px] lg:w-[560px]   rounded-lg flex justify-center items-center relative"
           >
             <input
               style={{
                 backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
               }}
-              className="pl-2 px-4 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
+              className="pl-4 px-4 text-sm placeholder:text-white outline-none placeholder:text-start w-full rounded-xl text-white border-none bg-[#ef5f2b]"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}
@@ -195,7 +195,7 @@ function AdminNavBar({ onIconClick, options }) {
         </div>
         <div
           id="icons"
-          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-5 mr-10"
+          className="hidden md:flex justify-around items-center w-auto space-x-4 md:space-x-3 mr-10"
         >
           <div className="relative">
             <IoInformationCircle

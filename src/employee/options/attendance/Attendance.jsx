@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import styles
-import axios from 'axios';
+import axios from "axios";
 import { useSelector } from "react-redux";
-import { API_BASE_URL } from "../../../Config/api"
+import { API_BASE_URL } from "../../../Config/api";
 
 const Attendance = () => {
   const [isPunchedIn, setIsPunchedIn] = useState(false);
@@ -221,6 +220,14 @@ const Attendance = () => {
     return () => clearInterval(interval);
   }, [isPunchedIn]);
 
+  const formatTime = (totalHours, totalMinutes, totalSeconds) => {
+    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const seconds = totalSeconds % 60;
+
+    return `${hours} hours, ${minutes} mins, ${seconds} secs`;
+  };
+
 
 
   const toIST = (date) => {
@@ -264,7 +271,7 @@ const Attendance = () => {
       const totalBreakDuration = { ...totalBreakTime };
 
       const overtime = production.hours > officeHours ? production.hours - officeHours : 0;
-      const workingHours = calculateWorkingHours(production, totalBreakDuration);
+      const workingDuration = calculateWorkingHours(production, totalBreakDuration);
 
 
       const newEntry = {
@@ -280,9 +287,11 @@ const Attendance = () => {
         breakHours: totalBreakDuration.hours,
         breakMinutes: totalBreakDuration.minutes,
         breakSeconds: totalBreakDuration.seconds,
+        workingHours: workingDuration.hours,
+        workingMinutes: workingDuration.minutes,
+        workingSeconds: workingDuration.seconds,
         overtime,
       };
-
 
       // Update attendanceData state properly
       const updatedAttendanceData = [...attendanceData, newEntry];
@@ -360,11 +369,18 @@ const Attendance = () => {
 
 
   return (
-    <div className="max-w-4xl mx-auto p-6 ">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Employee Attendance</h1>
-      <div className="flex justify-center items-center space-x-4 mb-4">
-        <p className="text-lg font-semibold">Employee ID: {employeeId}</p>
-        <p className="text-lg font-semibold">Employee Name: {employeeName}</p>
+    <div className="min-h-screen mt-4 p-4 ">
+      {/* <h1 className="text-3xl font-bold text-gray-800 mb-6">Employee Attendance</h1> */}
+      <div className="  flex flex-col md:flex-row justify-between">
+        <div>
+          <span className=" text-[#2A546D] text-sm lg:text-lg font-medium">
+            Employee / Attendance
+          </span>
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row text-[#2A546D] text-sm lg:text-lg  justify-end items-center space-x-4 mb-4 pt-4">
+        <p className=" font-semibold">Employee ID: {employeeId}</p>
+        <p className=" font-semibold">Employee Name: {employeeName}</p>
       </div>
       <div className="flex flex-wrap items-center justify-center mb-4 space-x-4">
         {/* Year Filter */}
@@ -405,19 +421,24 @@ const Attendance = () => {
           </select>
         </div>
       </div>
-      <div className="flex space-x-4">
+      <div className="gap-4  grid-cols-1  md:grid-cols-2 grid">
         {/* TimeSheet Container */}
 
-        <div className="bg-white w-[500px] shadow-md rounded-lg p-6 mb-6 flex flex-col space-y-4">
-          <h1 className="text-2xl font-bold text-gray-800">TimeSheet</h1>
+        <div className="bg-white w-auto shadow-md rounded-lg p-4 justify-center items-center  mb-6 flex flex-col space-y-4">
+          <h1 className="text-sm lg:text-lg  font-bold text-[#2A546D]">
+            TimeSheet
+          </h1>
 
           <div className="bg-[#2A546D] text-white p-4 rounded-lg mb-4">
-            <h3 className="text-[20px] font-semibold">Punch In at</h3>
-            <p className="text-[20px] font-normal">{currentDateTime}</p>
+            <h3 className="text-sm lg:text-lg  font-semibold">Punch In at</h3>
+            <p className="text-sm lg:text-lg  font-normal">{currentDateTime}</p>
           </div>
 
-          <div className="relative w-[200px] h-[200px] ml-[60px]">
-            <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 120 60">
+          <div className="relative   w-[200px] h-[200px]] ">
+            <svg
+              className="absolute top-0 left-0 w-full h-full"
+              viewBox="0 0 120 60"
+            >
               <defs>
                 <clipPath id="half-circle">
                   <rect x="0" y="0" width="200" height="80" />
@@ -433,10 +454,16 @@ const Attendance = () => {
                 clipPath="url(#half-circle)"
               />
             </svg>
-            <p className=" font-semibold text-[15px] mt-[110px] ml-[60px] text-[#2A546D]"> {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
+            <p className=" font-semibold text-sm  lg:text-lg  mt-[110px] ml-[60px] text-[#2A546D]">
+              {" "}
+              {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}
+            </p>
           </div>
           <div className="flex justify-between items-center">
-            <p className={`text-lg font-semibold ${isPunchedIn ? 'text-[#2A546D]' : 'text-red-600'}`}>
+            <p
+              className={`text-sm lg:text-lg  font-semibold ${isPunchedIn ? "text-blue-600" : "text-red-600"
+                }`}
+            >
               {/* {isPunchedIn ? "Punched In" : "Punched Out"} */}
             </p>
           </div>
@@ -444,14 +471,18 @@ const Attendance = () => {
             <button
               onClick={handlePunchButtonClick}
               // disabled={isPastPunchInTime() && !isPunchedIn}
-              className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isPunchedIn ? 'bg-[#2A546D]' : 'bg-[#2A546D]'}`}
+              className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${isPunchedIn ? "bg-[#2A546D]" : "bg-[#2A546D]"
+                }`}
             >
               {isPunchedIn ? "Punch Out" : "Punch In"}
             </button>
             {isPunchedIn && (
               <button
                 onClick={handleBreakButtonClick}
-                className={`px-4 py-2 rounded-lg w-full text-[20px] text-white ${isOnBreak ? 'bg-[#2A546D] hover:bg-[#2A546D]' : 'bg-[#2A546D] hover:bg-[#2A546D]'}`}
+                className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${isOnBreak
+                  ? "bg-[#2A546D] hover:bg-[#2A546D]"
+                  : "bg-[#2A546D] hover:bg-[#2A546D]"
+                  }`}
               >
                 {isOnBreak ? "End Break" : "Start Break"}
               </button>
@@ -459,42 +490,75 @@ const Attendance = () => {
           </div>
         </div>
 
-
-
         {/* Employee Info Container */}
-        <div className="bg-white shadow-md rounded-lg p-6 w-[500px] mb-6 space-y-4">
-          <h2 className="text-[20px] font-bold   mt-6 mb-4  text-[#2A546D]">Time Info</h2>
-          <p className=" font-semibold text-[15px] text-[#2A546D] ">Punch In Time: {punchInTime ? punchInTime.toLocaleString() : "N/A"}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">Punch Out Time: {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]">Elapsed Time: {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]"> Break Time: {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}</p>
-          <p className=" font-semibold text-[15px] text-[#2A546D]"> Total Break Time: {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}</p>
+        <div className="bg-white shadow-md rounded-lg p-4 w-auto mb-6 space-y-4">
+          <h2 className="text-sm lg:text-lg  font-bold   mb-4  text-[#2A546D]">
+            Time Info
+          </h2>
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D] ">
+            Punch In Time: {punchInTime ? punchInTime.toLocaleString() : "N/A"}
+          </p>
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
+            Punch Out Time:{" "}
+            {punchOutTime ? punchOutTime.toLocaleString() : "N/A"}
+          </p>
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
+            Elapsed Time:{" "}
+            {`${elapsedTime.hours}h ${elapsedTime.minutes}m ${elapsedTime.seconds}s`}
+          </p>
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
+            {" "}
+            Break Time:{" "}
+            {`${currentBreakTime.hours}h ${currentBreakTime.minutes}m ${currentBreakTime.seconds}s`}
+          </p>
+          <p className=" font-semibold text-sm lg:text-lg  text-[#2A546D]">
+            {" "}
+            Total Break Time:{" "}
+            {`${totalBreakTime.hours}h ${totalBreakTime.minutes}m ${totalBreakTime.seconds}s`}
+          </p>
         </div>
       </div>
 
       <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
-        <h2 className="text-gray-800 mb-4">Attendance Log</h2>
-        <div className="flex flex-col space-y-4 mb-6">
-        </div>
+        <h2 className="text-[#2A546D] text-sm lg:text-lg font-semibold mb-4">
+          Attendance Log
+        </h2>
+        <div className="flex flex-col space-y-4 mb-6"></div>
 
         <div className="overflow-x-auto scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#2A546D]">
           <table className="min-w-full divide-y divide-red-200">
             <thead className="bg-[#2A546D] text-white">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Employee ID</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Employee Name</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Punch In</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Punch Out</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Production Hours</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Break Duration</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Working Hours</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-[#2A546D]">Overtime</th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Employee ID
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Employee Name
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Punch In
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Punch Out
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Production Hours
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Break Duration
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Working Hours
+                </th>
+                <th className="px-4 py-3 text-left text-sm lg:text-lg  font-medium text-white uppercase tracking-wider border border-[#2A546D]">
+                  Overtime
+                </th>
               </tr>
             </thead>
             <tbody>
               {filteredData.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="text-center py-4">
+                  <td colSpan="8" className="text-center text-[#2A546D] py-4">
                     No attendance records found.
                   </td>
                 </tr>
@@ -517,18 +581,25 @@ const Attendance = () => {
                     <tr key={index}>
                       <td className="px-4 py-2 border">{entry.employeeId}</td>
                       <td className="px-4 py-2 border">{entry.employeeName}</td>
-                      <td className="px-4 py-2 border">{new Date(entry.punchIn).toLocaleString()}</td>
-                      <td className="px-4 py-2 border">{new Date(entry.punchOut).toLocaleString()}</td>
                       <td className="px-4 py-2 border">
-                        {entry.productionHours} hours, {entry.productionMinutes} mins, {entry.productionSeconds} secs
+                        {new Date(entry.punchIn).toLocaleString()}
                       </td>
                       <td className="px-4 py-2 border">
-                        {entry.breakHours} hours, {entry.breakMinutes} mins, {entry.breakSeconds} secs
+                        {new Date(entry.punchOut).toLocaleString()}
+                      </td>
+                      <td className="px-4 py-2 border">{formatTime(entry.productionHours, entry.productionMinutes, entry.productionSeconds)}
+
                       </td>
                       <td className="px-4 py-2 border">
-                        {workingTime.hours} hours, {workingTime.minutes} mins, {workingTime.seconds} secs
+                        {entry.breakHours} hours, {entry.breakMinutes} mins,{" "}
+                        {entry.breakSeconds} secs
                       </td>
-                      <td className="px-4 py-2 border">{entry.overtime} hours</td>
+                      <td className="px-4 py-2 border">
+                        {entry.workingHours} hours, {entry.workingMinutes} mins, {entry.workingSeconds} secs
+                      </td>
+                      <td className="px-4 py-2 border">
+                        {entry.overtime} hours
+                      </td>
                     </tr>
                   );
                 })
@@ -536,11 +607,8 @@ const Attendance = () => {
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   );
-
 };
 export default Attendance;
-

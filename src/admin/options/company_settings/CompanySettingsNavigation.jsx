@@ -6,7 +6,7 @@ import Shifts from "./Shifts";
 import WorkSchedule from "./WorkShedule";
 import Notification from "../company_settings/notifications/NotificationNavigation";
 import TimeSheet from "./TimeSheet";
-import Company from "./Company";
+import Company from "./company/Company";
 
 function CompanySettingsNavigation() {
   const [activeTab, setActiveTab] = useState("Company");
@@ -42,8 +42,7 @@ function CompanySettingsNavigation() {
   ];
   return (
     <>
-      <div id="main" className="text-[16px] w-auto h-auto text-nowrap px-4 ">
-        {/* Dropdown for Small Screens */}
+      <div id="main" className="text-[15px] w-auto h-auto text-nowrap px-4 ">
         <div className="lg:hidden w-auto  mb-4 flex justify-center items-center">
           <Select
             value={options.find((option) => option.value === activeTab)}
@@ -54,8 +53,6 @@ function CompanySettingsNavigation() {
             isSearchable={false}
           />
         </div>
-
-        {/* Tabs for Medium and Larger Screens */}
         <div className="hidden lg:flex text-lg h-16 px-4 pr-6 justify-between items-center">
           <div
             className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
@@ -172,8 +169,6 @@ function CompanySettingsNavigation() {
             </span>
           </div>
         </div>
-
-        {/* Render the selected component */}
         <div className="mt-4">{renderComponent()}</div>
       </div>
     </>

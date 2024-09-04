@@ -9,15 +9,21 @@ import { RiMoneyRupeeCircleFill, RiBankFill } from "react-icons/ri";
 import { BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import CompanySettingsNavigation from "./options/company_settings/CompanySettingsNavigation";
 import CompanyInformation from "./options/company_info/CompanyInformation";
+// import Company from "./options/company_settings/company/Company";
 import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
+import PayRollForms from "./options/pay_roll/PayrollForms";
+import Settlement from "./options/pay_roll/Settlements";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
 
 const AdminSideBar = () => {
-  const [activeTab, setActiveTab] = useState(localStorage.getItem('ADMIN_ACTIVE_TAB') || "Company Information");
+  const [activeTab, setActiveTab] = useState(
+    localStorage.getItem("ADMIN_ACTIVE_TAB") || "Company Information"
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [profileImage, setProfileImage] = useState(profile);
   const [openDropdown, setOpenDropdown] = useState("");
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -64,6 +70,20 @@ const AdminSideBar = () => {
     setTooltip({ show: false, title: "", position: { x: 0, y: 0 } });
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target.result); // Set the image URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("fileInput").click();
+  };
   const options = [
     { title: "Company Information", icon: <IoInformationCircle /> },
     { title: "Account Details", icon: <MdManageAccounts /> },
@@ -74,8 +94,8 @@ const AdminSideBar = () => {
       title: "Payroll",
       icon: <MdOutlinePayment />,
       subOptions: [
-        { name: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
-        { name: "Salary Structure", icon: <FaTasks /> },
+        { name: "Payroll Forms", icon: <RiMoneyRupeeCircleFill /> },
+        { name: "Settlements", icon: <FaTasks /> },
         { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
         { name: "Bank Account", icon: <RiBankFill /> },
       ],
@@ -87,7 +107,7 @@ const AdminSideBar = () => {
     if (option.subOptions) {
       setOpenDropdown(openDropdown === option.title ? "" : option.title);
     } else {
-      localStorage.setItem('ADMIN_ACTIVE_TAB', option.title);
+      localStorage.setItem("ADMIN_ACTIVE_TAB", option.title);
       setActiveTab(option.title);
       setOpenDropdown("");
     }
@@ -95,7 +115,7 @@ const AdminSideBar = () => {
 
   const handleSubOptionClick = (event, subOption) => {
     event.stopPropagation();
-    localStorage.setItem('ADMIN_ACTIVE_TAB', subOption.name);
+    localStorage.setItem("ADMIN_ACTIVE_TAB", subOption.name);
     setActiveTab(subOption.name);
   };
 
@@ -125,14 +145,48 @@ const AdminSideBar = () => {
           </div>
           <div>
             {!isSidebarCollapsed && (
-              <div className="flex items-center relative top-0 pb-4 px-2">
+              <>
+                {/* <div className="flex items-center relative top-0 pb-4 px-2">
                 <img
                   src={profile}
                   className="rounded-full w-[50px] h-[50px]"
                   alt="Profile"
                 />
                 <p className="text-[16px] pl-2">Welcome Admin</p>
-              </div>
+              </div> */}
+                <div className="flex items-center  w-72  relative top-0 pb-4 px-2">
+                  <img
+                    src={profileImage}
+                    className="rounded-full w-[50px] h-[50px] cursor-pointer"
+                    alt="Profile"
+                    onClick={triggerFileInput}
+                  />
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageUpload}
+                  />
+                  <p className="text-[16px] leading-4   font-bold text-wrap text-white pb-8 pl-2">
+                    {/* Welcome{" "} */}
+                    {/* {auth.employee
+                      ? auth.employee.firstName.toUpperCase() +
+                        " " +
+                        auth.employee.lastName.toUpperCase()
+                      : "User Name"} */}
+                    Admin Name
+                  </p>
+                </div>
+                <div className=" flex relative bottom-10 left-14">
+                  <p className="text-[16px] leading-4 text-wrap w-[180px]   text-white pl-2">
+                    {/* {auth.employee
+                      ? auth.employee.designation
+                      : "user designation"} */}
+                    Admin Designation
+                  </p>
+                </div>
+              </>
             )}
           </div>
           <div className="flex bg-transparent flex-col">
@@ -204,6 +258,8 @@ const AdminSideBar = () => {
           {activeTab === "User" && <User />}
           {activeTab === "Roles" && <Roles />}
           {activeTab === "Account Details" && <AccountDetails />}
+          {activeTab === "Payroll Forms" && <PayRollForms />}
+          {activeTab === "Settlements" && <Settlement />}
         </div>
       </div>
 

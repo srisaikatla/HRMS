@@ -8,8 +8,8 @@ import { LuImport } from "react-icons/lu";
 import { API_BASE_URL } from "../../../../Config/api";
 import * as XLSX from "xlsx";
 import { useNavigate } from "react-router-dom";
-
-
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { ImCross } from "react-icons/im";
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,8 +39,6 @@ function AllEmployees() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const jwt = localStorage.getItem("hrJwt");
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     if (!jwt) {
@@ -88,21 +86,36 @@ function AllEmployees() {
     return password;
   };
 
-  const handleAddEmployee = async () => {
+
+
+  const handleInvite = async (employee) => {
     try {
       const password = generatePassword();
       const response = await axios.post(`${API_BASE_URL}/employee/register`, {
-        ...newEmployee,
+        firstName: employee.firstName,
+        lastName: employee.lastName,
+        email: employee.email,
+        phoneNumber: employee.phoneNumber,
+        role: employee.role,
+        employeeId: employee.employeeId,
+        joinDate: employee.joinDate,
+        aadharCardNumber: employee.aadharCardNumber,
+        panNumber: employee.panNumber,
+        dob: employee.dob,
+        personalEmail: employee.personalEmail,
+        designation: employee.designation,
+        bloodGroup: employee.bloodGroup,
         password,
       });
       setEmployees((prev) => [...prev, response.data]);
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
       closeModal();
-      fetchEmployees();
+      fetchEmployees()
+      console.log("Invite sent:", response.data);
     } catch (error) {
-      console.error("Error adding employee:", error);
-      setErrorMessage("Error adding employee");
+      console.error("Error sending invite:", error);
+      setErrorMessage("Error sending invite");
       setTimeout(() => setErrorMessage(""), 3000);
     }
   };
@@ -161,6 +174,27 @@ function AllEmployees() {
       setErrorMessage("Error deleting employee");
       setTimeout(() => setErrorMessage(""), 3000);
     }
+  };
+
+  const handleAddEmployee = () => {
+    setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
+    setNewEmployee({
+      employeeId: "",
+      firstName: "",
+      lastName: "",
+      joinDate: "",
+      phoneNumber: "",
+      bloodGroup: "",
+      personalEmail: "",
+      email: "",
+      dob: "",
+      designation: "",
+      role: "",
+      panNumber: "",
+      aadharCardNumber: "",
+      profileImage: "",
+    });
+    setShowModal(false)
   };
 
   const closeModal = () => {
@@ -234,16 +268,16 @@ function AllEmployees() {
             employee: {
               firstName: item["First Name"],
               lastName: item["Last Name"],
-              email: item["Email"],
-              phoneNumber: item["Phone Number"],
+              email: item["Official Email ID"],
+              phoneNumber: item["Contact No"],
               role: item["Role"],
-              employeeId: item["Employee ID"],
+              employeeId: item["Emp ID"],
               joinDate: excelDateToJSDate(item["DOJ"]),
               aadharCardNumber: item["Aadhar Card Number"],
-              personalEmail: item["Personal Email"],
+              personalEmail: item["Personal Email ID"],
               bloodGroup: item["Blood Group"],
               dob: excelDateToJSDate(item["DOB"]),
-              panNumber: item["Pan Number"],
+              panNumber: item["PAN Number"],
               designation: item["Designation"],
             },
             password: password, // Include the generated password
@@ -259,30 +293,6 @@ function AllEmployees() {
           setTimeout(() => setErrorMessage(""), 3000);
           return;
         }
-
-        // Post data to backend
-        await Promise.all(
-          formattedData.map(async ({ employee, password }) => {
-            try {
-              const response = await axios.post(
-                `${API_BASE_URL}/employee/register`,
-                {
-                  ...employee,
-                  password, // Send password along with employee data
-                }
-              );
-              console.log("Response for employee:", response.data);
-              newEmployees.push(response.data);
-            } catch (error) {
-              console.error(
-                "Error posting employee data:",
-                error.response ? error.response.data : error.message
-              );
-              throw error; // Ensure error handling is applied in case of failure
-            }
-          })
-        );
-
         // Update local state after successful upload
         // setEmployees((prev) => [...prev, ...formattedData.map(({ employee }) => employee)]);
         setShowSuccessMessage(true);
@@ -308,21 +318,21 @@ function AllEmployees() {
 
   return (
     <>
-      <div id="main" className="mr-4 p-4 min-h-screen  mt-4 px-2 ">
-        <div className="ml-2 mb-4">
-          <p className="text-[#0098F1] text-sm lg:text-lg font-bold mb-4">
+      <div id="main" className=" p-4 min-h-screen  mt-4 ">
+        <div className=" mb-4">
+          <p className="text-[#0098f1] text-sm lg:text-lg font-bold mb-4">
             Hr Management / Employee / All Employees
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-end mb-4 space-x-0 sm:space-x-4">
+        <div className="flex flex-col lg:flex-row justify-end mb-4 space-y-2 lg:space-y-0 lg:space-x-2">
           <div
             id="addemployee"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end text-center items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={() => setShowModal(true)}
             >
               <FiPlusCircle className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -331,11 +341,11 @@ function AllEmployees() {
           </div>
           <div
             id="importexcel"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1] mb-2 sm:mb-0"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={() => setIsPopupOpen(true)}
             >
               <LuImport className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -344,11 +354,11 @@ function AllEmployees() {
           </div>
           <div
             id="downloadData"
-            className="w-full sm:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
+            className="w-full lg:w-auto inline-block h-[48px] rounded-lg justify-end items-center bg-[#0098f1]"
           >
             <button
               type="button"
-              className="flex justify-center items-center w-full sm:w-[186px] h-[48px] text-white"
+              className="flex justify-center items-center w-full lg:w-[186px] h-[48px] text-white"
               onClick={handleDownload}
             >
               <FiUpload className="text-2xl font-bold mr-2 bg-[#0098f1]" />
@@ -359,13 +369,13 @@ function AllEmployees() {
 
         <div
           id="table"
-          className=" mt-5 overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-10 mx-4"
+          className="  overflow-x-scroll overflow-y-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#0098f1] pt-4 mx-4"
         >
           {loading ? (
             <div>Loading...</div>
           ) : (
             <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
-              <thead className="bg-[#0098f1] ">
+              <thead className="bg-[#0098f1] text-white ">
                 <tr>
                   <th className="py-2 px-4 border-b bg-transparent text-center">
                     <img
@@ -389,6 +399,7 @@ function AllEmployees() {
                   <th className="border p-2">Role</th>
                   <th className="border p-2">PAN Number</th>
                   <th className="border p-2">Aadhar Card Number</th>
+                  <th className="border p-2">Invite</th>
                   <th
                     className="border 
                   p-2"
@@ -400,7 +411,7 @@ function AllEmployees() {
               <tbody>
                 {employees.map((employee, index) => (
                   <tr key={employee.employeeId}>
-                    <td className="py-2 px-4 border-b text-center bg-transparent">
+                    <td className="py-2 px-4 border text-center bg-transparent">
                       <img
                         src={
                           isChecked[employee.employeeId] ? checkbox : uncheckbox
@@ -416,7 +427,7 @@ function AllEmployees() {
                     <td className="py-2 px-4 border-b text-center">
                       <img
                         src={employee.profileImage}
-                        alt="Employee"
+                        alt="profile"
                         className="w-12 h-12 rounded-full"
                       />
                     </td>
@@ -435,12 +446,18 @@ function AllEmployees() {
                     <td className="border p-2">{employee.panNumber}</td>
                     <td className="border p-2">{employee.aadharCardNumber}</td>
                     <td className="border p-2">
+                      <button
+                        className="bg-blue-500 text-white p-2 rounded"
+                        onClick={() => handleInvite(employee)}
+                      >
+                        Invite
+                      </button>
                       <FiEdit
-                        className="text-blue-500 cursor-pointer mr-2"
+                        className="text-blue-600 cursor-pointer mr-2"
                         onClick={() => handleEditEmployee(employee)}
                       />
                       <FiTrash2
-                        className="text-red-500 cursor-pointer"
+                        className="text-red-600 cursor-pointer"
                         onClick={() =>
                           handleDeleteEmployee(employee.employeeId)
                         }
@@ -640,23 +657,46 @@ function AllEmployees() {
       )}
 
       {/* Success Messages */}
-      {showSuccessMessage && (
+      {/* {showSuccessMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
           Employee added/updated successfully!
+        </div>
+      )} */}
+      {showSuccessMessage && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-[#0098f1] p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            Employee added/updated successfully!
+          </div>
         </div>
       )}
 
       {showDeleteSuccessMessage && (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
-          Employee deleted successfully!
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-red-600 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+            </h2>
+            Employee Removed successfully!
+          </div>
         </div>
       )}
 
       {/* Error Message */}
       {errorMessage && (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
-          {errorMessage}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-red-600 p-8 rounded-lg text-center text-white">
+            <h2 className="text-xl mb-4">
+              <ImCross className="inline-block text-6xl" />
+            </h2>
+            {errorMessage}
+          </div>
         </div>
+        // <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
+        //   {errorMessage}
+        // </div>
       )}
     </>
   );
