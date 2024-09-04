@@ -193,7 +193,7 @@ function PayrollNotification() {
     //     </div>
     //   </div>
     // </div>
-    <div className="lg:ml-20 mt-4 mx-auto p-5 text-[#e65f2b] gap-y-10 ">
+    <div className="lg:ml-20 mt-4 mx-auto p-4 text-[#e65f2b] gap-y-10 ">
       <div className="flex flex-col lg:flex-row justify-between items-center">
         <label className="block mb-2 lg:mb-0">
           Notification Recipient (Roles):

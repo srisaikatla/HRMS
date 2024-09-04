@@ -117,9 +117,9 @@ function BirthdayRemainder() {
   };
 
   return (
-    <div className="ml-5 lg:ml-20 mt-4 p-5">
+    <div className="lg:ml-20 mt-4 p-2">
       <div className="flex flex-col sm:flex-row sm:items-center mb-2 justify-between">
-        <label className="w-full sm:w-48 font-semibold text-[#e65f2b] mb-2 sm:mb-0">
+        <label className="w-full sm:w-48 font-semibold text-lg text-[#e65f2b] mb-2 sm:mb-0">
           Recipient (Email)
         </label>
         <div className="flex w-full sm:w-96 items-center border border-[#e65f2b] rounded-md p-2">
