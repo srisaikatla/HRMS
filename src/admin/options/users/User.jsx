@@ -131,7 +131,7 @@ function User() {
         <h1
           className={`font-bold mb-2 md:mb-0 md:mr-[40px] cursor-pointer px-4 py-2 rounded ${
             activeSection === "users"
-              ? "bg-[#E65F2B]  text-white text-lg"
+              ? " bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white text-lg"
               : "text-[#E65F2B]"
           }`}
           onClick={() => handleSectionChange("users")}
@@ -141,7 +141,7 @@ function User() {
         <h1
           className={`font-bold cursor-pointer px-4 py-2 rounded ${
             activeSection === "invites"
-              ? "bg-[#E65F2B] text-white text-lg"
+              ? " bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white text-lg"
               : "text-[#E65F2B]"
           }`}
           onClick={() => handleSectionChange("invites")}
@@ -168,8 +168,9 @@ function User() {
           </div>
 
           <table className="min-w-full md:w-auto w-full text-nowrap">
-            <thead className="bg-[#E65F2B] text-lg text-white sticky top-0 z-10">
+            <thead className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-lg text-white sticky top-0 ">
               <tr>
+
                 <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   UserName
                 </th>
@@ -189,6 +190,7 @@ function User() {
                   Login
                 </th>
                 <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
+
                   Status
                 </th>
               </tr>
@@ -272,7 +274,7 @@ function User() {
         <>
           <div className="flex justify-end mb-4">
             <button
-              className="flex items-center px-4 py-2 bg-[#E65F2B] text-white rounded-md hover:bg-[#FF9900] transition"
+              className="flex items-center px-4 py-2 bg-gradient-to-r from-[#E65F2B] to-[#FFC252]  text-white rounded-md hover:bg-[#FF9900] transition"
               onClick={toggleModal}
             >
               <FiPlusCircle className="mr-2" />
@@ -283,15 +285,15 @@ function User() {
             <table className="min-w-full md:w-auto w-full text-nowrap">
               <thead className="bg-[#E65F2B] text-white">
                 <tr>
-                  <th className="py-3 px-4 md:px-12 text-center">
+                  <th className="py-3  bg-gradient-to-r from-[#E65F2B] to-[#FFC252] px-4 md:px-12 text-center">
                     Email Address
                   </th>
-                  <th className="py-3 px-4 md:px-12 text-center">Role</th>
-                  <th className="py-3 px-4 md:px-12 text-center">Employee</th>
-                  <th className="py-3 px-4 md:px-12 text-center">Sent By</th>
-                  <th className="py-3 px-4 md:px-12 text-center">Sent On</th>
-                  <th className="py-3 px-4 md:px-14 text-center">Status</th>
-                  <th className="py-3 px-4 md:px-14 text-center">Action</th>
+                  <th className="py-3 bg-gradient-to-r from-[#E65F2B] to-[#FFC252]  px-4 md:px-12 text-center">Role</th>
+                  <th className="py-3 px-4 md:px-12 bg-gradient-to-r from-[#E65F2B] to-[#FFC252]  text-center">Employee</th>
+                  <th className="py-3 px-4 md:px-12  bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-center">Sent By</th>
+                  <th className="py-3 px-4 md:px-12 bg-gradient-to-r from-[#E65F2B] to-[#FFC252]   text-center">Sent On</th>
+                  <th className="py-3 px-4 md:px-14 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-center">Status</th>
+                  <th className="py-3 px-4 md:px-14  bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
