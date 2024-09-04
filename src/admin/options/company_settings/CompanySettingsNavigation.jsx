@@ -6,7 +6,7 @@ import Shifts from "./Shifts";
 import WorkSchedule from "./WorkShedule";
 import Notification from "../company_settings/notifications/NotificationNavigation";
 import TimeSheet from "./TimeSheet";
-import Company from "./Company/Company";
+import Company from "./company/Company";
 
 function CompanySettingsNavigation() {
   const [activeTab, setActiveTab] = useState("Company");
