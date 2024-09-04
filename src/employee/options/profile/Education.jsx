@@ -28,6 +28,9 @@ const Education = () => {
   const jwtToken = localStorage.getItem("employeeJwt");
 
 
+  useEffect(() => {
+    fetchEducationData();
+  }, []);
 
   const fetchEducationData = async () => {
     try {
@@ -121,9 +124,7 @@ const Education = () => {
     setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
   };
 
-  useEffect(() => {
-    fetchEducationData();
-  }, []);
+
 
   // Reset form state
   const resetForm = () => {

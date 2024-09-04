@@ -175,7 +175,6 @@ export const getEmployee = (jwt) => async (dispatch) => {
       },
     });
     const employee = response.data;
-    localStorage.setItem('employee', JSON.stringify(employee));
     dispatch(getEmployeeSuccess(employee));
   } catch (error) {
     dispatch(getEmployeeFailure(error.message));

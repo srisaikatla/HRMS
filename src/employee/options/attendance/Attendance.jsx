@@ -244,7 +244,7 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(9, 30, 0, 0);
+    punchInLimit.setHours(17, 0, 0, 0);
     return now > punchInLimit;
   };
 
