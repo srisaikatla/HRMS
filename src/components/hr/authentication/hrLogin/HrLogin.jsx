@@ -37,6 +37,8 @@ function HrLogin() {
             "linear-gradient(to bottom, rgba(0, 88, 139, 0.2) 19.36%, rgba(0, 88, 139, 0.2) 19.36%)",
         }}
       >
+
+
         <div className="">
           <h2 className=" text-lg md:text-2xl pb-4 font-medium text-white  ">
             Login to your account

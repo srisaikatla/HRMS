@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
@@ -36,8 +38,8 @@ const Documents = ({
       id: editMode
         ? editingId
         : documentsData.length
-        ? Math.max(...documentsData.map((item) => item.id)) + 1
-        : 1,
+          ? Math.max(...documentsData.map((item) => item.id)) + 1
+          : 1,
       idType,
       idNumber,
       isVerified,

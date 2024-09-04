@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BiSolidChat, BiSolidEdit } from "react-icons/bi";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { BsCheck2Circle } from "react-icons/bs";
-// Initial data for the policy list
 const initialData = [
   {
     id: 1,
@@ -12,7 +11,6 @@ const initialData = [
   },
 ];
 
-// Components for each section
 const LeaveType = () => {
   return (
     <div>
@@ -55,28 +53,23 @@ const HolidayPolicies = ({ setActivities, activities }) => {
   const [data, setData] = useState(initialData);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  // Handle opening the new/edit modal
   const newEdit = () => {
     setEditData({ policyName: "", policyDescription: "", status: "Active" });
     setOpenNewEdit(true);
   };
 
-  // Handle closing the new/edit modal
   const closeEdit = () => {
     setOpenNewEdit(false);
   };
 
-  // Handle saving data (both new and edited)
   const saveData = () => {
     if (editData) {
       if (editData.id) {
-        // Edit existing
         setData(
           data.map((item) =>
             item.id === editData.id ? { ...item, ...editData } : item
           )
         );
-        // Log activity for edit
         const editActivity = {
           id: Date.now(),
           description: `Edited policy: ${editData.policyName} - ${editData.policyDescription} - Status: ${editData.status}`,
@@ -84,9 +77,8 @@ const HolidayPolicies = ({ setActivities, activities }) => {
         };
         setActivities([...activities, editActivity]);
       } else {
-        // Add new
         const newPolicy = {
-          id: Date.now(), // Unique id based on timestamp
+          id: Date.now(),
           ...editData,
         };
         setData([...data, newPolicy]);

@@ -154,7 +154,7 @@ function ReplyToEmail() {
   );
 
   return (
-    <div className="ml-5 lg:ml-20 p-5">
+    <div className="lg:ml-20 mt-4 p-2">
       {renderInputField("Leaves", "leaves")}
       {renderInputField("Timesheets", "timesheets")}
       {renderInputField("Payroll", "payroll")}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPlusCircle } from "react-icons/fa";
+
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";

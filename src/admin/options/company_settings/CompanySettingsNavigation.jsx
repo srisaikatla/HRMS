@@ -44,7 +44,7 @@ function CompanySettingsNavigation() {
     <>
       <div
         id="main"
-        className="text-[16px]  w-auto h-auto text-nowrap p-4 mt-4 min-h-screen "
+        className="text-[15px] w-auto h-auto text-nowrap p-4 mt-4  "
       >
         <div className="  flex flex-col md:flex-row justify-between">
           <div>
@@ -53,7 +53,6 @@ function CompanySettingsNavigation() {
             </span>
           </div>
         </div>
-        {/* Dropdown for Small Screens */}
         <div className="lg:hidden w-auto  mb-4 flex justify-center items-center">
           <Select
             value={options.find((option) => option.value === activeTab)}
@@ -64,8 +63,6 @@ function CompanySettingsNavigation() {
             isSearchable={false}
           />
         </div>
-
-        {/* Tabs for Medium and Larger Screens */}
         <div className="hidden lg:flex text-lg h-16 px-4 pr-6 justify-between items-center">
           <div
             className={`w-48 justify-center items-center flex h-16 cursor-pointer ${
@@ -182,8 +179,6 @@ function CompanySettingsNavigation() {
             </span>
           </div>
         </div>
-
-        {/* Render the selected component */}
         <div className="mt-4">{renderComponent()}</div>
       </div>
     </>

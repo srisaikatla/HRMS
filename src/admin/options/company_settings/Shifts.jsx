@@ -186,7 +186,7 @@ function Shifts() {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen">
       <div className="flex gap-x-2">
         <button
           className="flex items-center gap-x-1 bg-[#E65F2B] p-2 px-3 rounded-lg text-white"
@@ -541,7 +541,7 @@ function Shifts() {
       )}
 
       {showAddedModal && (
-        <div className="fixed inset-0 flex justify-center items-center bg-orange-100 bg-opacity-50">
+        <div className="fixed inset-0 left-16 flex justify-center items-center bg-orange-100 bg-opacity-50">
           <div className="bg-gradient-to-b from-[#E65F2B] to-[#FFC252] p-3 rounded-lg shadow-lg md:w-[300px] flex flex-col items-center gap-3 ">
             <BsCheck2Circle className="text-white text-2xl md:text-5xl" />
             <div className="flex flex-col items-center font-semibold text-white">
@@ -553,7 +553,7 @@ function Shifts() {
       )}
 
       {showUpdatedModal && (
-        <div className="fixed inset-0 flex justify-center items-center bg-orange-100 bg-opacity-50">
+        <div className="fixed inset-0 left-16 flex justify-center items-center bg-orange-100 bg-opacity-50">
           <div className="bg-gradient-to-b from-[#E65F2B] to-[#FFC252] p-3 rounded-lg shadow-lg md:w-[300px] flex flex-col items-center gap-3">
             <BsCheck2Circle className="text-white text-2xl md:text-5xl" />
             <div className="flex flex-col items-center font-semibold text-white">

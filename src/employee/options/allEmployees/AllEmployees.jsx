@@ -52,15 +52,20 @@ const AllEmployees = () => {
     const lowerCaseSearchId = searchId.toLowerCase();
     const lowerCaseSearchName = searchName.toLowerCase();
 
-    if (!lowerCaseSearchId && !lowerCaseSearchName) {
+    if (!searchId && !searchName) {
       setFilteredData(employees);
     } else {
       const filtered = employees.filter((employee) => {
-        const idMatch = lowerCaseSearchId
-          ? employee.employeeId.toString().includes(lowerCaseSearchId)
+        const idMatch = searchId
+          ? employee.employeeId
+              .toString()
+              .toLowerCase()
+              .includes(lowerCaseSearchId)
           : true;
-        const nameMatch = lowerCaseSearchName
-          ? employee.name.toLowerCase().includes(lowerCaseSearchName)
+        const nameMatch = searchName
+          ? (employee.firstName + " " + employee.lastName)
+              .toLowerCase()
+              .includes(lowerCaseSearchName)
           : true;
         return idMatch && nameMatch;
       });
