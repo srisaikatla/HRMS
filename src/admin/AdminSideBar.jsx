@@ -12,13 +12,24 @@ import CompanyInformation from "./options/company_info/CompanyInformation";
 // import Company from "./options/company_settings/company/Company";
 import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
-import PayRollForms from "./options/pay_roll/PayrollForms";
-import Settlement from "./options/pay_roll/Settlements";
+import PayRollForms from "./options/pay_roll/payroll_forms/PayrollForms";
+import Settlement from "./options/pay_roll/settlement/Settlements";
+import PaySlips from "./options/pay_roll/paySlips/PaySlips";
+import PayRollSummary from "./options/pay_roll/payrollSummary/PayrollSummary";
+import PayRollSettings from "./options/pay_roll/payroll_setting/PayrollSettings";
+import PayRollDashboard from "./options/pay_roll/payroll_dashboard/payrolldashboard";
+import RunPayRoll from "./options/pay_roll/runPayRoll/RunPayroll";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
-import Support from "./options/support/Support"
-
+import Support from "./options/support/Support";
+import { GiPayMoney } from "react-icons/gi";
+// import { MdOutlinePayment } from "react-icons/md";
+import { MdAdminPanelSettings } from "react-icons/md";
+// import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { TbMoneybag } from "react-icons/tb";
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("ADMIN_ACTIVE_TAB") || "Company Information"
@@ -95,12 +106,16 @@ const AdminSideBar = () => {
       title: "Payroll",
       icon: <MdOutlinePayment />,
       subOptions: [
-        { name: "Payroll Forms", icon: <RiMoneyRupeeCircleFill /> },
-        { name: "Settlements", icon: <FaTasks /> },
-        { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
-        { name: "Bank Account", icon: <RiBankFill /> },
+        { name: "DashBoard", icon: <TbMoneybag /> },
+        { name: "Run payroll", icon: <GiPayMoney /> },
+        { name: "Payroll Summary", icon: <MdOutlinePayment /> },
+        { name: "Payroll settings", icon: <MdAdminPanelSettings /> },
+        { name: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
+        { name: "Settlements", icon: <FaMoneyBillTransfer /> },
+        { name: "Payroll Forms", icon: <GiTakeMyMoney /> },
       ],
     },
+
     { title: "Support", icon: <FaInbox /> },
   ];
 
@@ -223,8 +238,8 @@ const AdminSideBar = () => {
                         key={subIndex}
                         className={`py-2 my-1 text-nowrap pl-4 flex items-center cursor-pointer ${
                           activeTab === subOption.name
-                            ? "bg-[#e65f2b] bg-opacity-20 rounded-lg"
-                            : "hover:bg-[#e65f2b] hover:bg-opacity-20  hover:rounded-lg"
+                            ? "bg-[#e65f2b] bg-opacity-20 rounded-r-full"
+                            : "hover:bg-[#e65f2b] hover:bg-opacity-20  hover:rounded-r-full"
                         }`}
                         onClick={(event) =>
                           handleSubOptionClick(event, subOption)
@@ -261,6 +276,14 @@ const AdminSideBar = () => {
           {activeTab === "Account Details" && <AccountDetails />}
           {activeTab === "Payroll Forms" && <PayRollForms />}
           {activeTab === "Settlements" && <Settlement />}
+
+          {activeTab === "DashBoard" && <PayRollDashboard />}
+          {activeTab === "Run payroll" && <RunPayRoll />}
+          {activeTab === "Payroll Summary" && <PayRollSummary />}
+          {activeTab === "Payroll settings" && <PayRollSettings />}
+          {activeTab === "Settlements" && <Settlement />}
+
+          {activeTab === "Payslips" && <PaySlips />}
           {activeTab === "Support" && <Support />}
         </div>
       </div>
