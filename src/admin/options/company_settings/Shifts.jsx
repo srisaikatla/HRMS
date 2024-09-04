@@ -8,7 +8,6 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsCheck2Circle } from "react-icons/bs";
 
 function Shifts() {
-
   const [addNew, setAddNew] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentEditIndex, setCurrentEditIndex] = useState(null);
@@ -202,29 +201,29 @@ function Shifts() {
         </button>
       </div>
 
-      <div className="w-50 overflow-x-auto md:w-full ">
-        <table className="min-w-full my-4 w-50">
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#e65f2b] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="">
             <tr>
-              <th className="py-1 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 Shift Name
               </th>
-              <th className="py-1 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 In Time
               </th>
-              <th className="py-1 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 Out Time
               </th>
-              <th className="py-1 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 Description
               </th>
-              <th className="py-1 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 Employee Count
               </th>
-              <th className="py-1 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 border-r border-white bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 Status
               </th>
-              <th className="py-1 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
+              <th className="py-3 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white">
                 Action
               </th>
             </tr>
@@ -281,7 +280,7 @@ function Shifts() {
                 <input
                   type="text"
                   id="shiftName"
-                  className="w-56 bg-orange-50 outline-none border border-[#E65F2B] rounded-md text-xs pl-2 py-1 "
+                  className="w-56 bg-orange-50 outline-none border border-[#E65F2B] rounded-md text-xs pl-2 py-3 "
                   placeholder="Shift Name"
                   onChange={(e) => setShiftName(e.target.value)}
                   value={shiftName}
@@ -299,7 +298,7 @@ function Shifts() {
                 <input
                   type="text"
                   id="description"
-                  className="w-56 bg-orange-50 outline-none border border-[#E65F2B] rounded-md text-xs pl-2 py-1 "
+                  className="w-56 bg-orange-50 outline-none border border-[#E65F2B] rounded-md text-xs pl-2 py-3 "
                   placeholder="Description"
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
@@ -542,7 +541,7 @@ function Shifts() {
       )}
 
       {showAddedModal && (
-        <div className="fixed inset-0 flex justify-center items-center bg-orange-100 bg-opacity-50">
+        <div className="fixed inset-0 left-16 flex justify-center items-center bg-orange-100 bg-opacity-50">
           <div className="bg-gradient-to-b from-[#E65F2B] to-[#FFC252] p-3 rounded-lg shadow-lg md:w-[300px] flex flex-col items-center gap-3 ">
             <BsCheck2Circle className="text-white text-2xl md:text-5xl" />
             <div className="flex flex-col items-center font-semibold text-white">
@@ -554,7 +553,7 @@ function Shifts() {
       )}
 
       {showUpdatedModal && (
-        <div className="fixed inset-0 flex justify-center items-center bg-orange-100 bg-opacity-50">
+        <div className="fixed inset-0 left-16 flex justify-center items-center bg-orange-100 bg-opacity-50">
           <div className="bg-gradient-to-b from-[#E65F2B] to-[#FFC252] p-3 rounded-lg shadow-lg md:w-[300px] flex flex-col items-center gap-3">
             <BsCheck2Circle className="text-white text-2xl md:text-5xl" />
             <div className="flex flex-col items-center font-semibold text-white">
@@ -565,7 +564,7 @@ function Shifts() {
         </div>
       )}
 
-      <div className="my-3">
+      <div className="my-3 mt-6">
         <h1 className="flex gap-x-2 text-[#E65F2B] font-semibold border-b border-[#E65F2B] pb-1">
           <IoMdChatboxes size={30} />
           Activity
@@ -587,8 +586,7 @@ function Shifts() {
                   <strong>{name}</strong>
                   {each.updatedFields ? (
                     <p>
-                      <strong>{each.shiftName}</strong> with
-                      changes
+                      <strong>{each.shiftName}</strong> with changes
                     </p>
                   ) : (
                     <p>
@@ -615,7 +613,6 @@ function Shifts() {
       </div>
     </div>
   );
-
 }
 
 export default Shifts;

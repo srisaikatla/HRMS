@@ -12,9 +12,12 @@ import CompanyInformation from "./options/company_info/CompanyInformation";
 // import Company from "./options/company_settings/company/Company";
 import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
+import PayRollForms from "./options/pay_roll/PayrollForms";
+import Settlement from "./options/pay_roll/Settlements";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
+import Support from "./options/support/Support"
 
 const AdminSideBar = () => {
   const [activeTab, setActiveTab] = useState(
@@ -92,8 +95,8 @@ const AdminSideBar = () => {
       title: "Payroll",
       icon: <MdOutlinePayment />,
       subOptions: [
-        { name: "Payslips", icon: <RiMoneyRupeeCircleFill /> },
-        { name: "Salary Structure", icon: <FaTasks /> },
+        { name: "Payroll Forms", icon: <RiMoneyRupeeCircleFill /> },
+        { name: "Settlements", icon: <FaTasks /> },
         { name: "Declaration", icon: <BsFileEarmarkSpreadsheet /> },
         { name: "Bank Account", icon: <RiBankFill /> },
       ],
@@ -256,6 +259,9 @@ const AdminSideBar = () => {
           {activeTab === "User" && <User />}
           {activeTab === "Roles" && <Roles />}
           {activeTab === "Account Details" && <AccountDetails />}
+          {activeTab === "Payroll Forms" && <PayRollForms />}
+          {activeTab === "Settlements" && <Settlement />}
+          {activeTab === "Support" && <Support />}
         </div>
       </div>
 
