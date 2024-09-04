@@ -90,7 +90,7 @@ function AdminNavBar({ onIconClick, options }) {
               style={{
                 backgroundImage: "linear-gradient(to right, #E65F2B, #FFC252)",
               }}
-              className="pl-2 px-4 text-sm placeholder:text-white outline-none placeholder:text-center w-full rounded-xl text-white border-none bg-[#ef5f2b]"
+              className="pl-4 px-4 text-sm placeholder:text-white outline-none placeholder:text-start w-full rounded-xl text-white border-none bg-[#ef5f2b]"
               type="search"
               placeholder="Search Anything here...."
               value={searchQuery}

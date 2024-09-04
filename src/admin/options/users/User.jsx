@@ -170,23 +170,25 @@ function User() {
           <table className="min-w-full md:w-auto w-full text-nowrap">
             <thead className="bg-[#E65F2B] text-lg text-white sticky top-0 z-10">
               <tr>
-                <th className="py-3 px-4 md:px-12 text-center border-r border-white border-opacity-60">
+                <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   UserName
                 </th>
-                <th className="py-3 px-4 md:px-12 text-center border-r border-white border-opacity-60">
+                <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   Email Address
                 </th>
-                <th className="py-3 px-4 md:px-12 text-center border-r border-white border-opacity-60">
+                <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   User Type (Role)
                 </th>
-                <th className="py-3 px-4 md:px-12 text-center border-r border-white border-opacity-60">
+                <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   User Since
                 </th>
-                <th className="py-3 px-4 md:px-12 text-center border-r border-white border-opacity-60">
+                <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   Employee
                 </th>
-                <th className="py-3 px-4 md:px-14 text-center">Login</th>
-                <th className="py-3 px-4 md:px-12 text-center border-r border-white border-opacity-60">
+                <th className="py-3 px-4 md:px-14 text-center bg-gradient-to-r from-[#E65F2B] to-[#FFC252]">
+                  Login
+                </th>
+                <th className="py-3 px-4 md:px-12 text-center border-r bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-white border-opacity-60">
                   Status
                 </th>
               </tr>
