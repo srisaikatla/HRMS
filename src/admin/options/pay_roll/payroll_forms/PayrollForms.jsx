@@ -92,7 +92,8 @@ function PayrollForms() {
   };
 
   return (
-    <>
+<>
+
       <div className="main p-4 mt-4 min-h-screen">
         <div
           id="submain1"
@@ -325,7 +326,8 @@ function PayrollForms() {
           </div>
         )}
       </div>
-    </>
+</>
+  
   );
 }
 
