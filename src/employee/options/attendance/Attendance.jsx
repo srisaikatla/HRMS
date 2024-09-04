@@ -208,7 +208,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(12, 30, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(0, 30, 0, 0); // Set time to 6:30 PM
 
       if (isPunchedIn && now > logoutLimit) {
         handlePunchButtonClick() // Call the punch-out function
@@ -244,7 +244,7 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(19, 30, 0, 0);
+    punchInLimit.setHours(20, 0, 0, 0);
     return now > punchInLimit;
   };
 
@@ -370,7 +370,6 @@ const Attendance = () => {
 
   return (
     <div className="min-h-screen mt-4 p-4 ">
-      {/* <h1 className="text-3xl font-bold text-gray-800 mb-6">Employee Attendance</h1> */}
       <div className="  flex flex-col md:flex-row justify-between">
         <div>
           <span className=" text-[#2A546D] text-sm lg:text-lg font-medium">
