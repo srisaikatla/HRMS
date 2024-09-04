@@ -1,14 +1,12 @@
 
 /* eslint-disable react/prop-types */
-import React, { useRef, useState } from "react";
-import profile from "../../../assets/hr/profile/man.png";
+import { useRef, useState } from "react";
 import importantprofilepic from "../../../assets/hr/employee/profile/profile.jpg";
 import { GoArrowUpRight } from "react-icons/go";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaCircleChevronLeft } from "react-icons/fa6";
 import { FaCircleChevronRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import AddLeavePage from "../../../components/hr/employeeForm/AddLeavePage";
 import { useSelector } from "react-redux";
 function EmployeDashboard({ onViewProfile, onLeave, onHoliday }) {
   const projects = [

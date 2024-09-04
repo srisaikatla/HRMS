@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPlusCircle } from "react-icons/fa";
+
 import Select from "react-select";
 import { FiPlusCircle } from "react-icons/fi";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
@@ -134,14 +134,14 @@ function Settlement() {
   return (
     <div className="p-4 mt-4 min-h-screen">
       <div className="mb-4 lg:mb-0">
-        <span className="text-[#e65f2b] text-sm lg:text-lg font-semibold">
+        <span className="text-black text-sm lg:text-lg font-semibold">
           Payroll / Settlements
         </span>
       </div>
       <div id="submain1" className="flex    justify-end items-center">
         <div className="  lg:w-auto  flex rounded-lg bg-[#e65f2b]">
           <button
-            className="flex items-center  text-sm lg:text-lg bg-[#e65f2b] text-white p-4 py-3 rounded-lg "
+            className="flex items-center  text-sm lg:text-lg bg-[#e65f2b] text-white p-2  rounded-lg "
             onClick={handleOpenModal}
           >
             <FiPlusCircle className="text-white text-xl mr-2" />
@@ -159,31 +159,31 @@ function Settlement() {
         <table className="min-w-full w-screen overflow-x-scroll text-nowrap ">
           <thead>
             <tr>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Employee Name
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Run Date
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Status
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Pay Period
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Gross
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Income Tax
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Surge
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Cess
               </th>
-              <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+              <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-3">
                 Net Amount
               </th>
             </tr>
@@ -194,31 +194,31 @@ function Settlement() {
                 key={index}
                 className="text-[#e65f2b] border-b border-[#e65f2b]"
               >
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border  border-[#e65f2b]">
                   {item.employeeName}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.runDate}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.status}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.payPeriod}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.gross}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.incomeTax}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.surge}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.cess}
                 </td>
-                <td className="px-4 py-2 text-center border-r border-[#e65f2b]">
+                <td className="px-4 py-3 text-center border-r border-[#e65f2b]">
                   {item.netAmount}
                 </td>
               </tr>
@@ -228,31 +228,29 @@ function Settlement() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-[90vw] md:w-[60vw]">
+        <div className="fixed inset-0  z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white  p-4 md:p-8 rounded-lg shadow-lg w-[90vw] md:w-[60vw]">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl md:text-3xl text-[#e65f2b]">
-                Settlement
-              </h2>
+              <h2 className="text-lg font-bold text-[#e65f2b]">Settlement</h2>
               <button
-                className="font-bold cursor-pointer text-2xl md:text-3xl"
+                className="font-bold cursor-pointer text-xl md:text-xl"
                 onClick={handleCloseModal}
               >
                 X
               </button>
             </div>
             <hr className="my-4" />
-            <div className="flex flex-col items-center mb-4">
-              <div className="flex items-center w-full space-x-2 md:space-x-4 mb-4">
+            <div className="flex flex-col w-auto items-center mb-4">
+              <div className="flex items-center justify-between w-full space-x-2 md:space-x-4 mb-4">
                 <label
                   htmlFor="employer"
-                  className="block text-lg md:text-xl font-medium text-[#e65f2b] whitespace-nowrap"
+                  className="block text-lg  font-medium text-[#e65f2b] whitespace-nowrap"
                 >
                   Employer Name
                 </label>
                 <Select
                   id="employer"
-                  className="react-select-container flex-grow"
+                  className="react-select-container  w-auto "
                   classNamePrefix="react-select"
                   options={userdata.map((user) => ({
                     value: user.employerName,
@@ -266,16 +264,16 @@ function Settlement() {
               </div>
 
               {selectedEmployer && (
-                <div className="flex items-center w-full space-x-2 md:space-x-4 mb-4">
+                <div className="flex items-center justify-between w-full space-x-2 md:space-x-4 mb-4">
                   <label
                     htmlFor="payperiod"
-                    className="block text-lg md:text-xl font-medium text-[#e65f2b] whitespace-nowrap"
+                    className="block text-lg  font-medium text-[#e65f2b] whitespace-nowrap"
                   >
                     Pay Period
                   </label>
                   <Select
                     id="payperiod"
-                    className="react-select-container flex-grow"
+                    className="react-select-container w-auto "
                     classNamePrefix="react-select"
                     options={payPeriods}
                     value={selectedPayPeriod}
@@ -288,7 +286,7 @@ function Settlement() {
             </div>
             <div className="flex flex-col md:flex-row justify-end space-x-0 md:space-x-4">
               <button
-                className="bg-transparent border border-blue-500 text-blue-500 h-[40px] w-full md:w-[120px] rounded-lg mb-4 md:mb-0"
+                className=" border  text-white bg-gray-400 h-[40px] w-full md:w-[120px] rounded-lg mb-4 md:mb-0"
                 onClick={handleCloseModal}
               >
                 Cancel
@@ -306,7 +304,12 @@ function Settlement() {
       )}
       {showSuccessMessage && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-sky-500 p-8 rounded-lg text-center text-white">
+          <div
+            style={{
+              background: "linear-gradient(180deg, #E65F2B 0%, #FFC252 100%)",
+            }}
+            className=" p-8 rounded-lg text-center text-white"
+          >
             <h2 className="text-xl mb-4">
               <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
             </h2>

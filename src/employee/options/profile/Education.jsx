@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, parse } from "date-fns";
+import axios from "axios";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-
-// Initial education data
-const initialEducationData = [
-  {
-    id: 1,
-    degree: "B.Tech",
-    institution: "AITAM",
-    university: "JNTUK",
-    startYear: "02-03-2019",
-    endYear: "04-08-2023",
-  },
-];
+import { API_BASE_URL } from "../../../Config/api";
 
 const Education = () => {
   const [formState, setFormState] = useState({
@@ -27,52 +17,73 @@ const Education = () => {
     institution: "",
     university: "",
   });
-  const [educationData, setEducationData] = useState(initialEducationData);
+  const [educationData, setEducationData] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  // const auth = useSelector((state) => state.auth)
+  // const employeeId = auth.employee.employeeId;
+
+  const jwtToken = localStorage.getItem("employeeJwt");
+
+
+  useEffect(() => {
+    fetchEducationData();
+  }, []);
+
+  const fetchEducationData = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/education/fetchEducation`, {
+        headers: {
+          "Authorization": `Bearer ${jwtToken}`
+        },
+      });
+      setEducationData([response.data]); // Assuming API returns a single education object
+    } catch (error) {
+      console.error("Error fetching education data", error);
+    }
+  };
 
   // Handle saving data
-  const handleSave = () => {
+  const handleSave = async () => {
     const { degree, institution, university, startDate, endDate } = formState;
     const formattedStartDate = startDate ? format(startDate, "dd-MM-yyyy") : "";
     const formattedEndDate = endDate ? format(endDate, "dd-MM-yyyy") : "";
 
-    if (editingId) {
-      setEducationData(
-        educationData.map((item) =>
-          item.id === editingId
-            ? {
-                ...item,
-                degree,
-                institution,
-                university,
-                startYear: formattedStartDate,
-                endYear: formattedEndDate,
-              }
-            : item
-        )
-      );
-      setSuccessMessage("Education Updated Successfully");
-      setEditingId(null);
-      setIsEditModalOpen(false);
-    } else {
-      const newId = educationData.length
-        ? Math.max(...educationData.map((item) => item.id)) + 1
-        : 1;
-      const newEducation = {
-        id: newId,
-        degree,
-        institution,
-        university,
-        startYear: formattedStartDate,
-        endYear: formattedEndDate,
-      };
-      setEducationData([...educationData, newEducation]);
-      setSuccessMessage(" Education Added Successfully");
-      setIsAddModalOpen(false);
+    const educationDTO = {
+      degree: degree,
+      institution: institution,
+      university: university,
+      startYear: formattedStartDate,
+      endYear: formattedEndDate,
+    };
+
+    try {
+      if (editingId) {
+        await axios.post(`${API_BASE_URL}/education/saveOrUpdate`, educationDTO, {
+          headers: {
+            "Authorization": `Bearer ${jwtToken}`
+          },
+        });
+        setSuccessMessage("Education Updated Successfully");
+        setEditingId(null);
+        setIsEditModalOpen(false);
+        fetchEducationData()
+      } else {
+        await axios.post(`${API_BASE_URL}/education/saveOrUpdate`, educationDTO, {
+          headers: {
+            "Authorization": `Bearer ${jwtToken}`
+          },
+        });
+        setSuccessMessage("Education Added Successfully");
+        setIsAddModalOpen(false);
+      }
+      fetchEducationData(); // Refresh data after save
+    } catch (error) {
+      console.error("Error saving education data", error);
     }
+
     resetForm();
     setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
   };
@@ -98,11 +109,22 @@ const Education = () => {
   };
 
   // Handle deleting data
-  const handleDelete = (id) => {
-    setEducationData(educationData.filter((item) => item.id !== id));
-    setSuccessMessage("Education Deleted Successfully");
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${API_BASE_URL}/education/delete`, {
+        headers: {
+          "Authorization": `Bearer ${jwtToken}`
+        },
+      });
+      setSuccessMessage("Education Deleted Successfully");
+      fetchEducationData(); // Refresh data after deletion
+    } catch (error) {
+      console.error("Error deleting education data", error);
+    }
     setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
   };
+
+
 
   // Reset form state
   const resetForm = () => {
@@ -132,68 +154,50 @@ const Education = () => {
     <div className="bg-white h-[500px] flex flex-col">
       <div className="flex justify-between items-center py-2">
         <h1 className="text-sm lg:text-lg text-[#2A546D]">EDUCATION INFO</h1>
-
         <button
-          className="flex items-center text-lg  bg-[#2A546D] text-white px-3 py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          className="flex items-center text-lg bg-[#2A546D] text-white px-3 py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           onClick={() => setIsAddModalOpen(true)}
         >
           <FaPlusCircle className="text-xl mr-2" aria-hidden="true" />
           <span className="hidden text-lg sm:inline">Add</span>
-          <span className="inline text-lg sm:hidden">Add</span>
         </button>
       </div>
       <hr className="border-t-2 border-[#2A546D] mb-4" />
-      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4">
-        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
-          <thead className="bg-[#2A546D]">
-            <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Degree
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Institution
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                University
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Start Year
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                End Year
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Actions
-              </th>
+      <div className="overflow-x-auto w-full lg:w-3/4 mx-auto"> {/* Adjust width here */}
+        <table className="min-w-full border border-[#2A546D]">
+          <thead>
+            <tr className="bg-[#2A546D] text-white">
+              <th className="p-3 border border-[#2A546D]">Degree</th>
+              <th className="p-3 border border-[#2A546D]">Institution</th>
+              <th className="p-3 border border-[#2A546D]">University</th>
+              <th className="p-3 border border-[#2A546D]">Start Year</th>
+              <th className="p-3 border border-[#2A546D]">End Year</th>
+              <th className="p-3 border border-[#2A546D]">Actions</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {educationData.map((item) => (
-              <tr key={item.id}>
-                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {item.degree}
+          <tbody>
+            {educationData.map((education, index) => (
+              <tr key={index} className="text-center">
+                <td className="p-3 border border-[#2A546D]">{education.degree}</td>
+                <td className="p-3 border border-[#2A546D]">
+                  {education.institution}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {item.institution}
+                <td className="p-3 border border-[#2A546D]">{education.university}</td>
+                <td className="p-3 border border-[#2A546D]">
+                  {education.startYear}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {item.university}
+                <td className="p-3 border border-[#2A546D]">
+                  {education.endYear}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {item.startYear}
-                </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {item.endYear}
-                </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                <td className="p-3 border border-[#2A546D]">
                   <button
-                    onClick={() => handleEdit(item.id)}
+                    onClick={() => handleEdit(education.id)}
                     className="text-blue-600 mr-4"
                   >
                     <FiEdit className="inline text-xl" aria-label="Edit" />
                   </button>
                   <button
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(education.id)}
                     className=" text-red-600"
                   >
                     <MdDelete className="inline text-xl" aria-label="Delete" />
@@ -227,93 +231,72 @@ const Education = () => {
                   </option>
                   <option value="B.Tech">B.Tech</option>
                   <option value="B.Com">B.Com</option>
-                  <option value="MCA">MCA</option>
-                  <option value="M.Sc">M.Sc</option>
-                  <option value="MBA">MBA</option>
+                  <option value="BA">BA</option>
+                  <option value="B.Sc">B.Sc</option>
+                  <option value="M.Tech">M.Tech</option>
+                  <option value="M.Com">M.Com</option>
                   <option value="MA">MA</option>
+                  <option value="M.Sc">M.Sc</option>
                 </select>
               </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="institutionName"
-                    className="block text-gray-700"
-                  >
-                    Institution
-                  </label>
-                  <input
-                    type="text"
-                    id="institutionName"
-                    value={formState.institution}
-                    onChange={(e) =>
-                      setFormState({
-                        ...formState,
-                        institution: e.target.value,
-                      })
-                    }
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="universityName"
-                    className="block text-gray-700"
-                  >
-                    University
-                  </label>
-                  <input
-                    type="text"
-                    id="universityName"
-                    value={formState.university}
-                    onChange={(e) =>
-                      setFormState({ ...formState, university: e.target.value })
-                    }
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
+              <div>
+                <input
+                  type="text"
+                  value={formState.institution}
+                  onChange={(e) =>
+                    setFormState({ ...formState, institution: e.target.value })
+                  }
+                  placeholder="Institution Name"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
               </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label htmlFor="startDate" className="block text-gray-700">
-                    Start Date
-                  </label>
-                  <DatePicker
-                    selected={formState.startDate}
-                    onChange={(date) =>
-                      setFormState({ ...formState, startDate: date })
-                    }
-                    dateFormat="dd-MM-yyyy"
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="endDate" className="block text-gray-700">
-                    End Date
-                  </label>
-                  <DatePicker
-                    selected={formState.endDate}
-                    onChange={(date) =>
-                      setFormState({ ...formState, endDate: date })
-                    }
-                    dateFormat="dd-MM-yyyy"
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
+              <div>
+                <input
+                  type="text"
+                  value={formState.university}
+                  onChange={(e) =>
+                    setFormState({ ...formState, university: e.target.value })
+                  }
+                  placeholder="University Name"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
               </div>
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={handleSave}
-                  className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={closeAddModal}
-                  className="ml-4 bg-gray-200 text-gray-800 h-[40px] w-[120px] rounded-lg hover:bg-gray-300 focus:outline-none"
-                >
-                  Cancel
-                </button>
+              <div>
+                <input
+                  type="date"
+                  value={formState.startYear}
+                  onChange={(e) =>
+                    setFormState({ ...formState, startDate: e.target.value })
+                  }
+                  placeholder="Start Year"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
               </div>
+              <div>
+                <input
+                  type="date"
+                  value={formState.endYear}
+                  onChange={(e) =>
+                    setFormState({ ...formState, endDate: e.target.value })
+                  }
+                  placeholder="End Year"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
+              </div>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={closeAddModal}
+                className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                className="bg-[#2A546D] text-white px-4 py-2 rounded"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
@@ -336,96 +319,77 @@ const Education = () => {
                   }
                   className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
                 >
-                  <option value="">Select Degree</option>
+                  <option value="" disabled hidden>
+                    Select Degree
+                  </option>
                   <option value="B.Tech">B.Tech</option>
                   <option value="B.Com">B.Com</option>
-                  <option value="MCA">MCA</option>
-                  <option value="M.Sc">M.Sc</option>
-                  <option value="MBA">MBA</option>
+                  <option value="BA">BA</option>
+                  <option value="B.Sc">B.Sc</option>
+                  <option value="M.Tech">M.Tech</option>
+                  <option value="M.Com">M.Com</option>
                   <option value="MA">MA</option>
+                  <option value="M.Sc">M.Sc</option>
                 </select>
               </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="institutionName"
-                    className="block text-gray-700"
-                  >
-                    Institution
-                  </label>
-                  <input
-                    type="text"
-                    id="institutionName"
-                    value={formState.institution}
-                    onChange={(e) =>
-                      setFormState({
-                        ...formState,
-                        institution: e.target.value,
-                      })
-                    }
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="universityName"
-                    className="block text-gray-700"
-                  >
-                    University
-                  </label>
-                  <input
-                    type="text"
-                    id="universityName"
-                    value={formState.university}
-                    onChange={(e) =>
-                      setFormState({ ...formState, university: e.target.value })
-                    }
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
+              <div>
+                <input
+                  type="text"
+                  value={formState.institution}
+                  onChange={(e) =>
+                    setFormState({ ...formState, institution: e.target.value })
+                  }
+                  placeholder="Institution Name"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
               </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label htmlFor="startDate" className="block text-gray-700">
-                    Start Date
-                  </label>
-                  <DatePicker
-                    selected={formState.startDate}
-                    onChange={(date) =>
-                      setFormState({ ...formState, startDate: date })
-                    }
-                    dateFormat="dd-MM-yyyy"
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="endDate" className="block text-gray-700">
-                    End Date
-                  </label>
-                  <DatePicker
-                    selected={formState.endDate}
-                    onChange={(date) =>
-                      setFormState({ ...formState, endDate: date })
-                    }
-                    dateFormat="dd-MM-yyyy"
-                    className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
-                  />
-                </div>
+              <div>
+                <input
+                  type="text"
+                  value={formState.university}
+                  onChange={(e) =>
+                    setFormState({ ...formState, university: e.target.value })
+                  }
+                  placeholder="University Name"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
               </div>
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={handleSave}
-                  className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={closeEditModal}
-                  className="ml-4 bg-gray-200 text-gray-800 h-[40px] w-[120px] rounded-lg hover:bg-gray-300 focus:outline-none"
-                >
-                  Cancel
-                </button>
+              <div>
+                <DatePicker
+                  selected={formState.startDate}
+                  onChange={(date) =>
+                    setFormState({ ...formState, startDate: date })
+                  }
+                  dateFormat="dd-MM-yyyy"
+                  placeholderText="Start Year"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
               </div>
+              <div>
+                <DatePicker
+                  selected={formState.endDate}
+                  onChange={(date) =>
+                    setFormState({ ...formState, endDate: date })
+                  }
+                  dateFormat="dd-MM-yyyy"
+                  placeholderText="End Year"
+                  className="w-full border-b border-[#2A546D] bg-transparent rounded-none p-2 focus:border-[#2A546D] outline-none text-[#2A546D]"
+                />
+              </div>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={closeEditModal}
+                className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                className="bg-[#2A546D] text-white px-4 py-2 rounded"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
@@ -433,13 +397,9 @@ const Education = () => {
 
       {/* Success Message */}
       {successMessage && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#2A546D] p-8 rounded-lg text-center text-white">
-            <h2 className="text-3xl mb-4">
-              <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
-            </h2>
-            {successMessage}
-          </div>
+        <div className="flex items-center bg-green-100 text-green-700 px-4 py-3 mt-2 rounded-md">
+          <IoMdCheckmarkCircleOutline className="mr-2 text-lg" />
+          <span>{successMessage}</span>
         </div>
       )}
     </div>

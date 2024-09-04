@@ -13,7 +13,6 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState("personal");
 
   // State for modal visibility
-  const [isPersonalModalOpen, setIsPersonalModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isDocumentsModalOpen, setIsDocumentsModalOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
@@ -34,9 +33,6 @@ const Profile = () => {
     alternatePhone: auth.employee?.alternatePhoneNumber,
   });
 
-  // Handlers for opening and closing modals
-  const handleOpenPersonalModal = () => setIsPersonalModalOpen(true);
-  const handleClosePersonalModal = () => setIsPersonalModalOpen(false);
 
   const handleOpenContactModal = () => setIsContactModalOpen(true);
   const handleCloseContactModal = () => setIsContactModalOpen(false);
@@ -55,9 +51,6 @@ const Profile = () => {
     setContactInfo((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSavePersonalInfo = () => {
-    handleClosePersonalModal();
-  };
 
   const handleSaveContactInfo = () => {
     handleCloseContactModal();
@@ -84,9 +77,8 @@ const Profile = () => {
           {["personal", "official", "documents", "password"].map((tab) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${
-                activeTab === tab ? "bg-white text-black" : "text-white"
-              }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === tab ? "bg-white text-black" : "text-white"
+                }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -108,9 +100,8 @@ const Profile = () => {
           ].map(({ tab, icon }) => (
             <div
               key={tab}
-              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${
-                activeTab === tab ? "bg-white text-black" : "text-white"
-              }`}
+              className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-2xl ${activeTab === tab ? "bg-white text-black" : "text-white"
+                }`}
               style={{ height: navHeight }}
               onClick={() => setActiveTab(tab)}
             >
@@ -124,10 +115,6 @@ const Profile = () => {
         <div className="bg-white p-6 ml-0 mr-0 md:ml-10 md:mr-10">
           <div className="flex justify-between items-center py-2 m-2">
             <h1 className="text-lg text-[#2A546D]">PERSONAL INFO</h1>
-            <FiEdit
-              className="text-xl text-[#2A546D]"
-              onClick={handleOpenPersonalModal}
-            />
           </div>
 
           <hr className="border-t-2 border-[#2A546D] mb-4" />
@@ -306,109 +293,6 @@ const Profile = () => {
         />
       )}
       {activeTab === "password" && <UpdatePassword />}
-
-      {/* Personal Info Modal */}
-      {isPersonalModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white  p-4 rounded-lg shadow-lg w-auto">
-            <div className="flex justify-between items-center">
-              <h2 className="text-lg text-[#2A546D] font-semibold">
-                Edit Personal Info
-              </h2>
-              <MdCancelPresentation
-                className="text-lg  cursor-pointer text-[#2A546D]"
-                onClick={handleClosePersonalModal}
-              />
-            </div>
-            <hr className="border-t-2 border-[#2A546D] my-4" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="m-2">
-                <label
-                  htmlFor="firstName"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  First Name
-                </label>
-                <input
-                  id="firstName"
-                  type="text"
-                  value={personalInfo.firstName}
-                  onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-                />
-              </div>
-              <div className="m-2">
-                <label
-                  htmlFor="lastName"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Last Name
-                </label>
-                <input
-                  id="lastName"
-                  type="text"
-                  value={personalInfo.lastName}
-                  onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-                />
-              </div>
-              <div className="m-2">
-                <label
-                  htmlFor="bloodGroup"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Blood Group
-                </label>
-                <input
-                  id="bloodGroup"
-                  type="text"
-                  value={personalInfo.bloodGroup}
-                  onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-                />
-              </div>
-              <div className="m-2">
-                <label
-                  htmlFor="dob"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Date of Birth
-                </label>
-                <input
-                  id="dob"
-                  type="date"
-                  value={personalInfo.dob}
-                  onChange={handleChangePersonalInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-                />
-              </div>
-              <div className="m-2">
-                <label
-                  htmlFor="officialEmail"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
-                >
-                  Official Email ID
-                </label>
-                <input
-                  id="officialEmail"
-                  type="email"
-                  value={personalInfo.officialEmail}
-                  onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
-                />
-              </div>
-            </div>
-            <div className="flex justify-end mt-4">
-              <button
-                onClick={handleSavePersonalInfo}
-                className="bg-[#2A546D] text-white py-2 px-4 rounded-lg"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Contact Info Modal */}
       {isContactModalOpen && (

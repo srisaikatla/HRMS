@@ -195,12 +195,12 @@ function ApplyLeave() {
           <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
             <thead>
               <tr className="bg-[#2A546D] text-white">
-                <th className="p-2">Leave Type</th>
-                <th className="p-2">Start Date</th>
-                <th className="p-2">End Date</th>
-                <th className="p-2">Full / Half-Day</th>
-                <th className="p-2">Reason</th>
-                <th className="p-2">Status</th>
+                <th className="p-2 border-r border-white">Leave Type</th>
+                <th className="p-2 border-r border-white">Start Date</th>
+                <th className="p-2 border-r border-white">End Date</th>
+                <th className="p-2 border-r border-white">Full / Half-Day</th>
+                <th className="p-2 border-r border-white">Reason</th>
+                <th className="p-2 border-r border-white">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -209,21 +209,17 @@ function ApplyLeave() {
                   key={leave.id}
                   className="text-center text-[#2A546D] border  border-[#2a546d]"
                 >
-                  <td className="p-2 border-r border-[#2a546d]">
+                  <td className=" border-r border-[#2a546d]">
                     {leave.leaveType}
                   </td>
-                  <td className="p-2 border-r border-[#2a546d]">
+                  <td className=" border-r border-[#2a546d]">
                     {leave.startdate}
                   </td>
-                  <td className="p-2 border-r border-[#2a546d]">
-                    {leave.enddate}
-                  </td>
-                  <td className="p-2 border-r border-[#2a546d]">
+                  <td className="border-r border-[#2a546d]">{leave.enddate}</td>
+                  <td className=" border-r border-[#2a546d]">
                     {leave.selecthalf}
                   </td>
-                  <td className="p-2 border-r border-[#2a546d]">
-                    {leave.reason}
-                  </td>
+                  <td className=" border-r border-[#2a546d]">{leave.reason}</td>
                   <td className="p-2">{settingStatus(leave.status)}</td>
                 </tr>
               ))}
