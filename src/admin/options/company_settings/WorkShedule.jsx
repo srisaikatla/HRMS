@@ -1,10 +1,3 @@
-// import React from "react";
-
-// function WorkShedule() {
-//   return <div></div>;
-// }
-
-// export default WorkShedule;
 import React, { useState } from "react";
 import { FaPlus, FaEdit } from 'react-icons/fa';
 import { CiCircleInfo } from "react-icons/ci";
@@ -107,81 +100,78 @@ function WorkShedule() {
   };
 
   return (
-    <div>
-      <div className='mt-7 w-full h-screen overflow-auto scrollbar-custom'>
-        <div className="flex justify-end items-center mb-3">
-          <p className="flex items-center text-[22px] text-[#E65F2B] mr-3">
-            <CiCircleInfo className="text-[#E65F2B] text-[22px] mr-2" />
-            info
-          </p>
+    <div className="p-4 min-h-screen">
+      <div className="flex justify-end items-center mb-3">
+        <p className="flex items-center text-xl text-[#E65F2B] mr-3">
+          <CiCircleInfo className="text-[#E65F2B] text-xl mr-2" />
+          Info
+        </p>
 
-          <button
-            onClick={handleAddNew}
-            className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white py-2 px-4 rounded-lg flex items-center gap-2 shadow-lg hover:shadow-xl transition-shadow"
-          >
-            <FaPlus className="text-xl" />
-            Add new
-          </button>
-        </div>
-        
-        <table className='w-full border-collapse'>
+        <button
+          onClick={handleAddNew}
+          className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white py-2 px-4 rounded-lg flex items-center gap-2 shadow-lg hover:shadow-xl transition-shadow"
+        >
+          <FaPlus className="text-xl" />
+          Add New
+        </button>
+      </div>
+      
+      <div className="overflow-x-auto  scrollbar-custom scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#E65F2B]">
+        <table className="w-full border-collapse  shadow-md rounded-lg">
           <thead>
             <tr>
-              <th className='bg-gradient-to-r from-[#E65F2B] to-[#FFC252] w-[330px] rounded-sm text-white font-semibold text-nowrap py-3 px-9 border border-r-white'>Work Schedule Policy Name</th>
-              <th className='bg-gradient-to-r from-[#E65F2B] to-[#FFC252] w-[330px] rounded-sm text-white font-semibold py-3 px-9 text-nowrap border border-r-white'>Work Schedule Description</th>
-              <th className='bg-gradient-to-r from-[#E65F2B] to-[#FFC252] w-[330px] rounded-sm text-white font-semibold py-3 px-9 text-nowrap border border-r-white'>Employee Count</th>
-              <th className='bg-gradient-to-r from-[#E65F2B] to-[#FFC252] w-[330px] rounded-sm text-white font-semibold py-3 px-9 text-nowrap border border-r-white'>Status</th>
-              <th className='bg-gradient-to-r from-[#E65F2B] to-[#FFC252] w-[150px] rounded-sm text-white font-semibold py-3 px-9 text-nowrap border border-r-white'>Actions</th>
+              <th className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white font-semibold py-3 px-6 text-left">Work Schedule Policy Name</th>
+              <th className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white font-semibold py-3 px-6 text-left">Work Schedule Description</th>
+              <th className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white font-semibold py-3 px-6 text-left">Employee Count</th>
+              <th className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white font-semibold py-3 px-6 text-left">Status</th>
+              <th className="bg-gradient-to-r from-[#E65F2B] to-[#FFC252] text-white font-semibold py-3 px-6 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
               <tr key={item.id}>
-                <td className='py-2 px-4 border text-[#E65F2B] border-r-white'>{item.policyName}</td>
-                <td className='py-2 px-4 border text-[#E65F2B] border-r-white'>{item.description}</td>
-                <td className='py-2 px-4 border text-[#E65F2B] border-r-white'>{item.employeeCount}</td>
-                <td className='py-2 px-4 border text-[#E65F2B] border-r-white'>{item.status}</td>
-                <td className='py-2 px-4 border border-r-white'>
+                <td className="py-2 px-4 border-b text-[#E65F2B]">{item.policyName}</td>
+                <td className="py-2 px-4 border-b text-[#E65F2B]">{item.description}</td>
+                <td className="py-2 px-4 border-b text-[#E65F2B]">{item.employeeCount}</td>
+                <td className="py-2 px-4 border-b text-[#E65F2B]">{item.status}</td>
+                <td className="py-2 px-4 border-b">
                   <button
                     onClick={() => handleEdit(item)}
                     className="text-blue-500 hover:text-blue-700"
                   >
-                    <FaEdit className="ml-[40px]" />
+                    <FaEdit className="ml-2" />
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="mt-10">
-          <div className="flex px-4">
-            <p className="">
-              <TiMessages className="w-6 text-[#e65f2b] h-6" />
-            </p>
-            <p className="flex pl-1 font-medium text-lg text-[#e65f2b]">
-              Activity
-            </p>
-          </div>
-          <hr className="border border-[#e65f2b]" /> 
-          <div className="flex items-center justify-center ">
-            <p className="text-[#e65f2b]">No recent activities.</p>
-          </div>
+      </div>
+
+      <div className="mt-10">
+        <div className="flex px-4 items-center">
+          <TiMessages className="w-6 text-[#e65f2b] h-6" />
+          <p className="pl-1 font-medium text-lg text-[#e65f2b]">Activity</p>
+        </div>
+        <hr className="border border-[#e65f2b]" /> 
+        <div className="flex items-center justify-center mt-4">
+          <p className="text-[#e65f2b]">No recent activities.</p>
         </div>
       </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-[600px]">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg max-w-lg w-full">
             <h2 className="text-2xl font-bold mb-6">
-              {isEditing ? 'Edit Work Schedule Policy' : 'Add Work Schedule Policy'}
+              {isEditing ? 'Edit Work Schedule ' : 'Add Work Schedule '}
             </h2>
             
             {/* Form */}
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="block text-[#E65F2B] text-sm font-bold mb-2" htmlFor="policyName">
-                  Work Schedule Policy Name*
+                  Work Schedule
                 </label>
                 <input
                   id="policyName"
@@ -225,7 +215,7 @@ function WorkShedule() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mt-4">
                 <button
                   type="button"
                   onClick={toggleModal}

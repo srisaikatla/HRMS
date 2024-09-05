@@ -37,9 +37,11 @@ function EmployeeLogin() {
                         "linear-gradient(to bottom, rgba(0, 88, 139, 0.2) 19.36%, rgba(0, 88, 139, 0.2) 19.36%)",
                 }}
             >
-                <h2 className="text-lg font-medium text-white text-center">
-                    Login to your account
-                </h2>
+             <div className="">
+          <h2 className=" text-lg md:text-2xl pb-4 font-medium text-white  ">
+            Login to your account
+          </h2>
+        </div>
                 <form
                     onSubmit={handleSubmit}
                     className="flex flex-col w-full space-y-4"

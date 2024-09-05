@@ -18,6 +18,7 @@ function PayrollForms() {
   const [editIndex, setEditIndex] = useState(null);
   const [editData, setEditData] = useState({});
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
   const handleFormChange = (e) => {
     setSelectedForm(e.target.value);
@@ -84,10 +85,15 @@ function PayrollForms() {
   const handleDeleteClick = (index) => {
     const updatedTableData = tableData.filter((_, i) => i !== index);
     setTableData(updatedTableData);
+    setShowDeleteMessage(true);
+    setTimeout(() => {
+      setShowDeleteMessage(false);
+    }, 3000);
   };
 
   return (
-    <>
+<>
+
       <div className="main p-4 mt-4 min-h-screen">
         <div
           id="submain1"
@@ -169,22 +175,22 @@ function PayrollForms() {
               <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
                 <thead>
                   <tr>
-                    <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+                    <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-2">
                       Form Type
                     </th>
-                    <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+                    <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-2">
                       Financial Year
                     </th>
-                    <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+                    <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-2">
                       Created By
                     </th>
-                    <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+                    <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-2">
                       Created For
                     </th>
-                    <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+                    <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-2">
                       Created On
                     </th>
-                    <th className="px-4 bg-[#e65f2b] border-r border-white text-white py-2">
+                    <th className="px-4 bg-gradient-to-r from-[#E65F2B] to-[#FFC252] border-r border-white text-white py-2">
                       Action
                     </th>
                   </tr>
@@ -296,16 +302,32 @@ function PayrollForms() {
         )}
         {showSuccessMessage && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="bg-[#e65f2b] p-8 rounded-lg text-center text-white">
+            <div
+              style={{
+                background: "linear-gradient(180deg, #E65F2B 0%, #FFC252 100%)",
+              }}
+              className=" p-8 rounded-lg text-center text-white"
+            >
               <h2 className="text-xl mb-4">
                 <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
               </h2>
-              <span>Settlement Added Successfully!</span>
+              <span>Form Updated Successfully!</span>
+            </div>
+          </div>
+        )}
+        {showDeleteMessage && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-red-500 p-8 rounded-lg text-center text-white">
+              <h2 className="text-xl mb-4">
+                <IoMdCheckmarkCircleOutline className="inline-block text-6xl" />
+              </h2>
+              <span>Form Deleted Successfully!</span>
             </div>
           </div>
         )}
       </div>
-    </>
+</>
+  
   );
 }
 
