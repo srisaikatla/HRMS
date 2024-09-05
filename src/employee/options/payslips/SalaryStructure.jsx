@@ -38,7 +38,7 @@ function SalaryStructure() {
                 <th className="p-3  border  border-[#2a546d]">Yearly</th>
               </tr>
             </thead>
-            <tbody className="text-gray-700 bg-[#2A546D] bg-opacity-10">
+            <tbody className="">
               {salaryData.map((item, index) => (
                 <tr
                   key={index}
