@@ -140,7 +140,7 @@ function EmployeeNavBar({ onIconClick, options }) {
                   className="hover:cursor-pointer"
                   style={iconStyle("Attendance")}
                 />
-                <p className="pl-2 text-[#2A546D]">Attandance</p>
+                <p className="pl-2 text-[#2A546D]">Attendance</p>
               </div>
               <div
                 onClick={() => {

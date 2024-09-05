@@ -66,8 +66,12 @@ const UpdatePassword = () => {
   };
 
   return (
-    <div className="bg-white  my-5 p-4 sm:mx-6 md:mx-8 lg:mx-10">
-      <h1 className="text-lg text-[#2A546D] text-center">UPDATE PASSWORD</h1>
+    <div className="bg-white p-6 lg:mx-10">
+      <div className="flex justify-between items-center py-2 m-2">
+        <h1 className="text-lg text-[#2A546D]">UPDATE PASSWORD</h1>
+      </div>
+
+      <hr className="border-t-2 border-[#2A546D] mb-4" />
 
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="flex flex-col items-center">
@@ -84,7 +88,7 @@ const UpdatePassword = () => {
               type="password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+              className="block focus:outline-[#2a546d]  w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
             />
           </div>
         </div>
@@ -103,7 +107,7 @@ const UpdatePassword = () => {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
-              className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+              className="block focus:outline-[#2a546d]  w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
             />
           </div>
         </div>
@@ -122,7 +126,7 @@ const UpdatePassword = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+              className="block focus:outline-[#2a546d]  w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
             />
           </div>
         </div>

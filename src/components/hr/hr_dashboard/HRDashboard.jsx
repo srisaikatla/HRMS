@@ -57,29 +57,29 @@ const HRDashboard = () => {
             <div className="flex flex-col justify-center items-center  w-full lg:w-1/4">
               {EmpolyeeData.map((data, index) => (
                 <div key={index} className="w-full">
-                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
-                    <BsPersonFillCheck className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#0098f1] p-4 py-6 rounded-lg mb-1">
+                    <BsPersonFillCheck className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#0098f1]" />
                     <div className="text-white text-center sm:text-left font-semibold">
                       New Employee
                       <div className="text-center">{data.new_Employee}</div>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
-                    <MdGroups className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#0098f1] p-4 py-6 rounded-lg mb-1">
+                    <MdGroups className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#0098f1]" />
                     <div className="text-white text-center sm:text-left font-semibold">
                       Total Employee
                       <div className="text-center">{data.Total_Employee}</div>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg mb-1">
-                    <RiMoneyRupeeCircleLine className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#0098f1] p-4 py-6 rounded-lg mb-1">
+                    <RiMoneyRupeeCircleLine className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#0098f1]" />
                     <div className="text-white text-center sm:text-left font-semibold">
                       Total Salary
                       <div className="text-center">{data.Total_Salary}</div>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#FF6C40] p-4 py-6 rounded-lg">
-                    <TbReportMoney className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#E65F2B]" />
+                  <div className="flex flex-col sm:flex-row justify-around items-center gap-2 bg-[#0098f1] p-4 py-6 rounded-lg">
+                    <TbReportMoney className="text-xl rounded-full bg-white w-12 h-12 p-2 text-[#0098f1]" />
                     <div className="text-white text-center sm:text-left font-semibold">
                       Avg Salary
                       <div className="text-center">{data.Avg_Salary}</div>
@@ -248,7 +248,7 @@ const HRDashboard = () => {
                 </table>
               </div>
             </div>
-            <div className="flex flex-col bg-[#E65F2B] items-center justify-center rounded-lg shadow w-full lg:w-1/3 p-8">
+            <div className="flex flex-col bg-[#0098f1] items-center justify-center rounded-lg shadow w-full lg:w-1/3 p-8">
               <div className="text-white text-center text-2xl mb-6">
                 Employee Structure
               </div>

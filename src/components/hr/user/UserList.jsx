@@ -246,13 +246,13 @@ const UserList = () => {
         <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead className="bg-[#0098F1] text-white">
             <tr className="text-left">
-              <th className="md:text-lg md:py-2 md:px-4  max-md:py-2"></th>
-              <th className="md:text-lg text-white md:py-4 px-8 max-md:py-2 ">Name</th>
-              <th className="md:text-lg text-white md:py-2 px-8 max-md:py-2">E-mail Id</th>
-              <th className="md:text-lg text-white md:py-2 px-4 max-md:py-2">Status</th>
-              <th className="md:text-lg text-white md:py-2 px-4 max-md:py-2 ">Created Date</th>
-              <th className="md:text-lg text-white md:py-2 px-4 max-md:py-2 text-center">Role</th>
-              <th className="md:text-lg text-white md:py-2 px-8 max-md:py-2 ">Action</th>
+              <th className="md:text-lg py-2 md:px-4"></th>
+              <th className="md:text-lg text-white py-2 px-8">Name</th>
+              <th className="md:text-lg text-white py-2 px-8">E-mail Id</th>
+              <th className="md:text-lg text-white py-2 px-4">Status</th>
+              <th className="md:text-lg text-white py-2 px-4">Created Date</th>
+              <th className="md:text-lg text-white py-2 px-4 text-center">Role</th>
+              <th className="md:text-lg text-white py-2 px-8">Action</th>
             </tr>
           </thead>
           <tbody className="font-normal">

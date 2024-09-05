@@ -116,15 +116,15 @@ function ApplyLeave() {
 
   const settingStatus = (status) => {
     const statusClasses = {
-      Approved: "text-green-500",
-      Rejected: "text-red-500",
-      Pending: "text-yellow-500",
+      Approved: "bg-[#04B440] p-2 rounded-lg text-white",
+      Rejected: "bg-red-500 p-2 rounded-lg text-whte",
+      Pending: "bg-yellow-500 px-[15px] p-2 rounded-lg text-white",
     };
     return <span className={statusClasses[status] || ""}>{status}</span>;
   };
 
   return (
-    <div className="mt-4 p-4 min-h-screen">
+    <div className="mt-4 p-4  min-h-screen">
       <div className=" flex flex-col md:flex-row justify-between">
         <div>
           <span className="text-[#2A546D] text-sm lg:text-lg font-medium">
@@ -135,7 +135,7 @@ function ApplyLeave() {
       <div className="flex justify-end mr-4 mt-4">
         <div className="">
           <button
-            className="bg-[#2A546D] text-white flex items-center rounded-lg px-4 md:px-2 py-2 lg:text-lg"
+            className="bg-[#2A546D] text-white flex items-center rounded-lg p-3 px-5 lg:text-lg"
             onClick={() => setIsModalOpen(true)}
           >
             <FaPlusCircle className="text-white text-base  lg:text-lg mr-2" />
@@ -189,18 +189,22 @@ function ApplyLeave() {
       </div>
 
       <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-2">My Leaves</h3>
+        <h3 className="text-lg text-[#2a546d]  font-semibold mb-2">
+          My Leaves
+        </h3>
 
         <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4">
           <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
             <thead>
-              <tr className="bg-[#2A546D] text-white">
-                <th className="p-2 border-r border-white">Leave Type</th>
-                <th className="p-2 border-r border-white">Start Date</th>
-                <th className="p-2 border-r border-white">End Date</th>
-                <th className="p-2 border-r border-white">Full / Half-Day</th>
-                <th className="p-2 border-r border-white">Reason</th>
-                <th className="p-2 border-r border-white">Status</th>
+              <tr className="bg-[#2a546d] text-white">
+                <th className="p-3 border border-r-white border-[#2a546d] ">
+                  Leave Type
+                </th>
+                <th className="p-3 border-r border-white">Start Date</th>
+                <th className="p-3 border-r border-white">End Date</th>
+                <th className="p-3 border-r border-white">Full / Half-Day</th>
+                <th className="p-3 border-r border-white">Reason</th>
+                <th className="p-3  border  border-[#2a546d]">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -209,18 +213,24 @@ function ApplyLeave() {
                   key={leave.id}
                   className="text-center text-[#2A546D] border  border-[#2a546d]"
                 >
-                  <td className=" border-r border-[#2a546d]">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {leave.leaveType}
                   </td>
-                  <td className=" border-r border-[#2a546d]">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {leave.startdate}
                   </td>
-                  <td className="border-r border-[#2a546d]">{leave.enddate}</td>
-                  <td className=" border-r border-[#2a546d]">
+                  <td className="p-3 border-r border-[#2a546d]">
+                    {leave.enddate}
+                  </td>
+                  <td className="p-3 border-r border-[#2a546d]">
                     {leave.selecthalf}
                   </td>
-                  <td className=" border-r border-[#2a546d]">{leave.reason}</td>
-                  <td className="p-2">{settingStatus(leave.status)}</td>
+                  <td className="p-3 border-r border-[#2a546d]">
+                    {leave.reason}
+                  </td>
+                  <td className="p-3  ">
+                    <button className="">{settingStatus(leave.status)}</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -246,7 +256,7 @@ function ApplyLeave() {
       {/* Modal for Adding Leave */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white h-80 overflow-y-scroll p-8 rounded shadow-lg max-w-md w-full">
+          <div className="bg-white text-[#2a546d] h-80 overflow-y-scroll p-8 scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] rounded shadow-lg max-w-md w-full">
             <h3 className="text-lg font-semibold mb-4">Apply for Leave</h3>
             <form>
               <div className="mb-4">

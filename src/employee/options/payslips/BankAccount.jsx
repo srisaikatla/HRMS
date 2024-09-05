@@ -70,8 +70,8 @@ const BankAccount = () => {
           </div>
           <div className="md:pl-2 my-4">
             <div className="flex flex-col gap-y-1 md:flex-row md:gap-6 my-3">
-              <p className="text-[#2A546D]">Account Holder's Name : </p>
-              <strong className="text-[#2A546D]">K. Navaneetha</strong>
+              <p className="text-[#2A546D] text-lg">Account Holder's Name : </p>
+              <strong className="text-[#2A546D] text-lg">User Name</strong>
             </div>
 
             <form onSubmit={handleSave}>
@@ -95,7 +95,7 @@ const BankAccount = () => {
                     value={formData.bankName}
                     disabled={!showEdit}
                     ref={bankNameRef}
-                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D]  outline-none p-1 md:p-3 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
@@ -117,7 +117,7 @@ const BankAccount = () => {
                     value={formData.accountNumber}
                     disabled={!showEdit}
                     ref={accountNumberRef}
-                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-3 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
@@ -139,7 +139,7 @@ const BankAccount = () => {
                     value={formData.branchName}
                     disabled={!showEdit}
                     ref={branchNameRef}
-                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-3 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
@@ -161,7 +161,7 @@ const BankAccount = () => {
                     value={formData.city}
                     ref={cityRef}
                     disabled={!showEdit}
-                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-3 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2">
@@ -183,7 +183,7 @@ const BankAccount = () => {
                     value={formData.ifscCode}
                     ref={ifscCodeRef}
                     disabled={!showEdit}
-                    className="border border-[#2A546D] outline-none p-1 md:p-2 px-3 text-sm md:text-md rounded-md"
+                    className="border border-[#2A546D] outline-none p-1 md:p-3 px-3 text-sm md:text-md rounded-md"
                   />
                 </div>
               </div>
