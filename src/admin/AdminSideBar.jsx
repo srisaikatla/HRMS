@@ -150,7 +150,7 @@ const AdminSideBar = () => {
         }}
         className={`flex flex-col h-screen fixed mr-20 transition-all duration-300 ${
           isSidebarCollapsed ? "w-16" : "w-[240px]"
-        } pb-10 h-screen fixed top-0 overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
+        } pb-10 h-screen fixed top-0 overflow-x-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent`}
       >
         <div className="flex flex-col pr-4 text-white">
           <div className="flex justify-between items-center pt-10 pb-5 pl-4">
