@@ -278,11 +278,6 @@ const SideBar = () => {
           {!isSidebarCollapsed && (
             <>
               <div className="flex items-center  w-64 relative top-0 pb-4 px-2">
-                {/* <img
-                src={profile}
-                className="rounded-full w-[50px] h-[50px]"
-                alt="Profile"
-              /> */}
                 <img
                   src={profileImage}
                   className="rounded-full w-[50px] h-[50px] cursor-pointer"
