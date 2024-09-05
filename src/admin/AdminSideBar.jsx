@@ -14,11 +14,11 @@ import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
 // import PayRollForms from "./options/pay_roll/payroll_forms/PayrollForms";
 // import Settlement from "./options/pay_roll/settlement/Settlements";
-// import PaySlips from "./options/pay_roll/paySlips/PaySlips";
-// import PayRollSummary from "./options/pay_roll/payrollSummary/PayrollSummary";
+import PaySlips from "./options/pay_roll/paySlips/PaySlips";
+import PayRollSummary from "./options/pay_roll/payrollSummary/PayrollSummary";
 // import PayRollSettings from "./options/pay_roll/payroll_setting/PayrollSettings";
 // import PayRollDashboard from "./options/pay_roll/payroll_dashboard/payrolldashboard";
-// import RunPayRoll from "./options/pay_roll/runPayRoll/RunPayroll";
+import RunPayRoll from "./options/pay_roll/runPayRoll/RunPayroll";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
@@ -278,12 +278,12 @@ const AdminSideBar = () => {
           {/* {activeTab === "Settlements" && <Settlement />} */}
 
           {/* {activeTab === "DashBoard" && <PayRollDashboard />} */}
-          {/* {activeTab === "Run payroll" && <RunPayRoll />} */}
-          {/* {activeTab === "Payroll Summary" && <PayRollSummary />} */}
+          {activeTab === "Run payroll" && <RunPayRoll />}
+          {activeTab === "Payroll Summary" && <PayRollSummary />}
           {/* {activeTab === "Payroll settings" && <PayRollSettings />} */}
           {/* {activeTab === "Settlements" && <Settlement />} */}
 
-          {/* {activeTab === "Payslisps" && <PaySlips />} */}
+          {activeTab === "Payslips" && <PaySlips />}
           {activeTab === "Support" && <Support />}
         </div>
       </div>

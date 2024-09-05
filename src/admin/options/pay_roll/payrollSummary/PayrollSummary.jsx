@@ -12,7 +12,7 @@ const PayrollSummary = ({
   return (
     <div className="p-4 mt-4 min-h-screen">
       <div>
-        <h1 className="text-black lg:text-lg text-sm font-semibold mb-4">
+        <h1 className="text-[#E65F2B] lg:text-lg text-sm font-semibold mb-4">
           Payroll / PayPeriod: <span className="">{payPeriod}</span>
         </h1>
         <div className="flex flex-col lg:flex-row justify-between items-center mb-4 border-b pb-2 border-gray-700">
