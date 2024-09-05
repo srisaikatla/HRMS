@@ -30,13 +30,18 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { TbMoneybag } from "react-icons/tb";
+
+
 const AdminSideBar = () => {
+  // Load from localStorage or use default values
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("ADMIN_ACTIVE_TAB") || "Company Information"
   );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [profileImage, setProfileImage] = useState(profile);
-  const [openDropdown, setOpenDropdown] = useState("");
+  const [openDropdown, setOpenDropdown] = useState(
+    localStorage.getItem("ADMIN_OPEN_DROPDOWN") || ""
+  );
   const [tooltip, setTooltip] = useState({
     show: false,
     title: "",
@@ -60,6 +65,7 @@ const AdminSideBar = () => {
 
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
+    localStorage.setItem("ADMIN_ACTIVE_TAB", iconTitle); // Store the active tab
   };
 
   const handleMouseOver = (event, title) => {
@@ -121,11 +127,14 @@ const AdminSideBar = () => {
 
   const handleOptionClick = (option) => {
     if (option.subOptions) {
-      setOpenDropdown(openDropdown === option.title ? "" : option.title);
+      const newDropdownState = openDropdown === option.title ? "" : option.title;
+      setOpenDropdown(newDropdownState);
+      localStorage.setItem("ADMIN_OPEN_DROPDOWN", newDropdownState); // Store dropdown state
     } else {
       localStorage.setItem("ADMIN_ACTIVE_TAB", option.title);
       setActiveTab(option.title);
-      setOpenDropdown("");
+      setOpenDropdown(""); // Close any open dropdown
+      localStorage.removeItem("ADMIN_OPEN_DROPDOWN"); // Clear stored dropdown state
     }
   };
 
