@@ -347,7 +347,7 @@ const RunPayroll = () => {
 
   return (
     <div className="p-4 mt-4 min-h-screen">
-      <h1 className="text-black lg:text-lg text-sm font-semibold mb-4">
+      <h1 className="text-[#E65F2B] lg:text-lg text-sm font-semibold mb-4">
         Payroll / Batch & Period
       </h1>
       <div className="md:text-center">
@@ -402,7 +402,7 @@ const RunPayroll = () => {
               Process Flow
             </h1>
             <button
-              className="border bg-gray-700 text-white px-5 py-1 rounded-lg "
+              className="border bg-[#E65F2B] font-semibold text-white px-5 py-1 rounded-lg "
               onClick={handleResumePayroll}
             >
               Resume Payroll
@@ -415,33 +415,33 @@ const RunPayroll = () => {
                 Payroll Information
               </h1>
               <p className="flex md:justify-between gap-x-3 ">
-                <strong>Payroll Type:</strong>{" "}
+                <strong className="text-[#E65F2B]">Payroll Type:</strong>{" "}
                 <span>{payrollDetails.type}</span>
               </p>
               <p className="flex md:justify-between gap-x-3">
-                <strong>Employees in Batch:</strong>
+                <strong className="text-[#E65F2B]">Employees in Batch:</strong>
                 <span>{payrollDetails.employeesInBatch}</span>
               </p>
               <p className="flex md:justify-between gap-x-3">
-                <strong>Processed Employees:</strong>
+                <strong className="text-[#E65F2B]">Processed Employees:</strong>
                 <span>{payrollDetails.processedEmployees}</span>
               </p>
               <p className="flex md:justify-between gap-x-3">
-                <strong>Remaining Employees:</strong>
+                <strong className="text-[#E65F2B]">Remaining Employees:</strong>
                 <span>{payrollDetails.remainingEmployees}</span>
               </p>
               <p className="flex md:justify-between gap-x-3">
-                <strong>Total Days:</strong>
+                <strong className="text-[#E65F2B]">Total Days:</strong>
                 <span>{payrollDetails.totalDays}</span>
               </p>
               <p className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-3">
-                <strong className="whitespace-nowrap">
+                <strong className="whitespace-nowrap text-[#E65F2B]">
                   Payroll Started On:
                 </strong>
                 <span>{payrollDetails.startedOn}</span>
               </p>
               <p className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-3">
-                <strong className="whitespace-nowrap">
+                <strong className="whitespace-nowrap text-[#E65F2B]">
                   Payroll Started By:
                 </strong>
                 <span>{payrollDetails.startedBy}</span>
@@ -459,7 +459,7 @@ const RunPayroll = () => {
                     {step.number}
                   </div>
                   <div className="border border-r-4 p-2 bg-white shadow-md rounded-lg border-r-[#E65F2B] md:w-[230px] max-md:w-[180px] lg:w-[410px]">
-                    <h3 className="md:text-lg font-semibold">{step.title}</h3>
+                    <h3 className="md:text-lg font-semibold text-[#E65F2B]">{step.title}</h3>
                     <p className="max-md:text-xs text-gray-600">
                       {step.description}
                     </p>
