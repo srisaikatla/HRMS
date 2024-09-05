@@ -68,7 +68,9 @@ const UpdatePassword = () => {
   return (
     <div className="bg-white p-6 lg:mx-10">
       <div className="flex justify-between items-center py-2 m-2">
-        <h1 className="text-lg text-[#2A546D]">UPDATE PASSWORD</h1>
+        <h1 className="text-lg font-semibold text-[#2A546D]">
+          UPDATE PASSWORD
+        </h1>
       </div>
 
       <hr className="border-t-2 border-[#2A546D] mb-4" />

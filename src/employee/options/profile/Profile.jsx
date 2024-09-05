@@ -114,7 +114,9 @@ const Profile = () => {
       {activeTab === "personal" && (
         <div className="bg-white p-6 md:mx-10">
           <div className="flex justify-between items-center py-2 m-2">
-            <h1 className="text-lg text-[#2A546D]">PERSONAL INFO</h1>
+            <h1 className="text-lg font-semibold text-[#2A546D]">
+              PERSONAL INFO
+            </h1>
           </div>
 
           <hr className="border-t-2 border-[#2A546D] mb-4" />

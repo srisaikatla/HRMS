@@ -105,7 +105,7 @@ const Documents = ({
   return (
     <div className="bg-white h-[500px] p-6 mx-10 flex flex-col ">
       <div className="flex justify-between items-center py-2">
-        <h1 className="text-lg text-[#2A546D]">ID PROOFS</h1>
+        <h1 className="text-lg font-semibold text-[#2A546D]">ID PROOFS</h1>
         <button
           className="flex items-center p-3 px-6 text-lg bg-[#2A546D] text-white py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           onClick={() => {

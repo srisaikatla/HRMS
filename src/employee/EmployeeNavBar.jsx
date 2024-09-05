@@ -14,6 +14,7 @@ function EmployeeNavBar({ onIconClick, options }) {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
   const jwt = localStorage.getItem("employeeJwt");
+  const excludedTitles = ["Payroll"];
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,25 +54,46 @@ function EmployeeNavBar({ onIconClick, options }) {
     setDropdownOpen(!dropdownOpen);
   };
 
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     const filtered = flattenedOptions.filter(
+  //       (option) =>
+  //         option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //         option.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  //     );
+  //     setFilteredOptions(filtered);
+  //   } else {
+  //     setFilteredOptions([]);
+  //   }
+  // }, [searchQuery, flattenedOptions]);
   useEffect(() => {
     if (searchQuery) {
       const filtered = flattenedOptions.filter(
         (option) =>
-          option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          option.name?.toLowerCase().includes(searchQuery.toLowerCase())
+          (option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            option.name?.toLowerCase().includes(searchQuery.toLowerCase())) &&
+          !excludedTitles.includes(option.title) // Ensure excluded titles are not shown
       );
       setFilteredOptions(filtered);
     } else {
       setFilteredOptions([]);
     }
   }, [searchQuery, flattenedOptions]);
-
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  // const handleSuggestionClick = (suggestion) => {
+  //   onIconClick(suggestion.title);
+  //   setSearchQuery("");
+  //   setFilteredOptions([]);
+  // };
   const handleSuggestionClick = (suggestion) => {
-    onIconClick(suggestion.title);
+    if (suggestion.isSubOption) {
+      onIconClick(suggestion.name); // Use name for suboptions
+    } else {
+      onIconClick(suggestion.title); // Use title for main options
+    }
     setSearchQuery("");
     setFilteredOptions([]);
   };
