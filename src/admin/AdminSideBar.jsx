@@ -12,13 +12,14 @@ import CompanyInformation from "./options/company_info/CompanyInformation";
 // import Company from "./options/company_settings/company/Company";
 import User from "./options/users/User";
 import Roles from "./options/roles/Roles";
+import Payrolldashboard from "./options/pay_roll/payroll_dashboard/payrolldashboard"
 // import PayRollForms from "./options/pay_roll/payroll_forms/PayrollForms";
-// import Settlement from "./options/pay_roll/settlement/Settlements";
-// import PaySlips from "./options/pay_roll/paySlips/PaySlips";
-// import PayRollSummary from "./options/pay_roll/payrollSummary/PayrollSummary";
-// import PayRollSettings from "./options/pay_roll/payroll_setting/PayrollSettings";
+import Settlement from "./options/pay_roll/settlement/Settlements";
+import PaySlips from "./options/pay_roll/paySlips/PaySlips";
+import PayRollSummary from "./options/pay_roll/payrollSummary/PayrollSummary";
+import PayRollSettings from "./options/pay_roll/payroll_setting/PayrollSettings";
 // import PayRollDashboard from "./options/pay_roll/payroll_dashboard/payrolldashboard";
-// import RunPayRoll from "./options/pay_roll/runPayRoll/RunPayroll";
+import RunPayRoll from "./options/pay_roll/runPayRoll/RunPayroll";
 import AccountDetails from "./options/accountdetailes/AccountDetails";
 import { FaUserCircle } from "react-icons/fa";
 import { FaPeopleGroup } from "react-icons/fa6";
@@ -30,13 +31,18 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { TbMoneybag } from "react-icons/tb";
+
+
 const AdminSideBar = () => {
+  // Load from localStorage or use default values
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("ADMIN_ACTIVE_TAB") || "Company Information"
   );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [profileImage, setProfileImage] = useState(profile);
-  const [openDropdown, setOpenDropdown] = useState("");
+  const [openDropdown, setOpenDropdown] = useState(
+    localStorage.getItem("ADMIN_OPEN_DROPDOWN") || ""
+  );
   const [tooltip, setTooltip] = useState({
     show: false,
     title: "",
@@ -60,6 +66,7 @@ const AdminSideBar = () => {
 
   const handleIconClick = (iconTitle) => {
     setActiveTab(iconTitle);
+    localStorage.setItem("ADMIN_ACTIVE_TAB", iconTitle); // Store the active tab
   };
 
   const handleMouseOver = (event, title) => {
@@ -121,11 +128,14 @@ const AdminSideBar = () => {
 
   const handleOptionClick = (option) => {
     if (option.subOptions) {
-      setOpenDropdown(openDropdown === option.title ? "" : option.title);
+      const newDropdownState = openDropdown === option.title ? "" : option.title;
+      setOpenDropdown(newDropdownState);
+      localStorage.setItem("ADMIN_OPEN_DROPDOWN", newDropdownState); // Store dropdown state
     } else {
       localStorage.setItem("ADMIN_ACTIVE_TAB", option.title);
       setActiveTab(option.title);
-      setOpenDropdown("");
+      setOpenDropdown(""); // Close any open dropdown
+      localStorage.removeItem("ADMIN_OPEN_DROPDOWN"); // Clear stored dropdown state
     }
   };
 
@@ -277,13 +287,13 @@ const AdminSideBar = () => {
           {/* {activeTab === "Payroll Forms" && <PayRollForms />} */}
           {/* {activeTab === "Settlements" && <Settlement />} */}
 
-          {/* {activeTab === "DashBoard" && <PayRollDashboard />} */}
-          {/* {activeTab === "Run payroll" && <RunPayRoll />} */}
-          {/* {activeTab === "Payroll Summary" && <PayRollSummary />} */}
-          {/* {activeTab === "Payroll settings" && <PayRollSettings />} */}
-          {/* {activeTab === "Settlements" && <Settlement />} */}
+          {activeTab === "DashBoard" && <Payrolldashboard />}
+          {activeTab === "Run payroll" && <RunPayRoll />}
+          {activeTab === "Payroll Summary" && <PayRollSummary />}
+          {activeTab === "Payroll settings" && <PayRollSettings />}
+          {activeTab === "Settlements" && <Settlement />}
 
-          {/* {activeTab === "Payslisps" && <PaySlips />} */}
+          {activeTab === "Payslips" && <PaySlips />}
           {activeTab === "Support" && <Support />}
         </div>
       </div>

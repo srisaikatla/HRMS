@@ -276,7 +276,7 @@ const PaySlips = () => {
 
   return (
     <div className="p-4 mt-4 min-h-screen">
-      <p className="text-black lg:text-lg text-sm font-semibold mb-4">
+      <p className="text-[#E65F2B] lg:text-lg text-sm font-semibold mb-4">
         <span>Payroll</span> / <span>Payslips</span>
       </p>
       <div className="md:text-center md:my-8 max-md:mr-2">
