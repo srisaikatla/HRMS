@@ -10,6 +10,8 @@ import * as XLSX from "xlsx";
 import { useNavigate } from "react-router-dom";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { ImCross } from "react-icons/im";
+import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import { IoMdCheckbox } from "react-icons/io"; //check
 function AllEmployees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -86,8 +88,6 @@ function AllEmployees() {
     return password;
   };
 
-
-
   const handleInvite = async (employee) => {
     try {
       const password = generatePassword();
@@ -111,7 +111,7 @@ function AllEmployees() {
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
       closeModal();
-      fetchEmployees()
+      fetchEmployees();
       console.log("Invite sent:", response.data);
     } catch (error) {
       console.error("Error sending invite:", error);
@@ -194,7 +194,7 @@ function AllEmployees() {
       aadharCardNumber: "",
       profileImage: "",
     });
-    setShowModal(false)
+    setShowModal(false);
   };
 
   const closeModal = () => {
@@ -218,10 +218,17 @@ function AllEmployees() {
   };
 
   const handleCheckboxChange = (id) => {
-    setIsChecked((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+    setIsChecked((prevState) => {
+      const newState = { ...prevState, [id]: !prevState[id] };
+
+      // Update the header checkbox based on all row checkboxes
+      const allChecked = employees.every(
+        (employee) => newState[employee.employeeId]
+      );
+      setHeaderChecked(allChecked);
+
+      return newState;
+    });
   };
 
   const handleHeaderCheckboxChange = () => {
@@ -230,7 +237,7 @@ function AllEmployees() {
 
     const newIsChecked = {};
     employees.forEach((employee) => {
-      newIsChecked[employee.id] = newCheckedState;
+      newIsChecked[employee.employeeId] = newCheckedState;
     });
     setIsChecked(newIsChecked);
   };
@@ -293,8 +300,7 @@ function AllEmployees() {
           setTimeout(() => setErrorMessage(""), 3000);
           return;
         }
-        // Update local state after successful upload
-        // setEmployees((prev) => [...prev, ...formattedData.map(({ employee }) => employee)]);
+
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
         fetchEmployees();
@@ -377,14 +383,17 @@ function AllEmployees() {
             <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
               <thead className="bg-[#0098f1] text-white ">
                 <tr>
-                  <th className="py-2 px-4 border-b bg-transparent text-center">
-                    <img
-                      src={headerChecked ? checkbox : uncheckbox}
-                      alt="Header Checkbox"
-                      onClick={handleHeaderCheckboxChange}
-                      className="bg-transparent"
-                    />
+                  <th
+                    onClick={handleHeaderCheckboxChange}
+                    className="py-2 px-4 border-b bg-transparent text-center"
+                  >
+                    {headerChecked ? (
+                      <IoMdCheckbox className="w-7 h-7" />
+                    ) : (
+                      <MdOutlineCheckBoxOutlineBlank className="w-7 h-7" />
+                    )}
                   </th>
+
                   <th className="border p-2">SL.NO</th>
                   <th className="border p-2">Profile</th>
                   <th className="border p-2"> ID</th>
@@ -411,18 +420,17 @@ function AllEmployees() {
               <tbody>
                 {employees.map((employee, index) => (
                   <tr key={employee.employeeId}>
-                    <td className="py-2 px-4 border text-center bg-transparent">
-                      <img
-                        src={
-                          isChecked[employee.employeeId] ? checkbox : uncheckbox
-                        }
-                        alt="Checkbox"
-                        onClick={() =>
-                          handleCheckboxChange(employee.employeeId)
-                        }
-                        className="bg-transparent"
-                      />
+                    <td
+                      onClick={() => handleCheckboxChange(employee.employeeId)}
+                      className="py-2 px-4 border text-center bg-transparent"
+                    >
+                      {isChecked[employee.employeeId] ? (
+                        <IoMdCheckbox className="text-[#0098f1] w-7 h-7  " />
+                      ) : (
+                        <MdOutlineCheckBoxOutlineBlank className="w-7 h-7" />
+                      )}
                     </td>
+
                     <td className="border p-2">{index + 1}</td>
                     <td className="py-2 px-4 border-b text-center">
                       <img
@@ -656,12 +664,6 @@ function AllEmployees() {
         </div>
       )}
 
-      {/* Success Messages */}
-      {/* {showSuccessMessage && (
-        <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
-          Employee added/updated successfully!
-        </div>
-      )} */}
       {showSuccessMessage && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-[#0098f1] p-8 rounded-lg text-center text-white">
@@ -684,7 +686,6 @@ function AllEmployees() {
         </div>
       )}
 
-      {/* Error Message */}
       {errorMessage && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-red-600 p-8 rounded-lg text-center text-white">
@@ -694,9 +695,6 @@ function AllEmployees() {
             {errorMessage}
           </div>
         </div>
-        // <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg">
-        //   {errorMessage}
-        // </div>
       )}
     </>
   );

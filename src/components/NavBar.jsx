@@ -85,13 +85,11 @@ function NavBar({ onIconClick, options, projectOptions }) {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const filtered = flattenedOptions.filter((option) => {
-        // Ensure the option is not in the excludedTitles list
         const isExcluded = excludedTitles.includes(option.title);
-        // Check if it's a subOption and its parentTitle is excluded
+
         const isSubOptionExcluded =
           option.isSubOption && excludedTitles.includes(option.parentTitle);
 
-        // Filter only if the option or its parent is not excluded
         return (
           !isExcluded &&
           !isSubOptionExcluded &&
