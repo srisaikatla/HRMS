@@ -42,8 +42,8 @@ const Attendance = () => {
   const [employeeId, setEmployeeId] = useState(auth.employee?.employeeId); // New state for employee ID
   const [employeeName, setEmployeeName] = useState(
     auth.employee?.firstName.toUpperCase() +
-      " " +
-      auth.employee?.lastName.toUpperCase()
+    " " +
+    auth.employee?.lastName.toUpperCase()
   );
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -277,7 +277,7 @@ const Attendance = () => {
   }, [isPunchedIn]);
 
   const formatTime = (totalHours, totalMinutes, totalSeconds) => {
-    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const hours = totalHours % 60;
     const minutes = totalMinutes % 60;
     const seconds = totalSeconds % 60;
 
@@ -298,8 +298,10 @@ const Attendance = () => {
   const isPastPunchInTime = () => {
     const now = new Date();
     const punchInLimit = new Date();
-    punchInLimit.setHours(9, 30, 0, 0);
-    return now > punchInLimit;
+    const punchInLimit2 = new Date();
+    punchInLimit.setHours(12, 0, 0, 0);
+    punchInLimit2.setHours(8, 59, 0, 0)
+    return now > punchInLimit && now < punchInLimit2;
   };
 
   const handlePunchButtonClick = async () => {
@@ -531,9 +533,8 @@ const Attendance = () => {
           </div>
           <div className="flex justify-between items-center">
             <p
-              className={`text-sm lg:text-lg  font-semibold ${
-                isPunchedIn ? "text-blue-600" : "text-red-600"
-              }`}
+              className={`text-sm lg:text-lg  font-semibold ${isPunchedIn ? "text-blue-600" : "text-red-600"
+                }`}
             >
               {/* {isPunchedIn ? "Punched In" : "Punched Out"} */}
             </p>
@@ -542,20 +543,18 @@ const Attendance = () => {
             <button
               onClick={handlePunchButtonClick}
               // disabled={isPastPunchInTime() && !isPunchedIn}
-              className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${
-                isPunchedIn ? "bg-[#2A546D]" : "bg-[#2A546D]"
-              }`}
+              className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${isPunchedIn ? "bg-[#2A546D]" : "bg-[#2A546D]"
+                }`}
             >
               {isPunchedIn ? "Punch Out" : "Punch In"}
             </button>
             {isPunchedIn && (
               <button
                 onClick={handleBreakButtonClick}
-                className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${
-                  isOnBreak
-                    ? "bg-[#2A546D] hover:bg-[#2A546D]"
-                    : "bg-[#2A546D] hover:bg-[#2A546D]"
-                }`}
+                className={`px-4 py-2 rounded-lg w-full text-sm lg:text-lg  text-white ${isOnBreak
+                  ? "bg-[#2A546D] hover:bg-[#2A546D]"
+                  : "bg-[#2A546D] hover:bg-[#2A546D]"
+                  }`}
               >
                 {isOnBreak ? "End Break" : "Start Break"}
               </button>

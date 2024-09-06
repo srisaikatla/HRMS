@@ -35,7 +35,7 @@ function Attendance() {
   }, [jwt]);
 
   const formatTime = (totalHours, totalMinutes, totalSeconds) => {
-    const hours = totalHours + Math.floor(totalMinutes / 60);
+    const hours = totalHours % 60;
     const minutes = totalMinutes % 60;
     const seconds = totalSeconds % 60;
 
