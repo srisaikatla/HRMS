@@ -27,18 +27,20 @@ const Education = () => {
 
   const jwtToken = localStorage.getItem("employeeJwt");
 
-
   useEffect(() => {
     fetchEducationData();
   }, []);
 
   const fetchEducationData = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/education/fetchEducation`, {
-        headers: {
-          "Authorization": `Bearer ${jwtToken}`
-        },
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}/education/fetchEducation`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
       setEducationData([response.data]); // Assuming API returns a single education object
     } catch (error) {
       console.error("Error fetching education data", error);
@@ -61,21 +63,29 @@ const Education = () => {
 
     try {
       if (editingId) {
-        await axios.post(`${API_BASE_URL}/education/saveOrUpdate`, educationDTO, {
-          headers: {
-            "Authorization": `Bearer ${jwtToken}`
-          },
-        });
+        await axios.post(
+          `${API_BASE_URL}/education/saveOrUpdate`,
+          educationDTO,
+          {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
         setSuccessMessage("Education Updated Successfully");
         setEditingId(null);
         setIsEditModalOpen(false);
-        fetchEducationData()
+        fetchEducationData();
       } else {
-        await axios.post(`${API_BASE_URL}/education/saveOrUpdate`, educationDTO, {
-          headers: {
-            "Authorization": `Bearer ${jwtToken}`
-          },
-        });
+        await axios.post(
+          `${API_BASE_URL}/education/saveOrUpdate`,
+          educationDTO,
+          {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
         setSuccessMessage("Education Added Successfully");
         setIsAddModalOpen(false);
       }
@@ -113,7 +123,7 @@ const Education = () => {
     try {
       await axios.delete(`${API_BASE_URL}/education/delete`, {
         headers: {
-          "Authorization": `Bearer ${jwtToken}`
+          Authorization: `Bearer ${jwtToken}`,
         },
       });
       setSuccessMessage("Education Deleted Successfully");
@@ -123,8 +133,6 @@ const Education = () => {
     }
     setTimeout(() => setSuccessMessage(""), 3000); // Hide after 3 seconds
   };
-
-
 
   // Reset form state
   const resetForm = () => {
@@ -152,10 +160,10 @@ const Education = () => {
 
   return (
     <div className="bg-white h-[500px] flex flex-col">
-      <div className="flex justify-between items-center py-2">
+      <div className="flex justify-between items-center   py-2">
         <h1 className="text-sm lg:text-lg text-[#2A546D]">EDUCATION INFO</h1>
         <button
-          className="flex items-center text-lg bg-[#2A546D] text-white px-3 py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          className="flex items-center text-lg bg-[#2A546D] p-3 px-6 text-white px-3 py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           onClick={() => setIsAddModalOpen(true)}
         >
           <FaPlusCircle className="text-xl mr-2" aria-hidden="true" />
@@ -163,33 +171,43 @@ const Education = () => {
         </button>
       </div>
       <hr className="border-t-2 border-[#2A546D] mb-4" />
-      <div className="overflow-x-auto w-full lg:w-3/4 mx-auto"> {/* Adjust width here */}
-        <table className="min-w-full border border-[#2A546D]">
+
+      <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
           <thead>
             <tr className="bg-[#2A546D] text-white">
-              <th className="p-3 border border-[#2A546D]">Degree</th>
-              <th className="p-3 border border-[#2A546D]">Institution</th>
-              <th className="p-3 border border-[#2A546D]">University</th>
-              <th className="p-3 border border-[#2A546D]">Start Year</th>
-              <th className="p-3 border border-[#2A546D]">End Year</th>
-              <th className="p-3 border border-[#2A546D]">Actions</th>
+              <th className="p-3 border border-r-white border-[#2a546d]">
+                Degree
+              </th>
+              <th className="p-3 border-r border-white">Institution</th>
+              <th className="p-3 border-r border-white">University</th>
+              <th className="p-3 border-r border-white">Start Year</th>
+              <th className="p-3 border-r border-white">End Year</th>
+              <th className="p-3  border  border-[#2a546d]">Actions</th>
             </tr>
           </thead>
           <tbody>
             {educationData.map((education, index) => (
-              <tr key={index} className="text-center">
-                <td className="p-3 border border-[#2A546D]">{education.degree}</td>
-                <td className="p-3 border border-[#2A546D]">
+              <tr
+                key={index}
+                className="text-center text-[#2A546D] border  border-[#2a546d]"
+              >
+                <td className="p-3 border-r border-[#2a546d]">
+                  {education.degree}
+                </td>
+                <td className="p-3 border-r border-[#2a546d]">
                   {education.institution}
                 </td>
-                <td className="p-3 border border-[#2A546D]">{education.university}</td>
-                <td className="p-3 border border-[#2A546D]">
+                <td className="p-3 border-r border-[#2a546d]">
+                  {education.university}
+                </td>
+                <td className="p-3 border-r border-[#2a546d]">
                   {education.startYear}
                 </td>
-                <td className="p-3 border border-[#2A546D]">
+                <td className="p-3 border-r border-[#2a546d]">
                   {education.endYear}
                 </td>
-                <td className="p-3 border border-[#2A546D]">
+                <td className="p-3 border-r border-[#2a546d]">
                   <button
                     onClick={() => handleEdit(education.id)}
                     className="text-blue-600 mr-4"

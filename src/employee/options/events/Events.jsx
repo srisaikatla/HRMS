@@ -265,17 +265,7 @@ const Events = () => {
       <h2 className="text-[#2A546D] lg:text-lg text-sm font-medium  mb-4">
         Employee / Events
       </h2>
-      {/* <div className="flex justify-end mb-4 mt-4">
-        <button
-          className="bg-[#2A546D] text-white flex items-center rounded-lg px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 lg:px-6 lg:py-4 text-xs sm:text-sm md:text-base lg:text-lg"
-          onClick={() => setIsModalOpen(true)}
-        >
-          <FaPlusCircle className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mr-2" />
-          <span className="font-medium text-xs sm:text-sm md:text-base lg:text-lg">
-            Add New Event
-          </span>
-        </button>
-      </div> */}
+
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Calendar Container */}
         <div className="w-full lg:w-[70vw] bg-white rounded-lg p-4 lg:order-1">
@@ -356,30 +346,27 @@ const Events = () => {
         <h1 className="text-xl font-bold mb-4 text-[#2A546D]">Events List</h1>
         <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4">
           <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
-            <thead className="bg-[#2A546D] text-white">
-              <tr>
-                <th className="p-2 border-r border-white text-center border-opacity-80">
+            <thead className="">
+              <tr className="bg-[#2a546d] text-white">
+                <th className="p-3 border border-r-white border-[#2a546d]">
                   Day
                 </th>
-                <th className="p-2 border-r border-white text-center border-opacity-80">
-                  Date
-                </th>
-                <th className="p-2 border-r border-white text-center border-opacity-80">
-                  Event
-                </th>
+                <th className="p-3 border-r border-white">Date</th>
+                <th className="p-3  border  border-[#2a546d]">Event</th>
                 {/* <th className="p-2 text-center">Actions</th> */}
               </tr>
             </thead>
             <tbody className="text-center">
               {events.map((event) => (
-                <tr key={event.id} className=" bg-opacity-20">
-                  <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#2A546D] border-opacity-80">
-                    {event.day}
-                  </td>
-                  <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#2A546D] border-opacity-80">
+                <tr
+                  key={event.id}
+                  className="text-center text-[#2A546D] border  border-[#2a546d]"
+                >
+                  <td className="p-3 border-r border-[#2a546d]">{event.day}</td>
+                  <td className="p-3 border-r border-[#2a546d]">
                     {event.date}
                   </td>
-                  <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#2A546D] border-opacity-80">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {event.name}
                   </td>
                   {/* <td className="py-2 px-4 border-b bg-transparent text-center border-r-0 border-[#2A546D] border-opacity-80">

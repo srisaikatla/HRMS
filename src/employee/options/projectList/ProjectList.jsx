@@ -88,25 +88,25 @@ const ProjectList = () => {
     switch (statusid) {
       case "Active":
         return (
-          <button className="w-[70px] rounded bg-green-600 text-white font-normal text-sm p-1">
+          <button className="w-20 rounded bg-green-600 text-white font-normal text-sm p-2">
             Active
           </button>
         );
       case "InActive":
         return (
-          <button className="w-[70px] rounded bg-blue-400 text-white font-normal text-sm p-1">
+          <button className="w-20 rounded bg-blue-400 text-white font-normal text-sm p-2">
             InActive
           </button>
         );
       case "Pending":
         return (
-          <button className="w-[70px] rounded bg-orange-400 text-white font-normal text-sm p-1">
+          <button className="w-20 rounded bg-orange-400 text-white font-normal text-sm p-2">
             Pending
           </button>
         );
       case "Closed":
         return (
-          <button className="w-[70px] rounded bg-red-600 text-white font-normal text-sm p-1">
+          <button className="w-20 rounded bg-red-600 text-white font-normal text-sm p-2">
             Closed
           </button>
         );
@@ -157,15 +157,17 @@ const ProjectList = () => {
       </div>
       <div className="   overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-4">
         <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
-          <thead className="bg-[#2A546D]">
-            <tr className="text-[#FFFFFF]">
-              <th className="p-2 ">Project</th>
-              <th className="p-2 ">Created</th>
-              <th className="p-2 ">Deadline</th>
-              <th className="p-2 ">Progress</th>
-              <th className="p-2 ">Lead</th>
-              <th className="p-2 px-20">Team</th>
-              <th className="p-2 ">Status</th>
+          <thead>
+            <tr className="bg-[#2A546D] text-white">
+              <th className="p-3 border border-r-white border-[#2a546d] ">
+                Project
+              </th>
+              <th className="p-3 border-r border-white ">Created</th>
+              <th className="p-3 border-r border-white ">Deadline</th>
+              <th className="p-3 border-r border-white ">Progress</th>
+              <th className="p-3 border-r border-white ">Lead</th>
+              <th className="p-3 border-r border-white px-20">Team</th>
+              <th className="p-3  border  border-[#2a546d] ">Status</th>
               {/* <th className="p-2 ">Action</th> */}
             </tr>
           </thead>
@@ -178,19 +180,21 @@ const ProjectList = () => {
               return (
                 <tr
                   key={index}
-                  className="text-center text-[#2A546D] font-medium text-[15px] w-full border-[1px] border-[#2A546D] "
+                  className="text-center text-[#2A546D] border  border-[#2a546d] "
                 >
-                  <td className="px-2">{item.project}</td>
-                  <td className="px-2 border-x-[1px] border-[#2A546D]">
+                  <td className="p-3 border-r border-[#2a546d]">
+                    {item.project}
+                  </td>
+                  <td className="p-3 border-r border-[#2a546d]">
                     {dayjs(item.createdBy).format("DD MMM, YYYY")}
                   </td>
-                  <td className="px-2 border-x-[1px] border-[#2A546D]">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {dayjs(item.Deadline).format("DD MMM, YYYY")}
                   </td>
-                  <td className="py-2 px-2 w-[120px] font-normal border-x-[1px] border-[#2A546D]">
+                  <td className="py-2 px-2 p-3 border-r border-[#2a546d]">
                     <div className="relative w-full h-4 bg-white border border-gray-300 rounded-full">
                       <div
-                        className={`h-full bg-[#2df71e] rounded-full`}
+                        className={`h-full bg-[#1D7616] rounded-full`}
                         style={{ width: `${percentage}%` }}
                       />
                       <span
@@ -209,7 +213,7 @@ const ProjectList = () => {
                       className="w-10 h-10 mx-auto"
                     />
                   </td>
-                  <td className="px-4 flex justify-center items-center space-x-1 w-full ">
+                  <td className=" flex justify-center p-3 border-r border-[#2a546d] items-center space-x-1 ">
                     {Array.from({ length: item.TeamMembers }).map(
                       (_, memberIndex) => (
                         <img
@@ -221,7 +225,7 @@ const ProjectList = () => {
                       )
                     )}
                   </td>
-                  <td className=" text-center px-2 border-x-[1px] border-[#2A546D]">
+                  <td className=" text-center  p-3 border-r  border-[#2A546D]">
                     {GetStatus(item.Status)}
                   </td>
                   {/* <td className="px-2 text-white flex mt-2 justify-center items-center space-x-2 pb-1">
