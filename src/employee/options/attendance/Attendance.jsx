@@ -299,7 +299,7 @@ const Attendance = () => {
     const now = new Date();
     const punchInLimit = new Date();
     const punchInLimit2 = new Date();
-    punchInLimit.setHours(9, 30, 0, 0);
+    punchInLimit.setHours(10, 0, 0, 0);
     punchInLimit2.setHours(8, 59, 0, 0)
     return now > punchInLimit || now < punchInLimit2;
   };
