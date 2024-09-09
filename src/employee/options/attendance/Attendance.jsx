@@ -264,7 +264,7 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(9, 20, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
 
       if (now > logoutLimit && isPunchedIn) {
         handlePunchButtonClick(); // Call the punch-out function
