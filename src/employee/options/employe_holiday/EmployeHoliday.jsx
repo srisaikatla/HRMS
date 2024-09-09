@@ -34,43 +34,44 @@ function EmployeHoliday() {
             </span>
           </div>
         </div>
+        {/* <div className="   overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-4">
+        <table className="min-w-full w-screen overflow-x-scroll  text-nowrap"> */}
         <div
           id="table"
-          className="  overflow-x-scroll scrollbar-thin h-screen   overflow-y-auto   scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 "
+          className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4"
         >
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <table className="min-w-full overflow-x-scroll text-nowrap ">
-              <thead className="bg-[#2A546D] text-white">
-                <tr>
-                  <th className="py-3 px-4 text-center border-r border-white border-opacity-60 text-lg font-semibold">
+            <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
+              <thead className="">
+                <tr className="bg-[#2a546d] text-white">
+                  <th className="p-3 border border-r-white border-[#2a546d]">
                     Sl.No
                   </th>
-                  <th className="py-3 px-4 text-center border-r border-white border-opacity-60 text-lg font-semibold">
-                    Day
-                  </th>
-                  <th className="py-3 px-4 text-center border-r border-white border-opacity-60 text-lg font-semibold">
-                    Date
-                  </th>
-                  <th className="py-3 px-4 text-center border-r border-white border-opacity-60 text-lg font-semibold">
+                  <th className="p-3 border-r border-white">Day</th>
+                  <th className="p-3 border-r border-white">Date</th>
+                  <th className="p-3  border  border-[#2a546d]">
                     Holiday Name
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {holidays.map((holiday, index) => (
-                  <tr key={holiday.holidayName}>
-                    <td className="py-2 px-4 border-b bg-transparent text-center border-r border-l border-[#2A546D] border-opacity-80 text-lg ">
+                  <tr
+                    key={holiday.holidayName}
+                    className="text-center text-[#2A546D] border  border-[#2a546d]"
+                  >
+                    <td className="p-3 border-r border-[#2a546d]">
                       {index + 1}
                     </td>
-                    <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#2A546D] border-opacity-80 text-lg ">
+                    <td className="p-3 border-r border-[#2a546d] ">
                       {holiday.day}
                     </td>
-                    <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#2A546D] border-opacity-80 text-lg ">
+                    <td className="p-3 border-r border-[#2a546d] ">
                       {holiday.date}
                     </td>
-                    <td className="py-2 px-4 border-b bg-transparent text-center border-r border-[#2A546D] border-opacity-80 text-lg">
+                    <td className="p-3 border-r border-[#2a546d]">
                       {holiday.holidayName}
                     </td>
                   </tr>

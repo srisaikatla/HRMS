@@ -4,7 +4,7 @@ import { IoMdMenu } from "react-icons/io";
 import profile from "../assets/hr/employee/profile/profile.jpg";
 import NavBar from "./NavBar";
 import { useDispatch } from "react-redux";
-
+import { BsCalendar2CheckFill } from "react-icons/bs";
 import HolidayTab from "../components/hr/holiday/HolidayList";
 import AllEmployee from "../components/hr/hr_management/allEmployee/AllEmployee";
 import LeaveRequest from "../components/hr/hr_management/leaveRequest/LeaveRequest";
@@ -119,6 +119,7 @@ const SideBar = () => {
     { title: "Leaves", icon: <FaBuilding /> },
     { title: "Emp Attendance", icon: <FaCalendarCheck /> },
     { title: "Department", icon: <FaBuilding /> },
+    { title: "Emp password Request", icon: <BsCalendar2CheckFill /> },
 
     { title: "Onboarding", icon: <FaBuilding /> },
   ];
@@ -276,12 +277,7 @@ const SideBar = () => {
         <div>
           {!isSidebarCollapsed && (
             <>
-              <div className="flex items-center w-72 relative top-0 pb-4 px-2">
-                {/* <img
-                src={profile}
-                className="rounded-full w-[50px] h-[50px]"
-                alt="Profile"
-              /> */}
+              <div className="flex items-center  w-64 relative top-0 pb-4 px-2">
                 <img
                   src={profileImage}
                   className="rounded-full w-[50px] h-[50px] cursor-pointer"
@@ -373,7 +369,7 @@ const SideBar = () => {
         {activeTab === "Activities" && <Activities />}
         {activeTab === "HR Social" && <HrSocial />}
         {activeTab === "All Employees" && <AllEmployee />}
-        {activeTab === "Emp password Request" && < EmployeePasswordReq/>}
+        {activeTab === "Emp password Request" && <EmployeePasswordReq />}
 
         {activeTab === "Report Invoice" && <ReportInvoice />}
         {activeTab === "Report Expenses" && <ReportExpenses />}

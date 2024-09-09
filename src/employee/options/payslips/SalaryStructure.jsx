@@ -23,35 +23,34 @@ function SalaryStructure() {
         </div>
       </div>
       <div id="salary-structure" className="bg-white  mt-4 p-2">
-        <div className="text-lg text-[#2A546D] pt-4 flex justify-between items-center">
+        <div className="text-lg font-semibold text-[#2A546D] pt-4 flex justify-between items-center">
           <p>Current Salary</p>
           <p>Effective Date: June 21, 2024</p>
         </div>
         <div className="overflow-x-scroll text-lg scrollbar-thin scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-2">
           <table className="min-w-full w-screen overflow-x-scroll text-nowrap">
-            <thead className="bg-[#2A546D] text-white">
-              <tr>
-                <th className="px-4 bg-[#2A546D] border-r border-white text-white py-2">
+            <thead>
+              <tr className="bg-[#2a546d] text-white">
+                <th className="p-3 border border-r-white border-[#2a546d] ">
                   Components
                 </th>
-                <th className="px-4 bg-[#2A546D] border-r border-white text-white py-2">
-                  Monthly
-                </th>
-                <th className="px-4 bg-[#2A546D] border-r border-white text-white py-2">
-                  Yearly
-                </th>
+                <th className="p-3 border-r border-white">Monthly</th>
+                <th className="p-3  border  border-[#2a546d]">Yearly</th>
               </tr>
             </thead>
-            <tbody className="text-gray-700 bg-[#2A546D] bg-opacity-10">
+            <tbody className="">
               {salaryData.map((item, index) => (
-                <tr key={index} className="text-[#2A546D]  border-white">
-                  <td className="px-4 py-2 text-center border-r  border-white  ">
+                <tr
+                  key={index}
+                  className="text-center text-[#2A546D] border  border-[#2a546d]"
+                >
+                  <td className="p-3 border-r border-[#2a546d] ">
                     {item.component}
                   </td>
-                  <td className="px-4 py-2 text-center border-r  border-white ">
+                  <td className="p-3 border-r border-[#2a546d] ">
                     {item.monthly}
                   </td>
-                  <td className="px-4 py-2 text-center border-r  border-white  ">
+                  <td className="p-3 border-r border-[#2a546d]  ">
                     {item.yearly}
                   </td>
                 </tr>

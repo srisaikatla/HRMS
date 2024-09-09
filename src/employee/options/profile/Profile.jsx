@@ -37,7 +37,6 @@ const Profile = () => {
     alternatePhone: auth.employee?.alternatePhoneNumber,
   });
 
-
   const handleOpenContactModal = () => setIsContactModalOpen(true);
   const handleCloseContactModal = () => setIsContactModalOpen(false);
 
@@ -98,7 +97,7 @@ const Profile = () => {
       >
         {/* Desktop View */}
         <div className="hidden lg:flex flex-grow">
-          {["personal", "official", "documents", "password"].map((tab) => (
+          {["personal", "documents", "password"].map((tab) => (
             <div
               key={tab}
               className={`flex-grow flex items-center justify-center cursor-pointer transition-colors duration-300 text-lg ${activeTab === tab ? "bg-white text-black" : "text-white"
@@ -107,7 +106,7 @@ const Profile = () => {
               onClick={() => setActiveTab(tab)}
             >
               {tab === "personal" && "Personal Information"}
-              {tab === "official" && "Official Information"}
+              {/* {tab === "official" && "Official Information"} */}
               {tab === "documents" && "Documents"}
               {tab === "password" && "Update Password"}
             </div>
@@ -118,7 +117,7 @@ const Profile = () => {
         <div className="flex lg:hidden flex-grow ">
           {[
             { tab: "personal", icon: <FaUser /> },
-            { tab: "official", icon: <FaBriefcase /> },
+            // { tab: "official", icon: <FaBriefcase /> },
             { tab: "documents", icon: <FaFile /> },
             { tab: "password", icon: <FaLock /> },
           ].map(({ tab, icon }) => (
@@ -136,9 +135,11 @@ const Profile = () => {
       </nav>
 
       {activeTab === "personal" && (
-        <div className="bg-white p-6 ml-0 mr-0 md:ml-10 md:mr-10">
+        <div className="bg-white p-6 md:mx-10">
           <div className="flex justify-between items-center py-2 m-2">
-            <h1 className="text-lg text-[#2A546D]">PERSONAL INFO</h1>
+            <h1 className="text-lg font-semibold text-[#2A546D]">
+              PERSONAL INFO
+            </h1>
           </div>
 
           <hr className="border-t-2 border-[#2A546D] mb-4" />
@@ -154,9 +155,10 @@ const Profile = () => {
               <input
                 id="employeeId"
                 type="text"
+                readOnly
                 value={personalInfo.employeeId}
 
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                className="mt-1 block w-full border focus:outline-none border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -169,9 +171,10 @@ const Profile = () => {
               <input
                 id="firstName"
                 type="text"
+                readOnly
                 value={personalInfo.firstName}
 
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                className="mt-1 block focus:outline-none  w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -184,9 +187,10 @@ const Profile = () => {
               <input
                 id="lastName"
                 type="text"
+                readOnly
                 value={personalInfo.lastName}
 
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                className="mt-1 block focus:outline-none  w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -199,9 +203,10 @@ const Profile = () => {
               <input
                 id="bloodGroup"
                 type="text"
+                readOnly
                 value={personalInfo.bloodGroup}
 
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                className="mt-1 focus:outline-none  block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -214,9 +219,10 @@ const Profile = () => {
               <input
                 id="dob"
                 type="date"
+                readOnly
                 value={personalInfo.dob}
 
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                className="mt-1 focus:outline-none  block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
             <div className="m-2">
@@ -229,9 +235,10 @@ const Profile = () => {
               <input
                 id="officialEmail"
                 type="email"
+                readOnly
                 value={personalInfo.officialEmail}
                 onChange={handleChangeContactInfo}
-                className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                className="mt-1 focus:outline-none  block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
           </div>
@@ -260,13 +267,13 @@ const Profile = () => {
                   type="email"
                   value={contactInfo.personalEmail}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                  className="mt-1 block w-full focus:outline-[#2a546d]  border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
                 <label
                   htmlFor="phoneNumber"
-                  className="block text-lg font-medium text-[#2A546D] mb-3"
+                  className="block text-lg font-medium focus:outline-[#2a546d] text-[#2A546D] mb-3"
                 >
                   Personal Phone Number
                 </label>
@@ -275,7 +282,7 @@ const Profile = () => {
                   type="tel"
                   value={contactInfo.phoneNumber}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                  className="mt-1 block w-full border focus:outline-[#2a546d]  border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
               <div className="m-2">
@@ -290,7 +297,7 @@ const Profile = () => {
                   type="tel"
                   value={contactInfo.alternatePhone}
                   onChange={handleChangeContactInfo}
-                  className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
+                  className="mt-1 block w-full border focus:outline-[#2a546d]  border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
                 />
               </div>
             </div>
@@ -307,7 +314,7 @@ const Profile = () => {
           </div>
         </div>
       )}
-      {activeTab === "official" && <OfficialInformation />}
+      {/* {activeTab === "official" && <OfficialInformation />} */}
 
       {activeTab === "documents" && (
         <Documents

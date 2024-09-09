@@ -98,7 +98,7 @@ const AnomalySettings = () => {
           <div className="mr-2 md:mr-10">
             <div
               className={`  h-6 w-[50px] md:w-24 rounded-full cursor-pointer p-1 flex items-center ${
-                overTime ? "bg-gray-500" : "bg-[#2A546D]"
+                overTime ? "bg-red-500" : "bg-green-500"
               } `}
               onClick={() => setOverTime(!overTime)}
             >
@@ -121,7 +121,7 @@ const AnomalySettings = () => {
           <div className="mr-2 md:mr-10">
             <div
               className={`  h-6 w-[50px] md:w-24 rounded-full cursor-pointer p-1 flex items-center ${
-                isSelfieOn ? "bg-gray-500" : "bg-[#2A546D]"
+                isSelfieOn ? "bg-red-500" : "bg-green-500"
               } `}
               onClick={() => setIsSelfieOn(!isSelfieOn)}
             >
@@ -144,7 +144,7 @@ const AnomalySettings = () => {
           <div className="mr-2 md:mr-10">
             <div
               className={`  h-6 w-[50px] md:w-24 rounded-full cursor-pointer p-1 flex items-center ${
-                isCompOn ? "bg-gray-500" : "bg-[#2A546D]"
+                isCompOn ? "bg-red-500" : "bg-green-500"
               } `}
               onClick={() => setIsCompOn(!isCompOn)}
             >
@@ -167,7 +167,7 @@ const AnomalySettings = () => {
           <div className="mr-2 md:mr-10">
             <div
               className={`  h-6 w-[50px] md:w-24 rounded-full cursor-pointer p-1 flex items-center ${
-                penaltyRulesOn ? "bg-gray-500" : "bg-[#2A546D]"
+                penaltyRulesOn ? "bg-red-500" : "bg-green-500"
               } `}
               onClick={() => setPenaltyRulesOn(!penaltyRulesOn)}
             >

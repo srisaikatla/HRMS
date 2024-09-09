@@ -500,7 +500,7 @@ const Attendance = () => {
         <div className="relative ">
           <select
             onChange={(e) => setSearchDay(e.target.value)}
-            className="p-2 border w-40 py-3 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+            className="scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#2A546D] p-2 border w-40 py-3 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           >
             <option value="">Select Day</option>
             {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
@@ -616,33 +616,19 @@ const Attendance = () => {
         <div className="flex flex-col space-y-4 mb-6"></div>
 
         <div className="overflow-x-auto scrollbar-thin text-nowrap  scrollbar-track-white scrollbar-thumb-[#2A546D]">
-          <table className="min-w-full divide-y divide-red-200">
-            <thead className="bg-[#2A546D] text-white">
-              <tr>
-                <th className="px-4 py-3 text-left border border-white text-sm lg:text-lg  font-medium text-white uppercase tracking-wider  ">
+          <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
+            <thead className="">
+              <tr className="bg-[#2A546D] text-white">
+                <th className="p-3 border border-r-white border-[#2a546d] ">
                   Employee ID
                 </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Employee Name
-                </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Punch In
-                </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Punch Out
-                </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Production Hours
-                </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Break Duration
-                </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Working Hours
-                </th>
-                <th className="px-4 py-3 text-left text-sm lg:text-lg border-white  font-medium text-white uppercase tracking-wider border ">
-                  Overtime
-                </th>
+                <th className="p-3 border-r border-white ">Employee Name</th>
+                <th className="p-3 border-r border-white ">Punch In</th>
+                <th className="p-3 border-r border-white ">Punch Out</th>
+                <th className="p-3 border-r border-white ">Production Hours</th>
+                <th className="p-3 border-r border-white ">Break Duration</th>
+                <th className="p-3 border-r border-white ">Working Hours</th>
+                <th className="p-3  border  border-[#2a546d] ">Overtime</th>
               </tr>
             </thead>
             <tbody>
@@ -668,31 +654,38 @@ const Attendance = () => {
                   );
 
                   return (
-                    <tr key={index}>
-                      <td className="px-4 py-2 border">{entry.employeeId}</td>
-                      <td className="px-4 py-2 border">{entry.employeeName}</td>
-                      <td className="px-4 py-2 border">
+                    <tr
+                      key={index}
+                      className="text-center text-[#2A546D] border  border-[#2a546d]"
+                    >
+                      <td className="p-3 border-r border-[#2a546d]">
+                        {entry.employeeId}
+                      </td>
+                      <td className="p-3 border-r border-[#2a546d]">
+                        {entry.employeeName}
+                      </td>
+                      <td className="p-3 border-r border-[#2a546d]">
                         {new Date(entry.punchIn).toLocaleString()}
                       </td>
-                      <td className="px-4 py-2 border">
+                      <td className="p-3 border-r border-[#2a546d]">
                         {new Date(entry.punchOut).toLocaleString()}
                       </td>
-                      <td className="px-4 py-2 border">
+                      <td className="p-3 border-r border-[#2a546d]">
                         {formatTime(
                           entry.productionHours,
                           entry.productionMinutes,
                           entry.productionSeconds
                         )}
                       </td>
-                      <td className="px-4 py-2 border">
+                      <td className="p-3 border-r border-[#2a546d]">
                         {entry.breakHours} hours, {entry.breakMinutes} mins,{" "}
                         {entry.breakSeconds} secs
                       </td>
-                      <td className="px-4 py-2 border">
+                      <td className="p-3 border-r border-[#2a546d]">
                         {entry.workingHours} hours, {entry.workingMinutes} mins,{" "}
                         {entry.workingSeconds} secs
                       </td>
-                      <td className="px-4 py-2 border">
+                      <td className="p-3 border-r border-[#2a546d]">
                         {entry.overtime} hours
                       </td>
                     </tr>

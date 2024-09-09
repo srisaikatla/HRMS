@@ -156,11 +156,11 @@ const Documents = ({
   };
 
   return (
-    <div className="bg-white h-[500px] flex flex-col p-2">
+    <div className="bg-white h-[500px] p-6 mx-10 flex flex-col ">
       <div className="flex justify-between items-center py-2">
-        <h1 className="text-xl text-[#2A546D]">ID PROOFS</h1>
+        <h1 className="text-lg font-semibold text-[#2A546D]">ID PROOFS</h1>
         <button
-          className="flex items-center text-lg bg-[#2A546D] text-white px-4 py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          className="flex items-center p-3 px-6 text-lg bg-[#2A546D] text-white py-2 justify-center rounded-lg hover:bg-[#2A546D] focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           onClick={() => {
             resetForm(); // Ensure form is reset when adding new document
             handleOpenDocumentsModal();
@@ -173,47 +173,40 @@ const Documents = ({
       <hr className="border-t-2 border-[#2A546D] mb-4" />
       <div className="  overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2a546d] pt-4 mx-4">
         <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
-          <thead className="bg-[#2A546D]">
-            <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+          <thead>
+            <tr className="bg-[#2a546d] text-white">
+              <th className="p-3 border border-r-white border-[#2a546d] ">
                 ID Type
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                ID Number
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Verified
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Submitted
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                File Name
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                Actions
-              </th>
+              <th className="p-3 border-r border-white">ID Number</th>
+              <th className="p-3 border-r border-white">Verified</th>
+              <th className="p-3 border-r border-white">Submitted</th>
+              <th className="p-3 border-r border-white">File Name</th>
+              <th className="p-3  border  border-[#2a546d]">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {documentsData.map((item) => (
-              <tr key={item.id}>
-                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <tr
+                key={item.id}
+                className="text-center text-[#2A546D] border  border-[#2a546d]"
+              >
+                <td className="p-3 font-semibold border-r border-[#2a546d]">
                   {item.idType}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="p-3 border-r border-[#2a546d]">
                   {item.idNumber}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="p-3 border-r border-[#2a546d]">
                   {item.verified ? "Yes" : "No"}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="p-3 border-r border-[#2a546d]">
                   {item.submitted ? "Yes" : "No"}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="p-3 border-r border-[#2a546d]">
                   {item.fileName}
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                <td className="p-3 border-r border-[#2a546d]">
                   <button
                     onClick={() => handleEdit(item.id)}
                     className="text-blue-600 mr-4"
@@ -328,7 +321,7 @@ const Documents = ({
                 </button>
                 <button
                   onClick={handleCloseDocumentsModal}
-                  className="bg-transparent border border-[#2A546D] text-[#2A546D] h-[40px] w-[120px] rounded-lg ml-2 hover:bg-[#2A546D] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+                  className="bg-transparent border border-[#2A546D] text-[#2A546D] h-[40px] w-[120px] rounded-lg ml-2 focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                   aria-label="Cancel"
                 >
                   Cancel

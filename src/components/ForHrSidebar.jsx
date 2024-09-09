@@ -118,19 +118,28 @@ const ForHrSidebar = ({
   ];
 
   useEffect(() => {
-    const isPayrollOption = payrollOptions.find(op => op.title === activeTab);
-    const isEmployeeOption = employeeOptions.find(op => op.title === activeTab);
-    const isReportOption = reportOptions.find(op => op.title === activeTab);
-    const isAccountsOption = accountOptions.find(op => op.title === activeTab);
+    const isPayrollOption = payrollOptions.find((op) => op.title === activeTab);
+    const isEmployeeOption = employeeOptions.find(
+      (op) => op.title === activeTab
+    );
+    const isReportOption = reportOptions.find((op) => op.title === activeTab);
+    const isAccountsOption = accountOptions.find(
+      (op) => op.title === activeTab
+    );
     isPayrollOption && setShowPayrollOptions(!!isPayrollOption);
     isEmployeeOption && setShowEmployeeOptions(!!isEmployeeOption);
     isReportOption && setShowReportOptions(!!isReportOption);
     isAccountsOption && setShowAccountOptions(!!isAccountsOption);
-    isEmployeeOption && setShowHrManagementOptions(!!isEmployeeOption || activeTab === "HR Management" || activeTab === "Employee");
+    isEmployeeOption &&
+      setShowHrManagementOptions(
+        !!isEmployeeOption ||
+          activeTab === "HR Management" ||
+          activeTab === "Employee"
+      );
   }, [activeTab]);
 
   const handleOptionClick = (option) => {
-    localStorage.setItem('HR_ACTIVE_TAB', option.title);
+    localStorage.setItem("HR_ACTIVE_TAB", option.title);
     setActiveTab(option.title);
     switch (option.title) {
       case "HR Management":
@@ -177,10 +186,11 @@ const ForHrSidebar = ({
         {options.map((option) => (
           <React.Fragment key={option.title}>
             <li
-              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${activeTab === option.title
-                ? "bg-white rounded-r-full text-[#0098f1]"
-                : "hover:bg-white hover:text-[#0098f1] hover:rounded-r-full"
-                }`}
+              className={`flex justify-between text-[16px] pl-5 py-3  mb-1 items-center cursor-pointer ${
+                activeTab === option.title
+                  ? "bg-white rounded-r-full text-[#0098f1]"
+                  : "hover:bg-white hover:text-[#0098f1] hover:rounded-r-full"
+              }`}
               onClick={() => handleOptionClick(option)}
               onMouseOver={(event) => handleMouseOver(event, option.title)}
               onMouseOut={handleMouseOut}
@@ -219,10 +229,11 @@ const ForHrSidebar = ({
             {option.title === "HR Management" && showHrManagementOptions && (
               <ul>
                 <li
-                  className={`flex justify-between text-[16px] bg-opacity-50  pl-5 py-3 mb-1 cursor-pointer ${activeTab === "Employee"
-                    ? "bg-white bg-opacity-70 rounded-r-full text-[#0098F1]"
-                    : "hover:bg-white hover:bg-opacity-70 hover:text-[#0098F1] hover:rounded-r-full"
-                    }`}
+                  className={`flex justify-between text-[16px] bg-opacity-50  pl-5 py-3 mb-1 cursor-pointer ${
+                    activeTab === "Employee"
+                      ? "bg-white bg-opacity-70 rounded-r-full text-[#0098F1]"
+                      : "hover:bg-white hover:bg-opacity-70 hover:text-[#0098F1] hover:rounded-r-full"
+                  }`}
                   onClick={() => handleOptionClick({ title: "Employee" })}
                   onMouseOver={(event) => handleMouseOver(event, "Employee")}
                   onMouseOut={handleMouseOut}
@@ -253,13 +264,17 @@ const ForHrSidebar = ({
                     {employeeOptions.map((employeeOption) => (
                       <li
                         key={employeeOption.title}
-                        className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === employeeOption.title
-                          ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
-                          : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
-                          }`}
+                        className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
+                          activeTab === employeeOption.title
+                            ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                            : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
+                        }`}
                         onClick={() => {
-                          localStorage.setItem('HR_ACTIVE_TAB', employeeOption.title);
-                          setActiveTab(employeeOption.title)
+                          localStorage.setItem(
+                            "HR_ACTIVE_TAB",
+                            employeeOption.title
+                          );
+                          setActiveTab(employeeOption.title);
                         }}
                         onMouseOver={(event) =>
                           handleMouseOver(event, employeeOption.title)
@@ -285,13 +300,17 @@ const ForHrSidebar = ({
                 {payrollOptions.map((payrollOption) => (
                   <li
                     key={payrollOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === payrollOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
-                      }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
+                      activeTab === payrollOption.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
+                    }`}
                     onClick={() => {
-                      localStorage.setItem('HR_ACTIVE_TAB', payrollOption.title);
-                      setActiveTab(payrollOption.title)
+                      localStorage.setItem(
+                        "HR_ACTIVE_TAB",
+                        payrollOption.title
+                      );
+                      setActiveTab(payrollOption.title);
                     }}
                     onMouseOver={(event) =>
                       handleMouseOver(event, payrollOption.title)
@@ -315,13 +334,14 @@ const ForHrSidebar = ({
                 {reportOptions.map((reportOption) => (
                   <li
                     key={reportOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === reportOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
-                      }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
+                      activeTab === reportOption.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
+                    }`}
                     onClick={() => {
-                      localStorage.setItem('HR_ACTIVE_TAB', reportOption.title);
-                      setActiveTab(reportOption.title)
+                      localStorage.setItem("HR_ACTIVE_TAB", reportOption.title);
+                      setActiveTab(reportOption.title);
                     }}
                     onMouseOver={(event) =>
                       handleMouseOver(event, reportOption.title)
@@ -345,13 +365,17 @@ const ForHrSidebar = ({
                 {accountOptions.map((accountOption) => (
                   <li
                     key={accountOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === accountOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
-                      }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
+                      activeTab === accountOption.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
+                    }`}
                     onClick={() => {
-                      localStorage.setItem('HR_ACTIVE_TAB', accountOption.title);
-                      setActiveTab(accountOption.title)
+                      localStorage.setItem(
+                        "HR_ACTIVE_TAB",
+                        accountOption.title
+                      );
+                      setActiveTab(accountOption.title);
                     }}
                     onMouseOver={(event) =>
                       handleMouseOver(event, accountOption.title)
@@ -374,10 +398,11 @@ const ForHrSidebar = ({
                 {authOptions.map((authOption) => (
                   <li
                     key={authOption.title}
-                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${activeTab === authOption.title
-                      ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
-                      : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
-                      }`}
+                    className={`text-[16px] pl-5 py-2 mb-1 cursor-pointer ${
+                      activeTab === authOption.title
+                        ? "bg-white bg-opacity-50 rounded-r-full text-[#0098F1]"
+                        : "hover:bg-white hover:bg-opacity-50 hover:text-[#0098F1] hover:rounded-r-full"
+                    }`}
                     onClick={() => handleOptionClickNavigate(authOption)}
                     onMouseOver={(event) =>
                       handleMouseOver(event, authOption.title)

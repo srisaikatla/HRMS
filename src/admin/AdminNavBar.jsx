@@ -12,6 +12,8 @@ function AdminNavBar({ onIconClick, options }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
+  const excludedTitles = ["Payroll"]; // Titles to exclude
+
   const flattenedOptions = useMemo(() => {
     return options.flatMap((option) => {
       if (option.subOptions) {
@@ -46,28 +48,49 @@ function AdminNavBar({ onIconClick, options }) {
     setDropdownOpen(!dropdownOpen);
   };
 
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     const filtered = flattenedOptions.filter(
+  //       (option) =>
+  //         option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //         option.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  //     );
+  //     setFilteredOptions(filtered);
+  //   } else {
+  //     setFilteredOptions([]);
+  //   }
+  // }, [searchQuery, flattenedOptions]);
   useEffect(() => {
     if (searchQuery) {
       const filtered = flattenedOptions.filter(
         (option) =>
-          option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          option.name?.toLowerCase().includes(searchQuery.toLowerCase())
+          (option.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            option.name?.toLowerCase().includes(searchQuery.toLowerCase())) &&
+          !excludedTitles.includes(option.title) // Ensure excluded titles are not shown
       );
       setFilteredOptions(filtered);
     } else {
       setFilteredOptions([]);
     }
   }, [searchQuery, flattenedOptions]);
-
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  // const handleSuggestionClick = (suggestion) => {
+  //   onIconClick(suggestion.title);
+  //   setSearchQuery("");
+  //   setFilteredOptions([]);
+  //   // setDropdownOpen(false);
+  // };
   const handleSuggestionClick = (suggestion) => {
-    onIconClick(suggestion.title);
+    if (suggestion.isSubOption) {
+      onIconClick(suggestion.name); // Use name for suboptions
+    } else {
+      onIconClick(suggestion.title); // Use title for main options
+    }
     setSearchQuery("");
     setFilteredOptions([]);
-    // setDropdownOpen(false);
   };
 
   return (

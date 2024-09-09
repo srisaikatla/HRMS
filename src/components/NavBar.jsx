@@ -21,6 +21,18 @@ function NavBar({ onIconClick, options, projectOptions }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [tooltip, setTooltip] = useState("");
+  const excludedTitles = [
+    "PayRoll",
+    "HR Management",
+    "Reports",
+    "Accounts",
+    "Authentication",
+    "Project",
+    "Logout",
+    "Register",
+    "Forgot Password",
+    "Page 404",
+  ];
 
   const jwt = localStorage.getItem("hrjwt");
   const dispatch = useDispatch();
@@ -53,21 +65,43 @@ function NavBar({ onIconClick, options, projectOptions }) {
   };
 
   // Filter options based on search query
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     const query = searchQuery.toLowerCase();
+  //     const filtered = flattenedOptions.filter(
+  //       (option) =>
+  //         option.title?.toLowerCase().includes(query) ||
+  //         option.name?.toLowerCase().includes(query) ||
+  //         (option.isSubOption &&
+  //           option.parentTitle?.toLowerCase().includes(query) &&
+  //           !excludedTitles.includes(option.title))
+  //     );
+  //     setFilteredOptions(filtered);
+  //   } else {
+  //     setFilteredOptions([]);
+  //   }
+  // }, [searchQuery, flattenedOptions]);
   useEffect(() => {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      const filtered = flattenedOptions.filter(
-        (option) =>
-          option.title?.toLowerCase().includes(query) ||
-          option.name?.toLowerCase().includes(query) ||
-          (option.isSubOption &&
-            option.parentTitle?.toLowerCase().includes(query))
-      );
+      const filtered = flattenedOptions.filter((option) => {
+        const isExcluded = excludedTitles.includes(option.title);
+
+        const isSubOptionExcluded =
+          option.isSubOption && excludedTitles.includes(option.parentTitle);
+
+        return (
+          !isExcluded &&
+          !isSubOptionExcluded &&
+          (option.title?.toLowerCase().includes(query) ||
+            option.name?.toLowerCase().includes(query))
+        );
+      });
       setFilteredOptions(filtered);
     } else {
       setFilteredOptions([]);
     }
-  }, [searchQuery, flattenedOptions]);
+  }, [searchQuery, flattenedOptions, excludedTitles]);
 
   const handleSuggestionClick = (suggestion) => {
     onIconClick(suggestion.title);

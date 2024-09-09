@@ -191,7 +191,7 @@ const Tickets = () => {
 
       <div className="flex justify-end mb-4">
         <button
-          className="flex items-center mr-2 bg-[#2A546D] text-white px-4 py-2 rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
+          className="flex items-center mr-2 bg-[#2A546D] text-white px-6 py-2 rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
           onClick={() => openModal()}
         >
           <FaPlusCircle className="text-xl mr-2" aria-hidden="true" />
@@ -202,8 +202,8 @@ const Tickets = () => {
       <div className="overflow-x-scroll scrollbar-thin   scrollbar-track-white scrollbar-thumb-[#2A546D] pt-4 mx-2">
         {tickets.length > 0 ? (
           <table className="min-w-full w-screen overflow-x-scroll  text-nowrap">
-            <thead className="bg-[#2A546D] text-white text-sm md:text-base">
-              <tr>
+            <thead className="">
+              <tr className="bg-[#2a546d] text-white">
                 {[
                   "Ticket ID",
                   "Subject",
@@ -218,10 +218,7 @@ const Tickets = () => {
                   // "File",
                   // "Actions",
                 ].map((header, index) => (
-                  <th
-                    key={index}
-                    className="py-3 px-4 border-b text-left whitespace-nowrap"
-                  >
+                  <th key={index} className="p-3 border-r border-white">
                     {header}
                   </th>
                 ))}
@@ -231,42 +228,42 @@ const Tickets = () => {
               {tickets.map((ticket) => (
                 <tr
                   key={ticket.id}
-                  className="hover:bg-gray-100 border-[1px] border-[#2A546D] "
+                  className="text-center text-[#2A546D] border  border-[#2a546d]"
                 >
-                  <td className="py-2 px-4 text-left border-[1px] border-[#2A546D]  whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.ticketId}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.ticketSubject}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.Client}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.Priority}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.assignStaff}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.Assign}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.TicketAssignee}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.AddFollowers.join(", ")}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.TicketFollowers.join(", ")}
                   </td>
-                  <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  <td className="p-3 border-r border-[#2a546d]">
                     {ticket.Description}
                   </td>
-                  {/* <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap">
+                  {/* <td className="p-3 border-r border-[#2a546d]">
         {ticket.file?.name || "No file"}
       </td> */}
-                  {/* <td className="py-2 px-4 border-[1px] border-[#2A546D]  text-left whitespace-nowrap flex space-x-2">
+                  {/* <td className="p-3 border-r border-[#2a546d] flex space-x-2">
         <button
           className="text-[#2A546D] hover:text-[#2A546D]"
           onClick={() => openModal(ticket)}
