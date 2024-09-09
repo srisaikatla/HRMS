@@ -1,21 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import axios from 'axios'
+import { API_BASE_URL } from "../../../Config/api";
+import { useSelector } from "react-redux";
 
-const initialDocumentsData = [
-  {
-    id: 1,
-    idType: "Aadhar",
-    idNumber: "1234-5678-9101",
-    isVerified: true,
-    isSubmitted: false,
-    fileName: "aadhar_card.pdf", // Example file name
-  },
-];
+
+const MAX_FILE_SIZE_MB = 10; // Max file size in megabytes
+
 
 const Documents = ({
   handleOpenDocumentsModal,
@@ -24,42 +20,94 @@ const Documents = ({
 }) => {
   const [idType, setIdType] = useState("");
   const [idNumber, setIdNumber] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [verified, setVerified] = useState("false");
+  const [submitted, setSubmitted] = useState("false");
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
-  const [documentsData, setDocumentsData] = useState(initialDocumentsData);
+  const [documentsData, setDocumentsData] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const jwtToken = localStorage.getItem('employeeJwt')
+  const auth = useSelector((state) => state.auth);
+  const employeeId = auth.employee.employeeId
+  const [errorMessage, setErrorMessage] = useState("")
 
-  const handleDocumentSave = () => {
-    const newDocument = {
-      id: editMode
-        ? editingId
-        : documentsData.length
-          ? Math.max(...documentsData.map((item) => item.id)) + 1
-          : 1,
-      idType,
-      idNumber,
-      isVerified,
-      isSubmitted,
-      fileName,
-    };
+  useEffect(() => {
+    fetchDocuments();
+  }, []);
 
-    if (editMode) {
-      // Update existing document
-      setDocumentsData((prevData) =>
-        prevData.map((item) => (item.id === editingId ? newDocument : item))
-      );
-      setSuccessMessage("Document updated successfully!");
-    } else {
-      // Add new document
-      setDocumentsData((prevData) => [...prevData, newDocument]);
-      setSuccessMessage("Document added successfully!");
+  // Function to fetch documents from the backend
+  const fetchDocuments = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/aadhar/get/${employeeId}`, {
+        headers: {
+          "Authorization": `Bearer ${jwtToken}`
+        },
+      });
+      setDocumentsData(response.data);
+    } catch (error) {
+      console.error("Error fetching documents:", error);
     }
-    resetForm();
-    handleCloseDocumentsModal();
+  };
+
+  const handleDocumentSave = async () => {
+    if (!idType || !idNumber || !employeeId) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    // Check file size before uploading
+    if (file && file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      alert(`File size exceeds the ${MAX_FILE_SIZE_MB}MB limit.`);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("idType", idType);
+    formData.append("idNumber", idNumber);
+    formData.append("verified", verified);
+    formData.append("submitted", submitted);
+    formData.append("employeeId", employeeId);
+    if (file) {
+      formData.append("file", file);
+    }
+
+    try {
+      if (editMode) {
+        // Update existing document
+        await axios.put(`${API_BASE_URL}/aadhar/update`, formData, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setDocumentsData((prevData) =>
+          prevData.map((item) =>
+            item.id === editingId
+              ? { ...item, idType, idNumber, verified, submitted, file }
+              : item
+          )
+        );
+        setSuccessMessage("Document updated successfully!");
+      } else {
+        // Add new document
+        const response = await axios.post(`${API_BASE_URL}/aadhar/save`, formData, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setDocumentsData((prevData) => [...prevData, response.data]);
+        setSuccessMessage("Document added successfully!");
+      }
+      resetForm();
+      handleCloseDocumentsModal();
+    } catch (error) {
+      console.error("Error adding/updating document:", error.response?.data || error.message);
+      setErrorMessage(error.response?.data?.message || "An error occurred");
+    }
+
     setTimeout(() => setSuccessMessage(""), 3000); // Clear success message after 3 seconds
   };
 
@@ -68,8 +116,8 @@ const Documents = ({
     if (documentToEdit) {
       setIdType(documentToEdit.idType);
       setIdNumber(documentToEdit.idNumber);
-      setIsVerified(documentToEdit.isVerified);
-      setIsSubmitted(documentToEdit.isSubmitted);
+      setVerified(documentToEdit.Verified);
+      setSubmitted(documentToEdit.Submitted);
       setFileName(documentToEdit.fileName);
       setEditingId(id);
       setEditMode(true);
@@ -77,17 +125,22 @@ const Documents = ({
     }
   };
 
-  const handleDelete = (id) => {
-    setDocumentsData(documentsData.filter((item) => item.id !== id));
-    setSuccessMessage("Document deleted successfully!");
-    setTimeout(() => setSuccessMessage(""), 3000); // Clear success message after 3 seconds
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/aadhar/${id}`);
+      setDocumentsData(documentsData.filter((item) => item.id !== id));
+      setSuccessMessage("Document deleted successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000); // Clear success message after 3 seconds
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    }
   };
 
   const resetForm = () => {
     setIdType("");
     setIdNumber("");
-    setIsVerified(false);
-    setIsSubmitted(false);
+    setVerified(false);
+    setSubmitted(false);
     setFile(null);
     setFileName("");
     setEditMode(false);
@@ -152,10 +205,10 @@ const Documents = ({
                   {item.idNumber}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {item.isVerified ? "Yes" : "No"}
+                  {item.verified ? "Yes" : "No"}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {item.isSubmitted ? "Yes" : "No"}
+                  {item.submitted ? "Yes" : "No"}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                   {item.fileName}
@@ -206,8 +259,9 @@ const Documents = ({
                 >
                   <option value="">Select ID Type</option>
                   <option value="passport">Passport</option>
+                  <option value="pan_card">PAN Card</option>
                   <option value="driver_license">Driver License</option>
-                  <option value="id_card">Aadhar Card</option>
+                  <option value="aadhar_card">Aadhar Card</option>
                 </select>
               </div>
               <div>
@@ -228,8 +282,8 @@ const Documents = ({
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={isVerified}
-                    onChange={() => setIsVerified(!isVerified)}
+                    checked={verified}
+                    onChange={() => setVerified(!verified)}
                     className="w-[30px] h-[30px] mr-2 accent-[#2A546D]"
                     aria-label="Verified"
                   />
@@ -238,18 +292,20 @@ const Documents = ({
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={isSubmitted}
-                    onChange={() => setIsSubmitted(!isSubmitted)}
+                    checked={submitted}
+                    onChange={() => setSubmitted(!submitted)}
                     className="w-[30px] h-[30px] mr-2 accent-[#2A546D]"
                     aria-label="Submitted"
                   />
-                  <label className="text-lg text-[#2A546D]">
-                    Date of Birth
-                  </label>
                 </div>
+                <label className="text-lg text-[#2A546D]">Date of Birth</label>
               </div>
               <div className="mb-4">
+                <label htmlFor="file" className="block text-[#2A546D]">
+                  Upload File
+                </label>
                 <input
+                  id="file"
                   type="file"
                   onChange={handleFileChange}
                   className="border border-[#2A546D] h-[60px] w-full text-white cursor-pointer file:bg-[#2A546D] file:h-[60px] file:w-[150px] file:text-white file:border-[#2A546D]"
@@ -268,7 +324,7 @@ const Documents = ({
                   className="bg-[#2A546D] text-white h-[40px] w-[120px] rounded-lg  focus:outline-none focus:ring-2 focus:ring-[#2A546D]"
                   aria-label="Save Document"
                 >
-                  Save
+                  {editMode ? "Update Document" : "Save Document"}
                 </button>
                 <button
                   onClick={handleCloseDocumentsModal}

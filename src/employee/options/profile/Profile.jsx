@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { MdCancelPresentation } from "react-icons/md";
@@ -7,6 +8,8 @@ import UpdatePassword from "./UpdatePassword"; // Import the new component
 import OfficialInformation from "./OfficialInformation";
 import { FaUser, FaBriefcase, FaFile, FaLock } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { API_BASE_URL } from "../../../Config/api";
 
 const Profile = () => {
   // State for active tab
@@ -16,6 +19,7 @@ const Profile = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isDocumentsModalOpen, setIsDocumentsModalOpen] = useState(false);
   const auth = useSelector((state) => state.auth);
+  const jwtToken = localStorage.getItem('employeeJwt')
 
   // State for form values
   const [personalInfo, setPersonalInfo] = useState({
@@ -41,19 +45,39 @@ const Profile = () => {
   const handleCloseDocumentsModal = () => setIsDocumentsModalOpen(false);
 
   // Handler for form value changes
-  const handleChangePersonalInfo = (e) => {
-    const { id, value } = e.target;
-    setPersonalInfo((prev) => ({ ...prev, [id]: value }));
-  };
-
   const handleChangeContactInfo = (e) => {
     const { id, value } = e.target;
     setContactInfo((prev) => ({ ...prev, [id]: value }));
   };
 
 
-  const handleSaveContactInfo = () => {
-    handleCloseContactModal();
+  const handleSaveContactInfo = async () => {
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/employee/update/${personalInfo.employeeId}`, // Use the employeeId to target the specific employee
+        {
+          personalEmail: contactInfo.personalEmail,
+          phoneNumber: contactInfo.phoneNumber,
+          alternatePhoneNumber: contactInfo.alternatePhone,
+        }, {
+        headers: {
+          "Authorization": `Bearer ${jwtToken}`
+        },
+      }
+      );
+
+      if (response.status === 200) {
+        alert("Contact information updated successfully!");
+        // You can also update the local state or refetch employee data after successful update.
+      } else {
+        alert("Failed to update contact information.");
+      }
+    } catch (error) {
+      console.error("Error updating contact information:", error);
+      alert("An error occurred while updating contact information.");
+    }
+
+    handleCloseContactModal(); // Close the modal after saving
   };
 
   const navHeight = "60px";
@@ -131,7 +155,7 @@ const Profile = () => {
                 id="employeeId"
                 type="text"
                 value={personalInfo.employeeId}
-                onChange={handleChangePersonalInfo}
+
                 className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
@@ -146,7 +170,7 @@ const Profile = () => {
                 id="firstName"
                 type="text"
                 value={personalInfo.firstName}
-                onChange={handleChangePersonalInfo}
+
                 className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
@@ -161,7 +185,7 @@ const Profile = () => {
                 id="lastName"
                 type="text"
                 value={personalInfo.lastName}
-                onChange={handleChangePersonalInfo}
+
                 className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
@@ -176,7 +200,7 @@ const Profile = () => {
                 id="bloodGroup"
                 type="text"
                 value={personalInfo.bloodGroup}
-                onChange={handleChangePersonalInfo}
+
                 className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>
@@ -191,7 +215,7 @@ const Profile = () => {
                 id="dob"
                 type="date"
                 value={personalInfo.dob}
-                onChange={handleChangePersonalInfo}
+
                 className="mt-1 block w-full border border-[#2A546D] rounded-lg h-[40px] text-lg px-3"
               />
             </div>

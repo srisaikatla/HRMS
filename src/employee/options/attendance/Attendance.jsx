@@ -264,9 +264,9 @@ const Attendance = () => {
     const checkPunchOutTime = () => {
       const now = new Date();
       const logoutLimit = new Date();
-      logoutLimit.setHours(18, 30, 0, 0); // Set time to 6:30 PM
+      logoutLimit.setHours(9, 20, 0, 0); // Set time to 6:30 PM
 
-      if (isPunchedIn && now > logoutLimit) {
+      if (now > logoutLimit && isPunchedIn) {
         handlePunchButtonClick(); // Call the punch-out function
       }
     };
@@ -299,9 +299,9 @@ const Attendance = () => {
     const now = new Date();
     const punchInLimit = new Date();
     const punchInLimit2 = new Date();
-    punchInLimit.setHours(12, 0, 0, 0);
+    punchInLimit.setHours(9, 30, 0, 0);
     punchInLimit2.setHours(8, 59, 0, 0)
-    return now > punchInLimit && now < punchInLimit2;
+    return now > punchInLimit || now < punchInLimit2;
   };
 
   const handlePunchButtonClick = async () => {
@@ -427,6 +427,24 @@ const Attendance = () => {
       localStorage.setItem("isOnBreak", "true");
     }
   };
+
+  // Check if the user has left the page and needs to be auto punched out
+  useEffect(() => {
+    const storedPunchInTime = localStorage.getItem('punchInTime');
+    const storedIsPunchedIn = localStorage.getItem('isPunchedIn') === 'true';
+
+    if (storedIsPunchedIn && storedPunchInTime) {
+      const punchInTime = new Date(storedPunchInTime);
+      const now = new Date();
+      // If it's past 6:30 PM, auto punch out
+      if (now.getHours() >= 18 && now.getMinutes() >= 30) {
+        handlePunchButtonClick();
+      } else {
+        setPunchInTime(punchInTime);
+        setIsPunchedIn(true);
+      }
+    }
+  }, []);
 
   return (
     <div className="min-h-screen mt-4 p-4 ">
